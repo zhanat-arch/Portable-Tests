@@ -31,14 +31,14 @@ const fmt = (text, values = {}) => Object.entries(values).reduce((result, [key, 
 const load = async code => {
   try {
     const [base, journal] = await Promise.all([
-      fetch(`locales/${code}.json?v=3`, { cache: 'no-store' }).then(response => response.json()),
-      fetch(`locales/${code}.journal.json?v=3`, { cache: 'no-store' }).then(response => response.json())
+      fetch(`locales/${code}.json?v=4`, { cache: 'no-store' }).then(response => response.json()),
+      fetch(`locales/${code}.journal.json?v=4`, { cache: 'no-store' }).then(response => response.json())
     ]);
     return { ...base, journal };
   } catch {
     const [base, journal] = await Promise.all([
-      fetch('locales/ru.json?v=3', { cache: 'no-store' }).then(response => response.json()),
-      fetch('locales/ru.journal.json?v=3', { cache: 'no-store' }).then(response => response.json())
+      fetch('locales/ru.json?v=4', { cache: 'no-store' }).then(response => response.json()),
+      fetch('locales/ru.journal.json?v=4', { cache: 'no-store' }).then(response => response.json())
     ]);
     return { ...base, journal };
   }
@@ -393,7 +393,7 @@ function yearlyForecast(forecast) {
 
 function supportCard(sun) {
   const J = L.journal;
-  return `<section class="panel support-card"><div><span class="kicker">${J.ui.supportKicker}</span><h2>${J.ui.supportTitle}</h2><p>${J.donate[sun.id]}</p><small>${J.ui.supportLead}</small></div><div class="support-actions"><a href="${SUPPORT.boosty}" target="_blank" rel="noopener">${J.ui.boosty}</a><a href="${SUPPORT.kofi}" target="_blank" rel="noopener">☕ ${J.ui.kofi}</a><button id="support-share" type="button">🚀 ${J.ui.shareButton}</button><small>${J.ui.supportPrivacy}</small></div><aside class="ambassador-note"><span>📣</span><div><b>${J.ui.ambassadorTitle}</b><p>${J.ui.ambassadorText}</p><small>${J.ui.ambassadorButton}</small></div></aside></section>`;
+  return `<section class="panel support-card"><div><span class="kicker">${J.ui.supportKicker}</span><h2>${J.ui.supportTitle}</h2><p>${J.donate[sun.id]}</p><small>${J.ui.supportLead}</small></div><div class="support-actions"><a href="${SUPPORT.boosty}" target="_blank" rel="noopener">${J.ui.boosty}</a><a href="${SUPPORT.kofi}" target="_blank" rel="noopener">☕ ${J.ui.kofi}</a><button id="support-share" type="button">🚀 ${J.ui.shareButton}</button><small class="share-privacy">🔒 ${J.ui.sharePrivacy}</small><small>${J.ui.supportPrivacy}</small></div><aside class="ambassador-note"><span>📣</span><div><b>${J.ui.ambassadorTitle}</b><p>${J.ui.ambassadorText}</p><small>${J.ui.ambassadorButton}</small></div></aside></section>`;
 }
 
 async function shareProject() {
