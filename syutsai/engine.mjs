@@ -138,6 +138,8 @@ export function buildForecast({ birth, birthTime = '', now = new Date(), traits 
   const seed = hash(`${birth}|${cycle.isoYear}-W${cycle.isoWeek}|${top.id}|${second.id}`);
   const relationShift = relation === 'boost' ? 1 : relation === 'conflict' ? -1 : 0;
   const score = domain => Math.max(3, Math.min(10, 6 + relationShift + seeded(seed, domain, 3) - 1));
+  const powerDay = seeded(seed, 'power-day', 7);
+  const powerWindow = ['morning', 'day', 'evening'][seeded(seed, 'power-window', 3)];
 
   return {
     core,
@@ -160,7 +162,9 @@ export function buildForecast({ birth, birthTime = '', now = new Date(), traits 
       money: score('money'),
       relations: score('relations'),
       decisions: score('decisions'),
-      energy: score('energy')
+      energy: score('energy'),
+      powerDay,
+      powerWindow
     }
   };
 }

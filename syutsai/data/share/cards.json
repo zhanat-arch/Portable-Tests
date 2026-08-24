@@ -1,1 +1,1 @@
-{"version":1,"privacy":{"exclude":["birthDate","rawAnswers"]},"required":["mode","workScore","moneyFocus","risk","weekKey"]}
+{"version":2,"privacy":{"exclude":["birthDate","birthTime","name","rawAnswers"]},"required":["theme","strongAreas","cautionArea","weekKey","resultUrl"]}

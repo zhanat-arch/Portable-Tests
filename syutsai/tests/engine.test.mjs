@@ -43,6 +43,8 @@ fixtures.forEach(fixture => {
   const result = buildForecast(fixture.input);
   assert.ok(result.week.tags.length);
   assert.ok(result.week.work >= 3 && result.week.work <= 10);
+  assert.ok(result.week.powerDay >= 0 && result.week.powerDay <= 6);
+  assert.ok(['morning', 'day', 'evening'].includes(result.week.powerWindow));
   assert.equal(result.profile.signals.length, 4);
   assert.equal(JSON.stringify(result), JSON.stringify(buildForecast(fixture.input)), 'forecast must be deterministic');
 });

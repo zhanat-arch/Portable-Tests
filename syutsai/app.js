@@ -17,9 +17,9 @@ if (sharedResult && supported.includes(sharedResult.lang)) lang = sharedResult.l
 
 const load = async locale => {
   try {
-    return await fetch(`locales/${locale}.json?v=152`, { cache: 'no-store' }).then(response => response.json());
+    return await fetch(`locales/${locale}.json?v=153`, { cache: 'no-store' }).then(response => response.json());
   } catch {
-    return fetch('locales/ru.json?v=152', { cache: 'no-store' }).then(response => response.json());
+    return fetch('locales/ru.json?v=153', { cache: 'no-store' }).then(response => response.json());
   }
 };
 const f = (text, values = {}) => Object.entries(values).reduce((result, [key, value]) => result.replaceAll(`{${key}}`, value), text);
@@ -28,6 +28,7 @@ const trait = id => L.traits[id] || id;
 const read = key => { try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch { return {}; } };
 const add = (bucket, key, value) => { (bucket[key] ??= []).push(value); };
 const avg = values => Math.round(values.reduce((sum, value) => sum + value, 0) / values.length);
+const term = (label, hint) => `<button class="term" type="button" aria-expanded="false"><span>${label}</span><i>?</i><span class="term-tip" role="tooltip">${hint}</span></button>`;
 
 function careerTraits() {
   const answers = read('pt.career.answers');
@@ -83,6 +84,17 @@ function shell(body) {
     L = await load(lang);
     render();
   };
+  app.onclick = event => {
+    const selected = event.target.closest('.term');
+    document.querySelectorAll('.term.open').forEach(button => {
+      if (button !== selected) { button.classList.remove('open'); button.setAttribute('aria-expanded', 'false'); }
+    });
+    if (selected) {
+      event.preventDefault();
+      const open = selected.classList.toggle('open');
+      selected.setAttribute('aria-expanded', String(open));
+    }
+  };
 }
 
 function intro() {
@@ -107,7 +119,7 @@ function intro() {
       <div class="privacy">🔒 ${L.privacy}</div>
     </section>
     <section class="honesty panel"><div class="honesty-icon">✓</div><div><h2>${L.coreRuleTitle}</h2><p>${L.coreRule}</p></div></section>
-    <section class="astro-teaser panel"><span class="astro-icon">✦</span><div><span class="section-kicker">${L.separateSystem}</span><h2>${L.horoscopeTitle}</h2><p>${L.horoscopeText}</p></div><span class="soon">${L.soon}</span></section>
+    <a class="astro-teaser panel" href="../horoscope/"><span class="astro-icon">✦</span><div><span class="section-kicker">${L.separateSystem}</span><h2>${L.horoscopeTitle}</h2><p>${L.horoscopeText}</p></div><span class="soon">${L.openHoroscope}</span></a>
     <p class="disclaimer centered">${L.disclaimer}</p>
   </main>`);
   document.querySelector('#build').onclick = () => {
@@ -132,13 +144,23 @@ function reasons() {
   return `<details class="why"><summary>${L.why}</summary><ul>${items.map(item => `<li>${item}</li>`).join('')}</ul></details>`;
 }
 
+function scoreBand(score) {
+  return score <= 3 ? 'tension' : score <= 6 ? 'steady' : score <= 8 ? 'support' : 'peak';
+}
+
 function weeklyCard(title, text, score, icon) {
-  return `<section class="block"><div class="row"><h2>${icon} ${title}</h2>${score ? `<span class="score-pill">${score}/10</span>` : ''}</div><p>${text}</p>${reasons()}</section>`;
+  const band = scoreBand(score);
+  return `<section class="block"><div class="row"><h2>${icon} ${title}</h2><span class="score-pill ${band}"><b>${score}/10</b><small>${L.scoreBands[band]}</small></span></div><p>${text}</p></section>`;
+}
+
+function tipCard(title, text, icon) {
+  return `<section class="block tip-card"><h2>${icon} ${title}</h2><p>${text}</p></section>`;
 }
 
 function numberHero(number, label) {
   const profile = L.numberProfiles[number];
-  return `<article class="number-hero"><span class="number">${number}</span><div><span class="section-kicker">${label}</span><h3>${profile.title}</h3><p>${profile.core}</p></div></article>`;
+  const key = label === L.consciousness ? 'consciousness' : 'mission';
+  return `<article class="number-hero"><span class="number">${number}</span><div><span class="section-kicker">${term(label, L.termHints[key])}</span><h3>${term(profile.title, profile.simple)}</h3><p>${profile.core}</p></div></article>`;
 }
 
 function passport(name) {
@@ -150,7 +172,7 @@ function passport(name) {
     : `<span class="matrix-note">${L.matrixBalanced}</span>`;
   const missing = forecast.core.matrix.missing.map(digit => `<span class="matrix-chip">${digit}</span>`).join('') || `<span class="matrix-note">${L.matrixFull}</span>`;
   const greeting = name ? f(L.greeting, { name: esc(name) }) : L.passportLead;
-  const signals = forecast.profile.signals.map(signal => `<span class="signal"><b>${trait(signal.id)}</b> ${signal.value}%</span>`).join('');
+  const signals = forecast.profile.signals.map(signal => `<span class="signal">${term(`<b>${trait(signal.id)}</b>`, L.traitHints[signal.id] || L.termHints.behavior)} ${signal.value}%</span>`).join('');
   const behavior = forecast.profile.hasTestProfile
     ? `<div class="behavior"><div class="row"><div><span class="section-kicker">${L.fromTests}</span><h3>${L.behaviorTitle}</h3></div><span class="depth-label">${L[forecast.profile.depth]}</span></div><p>${f(L.behaviorText, { top: trait(forecast.profile.top.id), second: trait(forecast.profile.second.id) })}</p><div class="signals">${signals}</div></div>`
     : `<div class="behavior empty"><div><span class="section-kicker">${L.fromTests}</span><h3>${L.behaviorTitle}</h3><p>${L.behaviorEmpty}</p></div><a class="secondary" href="../index.html">${L.takeTests}</a></div>`;
@@ -167,7 +189,7 @@ function passport(name) {
       <article><h3>🌘 ${L.shadow}</h3><p>${consciousness.shadow} ${mission.shadow}</p></article>
       <article><h3>🔋 ${L.resource}</h3><p>${consciousness.resource} ${mission.resource}</p></article>
     </div>
-    <div class="matrix"><div><h3>${L.matrixStrong}</h3><div class="matrix-list">${dominant}</div><p>${L.matrixStrongHint}</p></div><div><h3>${L.matrixMissing}</h3><div class="matrix-list">${missing}</div><p>${L.matrixMissingHint}</p></div></div>
+    <div class="matrix"><div><h3>${term(L.matrixStrong, L.termHints.matrixStrong)}</h3><div class="matrix-list">${dominant}</div><p>${L.matrixStrongHint}</p></div><div><h3>${term(L.matrixMissing, L.termHints.matrixMissing)}</h3><div class="matrix-list">${missing}</div><p>${L.matrixMissingHint}</p></div></div>
     ${behavior}
   </section>`;
 }
@@ -178,7 +200,45 @@ function extraLayers() {
     ? `<article class="extra-card"><span class="section-kicker">${L.optionalLayer}</span><h3>🕰 ${L.rhythmTitle}</h3><p><b>${clock}${L.rhythms[forecast.rhythm.period].title}</b> ${L.rhythms[forecast.rhythm.period].text}</p><small>${L.rhythmNote}</small></article>`
     : `<article class="extra-card muted-card"><span class="section-kicker">${L.optionalLayer}</span><h3>🕰 ${L.rhythmTitle}</h3><p>${L.rhythmEmpty}</p><button class="text-button" id="add-time">${L.addTime}</button></article>`;
   const zodiac = L.zodiac[forecast.zodiac];
-  return `<section class="extra-grid">${time}<article class="extra-card"><span class="section-kicker">${L.separateSystem}</span><h3>${zodiac.symbol} ${L.zodiacTitle}: ${zodiac.name}</h3><p>${L.zodiacNote}</p><small>${L.horoscopeText}</small></article></section>`;
+  return `<section class="extra-grid">${time}<a class="extra-card astro-link" href="../horoscope/"><span class="section-kicker">${L.separateSystem}</span><h3>${zodiac.symbol} ${L.zodiacTitle}: ${zodiac.name}</h3><p>${L.zodiacNote}</p><small>${L.horoscopeText}</small><span class="text-link">${L.openHoroscope} →</span></a></section>`;
+}
+
+function domainRanking() {
+  return [
+    { id: 'work', label: L.work, icon: '💼', score: forecast.week.work },
+    { id: 'money', label: L.money, icon: '💳', score: forecast.week.money },
+    { id: 'relationships', label: L.relationships, icon: '💬', score: forecast.week.relations },
+    { id: 'decisions', label: L.decisions, icon: '🧭', score: forecast.week.decisions },
+    { id: 'energy', label: L.energy, icon: '🔋', score: forecast.week.energy }
+  ].sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
+}
+
+function weeklyDigest(theme, mind) {
+  const ranking = domainRanking();
+  const first = ranking[0];
+  const second = ranking[1];
+  const caution = ranking.at(-1);
+  const dayIndex = forecast.week.powerDay ?? (forecast.cycles.week % 7);
+  const windowKey = forecast.week.powerWindow || 'day';
+  const values = { first: first.label.toLowerCase(), second: second.label.toLowerCase(), caution: caution.label.toLowerCase(), theme, mind };
+  return `<section class="week-digest panel">
+    <span class="section-kicker">${L.weekAtGlance}</span>
+    <h2>${f(L.digestText, values)}</h2>
+    <div class="digest-grid">
+      <article class="digest-strong"><span>${L.strongAreas}</span><h3>${first.icon} ${first.label} <i>+</i> ${second.icon} ${second.label}</h3><p>${L.domainAdvice[first.id].opportunity}</p></article>
+      <article><span>${L.mainOpportunity}</span><h3>✨ ${L.window}</h3><p>${f(L.texts.window, { top: mind, theme })}</p></article>
+      <article class="digest-warning"><span>${L.beCareful}</span><h3>${caution.icon} ${caution.label}</h3><p>${L.domainAdvice[caution.id].caution}</p></article>
+      <article><span>${L.powerMoment}</span><h3>☀ ${L.weekdays[dayIndex]} · ${L.windows[windowKey]}</h3><p>${L.powerMomentHint}</p></article>
+    </div>
+  </section>`;
+}
+
+function scoreGuide() {
+  return `<section class="score-guide panel"><div><span class="section-kicker">${L.howToRead}</span><h2>${L.scoreGuideTitle}</h2><p>${L.scoreGuideText}</p></div><div class="score-legend"><span class="tension"><b>1–3</b>${L.scoreBands.tension}</span><span class="steady"><b>4–6</b>${L.scoreBands.steady}</span><span class="support"><b>7–8</b>${L.scoreBands.support}</span><span class="peak"><b>9–10</b>${L.scoreBands.peak}</span></div></section>`;
+}
+
+function cycleDetails() {
+  return `<div class="cycles"><div class="cycle"><b>${forecast.core.consciousness}</b><span>${L.consciousness}</span></div><div class="cycle"><b>${forecast.core.mission}</b><span>${L.mission}</span></div><div class="cycle"><b>${forecast.cycles.year}</b><span>${L.year}</span></div><div class="cycle"><b>${forecast.cycles.month}</b><span>${L.month}</span></div><div class="cycle"><b>${forecast.cycles.week}</b><span>${L.week}</span></div></div><p class="cycle-note">${L.weekFormulaNote}</p>`;
 }
 
 function showForecast(birth, birthTime = '', name = '', sharedForecast = null) {
@@ -194,6 +254,9 @@ function showForecast(birth, birthTime = '', name = '', sharedForecast = null) {
   const theme = L.themes[forecast.cycles.week];
   const relation = L.relationLabels[forecast.week.relation];
   const values = { top, mind, mission, theme };
+  const ranking = domainRanking();
+  const strong = `${ranking[0].label} + ${ranking[1].label}`;
+  const caution = ranking.at(-1).label;
   const portableForecast = {
     core: forecast.core,
     cycles: forecast.cycles,
@@ -206,32 +269,30 @@ function showForecast(birth, birthTime = '', name = '', sharedForecast = null) {
   const rawShare = f(L.shareCard, {
     name: name ? `${name} · ` : '', week: forecast.cycles.isoWeek,
     consciousness: forecast.core.consciousness, mission: forecast.core.mission,
-    theme, work: forecast.week.work, money: forecast.week.money, url: resultUrl
+    theme, strong, caution, work: forecast.week.work, money: forecast.week.money, url: resultUrl
   });
   const share = esc(rawShare);
 
   shell(`<main class="page result-page">
     <div class="result-tools">${isShared ? `<span class="badge">↗ ${L.sharedResult}</span>` : isNew ? `<span class="badge">✨ ${L.newWeek}</span>` : '<span></span>'}<div class="result-actions">${isShared ? `<button class="secondary" id="take">${L.takeThis}</button><a class="secondary" href="../index.html">${L.otherTests}</a>` : `<button class="secondary" id="edit">${L.editData}</button>`}</div></div>
     <section class="result-banner"><span>${L.freeKicker}</span><strong>${L.freeTitle}</strong><b>${L.freePrice}</b></section>
-    ${passport(name)}
-    ${extraLayers()}
     <div class="layer-separator"><span>${L.weeklyLayer}</span><p>${L.weeklyLayerHint}</p></div>
     <section class="headline panel"><div class="row"><div><span class="badge">${L.week} ${forecast.cycles.isoWeek}</span><h1>${L.theme}</h1></div><span class="relation">${relation}</span></div><p>${f(L.texts.theme, values)}</p><p>${L.texts[forecast.week.relation]}</p>${reasons()}</section>
-    <section class="panel compact"><div class="cycles"><div class="cycle"><b>${forecast.core.consciousness}</b><span>${L.consciousness}</span></div><div class="cycle"><b>${forecast.core.mission}</b><span>${L.mission}</span></div><div class="cycle"><b>${forecast.cycles.year}</b><span>${L.year}</span></div><div class="cycle"><b>${forecast.cycles.month}</b><span>${L.month}</span></div><div class="cycle"><b>${forecast.cycles.week}</b><span>${L.week}</span></div></div><p class="cycle-note">${L.weekFormulaNote}</p></section>
+    ${weeklyDigest(theme, mind)}
+    ${scoreGuide()}
     <div class="report-grid">
       ${weeklyCard(L.work, f(L.texts.work, { ...values, score: forecast.week.work }), forecast.week.work, '💼')}
       ${weeklyCard(L.money, f(L.texts.money, { ...values, score: forecast.week.money }), forecast.week.money, '💳')}
       ${weeklyCard(L.relationships, f(L.texts.relationships, { ...values, score: forecast.week.relations }), forecast.week.relations, '💬')}
       ${weeklyCard(L.decisions, f(L.texts.decisions, { ...values, score: forecast.week.decisions }), forecast.week.decisions, '🧭')}
       ${weeklyCard(L.energy, f(L.texts.energy, { ...values, score: forecast.week.energy }), forecast.week.energy, '🔋')}
-      ${weeklyCard(L.risk, f(L.texts.risk, values), null, '⚠️')}
-      ${weeklyCard(L.window, f(L.texts.window, values), null, '✨')}
-      ${weeklyCard(L.avoid, f(L.texts.avoid, values), null, '⛔')}
     </div>
-    ${weeklyCard(L.mode, f(L.texts.mode, values), null, '🎯')}
-    ${weeklyCard(L.joke, f(L.texts.joke, values), null, '😄')}
+    <div class="closing-grid">${tipCard(L.mode, f(L.texts.mode, values), '🎯')}${tipCard(L.joke, f(L.texts.joke, values), '😄')}</div>
     <section class="share-card"><span class="section-kicker">${L.readyCard}</span><h2>${L.share}</h2><pre id="card">${share}</pre><div class="actions"><button class="primary" id="share">${L.share}</button><button class="secondary" id="copy">${L.copy}</button></div></section>
-    <details class="panel method"><summary><b>${L.how}</b></summary><p>${L.howText}</p><p>${L.nameTimeRule}</p><p class="disclaimer">${L.disclaimer}</p></details>
+    <div class="layer-separator permanent-separator"><span>${L.permanentBelow}</span><p>${L.permanentBelowHint}</p></div>
+    ${passport(name)}
+    ${extraLayers()}
+    <details class="panel method"><summary><b>${L.how}</b></summary>${cycleDetails()}<p>${L.howText}</p><p>${L.nameTimeRule}</p><p class="disclaimer">${L.disclaimer}</p></details>
   </main>`);
 
   const copy = async () => { await navigator.clipboard.writeText(rawShare); toast(L.copied); };

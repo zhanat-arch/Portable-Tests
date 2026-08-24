@@ -70,7 +70,7 @@
   "zodiacTitle": "Sign by date",
   "zodiacNote": "Shown for reference and not used in the Syutsai calculation.",
   "weeklyLayer": "THIS WEEK'S READING",
-  "weeklyLayerHint": "The passport above stays the same. Only the temporary focus changes below.",
+  "weeklyLayerHint": "The plain-language summary comes first. Your lasting map and the formulas are below.",
   "theme": "Main theme of the week",
   "why": "Why did this result appear?",
   "work": "Work and projects",
@@ -95,9 +95,34 @@
   "month": "Month focus",
   "week": "Week",
   "weekFormulaNote": "The five numbers are separated: two are lasting and three are temporary. Your overall profile does not change when a new week begins.",
-  "relationLabels": {"boost": "your strength gets a boost", "neutral": "steady fit", "compensation": "a small adjustment helps", "conflict": "the week challenges your usual pace"},
-  "themes": {"1": "initiative and a first step", "2": "cooperation and patience", "3": "communication and new ideas", "4": "structure and focus", "5": "change and experimentation", "6": "care and responsibility", "7": "depth and analysis", "8": "ambition and material choices", "9": "completion and meaning"},
-  "traits": {"analytical": "analysis", "technical": "technical thinking", "creative": "creativity", "social": "connection", "enterprising": "initiative", "organizing": "structure", "practical": "practicality", "balance": "balance", "flexibility": "flexibility"},
+  "relationLabels": {
+    "boost": "your strength gets a boost",
+    "neutral": "steady fit",
+    "compensation": "a small adjustment helps",
+    "conflict": "the week challenges your usual pace"
+  },
+  "themes": {
+    "1": "initiative and a first step",
+    "2": "cooperation and patience",
+    "3": "communication and new ideas",
+    "4": "structure and focus",
+    "5": "change and experimentation",
+    "6": "care and responsibility",
+    "7": "depth and analysis",
+    "8": "ambition and material choices",
+    "9": "completion and meaning"
+  },
+  "traits": {
+    "analytical": "analysis",
+    "technical": "technical thinking",
+    "creative": "creativity",
+    "social": "connection",
+    "enterprising": "initiative",
+    "organizing": "structure",
+    "practical": "practicality",
+    "balance": "balance",
+    "flexibility": "flexibility"
+  },
   "profileTexts": {
     "decision": "A “{mind}” mind first looks for an answer that feels clear inside. A “{mission}” mission adds a second check: does this choice move you in the right direction, or only remove today's discomfort?",
     "work": "At work, combine your natural “{mind}” style with the longer “{mission}” direction. One role that needs both qualities is healthier than constantly trying to copy someone else's pace.",
@@ -105,24 +130,137 @@
     "money": "Money choices feel steadier when “{mind}” checks the present and “{mission}” checks the longer purpose. A quick desire and long-term value are not the same thing."
   },
   "numberProfiles": {
-    "1": {"title": "The Starter", "core": "You spot a starting point quickly and would rather shape events than wait for permission.", "shadow": "Under stress, independence can turn into bluntness and resistance to feedback.", "resource": "A clear personal goal and one small first step restore momentum."},
-    "2": {"title": "The Diplomat", "core": "You read the room, notice relationship details, and connect people without making a show of it.", "shadow": "You may adapt for too long, store resentment, and hope others will guess what you need.", "resource": "A calm conversation, a trusted partner, and permission not to answer instantly help."},
-    "3": {"title": "The Guide", "core": "Meaning, learning, and making complex ideas understandable are natural sources of strength.", "shadow": "Theory can become lecturing, perfectionism, or promises too large for the day.", "resource": "Learning, a clear plan, and passing useful knowledge forward restore you."},
-    "4": {"title": "The Builder", "core": "You see how systems work, notice weak points, and can turn chaos into a reliable process.", "shadow": "Order can become control, suspicion, or endless correction of small details.", "resource": "Clear boundaries, a definition of done, and visible order around you help."},
-    "5": {"title": "The Connector", "core": "You adapt fast, link people and ideas, and explain things in a lively, accessible way.", "shadow": "Novelty can scatter attention or sell the idea before the foundation is tested.", "resource": "Movement, a fresh conversation, and a short experiment with a deadline restore energy."},
-    "6": {"title": "The Harmonizer", "core": "You value quality of life, beauty, closeness, and spaces where people feel cared for.", "shadow": "Care can slide into control, approval-seeking, or spending to create an impression.", "resource": "Unshowy beauty, physical comfort, and relationships with mutual care help."},
-    "7": {"title": "The Researcher", "core": "You need to reach the root, test the logic, and have quiet before naming your conclusion.", "shadow": "Depth can become withdrawal, overthinking, or treating distance as safety.", "resource": "Solo focus, a deep problem, and time without information noise restore you."},
-    "8": {"title": "The Strategist", "core": "You see scale, the real price of choices, and how to gather resources around an ambitious goal.", "shadow": "Results can become the only measure of worth, with pressure or status-driven risk.", "resource": "Clear numbers, ownership of your choice, and a goal useful beyond yourself help."},
-    "9": {"title": "The Completer", "core": "You see the larger picture, the human meaning, and how to close a cycle so the next can begin.", "shadow": "You may rescue everyone, dramatize endings, or hold the past out of duty.", "resource": "A promise completed, a useful action, and permission to release finished work restore you."}
+    "1": {
+      "title": "The Starter",
+      "core": "You spot a starting point quickly and would rather shape events than wait for permission.",
+      "shadow": "Under stress, independence can turn into bluntness and resistance to feedback.",
+      "resource": "A clear personal goal and one small first step restore momentum.",
+      "simple": "Someone who finds it easier to start, take ownership, and set direction."
+    },
+    "2": {
+      "title": "The Diplomat",
+      "core": "You read the room, notice relationship details, and connect people without making a show of it.",
+      "shadow": "You may adapt for too long, store resentment, and hope others will guess what you need.",
+      "resource": "A calm conversation, a trusted partner, and permission not to answer instantly help.",
+      "simple": "Someone who reads people well and can reach agreement without pressure."
+    },
+    "3": {
+      "title": "The Guide",
+      "core": "Meaning, learning, and making complex ideas understandable are natural sources of strength.",
+      "shadow": "Theory can become lecturing, perfectionism, or promises too large for the day.",
+      "resource": "Learning, a clear plan, and passing useful knowledge forward restore you.",
+      "simple": "Someone who enjoys learning, explaining, and helping others see a clear path."
+    },
+    "4": {
+      "title": "The Builder",
+      "core": "You see how systems work, notice weak points, and can turn chaos into a reliable process.",
+      "shadow": "Order can become control, suspicion, or endless correction of small details.",
+      "resource": "Clear boundaries, a definition of done, and visible order around you help.",
+      "simple": "Someone who likes creating order and understanding how everything connects."
+    },
+    "5": {
+      "title": "The Connector",
+      "core": "You adapt fast, link people and ideas, and explain things in a lively, accessible way.",
+      "shadow": "Novelty can scatter attention or sell the idea before the foundation is tested.",
+      "resource": "Movement, a fresh conversation, and a short experiment with a deadline restore energy.",
+      "simple": "Someone who starts conversations, connects people, and explains things plainly."
+    },
+    "6": {
+      "title": "The Harmonizer",
+      "core": "You value quality of life, beauty, closeness, and spaces where people feel cared for.",
+      "shadow": "Care can slide into control, approval-seeking, or spending to create an impression.",
+      "resource": "Unshowy beauty, physical comfort, and relationships with mutual care help.",
+      "simple": "Someone who wants the space around them to feel beautiful, calm, and kind."
+    },
+    "7": {
+      "title": "The Researcher",
+      "core": "You need to reach the root, test the logic, and have quiet before naming your conclusion.",
+      "shadow": "Depth can become withdrawal, overthinking, or treating distance as safety.",
+      "resource": "Solo focus, a deep problem, and time without information noise restore you.",
+      "simple": "Someone who dislikes shallow answers and wants to reach the root independently."
+    },
+    "8": {
+      "title": "The Strategist",
+      "core": "You see scale, the real price of choices, and how to gather resources around an ambitious goal.",
+      "shadow": "Results can become the only measure of worth, with pressure or status-driven risk.",
+      "resource": "Clear numbers, ownership of your choice, and a goal useful beyond yourself help.",
+      "simple": "Someone who looks several steps ahead and can count resources and consequences."
+    },
+    "9": {
+      "title": "The Completer",
+      "core": "You see the larger picture, the human meaning, and how to close a cycle so the next can begin.",
+      "shadow": "You may rescue everyone, dramatize endings, or hold the past out of duty.",
+      "resource": "A promise completed, a useful action, and permission to release finished work restore you.",
+      "simple": "Someone who sees the whole picture, draws a conclusion, and makes room for what comes next."
+    }
   },
   "rhythms": {
-    "night": {"title": "Quiet start.", "text": "Important work may feel easier after private preparation; schedule people after you have found your own focus."},
-    "morning": {"title": "Early momentum.", "text": "Put demanding thinking in the first half of the day before other people's tasks divide your attention."},
-    "day": {"title": "Daytime pace.", "text": "Movement, contact, and visible progress help; split long solo tasks into shorter stages."},
-    "evening": {"title": "Late synthesis.", "text": "Ideas may connect more easily later in the day, but important promises still deserve a night's sleep."}
+    "night": {
+      "title": "Quiet start.",
+      "text": "Important work may feel easier after private preparation; schedule people after you have found your own focus."
+    },
+    "morning": {
+      "title": "Early momentum.",
+      "text": "Put demanding thinking in the first half of the day before other people's tasks divide your attention."
+    },
+    "day": {
+      "title": "Daytime pace.",
+      "text": "Movement, contact, and visible progress help; split long solo tasks into shorter stages."
+    },
+    "evening": {
+      "title": "Late synthesis.",
+      "text": "Ideas may connect more easily later in the day, but important promises still deserve a night's sleep."
+    }
   },
   "zodiac": {
-    "aries": {"name": "Aries", "symbol": "♈"}, "taurus": {"name": "Taurus", "symbol": "♉"}, "gemini": {"name": "Gemini", "symbol": "♊"}, "cancer": {"name": "Cancer", "symbol": "♋"}, "leo": {"name": "Leo", "symbol": "♌"}, "virgo": {"name": "Virgo", "symbol": "♍"}, "libra": {"name": "Libra", "symbol": "♎"}, "scorpio": {"name": "Scorpio", "symbol": "♏"}, "sagittarius": {"name": "Sagittarius", "symbol": "♐"}, "capricorn": {"name": "Capricorn", "symbol": "♑"}, "aquarius": {"name": "Aquarius", "symbol": "♒"}, "pisces": {"name": "Pisces", "symbol": "♓"}
+    "aries": {
+      "name": "Aries",
+      "symbol": "♈"
+    },
+    "taurus": {
+      "name": "Taurus",
+      "symbol": "♉"
+    },
+    "gemini": {
+      "name": "Gemini",
+      "symbol": "♊"
+    },
+    "cancer": {
+      "name": "Cancer",
+      "symbol": "♋"
+    },
+    "leo": {
+      "name": "Leo",
+      "symbol": "♌"
+    },
+    "virgo": {
+      "name": "Virgo",
+      "symbol": "♍"
+    },
+    "libra": {
+      "name": "Libra",
+      "symbol": "♎"
+    },
+    "scorpio": {
+      "name": "Scorpio",
+      "symbol": "♏"
+    },
+    "sagittarius": {
+      "name": "Sagittarius",
+      "symbol": "♐"
+    },
+    "capricorn": {
+      "name": "Capricorn",
+      "symbol": "♑"
+    },
+    "aquarius": {
+      "name": "Aquarius",
+      "symbol": "♒"
+    },
+    "pisces": {
+      "name": "Pisces",
+      "symbol": "♓"
+    }
   },
   "texts": {
     "theme": "The main focus is {theme}. Your lasting “{mind}” style is still there; this week simply asks you to add another tool and choose one visible or measurable action.",
@@ -140,7 +278,83 @@
     "avoid": "Do not start five things from anxiety, promise under pressure, or treat someone else's urgency as your priority. Pause before an irreversible choice.",
     "mode": "One main result, one honest conversation, and one obligation-free evening. That is not too little; it is how a week avoids disappearing into preparation.",
     "joke": "Weekly kryptonite: “one more tab, one more reading, and then I will start.” Spoiler: the tab has already multiplied.",
-    "why1": "Consciousness number: {number} — “{title}”", "why2": "Mission number: {number} — “{title}”", "why3": "Adapted weekly cycle: {theme}", "why4": "Leading trait from your test answers: {top} — {value}%"
+    "why1": "Consciousness number: {number} — “{title}”",
+    "why2": "Mission number: {number} — “{title}”",
+    "why3": "Adapted weekly cycle: {theme}",
+    "why4": "Leading trait from your test answers: {top} — {value}%"
   },
-  "shareCard": "{name}MY READING · WEEK {week}\nConsciousness: {consciousness}\nMission: {mission}\nWeekly theme: {theme}\nWork: {work}/10 · Money: {money}/10\n\n{url}"
+  "shareCard": "{name}MY READING · WEEK {week}\nMain theme: {theme}\nStrongest: {strong}\nTake care with: {caution}\n\n{url}",
+  "openHoroscope": "Open section",
+  "weekAtGlance": "YOUR WEEK IN TWO LINES",
+  "digestText": "This week gives the strongest support to {first} and {second}. The main theme is {theme}.",
+  "strongAreas": "STRONGEST THIS WEEK",
+  "mainOpportunity": "MAIN OPPORTUNITY",
+  "beCareful": "TAKE EXTRA CARE",
+  "powerMoment": "A GOOD MOMENT FOR WHAT MATTERS",
+  "powerMomentHint": "Place one important conversation or first step here. It is a planning cue, not a promise of luck.",
+  "howToRead": "HOW TO READ THE CARDS",
+  "scoreGuideTitle": "The score shows fit with your usual style—it is not a grade for you",
+  "scoreGuideText": "A higher number means the weekly theme is easier to use in this area. A lower number does not mean failure; slow down and check your choices.",
+  "scoreBands": {
+    "tension": "take care",
+    "steady": "fine with adjustment",
+    "support": "good support",
+    "peak": "strong match"
+  },
+  "permanentBelow": "YOUR LASTING MAP",
+  "permanentBelowHint": "It explains your general style and does not change every week.",
+  "weekdays": [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ],
+  "windows": {
+    "morning": "morning",
+    "day": "daytime",
+    "evening": "evening"
+  },
+  "domainAdvice": {
+    "work": {
+      "opportunity": "Finish or show one visible result—it matters more now than a long preparation phase.",
+      "caution": "Do not adopt someone else’s urgency or promise more than one week can hold."
+    },
+    "money": {
+      "opportunity": "A useful time to recalculate terms, discuss price, or remove an unnecessary expense.",
+      "caution": "Do not buy or agree only for quick relief or to create an impression."
+    },
+    "relationships": {
+      "opportunity": "One honest conversation can clear more tension than several days of guessing.",
+      "caution": "Do not answer for the other person or treat silence as a finished answer."
+    },
+    "decisions": {
+      "opportunity": "Take one small reversible step—it will create more clarity than another round of thinking.",
+      "caution": "Check expensive and long-term choices against facts and give them one night."
+    },
+    "energy": {
+      "opportunity": "Use your best charge for one important task and leave simple work for a quieter period.",
+      "caution": "Do not confuse fatigue with inability or play hero on an empty battery."
+    }
+  },
+  "termHints": {
+    "consciousness": "The number of your birth day. In plain language: how you usually read a situation and what you want first.",
+    "mission": "The sum of the full birth date. In this system, a direction that unfolds gradually through experience.",
+    "matrixStrong": "Digits that appear more than once in the date. They mark a theme that repeats often.",
+    "matrixMissing": "Digits absent from the date. They are not flaws, but qualities that may grow through experience.",
+    "behavior": "A conclusion based on your real answers in the app’s other tests."
+  },
+  "traitHints": {
+    "analytical": "You like to understand first, compare facts, and find the cause.",
+    "technical": "You work comfortably with devices, mechanisms, exact rules, and clear systems.",
+    "creative": "You notice unusual options and enjoy making something new.",
+    "social": "You read people well and gain energy from useful connection.",
+    "enterprising": "You spot an opening quickly and are ready to take the first step.",
+    "organizing": "You like order, clear roles, and a practical plan.",
+    "practical": "You prefer a concrete result that can be seen or checked.",
+    "balance": "You consider different sides and avoid rushing into extremes.",
+    "flexibility": "You change your approach easily when the situation changes."
+  }
 }
