@@ -1,0 +1,200 @@
+{
+  "ui": {
+    "storyKicker": "YOUR PERSONAL PORTRAIT",
+    "storyTitle": "Not a planet list, but a story about you",
+    "namedTitle": "{name}, this is your story",
+    "fallbackName": "Friend",
+    "storyLead": "The most recognizable and useful part comes first. Degrees, tables, and formulas stay below for anyone who wants the technical detail.",
+    "quickTitle": "In short",
+    "sunTitle": "What you rely on inside",
+    "moonTitle": "What happens beneath the surface",
+    "ascTitle": "How people first see you",
+    "loveTitle": "Love and close relationships",
+    "workTitle": "Work, money, and your way of acting",
+    "adviceTitle": "How to stop getting in your own way",
+    "ascMissing": "This layer needs an exact birth time. The rest of your portrait is still useful without it.",
+    "blend": "Together, these placements do not create one pure sign. They create a living blend: you may look one way, feel another, and make important choices from a third inner place.",
+    "weekKicker": "PERSONAL FORECAST",
+    "weekTitle": "Your week",
+    "weekLead": "{start} — {end}. This is not a generic Sun-sign paragraph: this week’s sky was compared with your own birth chart.",
+    "weekEmpty": "No single storyline dominates this week. That can be useful: finish what is already moving and leave room for ordinary life instead of hunting for a dramatic sign.",
+    "importantDays": "Days when the theme is stronger",
+    "yearKicker": "THE BIG PICTURE",
+    "yearTitle": "Your {year}",
+    "yearLead": "These are not promised events. They are periods when certain themes become louder. Long transits set the scene; your choices decide how the story is lived.",
+    "yearEmpty": "No single long transit dominates this year. Your weekly themes and real plans will be more useful guides.",
+    "why": "Why this reading?",
+    "moreEvents": "Other notable themes",
+    "houseFocus": "Where this may show up",
+    "exactBenefit": "Your exact birth time lets the forecast connect transits with your houses—specific areas of life.",
+    "noHouseForecast": "Without an exact birth time, the forecast uses planets and aspects but does not pretend to know your houses.",
+    "journalNote": "Astronomical positions are calculated mathematically. The writing is an astrological interpretation for reflection, not a promise of events.",
+    "supportKicker": "WINRAR MODE",
+    "supportTitle": "Everything works for free—and will keep working",
+    "supportLead": "Friend, the full reading is already yours. If it highlighted something useful, support the project in whatever way works for you: buy the developer a coffee or pass the link along—it genuinely matters.",
+    "boosty": "Support on Boosty",
+    "kofi": "Buy a coffee",
+    "shareButton": "Share with a friend",
+    "ambassadorTitle": "Become the astrology expert for Portable Tests",
+    "ambassadorText": "We are looking for a natal-chart professional to review the method with us and make every explanation clearer.",
+    "ambassadorButton": "Partnership section—in development",
+    "shareText": "This free app builds a personal natal chart, a weekly forecast, and the year's important periods. Everything is calculated right on your device—give it a try.",
+    "copied": "Link copied—thanks for the support!",
+    "shareError": "Could not share the link. Please try again.",
+    "supportPrivacy": "Payment happens on an external service. Portable Tests never receives card details."
+  },
+  "signs": {
+    "aries": {
+      "core": "You understand yourself more easily in motion than in endless reflection. A goal, a challenge, and the chance to go first wake you up, though speed can sometimes feel like the only correct method.",
+      "inner": "Feelings arrive quickly and honestly: reaction first, explanation later. You need room to want, act, and even be angry; movement and a direct conversation help you reset.",
+      "outer": "At first, you can seem decisive, lively, and ready to take charge. Even when you have doubts, people often read courage and wait for you to make the first move.",
+      "love": "Love needs honesty, momentum, and real interest. Games and vague hints drain you; clear desires and boundaries make closeness feel safer.",
+      "work": "You thrive when something needs to begin, an idea needs defending, or a quick decision matters. The middle of the journey is harder than the start, so break large goals into visible wins.",
+      "advice": "Not every pause is weakness and not every disagreement needs a winner. Let the first impulse cool slightly and your courage becomes far more precise."
+    },
+    "taurus": {
+      "core": "You do not scatter promises around; once you commit, you want a result that lasts. Patience and steadiness are strengths, but familiarity can keep you in a situation past its useful life.",
+      "inner": "Feelings open slowly but attachments run deep. Quiet, familiar rhythms, touch, good food, and a sense of solid ground help your nervous system settle.",
+      "outer": "You often seem calm, composed, and hard to shake. People sense reliability, though they may mistake caution for stubbornness or distance.",
+      "love": "Loyalty, consistency, and simple repeated care matter more than grand declarations. Trust grows when words keep matching actions.",
+      "work": "You are good at turning an idea into a stable system, product, or income. Sudden changes feel easier when you create time and financial room before taking the step.",
+      "advice": "Stability should support life, not lock it in place. Ask whether you keep something because it is valuable—or only because it is familiar."
+    },
+    "gemini": {
+      "core": "Questions, conversations, and unexpected links between ideas make your mind come alive. You see several options quickly, but can change direction before one path has time to produce a result.",
+      "inner": "You understand feelings better when they can be named or discussed. Heavy silence is tiring; a change of scene, fresh information, and a trusted conversation restore movement inside.",
+      "outer": "People often meet someone curious, adaptable, and easy to talk to. You read a room quickly, so different people may know slightly different versions of you.",
+      "love": "A partner also needs to be an interesting conversation. Humor keeps love alive, but important feelings should not always become a joke when intimacy gets uncomfortable.",
+      "work": "Communication, learning, negotiation, and connecting scattered information are natural strengths. Define what ‘finished’ means so talent does not remain an endless draft.",
+      "advice": "Not every new thought needs a new direction. Write it down, then give the chosen path enough time for depth to begin."
+    },
+    "cancer": {
+      "core": "You read life through emotional memory as much as logic; atmosphere and the way people treat one another matter deeply. Your care creates a sense of home, but the past can be protected even after it stops protecting you.",
+      "inner": "Emotions run deep and closely follow your sense of safety. Private space, familiar people, and time to understand a mood before explaining it help you recover.",
+      "outer": "You may first seem gentle, observant, and careful with people’s feelings. When the setting feels unsafe, you naturally pull back and watch.",
+      "love": "Closeness needs reliability, emotional presence, and a feeling of home. Replace guessing another person’s needs with a simple question more often.",
+      "work": "You notice team atmosphere and unspoken client needs. Work feels best when it has human meaning, but you do not need to become the silent rescuer of everyone.",
+      "advice": "Sensitivity does not require carrying every emotion in the room. A boundary can preserve care instead of destroying it."
+    },
+    "leo": {
+      "core": "You want to put yourself into what you do and feel that it matters. Generosity, creative courage, and inspiration are strengths, while a lack of recognition can hurt more than you show.",
+      "inner": "Your heart needs warmth, loyalty, and feelings that are not taken for granted. Joy, creativity, and people who let you shine without competing help you recover.",
+      "outer": "Your first impression is often noticeable, even when you are quiet. People see dignity and charisma before they notice the need for support beneath them.",
+      "love": "You love generously and want to be proud of the person beside you. Relationships grow stronger when attention does not have to be earned through a constant performance.",
+      "work": "You thrive where you can lead, create, influence, and own a visible result. Separate the value of the work from the volume of applause.",
+      "advice": "Do not shrink, but leave room for other people. Leadership becomes real when those beside you also dare to show up fully."
+    },
+    "virgo": {
+      "core": "You quickly see what can be improved, repaired, or made more useful. Precision turns chaos into order, but the inner editor can keep working long after the result is good enough.",
+      "inner": "Feelings settle when life has some structure and there is one useful thing to do now. Simple rituals, a clear space, and kind care for the body bring you back.",
+      "outer": "You first appear observant, capable, and practical. People trust your competence quickly, though warmth may hide behind the habit of getting to the point.",
+      "love": "Care often comes through action: remembering details, helping, and making life easier. Sometimes love needs to arrive without a quality check or an unsolicited fix.",
+      "work": "Analysis, quality, structure, and detail are strong territory. Limit the time allowed for improvement so professionalism does not turn into permanent preparation.",
+      "advice": "A mistake does not cancel competence, and rest does not need to be earned. Sometimes the wisest move is to stop repairing what already works."
+    },
+    "libra": {
+      "core": "You naturally see several sides and make room for dialogue. Fairness and proportion help people meet, but keeping the peace can postpone your own choice for too long.",
+      "inner": "Inner balance is closely tied to relationship quality and atmosphere. Beauty, calm conversation, and harmony that does not require pleasing everyone help you reset.",
+      "outer": "You often seem gracious, diplomatic, and socially aware. People notice tact and taste, but may mistake flexibility for a lack of conviction.",
+      "love": "Partnership is a major school of life, asking for both closeness and equality. Trouble begins when you accept something for peace and then quietly endure it.",
+      "work": "Negotiation, design, mediation, and balancing interests suit you. Decisions become easier when you choose your key criteria before trying to satisfy everyone.",
+      "advice": "Harmony does not mean avoiding uncomfortable conversations. An honest no can protect a relationship better than a beautiful yes followed by resentment."
+    },
+    "scorpio": {
+      "core": "Surface answers rarely satisfy you, and you sense hidden tension early. Inner strength carries you through change, but control can take away the trust you were trying to protect.",
+      "inner": "Feelings are deep and not meant for a wide audience. You need a safe place to experience fear, jealousy, or attachment without shame or pressure to become calm immediately.",
+      "outer": "You may first seem focused, mysterious, or intensely observant. People sense that empty words will not survive long around you.",
+      "love": "Closeness needs honesty, loyalty, and real emotional involvement. Silent tests damage the trust they are meant to defend.",
+      "work": "You are strong in crisis, investigation, strategy, and root-cause work. Not every disagreement has to become a contest for influence.",
+      "advice": "Not everything you can hold needs to be held. Sometimes strength is releasing an old role and seeing what has room to appear."
+    },
+    "sagittarius": {
+      "core": "You need a horizon wider than today and a reason behind the effort. Optimism, honesty, and a drive to grow inspire others, though the promise of a big future can outrun practical details.",
+      "inner": "Feelings move more easily when there is space, motion, and meaning. Travel, learning, humor, and people who do not build a cage around you restore energy.",
+      "outer": "You often seem open, energetic, and confident about what comes next. People feel freedom and scale, though directness can land more sharply than intended.",
+      "love": "Love needs honesty, adventure, and room to grow together. Freedom feels safer when agreements are clear and do not change after the fact.",
+      "work": "Teaching, travel, development, and big-picture projects suit you. A calendar, system, or practical partner helps inspiration become a result.",
+      "advice": "A large vision does not cancel a small promise. When words are backed by everyday action, your faith truly moves people forward."
+    },
+    "capricorn": {
+      "core": "You judge a path by whether the result can last, not by today’s mood. Responsibility and strategy build something solid, but you may demand more from yourself than you would from someone you love.",
+      "inner": "Feelings are easier to show when trust is established and vulnerability will not be used against you. Recovery means not always being the strongest person in the room.",
+      "outer": "You may first seem serious, capable, and slightly reserved. Competence is obvious early; humor and softness usually arrive later.",
+      "love": "You value maturity, loyalty, and shared plans that survive time. A partner needs access not only to your reliability but also to your living feelings.",
+      "work": "Long projects, resources, and quiet responsibility are natural strengths. Do not turn every achievement into the bottom step of another ladder.",
+      "advice": "Not everything valuable has to be difficult. A shorter path can be evidence of experience rather than weakness."
+    },
+    "aquarius": {
+      "core": "You look at familiar rules from the outside and often notice the future before it becomes comfortable. Independence and originality are strengths, though distance can appear exactly where real involvement feels risky.",
+      "inner": "You need room for your own thoughts and permission to feel differently from expectation. Friends, a compelling idea, and a pause from emotional crowding restore you.",
+      "outer": "You first seem independent, unusual, or pleasantly unpredictable. People see a fresh perspective before they understand how much loyal community matters to you.",
+      "love": "Closeness needs friendship, freedom, and genuine curiosity about each other. Smart explanations cannot replace emotional presence when someone simply needs to feel you there.",
+      "work": "Technology, communities, research, and changing outdated systems suit you. A new idea lands better when people can see its practical benefit as well as its courage.",
+      "advice": "You do not have to be different in every decision. Freedom can mean choosing the ordinary option because it truly fits you."
+    },
+    "pisces": {
+      "core": "You pick up atmosphere, subtext, and what logic cannot easily explain. Imagination and compassion reveal more than the obvious, but without boundaries other people’s feelings can replace your own.",
+      "inner": "Emotions come in waves and absorb the room. Quiet, sleep, music, water, creativity, and time when nobody needs saving help you return to yourself.",
+      "outer": "You may first seem gentle, dreamy, or highly receptive. People sense they can lower their guard and may bring you more emotion than you asked to carry.",
+      "love": "Love needs soul, romance, and a subtle sense of connection. It becomes safer when compassion does not cancel facts and hope has clear agreements beside it.",
+      "work": "Creativity, care, image, intuition, and empathy are strong areas. Talent needs deadlines, a price, a form, and permission not to work for free out of guilt.",
+      "advice": "Gentleness does not require permanent availability. Clearer boundaries leave more real compassion for what truly matters."
+    }
+  },
+  "donate": {
+    "aries": "Did the reading land? Give the project a little fuel so new features can move as quickly as your decisions.",
+    "taurus": "You received the full reading without a paywall. If you value a fair exchange, a small coffee helps keep the project free.",
+    "gemini": "WinRAR mode is on: the app keeps working either way. A coffee for the developer is also a good excuse for one more curious feature.",
+    "cancer": "This section was made with care for people and detail. If it resonated, you can send a little warmth as a coffee.",
+    "leo": "Good work deserves a generous gesture. If you enjoyed the reading, support the independent project in royal style—entirely by choice.",
+    "virgo": "No ads between paragraphs, hidden payment, or chart upload. If you appreciate that order, you can support the next improvements.",
+    "libra": "A pleasant balance: you received a free personal reading, and the developer may receive a coffee. Harmony, only if you wish.",
+    "scorpio": "No hidden condition: the result is already yours. If you want to support a fair exchange, a donation is a welcome sign.",
+    "sagittarius": "Want more forecasts, features, and bigger ideas? A little rocket fuel for the developer—coffee works perfectly.",
+    "capricorn": "Supporting an independent app is an investment in better calculations, writing, and reliability. The amount matters less than the gesture.",
+    "aquarius": "Support an independent project without a forced subscription or sale of user data. Help useful, free software grow.",
+    "pisces": "The project runs on inspiration, code, and people’s interest. If you want, send the developer a little warmth—without pressure or obligation."
+  },
+  "forecast": {
+    "headlines": {
+      "conjunction": "The week gathers your attention around one key point",
+      "sextile": "An opening is nearby—the first move is yours",
+      "square": "Change the method instead of pushing harder",
+      "trine": "Something stubborn may begin to move more easily",
+      "opposition": "The task is to hold two important sides at once"
+    },
+    "moves": {
+      "Sun": "The wish to be seen, choose in your own name, and stop hiding an important priority becomes stronger.",
+      "Mercury": "Conversations, documents, and decisions speed up; the right words may arrive before full certainty.",
+      "Venus": "Relationships, personal value, pleasure, and the use of time and money move to the foreground.",
+      "Mars": "Energy rises along with impatience; body and temper reveal where a boundary has been crossed.",
+      "Jupiter": "You want to widen the field, trust a larger plan, and step beyond a familiar limit.",
+      "Saturn": "Life asks for clarity, responsibility, and a decision that can survive more than today’s mood.",
+      "Uranus": "The familiar script feels tight, and an unexpected change may restore freedom.",
+      "Neptune": "Imagination and intuition grow stronger, but hope can be mistaken for a settled fact.",
+      "Pluto": "A deep change is moving underneath: an old way of controlling the situation is losing its power."
+    },
+    "areas": {
+      "Sun": "This touches confidence, visibility, and the right to build life around your real priorities.",
+      "Moon": "Emotions, home, and the need for safety with close people respond more strongly.",
+      "Mercury": "Thought, learning, negotiation, and consequential choices of words take center stage.",
+      "Venus": "The theme appears through love, attraction, money, and what you truly value.",
+      "Mars": "Energy, courage, personal boundaries, and your usual way of pursuing a goal are tested.",
+      "Jupiter": "The story concerns growth, education, confidence, and a wider opportunity.",
+      "Saturn": "Responsibility, long commitments, and the fear of missing your own high standard are activated.",
+      "Uranus": "Your relationship with freedom, novelty, and an outdated role begins to change.",
+      "Neptune": "Dreams, ideals, and the line between subtle intuition and a convenient illusion need attention.",
+      "Pluto": "Power, trust, control, and the ability to finish what cannot return to its old form come up."
+    },
+    "tones": {
+      "conjunction": "Two themes speak at once and amplify one another. Give the energy one conscious outlet before it chooses chaos or an extreme.",
+      "sextile": "Circumstances offer a useful opening but will not act for you. One small step matters more than waiting for a perfect moment.",
+      "square": "Tension shows where the old method no longer works. Change the rule, pace, or boundary instead of using force alone.",
+      "trine": "Support arrives naturally and can be easy to overlook. Spend that ease on something important rather than another delay.",
+      "opposition": "The situation pulls toward two extremes. The answer appears when both sides receive an honest place."
+    },
+    "houseLead": "This may be especially visible in “{house}.”",
+    "reason": "{transit} in {transitSign} forms a {aspect} to your {target} in {natalSign}; the closest point this week is {date}.",
+    "yearReason": "Long transit: {transit} — {aspect} — natal {target}. The closest sampled point falls around {date}."
+  }
+}

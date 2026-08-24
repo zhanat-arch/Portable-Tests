@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
-import { ascendantLongitude, buildNatalChart, midheavenLongitude, signPosition, wholeSignHouses, zonedLocalDate } from '../engine.mjs';
+import { ascendantLongitude, buildNatalChart, buildPersonalForecasts, midheavenLongitude, signPosition, wholeSignHouses, zonedLocalDate } from '../engine.mjs';
 
 const source = await readFile(new URL('../vendor/astronomy-engine-2.1.19.min.js', import.meta.url), 'utf8');
 const context = {};
@@ -31,6 +31,15 @@ assert.equal(exact.possibleAscendants.length, 1);
 assert.equal(exact.precision, 'exact');
 assert.ok(exact.aspects.length > 0);
 
+const forecasts = buildPersonalForecasts(Astronomy, exact, new Date('2026-08-24T12:00:00Z'));
+assert.equal(forecasts.week.start.slice(0, 10), '2026-08-24');
+assert.equal(forecasts.week.end.slice(0, 10), '2026-08-30');
+assert.ok(forecasts.week.events.length >= 1);
+assert.ok(forecasts.week.events.every(event => event.date && event.transitBody && event.natalBody && event.aspect));
+assert.equal(forecasts.year.year, 2026);
+assert.ok(forecasts.year.events.length >= 1);
+assert.ok(forecasts.year.events.every(event => ['Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto'].includes(event.transitBody)));
+
 const approximate = buildNatalChart(Astronomy, { birth: '1990-05-15', mode: 'approx', period: 'morning', location });
 assert.equal(approximate.samples.length, 3);
 assert.equal(approximate.precision, 'range');
@@ -42,4 +51,4 @@ assert.equal(unknown.ascendant, null);
 assert.equal(unknown.houses, null);
 assert.equal(unknown.precision, 'dateOnly');
 
-console.log('OK: natal timezone conversion, ten planets, aspects, Ascendant, time ranges, and honest no-time mode');
+console.log('OK: natal chart, exact mode, time ranges, weekly transits, and yearly transit timeline');

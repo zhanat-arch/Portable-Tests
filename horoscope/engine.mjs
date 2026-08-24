@@ -91,6 +91,10 @@ function geocentricLongitude(Astronomy, body, date) {
   return normalizeDegrees(Astronomy.Ecliptic(vector).elon);
 }
 
+function transitPosition(Astronomy, body, date) {
+  return { body, ...signPosition(geocentricLongitude(Astronomy, body, date)) };
+}
+
 function bodyPosition(Astronomy, body, date) {
   const longitude = geocentricLongitude(Astronomy, body, date);
   const before = geocentricLongitude(Astronomy, body, new Date(date.getTime() - 12 * 60 * 60 * 1000));
@@ -174,5 +178,139 @@ export function buildNatalChart(Astronomy, input) {
     possibleMidheavens,
     houses: housesReliable ? middle.houses : null,
     precision: mode === 'exact' ? 'exact' : mode === 'approx' ? 'range' : 'dateOnly'
+  };
+}
+
+const TRANSIT_ORBS = {
+  conjunction: 3,
+  sextile: 2,
+  square: 2.5,
+  trine: 2.5,
+  opposition: 3
+};
+
+const TRANSIT_WEIGHTS = {
+  Moon: 0.7,
+  Sun: 1.5,
+  Mercury: 1.4,
+  Venus: 1.8,
+  Mars: 2.1,
+  Jupiter: 3.2,
+  Saturn: 3.5,
+  Uranus: 3.1,
+  Neptune: 2.8,
+  Pluto: 3.3
+};
+
+const NATAL_WEIGHTS = {
+  Sun: 3.2,
+  Moon: 3,
+  Mercury: 2.1,
+  Venus: 2.5,
+  Mars: 2.4,
+  Jupiter: 1.8,
+  Saturn: 2,
+  Uranus: 1.3,
+  Neptune: 1.3,
+  Pluto: 1.5
+};
+
+const ASPECT_WEIGHTS = { conjunction: 2.5, opposition: 2.4, square: 2.2, trine: 1.9, sextile: 1.6 };
+const WEEKLY_BODIES = ['Sun', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto'];
+const YEARLY_BODIES = ['Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto'];
+
+function transitAspect(transit, natal) {
+  const distance = Math.abs(signedDegrees(transit.longitude - natal.longitude));
+  const candidates = ASPECTS.map(aspect => ({
+    id: aspect.id,
+    angle: aspect.angle,
+    orb: Math.abs(distance - aspect.angle)
+  })).filter(aspect => aspect.orb <= TRANSIT_ORBS[aspect.id]);
+  return candidates.sort((first, second) => first.orb - second.orb)[0] || null;
+}
+
+function utcNoon(date) {
+  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), 12));
+}
+
+function addUtcDays(date, days) {
+  return new Date(date.getTime() + days * 86400000);
+}
+
+function mondayOf(date) {
+  const noon = utcNoon(date);
+  const day = noon.getUTCDay() || 7;
+  return addUtcDays(noon, 1 - day);
+}
+
+function transitHouse(chart, longitude) {
+  if (!chart.houses?.length) return null;
+  const ascendantSign = SIGN_IDS.indexOf(chart.houses[0].sign);
+  return ((signPosition(longitude).index - ascendantSign + 12) % 12) + 1;
+}
+
+function collectTransitEvents(Astronomy, chart, dates, bodies) {
+  const best = new Map();
+  for (const date of dates) {
+    const transits = bodies.map(body => transitPosition(Astronomy, body, date));
+    for (const transit of transits) {
+      for (const natal of chart.positions) {
+        const aspect = transitAspect(transit, natal);
+        if (!aspect) continue;
+        const key = `${transit.body}|${natal.body}|${aspect.id}`;
+        const event = {
+          key,
+          date: date.toISOString(),
+          transitBody: transit.body,
+          transitSign: transit.id,
+          natalBody: natal.body,
+          natalSign: natal.id,
+          aspect: aspect.id,
+          orb: aspect.orb,
+          house: transitHouse(chart, transit.longitude),
+          score: (TRANSIT_WEIGHTS[transit.body] || 1) + (NATAL_WEIGHTS[natal.body] || 1) + ASPECT_WEIGHTS[aspect.id] + (TRANSIT_ORBS[aspect.id] - aspect.orb)
+        };
+        const previous = best.get(key);
+        if (!previous || event.orb < previous.orb) best.set(key, event);
+      }
+    }
+  }
+  return [...best.values()].sort((first, second) => second.score - first.score || first.orb - second.orb);
+}
+
+function diverseEvents(events, limit) {
+  const selected = [];
+  const usedPairs = new Set();
+  for (const event of events) {
+    const pair = `${event.transitBody}|${event.natalBody}`;
+    if (usedPairs.has(pair)) continue;
+    selected.push(event);
+    usedPairs.add(pair);
+    if (selected.length === limit) break;
+  }
+  return selected;
+}
+
+export function buildPersonalForecasts(Astronomy, chart, referenceDate = new Date()) {
+  if (!chart?.positions?.length) throw new TypeError('Natal chart is required');
+  const reference = new Date(referenceDate);
+  if (!Number.isFinite(reference.getTime())) throw new TypeError('Invalid forecast date');
+  const weekStart = mondayOf(reference);
+  const weekDates = Array.from({ length: 7 }, (_, index) => addUtcDays(weekStart, index));
+  const weekEvents = diverseEvents(collectTransitEvents(Astronomy, chart, weekDates, WEEKLY_BODIES), 6);
+
+  const year = reference.getUTCFullYear();
+  const yearStart = new Date(Date.UTC(year, 0, 1, 12));
+  const yearDates = [];
+  for (let date = yearStart; date.getUTCFullYear() === year; date = addUtcDays(date, 14)) yearDates.push(date);
+  const yearEvents = diverseEvents(collectTransitEvents(Astronomy, chart, yearDates, YEARLY_BODIES), 8).sort((first, second) => new Date(first.date) - new Date(second.date));
+
+  return {
+    week: {
+      start: weekStart.toISOString(),
+      end: addUtcDays(weekStart, 6).toISOString(),
+      events: weekEvents
+    },
+    year: { year, events: yearEvents }
   };
 }

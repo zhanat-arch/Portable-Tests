@@ -1,4 +1,4 @@
-import { buildNatalChart, SIGN_IDS } from './engine.mjs';
+import { buildNatalChart, buildPersonalForecasts, SIGN_IDS } from './engine.mjs';
 
 const supported = ['ru', 'kk', 'en', 'fr'];
 const browserLang = (navigator.language || 'ru').toLowerCase().split('-')[0];
@@ -9,6 +9,8 @@ let searchResults = [];
 let searchTimer;
 let mapOpen = false;
 const app = document.querySelector('#app');
+const ONLINE = 'https://zhanat-arch.github.io/Portable-Tests/horoscope/';
+const SUPPORT = { boosty: 'https://boosty.to/zhanat-arch', kofi: 'https://ko-fi.com/zhanat_arch' };
 const BODY_SYMBOLS = { Sun: '☉', Moon: '☾', Mercury: '☿', Venus: '♀', Mars: '♂', Jupiter: '♃', Saturn: '♄', Uranus: '♅', Neptune: '♆', Pluto: '♇' };
 const storage = {
   get(key, fallback = '') { return localStorage.getItem(key) ?? fallback; },
@@ -27,8 +29,19 @@ const draft = {
 const esc = value => String(value ?? '').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
 const fmt = (text, values = {}) => Object.entries(values).reduce((result, [key, value]) => result.replaceAll(`{${key}}`, value), text);
 const load = async code => {
-  try { return await fetch(`locales/${code}.json?v=2`, { cache: 'no-store' }).then(response => response.json()); }
-  catch { return fetch('locales/ru.json?v=2', { cache: 'no-store' }).then(response => response.json()); }
+  try {
+    const [base, journal] = await Promise.all([
+      fetch(`locales/${code}.json?v=3`, { cache: 'no-store' }).then(response => response.json()),
+      fetch(`locales/${code}.journal.json?v=3`, { cache: 'no-store' }).then(response => response.json())
+    ]);
+    return { ...base, journal };
+  } catch {
+    const [base, journal] = await Promise.all([
+      fetch('locales/ru.json?v=3', { cache: 'no-store' }).then(response => response.json()),
+      fetch('locales/ru.journal.json?v=3', { cache: 'no-store' }).then(response => response.json())
+    ]);
+    return { ...base, journal };
+  }
 };
 
 function toast(message) {
@@ -252,7 +265,7 @@ function signName(id) {
 }
 
 function positionLabel(position, showDegree = true) {
-  if (!position.stable) return position.possibleSigns.map(signName).join(` ${L.or} `);
+  if (position.stable === false) return position.possibleSigns.map(signName).join(` ${L.or} `);
   return `${signName(position.id)}${showDegree ? ` · ${degreeText(position.degree)}` : ''}`;
 }
 
@@ -307,6 +320,95 @@ function houses(chart) {
   return `<div class="houses-grid">${chart.houses.map(item => `<article><b>${item.house}</b><div><h3>${L.houseThemes[item.house - 1]}</h3><p>${signName(item.sign)}</p></div></article>`).join('')}</div>`;
 }
 
+function localeTag() {
+  return { ru: 'ru-RU', kk: 'kk-KZ', en: 'en-US', fr: 'fr-FR' }[lang] || 'ru-RU';
+}
+
+function shortDate(value) {
+  return new Intl.DateTimeFormat(localeTag(), { day: 'numeric', month: 'short' }).format(new Date(value));
+}
+
+function monthDate(value) {
+  return new Intl.DateTimeFormat(localeTag(), { month: 'long', year: 'numeric' }).format(new Date(value));
+}
+
+function personalStory(chart, sun, moon) {
+  const J = L.journal;
+  const profile = J.signs;
+  const ascendantId = chart.ascendant?.id || (chart.possibleAscendants.length === 1 ? chart.possibleAscendants[0] : null);
+  const venus = chart.positions.find(item => item.body === 'Venus');
+  const mars = chart.positions.find(item => item.body === 'Mars');
+  const name = storage.get('pt.syutsai.name').trim();
+  const title = fmt(J.ui.namedTitle, { name: esc(name || J.ui.fallbackName) });
+  const ascendant = ascendantId
+    ? `<article><small>${J.ui.ascTitle} · ${signName(ascendantId)}</small><p>${profile[ascendantId].outer}</p></article>`
+    : `<article><small>${J.ui.ascTitle}</small><p>${J.ui.ascMissing}</p></article>`;
+  return `<section class="panel journal-story"><span class="kicker">${J.ui.storyKicker}</span><h2>${title}</h2><p class="journal-lead">${J.ui.storyLead}</p>
+    <div class="story-flow"><article><small>${J.ui.sunTitle} · ${signName(sun.id)}</small><p>${profile[sun.id].core}</p></article><article><small>${J.ui.moonTitle} · ${signName(moon.id)}</small><p>${profile[moon.id].inner}</p></article>${ascendant}</div>
+    <p class="blend-note">${J.ui.blend}</p>
+    <div class="life-grid"><article><span>♡</span><div><h3>${J.ui.loveTitle}</h3><p>${profile[venus.id].love}</p></div></article><article><span>↗</span><div><h3>${J.ui.workTitle}</h3><p>${profile[mars.id].work}</p></div></article><article><span>✦</span><div><h3>${J.ui.adviceTitle}</h3><p>${profile[sun.id].advice}</p></div></article></div>
+  </section>`;
+}
+
+function eventReason(event, yearly = false) {
+  const F = L.journal.forecast;
+  return fmt(yearly ? F.yearReason : F.reason, {
+    transit: L.planets[event.transitBody],
+    transitSign: L.zodiac[event.transitSign].name,
+    aspect: L.aspects[event.aspect].toLowerCase(),
+    target: L.planets[event.natalBody],
+    natalSign: L.zodiac[event.natalSign].name,
+    date: shortDate(event.date)
+  });
+}
+
+function eventNarrative(event) {
+  const F = L.journal.forecast;
+  const house = event.house ? ` ${fmt(F.houseLead, { house: L.houseThemes[event.house - 1].toLowerCase() })}` : '';
+  return `${F.moves[event.transitBody]} ${F.areas[event.natalBody]} ${F.tones[event.aspect]}${house}`;
+}
+
+function eventCard(event, yearly = false, featured = false) {
+  const F = L.journal.forecast;
+  return `<article class="forecast-card ${featured ? 'featured' : ''}"><div class="forecast-card-top"><span>${yearly ? monthDate(event.date) : shortDate(event.date)}</span><b>${F.headlines[event.aspect]}</b></div><p>${eventNarrative(event)}</p><details><summary>${L.journal.ui.why}</summary><p>${eventReason(event, yearly)}</p></details></article>`;
+}
+
+function weeklyForecast(forecast, chart) {
+  const J = L.journal;
+  const events = forecast.events;
+  const content = events.length
+    ? `${eventCard(events[0], false, true)}${events.length > 1 ? `<h3 class="more-title">${J.ui.moreEvents}</h3><div class="forecast-grid">${events.slice(1, 4).map(event => eventCard(event)).join('')}</div>` : ''}`
+    : `<div class="empty-note">${J.ui.weekEmpty}</div>`;
+  const dates = events.length ? `<div class="date-chips"><b>${J.ui.importantDays}</b>${events.slice(0, 4).map(event => `<span>${shortDate(event.date)}</span>`).join('')}</div>` : '';
+  return `<section class="panel journal-forecast week"><span class="kicker">${J.ui.weekKicker}</span><h2>${J.ui.weekTitle}</h2><p class="journal-lead">${fmt(J.ui.weekLead, { start: shortDate(forecast.start), end: shortDate(forecast.end) })}</p>${content}${dates}<p class="forecast-precision">${chart.houses ? J.ui.exactBenefit : J.ui.noHouseForecast}</p></section>`;
+}
+
+function yearlyForecast(forecast) {
+  const J = L.journal;
+  const content = forecast.events.length
+    ? `<div class="year-timeline">${forecast.events.slice(0, 6).map(event => eventCard(event, true)).join('')}</div>`
+    : `<div class="empty-note">${J.ui.yearEmpty}</div>`;
+  return `<section class="panel journal-forecast year"><span class="kicker">${J.ui.yearKicker}</span><h2>${fmt(J.ui.yearTitle, { year: forecast.year })}</h2><p class="journal-lead">${J.ui.yearLead}</p>${content}</section>`;
+}
+
+function supportCard(sun) {
+  const J = L.journal;
+  return `<section class="panel support-card"><div><span class="kicker">${J.ui.supportKicker}</span><h2>${J.ui.supportTitle}</h2><p>${J.donate[sun.id]}</p><small>${J.ui.supportLead}</small></div><div class="support-actions"><a href="${SUPPORT.boosty}" target="_blank" rel="noopener">${J.ui.boosty}</a><a href="${SUPPORT.kofi}" target="_blank" rel="noopener">☕ ${J.ui.kofi}</a><button id="support-share" type="button">🚀 ${J.ui.shareButton}</button><small>${J.ui.supportPrivacy}</small></div><aside class="ambassador-note"><span>📣</span><div><b>${J.ui.ambassadorTitle}</b><p>${J.ui.ambassadorText}</p><small>${J.ui.ambassadorButton}</small></div></aside></section>`;
+}
+
+async function shareProject() {
+  const data = { title: 'Portable Tests', text: L.journal.ui.shareText, url: ONLINE };
+  try {
+    if (navigator.share) await navigator.share(data);
+    else {
+      await navigator.clipboard.writeText(`${data.text}\n${data.url}`);
+      toast(L.journal.ui.copied);
+    }
+  } catch (error) {
+    if (error?.name !== 'AbortError') toast(L.journal.ui.shareError);
+  }
+}
+
 function renderResult() {
   let chart;
   try {
@@ -318,23 +420,30 @@ function renderResult() {
   }
   const sun = chart.positions.find(item => item.body === 'Sun');
   const moon = chart.positions.find(item => item.body === 'Moon');
+  let forecasts = { week: { start: new Date().toISOString(), end: new Date().toISOString(), events: [] }, year: { year: new Date().getFullYear(), events: [] } };
+  try { forecasts = buildPersonalForecasts(globalThis.Astronomy, chart, new Date()); } catch {}
   const showDegree = chart.precision === 'exact';
   const timeValue = draft.mode === 'exact' ? draft.exactTime : draft.mode === 'approx' ? L.periods[draft.period] : L.timeModes.unknown;
   app.innerHTML = `${header()}<main class="page result-page">
     <div class="result-tools"><span class="precision-badge ${chart.precision}">${L.precision[chart.precision]}</span><button id="edit" type="button">${L.edit}</button></div>
     <section class="result-hero panel"><div><span class="kicker">${L.resultKicker}</span><h1>${L.resultTitle}</h1><p>${fmt(L.resultLead, { place: esc(location.display) })}</p><div class="birth-line"><span>📅 ${esc(draft.birth)}</span><span>🕰 ${esc(timeValue)}</span><span>📍 ${esc(location.display)}</span></div></div>${wheel(chart)}</section>
+    ${personalStory(chart, sun, moon)}
+    ${weeklyForecast(forecasts.week, chart)}
+    ${yearlyForecast(forecasts.year)}
     <section class="panel"><span class="kicker">${L.bigKicker}</span><h2>${L.bigTitle}</h2><p>${L.bigIntro}</p><div class="big-grid">${bigCard('sun', sun, [], showDegree)}${bigCard('moon', moon, [], showDegree)}${bigCard('ascendant', chart.ascendant, chart.possibleAscendants, showDegree)}</div></section>
     <section class="panel"><span class="kicker">${L.planetsKicker}</span><h2>${L.planetsTitle}</h2><p>${L.planetsIntro}</p><div class="planet-grid">${chart.positions.map(position => planetCard(position, showDegree)).join('')}</div></section>
     <section class="panel"><span class="kicker">${L.aspectsKicker}</span><h2>${L.aspectsTitle}</h2><p>${L.aspectsIntro}</p>${aspects(chart)}</section>
     <section class="panel"><span class="kicker">${L.housesKicker}</span><h2>${L.housesTitle}</h2><p>${L.housesIntro}</p>${houses(chart)}</section>
     <details class="panel method"><summary>${L.methodTitle}</summary><p>${fmt(L.methodText, { timezone: esc(location.timezone), latitude: Number(location.latitude).toFixed(4), longitude: Number(location.longitude).toFixed(4) })}</p><p>${L.houseMethod}</p><p>${L.engineNote}</p><p class="sample-times">UTC: ${chart.samples.map(value => new Date(value).toISOString().slice(0, 16).replace('T', ' ')).join(' · ')}</p></details>
+    ${supportCard(sun)}
     <div class="actions"><button class="primary" id="edit-bottom" type="button">${L.edit}</button><a href="../syutsai/">${L.backTitle}</a><a href="../index.html">${L.otherTests}</a></div>
-    <p class="disclaimer">${L.disclaimer}</p>
+    <p class="disclaimer">${L.journal.ui.journalNote} ${L.disclaimer}</p>
   </main>`;
   bindHeader();
   const edit = () => { view = 'form'; renderForm(); scrollTo({ top: 0, behavior: 'smooth' }); };
   document.querySelector('#edit').onclick = edit;
   document.querySelector('#edit-bottom').onclick = edit;
+  document.querySelector('#support-share').onclick = shareProject;
 }
 
 function render() {

@@ -1,0 +1,200 @@
+{
+  "ui": {
+    "storyKicker": "VOTRE PORTRAIT PERSONNEL",
+    "storyTitle": "Pas une liste de planètes, mais votre histoire",
+    "namedTitle": "{name}, voici votre histoire",
+    "fallbackName": "Bonjour",
+    "storyLead": "Nous commençons par ce qui est le plus parlant et utile. Les degrés, tableaux et formules restent plus bas pour celles et ceux qui veulent aller plus loin.",
+    "quickTitle": "En bref",
+    "sunTitle": "Votre appui intérieur",
+    "moonTitle": "Ce qui se passe en vous",
+    "ascTitle": "La première impression que vous donnez",
+    "loveTitle": "Amour et liens proches",
+    "workTitle": "Travail, argent et manière d’agir",
+    "adviceTitle": "Comment éviter de vous compliquer la vie",
+    "ascMissing": "Ce volet demande une heure de naissance exacte. Le reste du portrait reste utile sans elle.",
+    "blend": "Ces positions ne donnent pas un signe « pur », mais un mélange vivant : vous pouvez paraître d’une façon, ressentir autrement et décider depuis un troisième point intérieur.",
+    "weekKicker": "PRÉVISION PERSONNELLE",
+    "weekTitle": "Votre semaine",
+    "weekLead": "Du {start} au {end}. Ce texte n’est pas général : le ciel de la semaine a été comparé à votre carte de naissance.",
+    "weekEmpty": "Aucun thème ne domine nettement cette semaine. Profitez-en pour terminer ce qui est lancé et laisser une place à la vie ordinaire.",
+    "importantDays": "Jours où le thème se fait sentir",
+    "yearKicker": "VUE D’ENSEMBLE",
+    "yearTitle": "Votre année {year}",
+    "yearLead": "Il ne s’agit pas de promesses, mais de périodes où certains thèmes deviennent plus présents. Les transits donnent le décor ; vos choix écrivent l’histoire.",
+    "yearEmpty": "Aucun long transit ne domine cette année. Les accents hebdomadaires et vos projets réels seront de meilleurs repères.",
+    "why": "Pourquoi cette lecture ?",
+    "moreEvents": "Autres thèmes marquants",
+    "houseFocus": "Le domaine le plus concerné",
+    "exactBenefit": "L’heure exacte permet de relier les transits à vos maisons, donc à des domaines précis de la vie.",
+    "noHouseForecast": "Sans heure exacte, la prévision utilise les planètes et les aspects sans prétendre connaître vos maisons.",
+    "journalNote": "Les positions astronomiques sont calculées mathématiquement. Le texte est une interprétation astrologique pour réfléchir, pas une promesse d’événement.",
+    "supportKicker": "MODE WINRAR",
+    "supportTitle": "Tout fonctionne gratuitement — et continuera ainsi",
+    "supportLead": "Bonjour, l’analyse complète est déjà à vous. Si elle vous a été utile, soutenez le projet comme vous le souhaitez : offrez un café au développeur ou partagez le lien — cela compte vraiment.",
+    "boosty": "Soutenir sur Boosty",
+    "kofi": "Offrir un café",
+    "shareButton": "Partager à un proche",
+    "ambassadorTitle": "Devenir l’expert astrologique de Portable Tests",
+    "ambassadorText": "Nous cherchons une personne spécialisée en thème natal pour vérifier la méthode avec nous et rendre chaque explication plus claire.",
+    "ambassadorButton": "Espace partenariat — en développement",
+    "shareText": "Cette appli gratuite crée votre thème natal, votre semaine personnelle et les périodes importantes de l’année. Tout est calculé sur votre appareil — essayez-la.",
+    "copied": "Lien copié — merci pour votre soutien !",
+    "shareError": "Le partage n’a pas fonctionné. Réessayez.",
+    "supportPrivacy": "Le paiement passe par un service externe. Portable Tests ne reçoit aucune donnée bancaire."
+  },
+  "signs": {
+    "aries": {
+      "core": "Vous vous comprenez mieux dans l’action que dans une réflexion sans fin. Un défi et la possibilité d’ouvrir la marche vous réveillent, mais la vitesse n’est pas toujours la seule bonne méthode.",
+      "inner": "Les émotions arrivent vite et sans détour : la réaction précède parfois l’explication. Le mouvement et une conversation franche vous aident à retrouver votre équilibre.",
+      "outer": "Au premier contact, vous semblez décidé, vivant et capable de prendre les commandes. Même dans le doute, les autres voient souvent votre courage.",
+      "love": "L’amour demande de la franchise, de l’élan et un intérêt réel. Les jeux froids et les sous-entendus fatiguent ; des désirs et limites clairs rassurent.",
+      "work": "Vous excellez pour lancer, défendre une idée ou décider vite. Découpez les grands objectifs en victoires visibles pour tenir après l’enthousiasme du départ.",
+      "advice": "Toute pause n’est pas une faiblesse et tout désaccord n’exige pas un vainqueur. Un court recul rend votre courage plus précis."
+    },
+    "taurus": {
+      "core": "Vous promettez peu, mais cherchez un résultat solide quand vous vous engagez. Patience et stabilité sont vos forces ; l’habitude peut toutefois durer après avoir perdu son utilité.",
+      "inner": "Les sentiments s’ouvrent lentement, mais l’attachement est profond. Le calme, les plaisirs simples, le toucher et un rythme familier vous recentrent.",
+      "outer": "Vous donnez une impression de calme et de fiabilité. La prudence peut parfois être prise pour de l’entêtement ou de la distance.",
+      "love": "La loyauté et les gestes réguliers comptent plus que les grandes déclarations. La confiance grandit lorsque les paroles et les actes restent alignés.",
+      "work": "Vous savez transformer une idée en système, produit ou revenu durable. Les changements deviennent plus faciles avec une réserve de temps et de moyens.",
+      "advice": "La stabilité doit soutenir la vie, pas l’enfermer. Demandez-vous si vous gardez quelque chose par valeur ou simplement par habitude."
+    },
+    "gemini": {
+      "core": "Les questions, les échanges et les liens inattendus entre les idées stimulent votre esprit. Vous voyez vite plusieurs options, au risque de changer avant qu’une voie porte ses fruits.",
+      "inner": "Les émotions deviennent plus claires quand elles trouvent des mots. Un changement d’air, une information nouvelle et une conversation de confiance vous font du bien.",
+      "outer": "Vous semblez curieux, adaptable et facile à aborder. Vous lisez vite l’ambiance, si bien que chacun peut connaître une facette différente de vous.",
+      "love": "Le couple a besoin d’une conversation vivante. L’humour aide, mais les sentiments importants ne doivent pas toujours devenir une plaisanterie quand l’intimité gêne.",
+      "work": "Communication, apprentissage et négociation vous conviennent. Définissez ce que signifie « terminé » pour éviter le brouillon permanent.",
+      "advice": "Toute nouvelle idée n’exige pas un nouveau cap. Notez-la, puis laissez assez de temps au choix actuel pour gagner en profondeur."
+    },
+    "cancer": {
+      "core": "Vous lisez la vie avec la mémoire émotionnelle autant qu’avec la logique. Votre attention crée un sentiment de foyer, mais le passé peut rester protégé après avoir cessé de vous protéger.",
+      "inner": "Les émotions sont profondes et liées au sentiment de sécurité. Un espace intime, des personnes familières et du temps pour comprendre votre humeur vous restaurent.",
+      "outer": "Vous semblez doux, attentif et prudent avec les émotions des autres. Si l’ambiance paraît peu sûre, vous observez avant de vous ouvrir.",
+      "love": "La proximité demande fiabilité, présence émotionnelle et sentiment d’être chez soi. Remplacez parfois les suppositions par une question simple.",
+      "work": "Vous sentez l’atmosphère d’une équipe et les besoins non formulés. Le sens humain motive, mais vous n’avez pas à sauver tout le monde en silence.",
+      "advice": "La sensibilité n’oblige pas à porter toutes les émotions. Une limite peut préserver le lien au lieu de le casser."
+    },
+    "leo": {
+      "core": "Vous voulez mettre une part de vous dans ce que vous faites et sentir que cela compte. Générosité et courage créatif inspirent, tandis que le manque de reconnaissance peut blesser en silence.",
+      "inner": "Votre cœur a besoin de chaleur, de loyauté et de sentiments qui ne vont pas de soi. La joie, la création et les personnes sans compétition vous ressourcent.",
+      "outer": "Votre présence se remarque, même dans le silence. Les autres voient d’abord la dignité et le charisme, avant le besoin de soutien.",
+      "love": "Vous aimez avec générosité et voulez être fier de la personne à vos côtés. Le lien gagne en solidité quand l’attention ne doit pas être méritée par un spectacle constant.",
+      "work": "Vous brillez quand il faut mener, créer ou porter un résultat visible. Séparez la valeur du travail du volume des applaudissements.",
+      "advice": "Ne vous réduisez pas, mais laissez de la place aux autres. Le vrai leadership aide aussi les personnes proches à se montrer pleinement."
+    },
+    "virgo": {
+      "core": "Vous repérez vite ce qui peut être amélioré ou rendu plus utile. La précision transforme le chaos en ordre, mais votre correcteur intérieur continue parfois après le point suffisant.",
+      "inner": "Les émotions se calment quand la vie retrouve un peu de structure. Des rituels simples, un espace clair et des soins doux pour le corps vous recentrent.",
+      "outer": "Vous semblez attentif, compétent et pratique. La chaleur peut rester cachée derrière l’habitude d’aller droit au sujet.",
+      "love": "Vous montrez souvent l’affection par les actes et l’attention aux détails. L’amour peut aussi exister sans contrôle qualité ni réparation immédiate.",
+      "work": "Analyse, structure et exigence sont vos terrains forts. Limitez le temps d’amélioration pour que le professionnalisme ne devienne pas préparation infinie.",
+      "advice": "Une erreur n’annule pas votre compétence et le repos ne se mérite pas. Parfois, la bonne décision consiste à ne plus réparer ce qui fonctionne."
+    },
+    "libra": {
+      "core": "Vous voyez naturellement plusieurs côtés et ouvrez un espace de dialogue. Le sens de la justice rassemble, mais la paix peut retarder votre propre choix.",
+      "inner": "Votre équilibre dépend beaucoup de la qualité des relations et de l’ambiance. La beauté et une conversation calme vous restaurent sans devoir plaire à tout le monde.",
+      "outer": "Vous semblez aimable, diplomate et attentif aux nuances sociales. La souplesse peut être confondue avec un manque de conviction.",
+      "love": "Le partenariat est une grande école, avec besoin de proximité et d’égalité. Le problème commence quand vous acceptez pour éviter un conflit, puis supportez en silence.",
+      "work": "Négociation, esthétique et médiation vous conviennent. Choisissez d’abord vos critères au lieu de chercher la solution parfaite pour tout le monde.",
+      "advice": "L’harmonie n’exclut pas les conversations inconfortables. Un non honnête protège parfois mieux la relation qu’un beau oui suivi de ressentiment."
+    },
+    "scorpio": {
+      "core": "Les réponses superficielles vous satisfont rarement et vous sentez tôt les tensions cachées. Votre force traverse les crises, mais le contrôle peut enlever la confiance qu’il voulait protéger.",
+      "inner": "Les sentiments sont profonds et peu destinés au grand public. Il vous faut un espace sûr pour vivre peur, jalousie ou attachement sans honte.",
+      "outer": "Vous semblez concentré, mystérieux ou intensément observateur. Les autres comprennent vite que les paroles creuses ne dureront pas.",
+      "love": "La proximité demande honnêteté, fidélité et engagement émotionnel. Les tests silencieux abîment la confiance qu’ils cherchent à défendre.",
+      "work": "Crises, stratégie et recherche des causes profondes vous conviennent. Tout désaccord ne doit pas devenir une lutte d’influence.",
+      "advice": "Tout ce que vous pouvez retenir ne mérite pas de l’être. La force peut aussi consister à laisser partir un ancien rôle."
+    },
+    "sagittarius": {
+      "core": "Vous avez besoin d’un horizon plus large et d’une raison derrière l’effort. Optimisme et envie d’apprendre entraînent les autres, mais la grande promesse peut dépasser les détails concrets.",
+      "inner": "Les émotions circulent mieux avec de l’espace, du mouvement et du sens. Voyage, apprentissage, humour et liberté vous rendent de l’énergie.",
+      "outer": "Vous semblez ouvert, énergique et confiant face à l’avenir. La franchise peut parfois paraître plus dure que prévu.",
+      "love": "Le lien demande honnêteté, aventure et possibilité de grandir ensemble. La liberté rassure davantage quand les accords sont clairs.",
+      "work": "Transmission, voyage et projets ambitieux vous conviennent. Un calendrier ou un partenaire pratique aide l’inspiration à devenir résultat.",
+      "advice": "Une grande vision n’annule pas une petite promesse. Les gestes quotidiens donnent du poids à vos paroles."
+    },
+    "capricorn": {
+      "core": "Vous jugez un chemin par la solidité du résultat, pas par l’humeur du jour. Responsabilité et stratégie construisent loin, mais vos exigences envers vous-même peuvent être trop dures.",
+      "inner": "Les sentiments se montrent plus facilement quand la confiance est réelle. Se restaurer signifie parfois ne pas être la personne la plus forte de la pièce.",
+      "outer": "Vous semblez sérieux, compétent et réservé. L’humour et la douceur apparaissent souvent plus tard.",
+      "love": "Vous recherchez maturité, fidélité et projets communs qui résistent au temps. Le partenaire a aussi besoin d’accéder à vos émotions vivantes.",
+      "work": "Les projets longs, les ressources et la responsabilité vous vont bien. Ne transformez pas chaque réussite en première marche d’un nouvel escalier.",
+      "advice": "Tout ce qui a de la valeur ne doit pas être difficile. Un chemin plus court peut montrer votre expérience, pas votre faiblesse."
+    },
+    "aquarius": {
+      "core": "Vous regardez les règles habituelles de l’extérieur et percevez souvent l’avenir avant qu’il devienne confortable. L’indépendance est une force, mais la distance peut masquer la peur de l’implication.",
+      "inner": "Vous avez besoin d’espace pour vos pensées et du droit de ressentir autrement. L’amitié, une idée stimulante et une pause émotionnelle vous restaurent.",
+      "outer": "Vous semblez indépendant, original ou agréablement imprévisible. Les autres voient la nouveauté avant de comprendre l’importance de votre communauté.",
+      "love": "La proximité demande amitié, liberté et curiosité sincère. Les explications intelligentes ne remplacent pas la présence émotionnelle.",
+      "work": "Technologie, recherche et changement des systèmes dépassés vous conviennent. Une idée nouvelle convainc mieux quand son utilité devient visible.",
+      "advice": "Vous n’avez pas à être différent dans chaque choix. La liberté peut aussi être une solution ordinaire qui vous correspond vraiment."
+    },
+    "pisces": {
+      "core": "Vous captez l’atmosphère, le sous-texte et ce que la logique explique mal. Imagination et compassion ouvrent des portes, mais les émotions d’autrui peuvent remplacer les vôtres sans limites claires.",
+      "inner": "Les émotions viennent par vagues et absorbent l’ambiance. Silence, sommeil, musique, eau, création et temps sans sauver personne vous recentrent.",
+      "outer": "Vous semblez doux, rêveur ou très réceptif. Les autres sentent qu’ils peuvent baisser la garde et vous confient parfois trop.",
+      "love": "Le lien demande âme, romantisme et connexion subtile. Il devient plus sûr quand la compassion n’efface pas les faits et que l’espoir s’appuie sur des accords clairs.",
+      "work": "Création, aide, intuition et empathie sont vos forces. Le talent a besoin d’un délai, d’un prix, d’une forme et du droit de ne pas travailler gratuitement.",
+      "advice": "La douceur n’impose pas une disponibilité permanente. Des limites claires gardent plus de compassion pour ce qui compte vraiment."
+    }
+  },
+  "donate": {
+    "aries": "La lecture vous parle ? Donnez un peu de carburant au projet pour que les nouveautés avancent aussi vite que vos décisions.",
+    "taurus": "Vous avez reçu la lecture complète sans écran payant. Un petit café aide à garder ce projet gratuit et honnête.",
+    "gemini": "Mode WinRAR : l’application continuera dans tous les cas. Un café est aussi une bonne excuse pour créer une nouvelle fonction curieuse.",
+    "cancer": "Cette section a été réalisée avec soin. Si elle vous touche, vous pouvez envoyer un peu de chaleur sous forme de café.",
+    "leo": "Un beau travail mérite un beau geste. Si la lecture vous plaît, soutenez ce projet indépendant avec panache, sans obligation.",
+    "virgo": "Pas de publicité entre les paragraphes, de paiement caché ni d’envoi de votre carte. Vous pouvez soutenir cet ordre.",
+    "libra": "Un équilibre agréable : une lecture personnelle gratuite contre, peut-être, un café pour le développeur. Seulement si vous le souhaitez.",
+    "scorpio": "Aucune condition cachée : le résultat vous appartient déjà. Si l’échange vous semble juste, un don sera apprécié.",
+    "sagittarius": "Envie de plus de prévisions et d’idées ambitieuses ? Un peu de carburant pour le développeur — le café fonctionne très bien.",
+    "capricorn": "Soutenir une application indépendante, c’est investir dans de meilleurs calculs, textes et une meilleure fiabilité.",
+    "aquarius": "Soutenez un projet libre, sans abonnement obligatoire ni vente de données. Aidons les outils indépendants à grandir.",
+    "pisces": "Le projet vit grâce à l’inspiration, au code et à l’intérêt des personnes. Envoyez un peu de chaleur si vous le souhaitez, sans pression."
+  },
+  "forecast": {
+    "headlines": {
+      "conjunction": "La semaine concentre l’attention sur un point essentiel",
+      "sextile": "Une ouverture existe — le premier pas vous appartient",
+      "square": "Changez de méthode au lieu de pousser plus fort",
+      "trine": "Ce qui résistait peut devenir plus fluide",
+      "opposition": "Il faut donner une place à deux pôles importants"
+    },
+    "moves": {
+      "Sun": "Le besoin de vous montrer et de choisir en votre nom devient plus fort.",
+      "Mercury": "Conversations, documents et décisions accélèrent ; les mots peuvent arriver avant la certitude.",
+      "Venus": "Relations, valeur personnelle, plaisir, temps et argent passent au premier plan.",
+      "Mars": "L’énergie augmente avec l’impatience ; le corps montre vite où une limite a été franchie.",
+      "Jupiter": "L’envie d’élargir les possibilités et de croire à un projet plus vaste grandit.",
+      "Saturn": "La vie demande clarté, responsabilité et une décision capable de durer.",
+      "Uranus": "Le scénario habituel devient étroit ; un changement inattendu peut rendre de la liberté.",
+      "Neptune": "Intuition et imagination augmentent, mais l’espoir peut passer pour un fait acquis.",
+      "Pluto": "Une transformation profonde avance : une ancienne manière de contrôler perd sa force."
+    },
+    "areas": {
+      "Sun": "Cela touche la confiance, la visibilité et vos vraies priorités.",
+      "Moon": "Les émotions, le foyer et le besoin de sécurité réagissent davantage.",
+      "Mercury": "Pensée, apprentissage, négociation et choix des mots sont concernés.",
+      "Venus": "Le thème passe par l’amour, l’attirance, l’argent et vos valeurs réelles.",
+      "Mars": "Énergie, courage, limites et manière d’obtenir ce que vous voulez sont testés.",
+      "Jupiter": "La croissance, l’étude, la confiance et une possibilité plus large sont activées.",
+      "Saturn": "Responsabilité, engagements longs et peur de ne pas être à la hauteur remontent.",
+      "Uranus": "Votre rapport à la liberté, à la nouveauté et à un rôle trop étroit change.",
+      "Neptune": "Rêves, idéaux et frontière entre intuition et illusion demandent de l’attention.",
+      "Pluto": "Force, confiance, contrôle et fin d’un ancien cycle deviennent centraux."
+    },
+    "tones": {
+      "conjunction": "Deux thèmes parlent ensemble et se renforcent. Donnez-leur une direction consciente avant qu’ils ne sortent par l’excès.",
+      "sextile": "Une occasion existe, mais elle n’agira pas à votre place. Un petit pas vaut mieux que l’attente du moment parfait.",
+      "square": "La tension montre que l’ancienne méthode ne suffit plus. Changez la règle, le rythme ou la limite.",
+      "trine": "Le soutien vient naturellement et peut passer inaperçu. Utilisez cette facilité pour quelque chose d’important.",
+      "opposition": "La situation tire vers deux extrêmes. La solution apparaît lorsque chaque côté reçoit une place honnête."
+    },
+    "houseLead": "Cela peut se manifester surtout dans « {house} ».",
+    "reason": "{transit} en {transitSign} forme un {aspect} avec votre {target} en {natalSign} ; le point le plus proche est le {date}.",
+    "yearReason": "Transit long : {transit} — {aspect} — {target} natal. Le rapprochement calculé est maximal vers le {date}."
+  }
+}
