@@ -1,3 +1,236 @@
 {
-  "app":"Portable Tests","language":"Langue","syutsai":"Syutsai","badge":"CARTE NATALE · BIENTÔT","title":"Votre carte du ciel aura sa propre rubrique","lead":"Nous ne mélangerons pas l’astrologie et le Syutsai. Une carte natale claire, fondée sur la date, l’heure exacte et le lieu de naissance, apparaîtra ici.","status":"La rubrique est ouverte ; le calcul complet est en préparation","previewKicker":"DÉJÀ DISPONIBLE","previewTitle":"Trouvez votre signe selon la date","previewText":"Indiquez la date pour voir le signe maintenant. L’heure et le lieu seront gardés pour la future carte complète.","yourSign":"Votre signe","previewReady":"Ce signe utilise seulement la date. Il ne modifie pas le Syutsai et ne remplace pas une carte natale.","birth":"Date de naissance","time":"Heure exacte · si connue","place":"Lieu de naissance · si connu","placePlaceholder":"Ville, pays","previewButton":"Afficher le signe et enregistrer","privacy":"Ces données restent sur cet appareil et ne sont envoyées nulle part.","missing":"Indiquez votre date de naissance.","fullKicker":"PROCHAINE ÉTAPE","fullTitle":"Une carte natale complète en mots simples","fullText":"Chaque partie sera expliquée avec des mots courants et restera séparée du bilan hebdomadaire ludique.","sun":"Soleil","sunText":"La direction principale de la personnalité et sa manière la plus visible de s’exprimer.","moon":"Lune","moonText":"Les habitudes émotionnelles, le sentiment de sécurité et la façon de retrouver son énergie.","ascendant":"Ascendant","ascendantText":"La façon d’entrer dans une nouvelle situation et la première impression créée.","houses":"Maisons et liens","housesText":"Les différents domaines de vie et les relations entre les éléments de la carte.","notice":"Pour l’instant, c’est une page d’attente honnête : le signe selon la date fonctionne, sans remplacer le calcul astronomique complet par un texte aléatoire.","backTitle":"Revenir au bilan hebdomadaire Syutsai","backText":"Il utilise déjà votre date et les réponses de vos tests terminés.","disclaimer":"L’astrologie est une interprétation ésotérique, pas une évaluation scientifique ni une garantie d’événement.","zodiac":{"aries":{"name":"Bélier","symbol":"♈"},"taurus":{"name":"Taureau","symbol":"♉"},"gemini":{"name":"Gémeaux","symbol":"♊"},"cancer":{"name":"Cancer","symbol":"♋"},"leo":{"name":"Lion","symbol":"♌"},"virgo":{"name":"Vierge","symbol":"♍"},"libra":{"name":"Balance","symbol":"♎"},"scorpio":{"name":"Scorpion","symbol":"♏"},"sagittarius":{"name":"Sagittaire","symbol":"♐"},"capricorn":{"name":"Capricorne","symbol":"♑"},"aquarius":{"name":"Verseau","symbol":"♒"},"pisces":{"name":"Poissons","symbol":"♓"}}
+  "app": "Portable Tests",
+  "language": "Langue",
+  "syutsai": "Syutsai",
+  "badge": "THÈME NATAL",
+  "title": "Votre carte du ciel",
+  "lead": "Les positions réelles des planètes selon votre date, heure et lieu de naissance, expliquées simplement.",
+  "status": "Calcul effectué directement sur votre appareil",
+  "formKicker": "DONNÉES DU CALCUL",
+  "formTitle": "Commençons par situer le moment de naissance",
+  "formText": "Le lieu ne sert pas seulement d’étiquette : il fournit les coordonnées, le fuseau historique, l’horizon, l’Ascendant et les maisons.",
+  "needDate": "Date",
+  "needTime": "Heure",
+  "needPlace": "Lieu",
+  "birth": "Date de naissance",
+  "timeKnowledge": "À quel point connaissez-vous l’heure ?",
+  "timeModes": {
+    "exact": "Je connais l’heure exacte",
+    "approx": "Je connais approximativement",
+    "unknown": "Je ne connais pas l’heure"
+  },
+  "exactTime": "Heure de naissance",
+  "exactHelp": "Indiquez l’heure et les minutes selon les documents ou les souvenirs familiaux.",
+  "approxPeriod": "Période approximative",
+  "approxHelp": "Nous comparons le début, le milieu et la fin pour ne garder que les conclusions stables.",
+  "unknownTitle": "Heure inconnue",
+  "unknownHelp": "Nous montrons les planètes sur la journée, sans inventer l’Ascendant ni les maisons.",
+  "periods": {
+    "night": "Nuit · 00:00–05:59",
+    "morning": "Matin · 06:00–11:59",
+    "day": "Après-midi · 12:00–17:59",
+    "evening": "Soir · 18:00–23:59"
+  },
+  "place": "Lieu de naissance",
+  "placePlaceholder": "Commencez à saisir une ville",
+  "search": "Rechercher",
+  "placeHelp": "Choisissez une ville dans la liste : un texte libre ne suffit pas au calcul.",
+  "placeProvider": "Recherche des lieux :",
+  "placeNotSelected": "Aucune ville n’a encore été choisie.",
+  "changePlace": "Choisir une autre ville",
+  "noPlaces": "Aucun résultat. Ajoutez le pays ou la région.",
+  "shortQuery": "Saisissez au moins deux lettres.",
+  "searching": "Recherche des villes…",
+  "searchError": "La recherche est indisponible. Vérifiez votre connexion.",
+  "build": "Calculer mon thème",
+  "privacy": "La date, l’heure et le résultat restent sur cet appareil. Seul le texte recherché est envoyé au service de villes.",
+  "accuracyKicker": "PRÉCISION, SANS PROMESSE EXAGÉRÉE",
+  "accuracyTitle": "Le résultat dépend de ce que vous savez",
+  "exactAccuracy": "Thème complet : Ascendant, maisons et positions précises.",
+  "rangeAccuracy": "Plage horaire : les possibilités sont séparées des résultats stables.",
+  "dateAccuracy": "Sans heure : planètes et signes stables, mais pas d’Ascendant ni de maisons.",
+  "errors": {
+    "birth": "Indiquez votre date de naissance.",
+    "time": "Indiquez l’heure exacte ou une période.",
+    "place": "Recherchez et choisissez le lieu de naissance.",
+    "timezone": "Cette heure locale n’existait pas à cause d’un changement d’heure. Vérifiez-la.",
+    "calculation": "Le calcul a échoué. Vérifiez les données.",
+    "coordinates": "Impossible de déterminer le fuseau de ce point."
+  },
+  "or": "ou",
+  "chart": "Thème natal",
+  "wheelLabel": "Roue du thème natal",
+  "precision": {
+    "exact": "Heure exacte",
+    "range": "Plage approximative",
+    "dateOnly": "Sans heure"
+  },
+  "edit": "Modifier les données",
+  "resultKicker": "VOTRE CALCUL",
+  "resultTitle": "Le ciel à votre naissance",
+  "resultLead": "Les positions ont été calculées pour {place}. L’essentiel apparaît avant les détails.",
+  "bigKicker": "L’ESSENTIEL",
+  "bigTitle": "Les trois repères",
+  "bigIntro": "Le Soleil parle de l’expression de soi, la Lune des réactions émotionnelles et l’Ascendant de la première impression.",
+  "big": {
+    "sun": "Soleil · identité centrale",
+    "moon": "Lune · monde émotionnel",
+    "ascendant": "Ascendant · style extérieur"
+  },
+  "notCalculated": "Non calculé",
+  "ascRangeText": "L’Ascendant change dans cette plage. Nous montrons les signes possibles sans présenter les maisons comme exactes.",
+  "ascUnknownText": "Sans heure, l’horizon est inconnu et l’Ascendant ne peut pas être calculé.",
+  "timeSensitive": "Le signe change dans la plage choisie ; les possibilités sont indiquées.",
+  "planetsKicker": "CARTE DÉTAILLÉE",
+  "planetsTitle": "Les planètes dans les signes",
+  "planetsIntro": "Chaque planète représente une fonction différente. Son signe décrit la manière dont elle s’exprime.",
+  "houseTag": "Maison {number}",
+  "retrograde": "rétrograde",
+  "planets": {
+    "Sun": "Soleil",
+    "Moon": "Lune",
+    "Mercury": "Mercure",
+    "Venus": "Vénus",
+    "Mars": "Mars",
+    "Jupiter": "Jupiter",
+    "Saturn": "Saturne",
+    "Uranus": "Uranus",
+    "Neptune": "Neptune",
+    "Pluto": "Pluton"
+  },
+  "planetRoles": {
+    "Sun": "Montre où il est important de se sentir soi-même et d’exprimer clairement ses forces.",
+    "Moon": "Décrit les réactions émotionnelles habituelles, le besoin de sécurité et la récupération.",
+    "Mercury": "Concerne la pensée, la parole, l’apprentissage et la collecte d’informations.",
+    "Venus": "Montre les goûts, l’affection, la proximité, le plaisir et les valeurs personnelles.",
+    "Mars": "Décrit l’action, les limites, la volonté et l’expression de la colère.",
+    "Jupiter": "Montre comment les possibilités s’élargissent, la confiance grandit et le sens se construit.",
+    "Saturn": "Concerne la discipline, les responsabilités, les limites et les compétences lentes à bâtir.",
+    "Uranus": "Montre le besoin de liberté, de changement, de solutions originales et de nouvelles règles.",
+    "Neptune": "Concerne l’imagination, l’empathie, les idéaux et les zones d’enchantement ou de confusion.",
+    "Pluto": "Montre les transformations profondes, le pouvoir, le contrôle et le détachement de l’ancien."
+  },
+  "signStyles": {
+    "aries": "Cela passe par la franchise, le démarrage rapide et l’envie d’ouvrir la voie.",
+    "taurus": "Cela passe par la stabilité, le sens pratique, le confort et un rythme personnel.",
+    "gemini": "Cela passe par la curiosité, la conversation, l’échange rapide et la variété.",
+    "cancer": "Cela passe par le soin, la mémoire, la sensibilité et la protection des proches.",
+    "leo": "Cela passe par la visibilité, le courage créatif, la générosité et l’élan du cœur.",
+    "virgo": "Cela passe par la précision, l’utilité, le détail et l’amélioration de ce qui existe.",
+    "libra": "Cela passe par l’équilibre, la coopération, le goût et l’attention au point de vue de l’autre.",
+    "scorpio": "Cela passe par la profondeur, la concentration intérieure, les liens forts et la recherche de l’essentiel.",
+    "sagittarius": "Cela passe par la liberté, une vision large, l’humour, l’apprentissage et de nouveaux horizons.",
+    "capricorn": "Cela passe par la responsabilité, l’endurance, les objectifs durables et la construction progressive.",
+    "aquarius": "Cela passe par l’indépendance, les idées originales, le futur et la communauté.",
+    "pisces": "Cela passe par l’imagination, l’empathie, l’intuition et des frontières plus souples."
+  },
+  "aspectsKicker": "LES LIENS DE LA CARTE",
+  "aspectsTitle": "Les aspects principaux",
+  "aspectsIntro": "Un aspect indique si deux fonctions coopèrent facilement ou demandent un équilibre conscient.",
+  "aspects": {
+    "conjunction": "Conjonction",
+    "sextile": "Sextile",
+    "square": "Carré",
+    "trine": "Trigone",
+    "opposition": "Opposition"
+  },
+  "orb": "orbe {value}°",
+  "aspectTexts": {
+    "conjunction": "Les deux thèmes s’activent ensemble et se renforcent. Il faut apprendre à les utiliser comme un seul outil.",
+    "sextile": "Une possibilité de coopération existe, mais elle se révèle grâce à votre initiative.",
+    "square": "Les thèmes tirent dans des directions différentes. Cette tension devient un moteur avec une action concrète.",
+    "trine": "Les thèmes se soutiennent naturellement. Cette ressource peut passer inaperçue parce qu’elle semble normale.",
+    "opposition": "Il faut équilibrer deux pôles. En choisir un seul fait souvent revenir l’autre par les relations ou les circonstances."
+  },
+  "noStableAspects": "Aucun aspect majeur n’est resté assez stable sur cette plage. Cela ne signifie pas qu’il n’y en a aucun.",
+  "housesKicker": "DOMAINES DE VIE",
+  "housesTitle": "Les douze maisons",
+  "housesIntro": "Nous utilisons les maisons en signes entiers : le signe de l’Ascendant devient la première maison.",
+  "houseThemes": [
+    "Soi et première impression",
+    "Argent et ressources personnelles",
+    "Communication et apprentissage",
+    "Foyer, famille et racines",
+    "Créativité, joie et romance",
+    "Routine, travail et habitudes de santé",
+    "Partenariat et unions proches",
+    "Ressources partagées, crises et changements",
+    "Vision du monde, études et voyages",
+    "Carrière, statut et rôle public",
+    "Amis, communautés et projets",
+    "Solitude, monde intérieur et récupération"
+  ],
+  "housesUnavailableTitle": "Maisons non affichées",
+  "housesUnknown": "Sans heure de naissance, l’horizon ne peut pas être reconstruit.",
+  "housesRange": "Le signe de l’Ascendant change dans la période choisie ; les maisons seraient trop incertaines.",
+  "methodTitle": "Comment le calcul est-il fait ?",
+  "methodText": "L’heure locale est convertie en UTC avec le fuseau {timezone}. Coordonnées : {latitude}, {longitude}.",
+  "houseMethod": "Les planètes utilisent des longitudes géocentriques tropicales. Les maisons sont calculées en signes entiers ; la méthode est nommée car les écoles diffèrent.",
+  "engineNote": "Astronomy Engine 2.1.19 (MIT) calcule les positions. La recherche fournit les coordonnées et le fuseau ; le thème est calculé sur l’appareil.",
+  "backTitle": "Ouvrir le Syutsai hebdomadaire",
+  "otherTests": "Autres tests",
+  "disclaimer": "Les positions planétaires sont calculées mathématiquement ; leur interprétation astrologique est ésotérique. Ce n’est ni un diagnostic scientifique ni une garantie.",
+  "zodiac": {
+    "aries": {
+      "name": "Bélier",
+      "symbol": "♈"
+    },
+    "taurus": {
+      "name": "Taureau",
+      "symbol": "♉"
+    },
+    "gemini": {
+      "name": "Gémeaux",
+      "symbol": "♊"
+    },
+    "cancer": {
+      "name": "Cancer",
+      "symbol": "♋"
+    },
+    "leo": {
+      "name": "Lion",
+      "symbol": "♌"
+    },
+    "virgo": {
+      "name": "Vierge",
+      "symbol": "♍"
+    },
+    "libra": {
+      "name": "Balance",
+      "symbol": "♎"
+    },
+    "scorpio": {
+      "name": "Scorpion",
+      "symbol": "♏"
+    },
+    "sagittarius": {
+      "name": "Sagittaire",
+      "symbol": "♐"
+    },
+    "capricorn": {
+      "name": "Capricorne",
+      "symbol": "♑"
+    },
+    "aquarius": {
+      "name": "Verseau",
+      "symbol": "♒"
+    },
+    "pisces": {
+      "name": "Poissons",
+      "symbol": "♓"
+    }
+  },
+  "chooseOnMap": "Choisir sur la carte",
+  "closeMap": "Fermer la carte",
+  "useCurrent": "Utiliser ma position actuelle",
+  "mapLabel": "Carte de sélection du lieu de naissance",
+  "mapHelp": "Touchez votre lieu de naissance. Vous pouvez déplacer et zoomer la carte. Utilisez la position actuelle uniquement si vous y êtes né.",
+  "mapPoint": "Point sur la carte · {latitude}, {longitude}",
+  "currentPoint": "Position actuelle · {latitude}, {longitude}",
+  "mapPointShort": "Point sur la carte",
+  "currentPointShort": "Position actuelle",
+  "pointSaved": "Point et fuseau enregistrés.",
+  "locationUnavailable": "Ce navigateur ne peut pas accéder à la position.",
+  "locating": "Recherche de la position actuelle…",
+  "locationDenied": "Position indisponible. Autorisez l’accès ou placez le point manuellement."
 }

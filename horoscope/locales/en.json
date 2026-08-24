@@ -1,3 +1,236 @@
 {
-  "app":"Portable Tests","language":"Language","syutsai":"Syutsai","badge":"NATAL CHART · COMING SOON","title":"Your sky map gets its own section","lead":"We will not mix astrology with Syutsai. This is where a clear natal chart based on birth date, exact time, and birthplace will live.","status":"The section is open; the full calculation is in progress","previewKicker":"WORKING NOW","previewTitle":"Find your sign by date","previewText":"Enter your date to see the sign now. Time and place will be saved for the future full chart.","yourSign":"Your sign","previewReady":"This sign uses the date only. It does not affect Syutsai and is not a replacement for a natal chart.","birth":"Birth date","time":"Exact time · if known","place":"Birthplace · if known","placePlaceholder":"City, country","previewButton":"Show sign and save details","privacy":"These details stay on this device and are never sent anywhere.","missing":"Enter your birth date.","fullKicker":"WHAT COMES NEXT","fullTitle":"A full natal chart in plain language","fullText":"Every part will be explained in everyday words and kept separate from the entertainment weekly reading.","sun":"Sun","sunText":"The main direction of personality and the most visible way a person expresses themselves.","moon":"Moon","moonText":"Emotional habits, a sense of safety, and the way a person restores energy.","ascendant":"Ascendant","ascendantText":"How a person enters new situations and the first impression they create.","houses":"Houses and connections","housesText":"Separate areas of life and the relationships between parts of the chart.","notice":"For now this is an honest placeholder: the date-based sign works, while the full astronomical calculation is not replaced by random copy.","backTitle":"Return to the Syutsai weekly reading","backText":"It already uses your date and answers from completed tests.","disclaimer":"Astrology is an esoteric interpretation, not scientific assessment or a guarantee of events.","zodiac":{"aries":{"name":"Aries","symbol":"♈"},"taurus":{"name":"Taurus","symbol":"♉"},"gemini":{"name":"Gemini","symbol":"♊"},"cancer":{"name":"Cancer","symbol":"♋"},"leo":{"name":"Leo","symbol":"♌"},"virgo":{"name":"Virgo","symbol":"♍"},"libra":{"name":"Libra","symbol":"♎"},"scorpio":{"name":"Scorpio","symbol":"♏"},"sagittarius":{"name":"Sagittarius","symbol":"♐"},"capricorn":{"name":"Capricorn","symbol":"♑"},"aquarius":{"name":"Aquarius","symbol":"♒"},"pisces":{"name":"Pisces","symbol":"♓"}}
+  "app": "Portable Tests",
+  "language": "Language",
+  "syutsai": "Syutsai",
+  "badge": "NATAL CHART",
+  "title": "Your sky map",
+  "lead": "Real planetary positions for your birth date, time, and place — explained in everyday language.",
+  "status": "Calculated directly on your device",
+  "formKicker": "DETAILS FOR THE CALCULATION",
+  "formTitle": "First, let’s locate the moment of birth",
+  "formText": "Place is not just a label: it supplies coordinates, historical time zone, horizon, Ascendant, and houses.",
+  "needDate": "Date",
+  "needTime": "Time",
+  "needPlace": "Place",
+  "birth": "Birth date",
+  "timeKnowledge": "How accurately do you know the time?",
+  "timeModes": {
+    "exact": "I know the exact time",
+    "approx": "I know roughly",
+    "unknown": "I do not know the time"
+  },
+  "exactTime": "Birth time",
+  "exactHelp": "Enter the hour and minute from records or family memory.",
+  "approxPeriod": "Approximate period",
+  "approxHelp": "We compare the beginning, middle, and end and show only stable conclusions.",
+  "unknownTitle": "Time is unknown",
+  "unknownHelp": "We show the planets across the day, without inventing an Ascendant or houses.",
+  "periods": {
+    "night": "Night · 00:00–05:59",
+    "morning": "Morning · 06:00–11:59",
+    "day": "Afternoon · 12:00–17:59",
+    "evening": "Evening · 18:00–23:59"
+  },
+  "place": "Birthplace",
+  "placePlaceholder": "Start typing a city",
+  "search": "Search",
+  "placeHelp": "Choose a city from the list — free text alone cannot support the calculation.",
+  "placeProvider": "Place search:",
+  "placeNotSelected": "No city has been selected from the list.",
+  "changePlace": "Choose another city",
+  "noPlaces": "No matches. Try adding a country or region.",
+  "shortQuery": "Enter at least two letters.",
+  "searching": "Searching for cities…",
+  "searchError": "Search is unavailable. Check your connection and try again.",
+  "build": "Calculate my chart",
+  "privacy": "Your date, time, and result stay on this device. Only the search phrase is sent when you look up a city.",
+  "accuracyKicker": "AN HONEST NOTE ON ACCURACY",
+  "accuracyTitle": "The result depends on what you know",
+  "exactAccuracy": "Full chart: precise Ascendant, houses, and planetary positions.",
+  "rangeAccuracy": "Time range: possible alternatives are shown separately from stable results.",
+  "dateAccuracy": "No time: planets and stable signs, but no Ascendant or houses.",
+  "errors": {
+    "birth": "Enter your birth date.",
+    "time": "Enter an exact time or choose a broad period.",
+    "place": "Search for and select your birthplace.",
+    "timezone": "That local time did not exist because the clocks changed. Please check it.",
+    "calculation": "The chart could not be calculated. Check the details and try again.",
+    "coordinates": "The time zone for this point could not be determined."
+  },
+  "or": "or",
+  "chart": "Birth chart",
+  "wheelLabel": "Natal chart wheel",
+  "precision": {
+    "exact": "Exact time",
+    "range": "Approximate range",
+    "dateOnly": "No birth time"
+  },
+  "edit": "Change details",
+  "resultKicker": "YOUR CALCULATION",
+  "resultTitle": "The sky at your birth",
+  "resultLead": "Planetary positions were calculated for {place}. The essentials come first, followed by details.",
+  "bigKicker": "THE ESSENTIALS",
+  "bigTitle": "The three anchors",
+  "bigIntro": "The Sun describes core self-expression, the Moon emotional reactions, and the Ascendant your first impression and way of entering new situations.",
+  "big": {
+    "sun": "Sun · core self",
+    "moon": "Moon · emotional world",
+    "ascendant": "Ascendant · outward style"
+  },
+  "notCalculated": "Not calculated",
+  "ascRangeText": "The Ascendant changes inside this time range. We show the possible signs and do not present houses as exact.",
+  "ascUnknownText": "Without birth time the horizon is unknown, so the Ascendant cannot be calculated.",
+  "timeSensitive": "The sign changes within the selected range; the possible alternatives are shown.",
+  "planetsKicker": "DETAILED CHART",
+  "planetsTitle": "Planets in signs",
+  "planetsIntro": "Each planet represents a different part of life. Its sign describes the style in which that part tends to operate.",
+  "houseTag": "House {number}",
+  "retrograde": "retrograde",
+  "planets": {
+    "Sun": "Sun",
+    "Moon": "Moon",
+    "Mercury": "Mercury",
+    "Venus": "Venus",
+    "Mars": "Mars",
+    "Jupiter": "Jupiter",
+    "Saturn": "Saturn",
+    "Uranus": "Uranus",
+    "Neptune": "Neptune",
+    "Pluto": "Pluto"
+  },
+  "planetRoles": {
+    "Sun": "Shows where it matters to feel authentic and express personal strengths visibly.",
+    "Moon": "Describes instinctive emotional responses, safety needs, and ways of recovering energy.",
+    "Mercury": "Relates to thinking, speech, learning, and gathering information.",
+    "Venus": "Shows taste, affection, closeness, pleasure, and personal values.",
+    "Mars": "Describes action, boundaries, drive, and the expression of anger.",
+    "Jupiter": "Shows how opportunities expand, confidence grows, and meaning is sought.",
+    "Saturn": "Relates to discipline, responsibility, limits, and skills built slowly.",
+    "Uranus": "Shows the need for freedom, change, unusual solutions, and new rules.",
+    "Neptune": "Relates to imagination, empathy, ideals, and places where enchantment or confusion can arise.",
+    "Pluto": "Shows themes of deep change, power, control, and letting go of the old."
+  },
+  "signStyles": {
+    "aries": "It works through directness, a quick start, and readiness to go first.",
+    "taurus": "It works through stability, practicality, sensory comfort, and a personal pace.",
+    "gemini": "It works through curiosity, conversation, rapid information exchange, and changing interests.",
+    "cancer": "It works through care, memory, emotional sensitivity, and protection of close people.",
+    "leo": "It works through visibility, creative courage, generosity, and acting from the heart.",
+    "virgo": "It works through precision, usefulness, attention to detail, and improving a working system.",
+    "libra": "It works through balance, cooperation, taste, and consideration of another viewpoint.",
+    "scorpio": "It works through depth, inner focus, strong bonds, and a need to reach the core.",
+    "sagittarius": "It works through freedom, a broad view, humor, learning, and new horizons.",
+    "capricorn": "It works through responsibility, endurance, long goals, and building results step by step.",
+    "aquarius": "It works through independence, unconventional thinking, future ideas, and community.",
+    "pisces": "It works through imagination, empathy, intuitive perception, and softer boundaries."
+  },
+  "aspectsKicker": "HOW THE PARTS CONNECT",
+  "aspectsTitle": "Major planetary aspects",
+  "aspectsIntro": "An aspect shows whether two parts of the personality cooperate easily or need conscious balance.",
+  "aspects": {
+    "conjunction": "Conjunction",
+    "sextile": "Sextile",
+    "square": "Square",
+    "trine": "Trine",
+    "opposition": "Opposition"
+  },
+  "orb": "orb {value}°",
+  "aspectTexts": {
+    "conjunction": "The two themes switch on together and amplify one another. Learn to use them as one tool.",
+    "sextile": "There is an accessible opportunity for cooperation, but it opens through your initiative.",
+    "square": "The themes pull in different directions. The tension can become a powerful motor when given a practical outlet.",
+    "trine": "The themes support each other naturally. This resource can be easy to overlook because it feels normal.",
+    "opposition": "Balance is needed between two poles. Choosing only one often brings the other back through people or circumstances."
+  },
+  "noStableAspects": "No major aspects stayed stable across the selected range. This does not mean the chart has no aspects.",
+  "housesKicker": "LIFE AREAS",
+  "housesTitle": "The twelve houses",
+  "housesIntro": "We use Whole Sign houses: the Ascendant sign becomes the first house, and the rest follow in order.",
+  "houseThemes": [
+    "Self and first impression",
+    "Money and personal resources",
+    "Communication and learning",
+    "Home, family, and roots",
+    "Creativity, joy, and romance",
+    "Routine, work, and health habits",
+    "Partnership and close unions",
+    "Shared money, crises, and change",
+    "Worldview, education, and long journeys",
+    "Career, status, and public role",
+    "Friends, communities, and plans",
+    "Solitude, inner life, and recovery"
+  ],
+  "housesUnavailableTitle": "Houses are not shown yet",
+  "housesUnknown": "Without birth time the horizon cannot be reconstructed.",
+  "housesRange": "The Ascendant sign changes within the selected period, so houses would be too uncertain.",
+  "methodTitle": "How was this calculated?",
+  "methodText": "Local time was converted to UTC using {timezone}. Location coordinates: {latitude}, {longitude}.",
+  "houseMethod": "Planets use geocentric tropical longitudes. Houses use the Whole Sign system; the method is named because different schools use different systems.",
+  "engineNote": "Astronomical positions are calculated by Astronomy Engine 2.1.19 (MIT). Place search supplies coordinates and time zone; the chart itself is calculated on your device.",
+  "backTitle": "Open weekly Syutsai",
+  "otherTests": "Other tests",
+  "disclaimer": "Planetary positions are mathematical calculations; astrological interpretation is esoteric. It is not scientific diagnosis or a guarantee of events.",
+  "zodiac": {
+    "aries": {
+      "name": "Aries",
+      "symbol": "♈"
+    },
+    "taurus": {
+      "name": "Taurus",
+      "symbol": "♉"
+    },
+    "gemini": {
+      "name": "Gemini",
+      "symbol": "♊"
+    },
+    "cancer": {
+      "name": "Cancer",
+      "symbol": "♋"
+    },
+    "leo": {
+      "name": "Leo",
+      "symbol": "♌"
+    },
+    "virgo": {
+      "name": "Virgo",
+      "symbol": "♍"
+    },
+    "libra": {
+      "name": "Libra",
+      "symbol": "♎"
+    },
+    "scorpio": {
+      "name": "Scorpio",
+      "symbol": "♏"
+    },
+    "sagittarius": {
+      "name": "Sagittarius",
+      "symbol": "♐"
+    },
+    "capricorn": {
+      "name": "Capricorn",
+      "symbol": "♑"
+    },
+    "aquarius": {
+      "name": "Aquarius",
+      "symbol": "♒"
+    },
+    "pisces": {
+      "name": "Pisces",
+      "symbol": "♓"
+    }
+  },
+  "chooseOnMap": "Choose on map",
+  "closeMap": "Close map",
+  "useCurrent": "Use my current location",
+  "mapLabel": "Birthplace selection map",
+  "mapHelp": "Tap your birthplace. You can pan and zoom. Use current location only if you were born there.",
+  "mapPoint": "Map point · {latitude}, {longitude}",
+  "currentPoint": "Current location · {latitude}, {longitude}",
+  "mapPointShort": "Map point",
+  "currentPointShort": "Current location",
+  "pointSaved": "Point and time zone saved.",
+  "locationUnavailable": "This browser cannot access location.",
+  "locating": "Finding your current location…",
+  "locationDenied": "Location was not available. Allow access or place the point manually."
 }
