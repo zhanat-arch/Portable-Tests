@@ -44,10 +44,21 @@ for (const lang of langs) {
   const locale = JSON.parse(await readFile(resolve(root, `compatibility/locales/${lang}.json`), 'utf8'));
   Object.keys(locale.signs).length === 12 || fail(`compatibility ${lang}: missing signs`);
   Object.keys(locale.numbers).length === 9 || fail(`compatibility ${lang}: missing numbers`);
+  const dreamLocale = JSON.parse(await readFile(resolve(root, `astro/dreams/locales/${lang}.json`), 'utf8'));
+  dreamLocale.schoolTitles?.islamic || fail(`dreams ${lang}: missing Islamic tradition label`);
+  dreamLocale.schoolTitles?.psychology || fail(`dreams ${lang}: missing psychology label`);
+  dreamLocale.schoolTitles?.popular || fail(`dreams ${lang}: missing folk label`);
+}
+
+const dreamObjects = JSON.parse(await readFile(resolve(root, 'astro/dreams/data/objects.json'), 'utf8'));
+dreamObjects.objects.length >= 40 || fail('dreams: object library is too small');
+for (const object of dreamObjects.objects) for (const lang of langs) {
+  object.name?.[lang]?.trim() || fail(`dreams ${object.id}: missing ${lang} name`);
+  object.focus?.[lang]?.trim() || fail(`dreams ${object.id}: missing ${lang} focus`);
 }
 
 const sw = await readFile(resolve(root, 'service-worker.js'), 'utf8');
-for (const asset of ['./tests/insight/index.html','./compatibility/index.html','./compatibility/engine.mjs','./compatibility/locales/ru.json','./downloads/career-interests.html']) {
+for (const asset of ['./tests/insight/index.html','./compatibility/index.html','./compatibility/engine.mjs','./compatibility/locales/ru.json','./astro/dreams/index.html','./astro/dreams/data/objects.json','./downloads/career-interests.html']) {
   sw.includes(asset) || fail(`PWA cache missing ${asset}`);
 }
 console.log(`OK: 42 balanced career activities, ${careers.length} careers, ${Object.keys(insightTests).length} insight tests, ${Object.keys(quickTests).length} quick tests, 4 compatibility locales`);
