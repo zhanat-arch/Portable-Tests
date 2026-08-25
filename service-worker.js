@@ -1,4 +1,4 @@
-const CACHE='portable-tests-v1.8.1';
+const CACHE='portable-tests-v1.8.2';
 const ASSETS=[
   './','./index.html','./manifest.webmanifest','./icon.svg','./hero-career.png','./hero-team.png','./hero-decisions.png','./hero-environment.png',
   './tests/career/index.html','./tests/career/styles.css','./tests/career/app.js','./tests/career/data.js',

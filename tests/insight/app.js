@@ -5,7 +5,8 @@ const SUPPORT = { boosty: 'https://boosty.to/zhanat-arch', kofi: 'https://ko-fi.
 const supported = ['ru','kk','en','fr'];
 const browserLang = (navigator.language || 'ru').toLowerCase().split('-')[0];
 let lang = localStorage.getItem('pt.lang') || (supported.includes(browserLang) ? browserLang : 'ru');
-const id = new URLSearchParams(location.search).get('test') || 'strengths';
+const launch = new URLSearchParams(location.search);
+const id = launch.get('test') || 'strengths';
 const test = tests[id] || tests.strengths;
 let answers = read(`pt.insight.${test.id}.answers`);
 let at = 0;
@@ -15,7 +16,16 @@ const enc = value => btoa(unescape(encodeURIComponent(JSON.stringify(value)))).r
 const dec = value => { try { return JSON.parse(decodeURIComponent(escape(atob(value.replaceAll('-','+').replaceAll('_','/'))))); } catch { return null; } };
 let shared = dec(location.hash.startsWith('#r=') ? location.hash.slice(3) : '');
 if (shared?.test === test.id && shared.scores) { lang = supported.includes(shared.lang) ? shared.lang : lang; screen = 'result'; }
-else shared = null;
+else {
+  shared = null;
+  const complete = test.questions.every((_, index) => answers[index] !== undefined);
+  if (launch.get('retake') === '1') {
+    answers = {};
+    localStorage.removeItem(`pt.insight.${test.id}.answers`);
+    screen = 'quiz';
+    history.replaceState(null, '', `${location.pathname}?test=${test.id}`);
+  } else if (launch.get('view') === 'result' && complete) screen = 'result';
+}
 
 const I = {
   ru:{app:'Portable Tests',home:'На главную',private:'Ответы и дата остаются на этом устройстве',start:'Начать',items:'вопросов',back:'Назад',next:'Дальше',of:'из',questionNote:'Насколько это похоже на вас в реальной жизни?',answers:['Почти никогда','Редко','По-разному','Часто','Почти всегда'],result:'Ваш результат',shared:'С вами поделились результатом',blend:'Главное сочетание',strength:'Как это помогает',shadow:'Где нужен баланс',environment:'Подходящая среда',experiment:'Проверка в реальности',stack:'Ваш рабочий набор',read:'Как читать результат',readText:'Проценты отражают только ваши ответы внутри этого теста. Они не сравнивают вас с другими и не измеряют интеллект.',show:'Показать все проценты',hide:'Скрыть проценты',date:'Дата рождения',dateHint:'Нужна только для игрового числа; в ссылку результата дата не попадает.',dateCode:'Число даты',behavior:'Что показали ответы без даты',dateLayer:'Дата добавила 20% игрового веса этому направлению.',missingDate:'Укажите дату рождения',share:'Поделиться результатом',copy:'Скопировать ссылку',copied:'Ссылка результата скопирована',again:'Пройти заново',other:'Другие тесты',support:'☕ Поддержать разработчика',supportText:'Все результаты открыты бесплатно. Если тест оказался полезным, можно угостить разработчика кофе или поделиться приложением.',close:'Закрыть',entertainment:'РАЗВЛЕКАТЕЛЬНЫЙ СЛОЙ',serious:'ДЛЯ САМОРЕФЛЕКСИИ'},
@@ -28,6 +38,17 @@ const $ = selector => document.querySelector(selector);
 const app = $('#app');
 const t = () => I[lang];
 const text = value => value?.[lang] || value?.ru || '';
+const combine = (...values) => {
+  const seen = new Set();
+  return values.flatMap(value => text(value).match(/[^.!?…]+[.!?…]?/g) || [])
+    .map(sentence => sentence.trim())
+    .filter(sentence => {
+      const key = sentence.toLocaleLowerCase(lang).replace(/[\s.!?…,:;—–-]+/g, ' ').trim();
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).join(' ');
+};
 const itemCount = count => {
   if (lang !== 'ru') return `${count} ${t().items}`;
   const tail = count % 100;
@@ -75,10 +96,10 @@ function result(){
   const payload={v:1,test:test.id,lang,scores:data.scores,base:data.base,dateNumber:data.dateNumber};
   const url=`${ONLINE}tests/insight/index.html?test=${test.id}#r=${enc(payload)}`;
   const shareText=`${text(test.title)}: ${text(top.profile.title)} + ${text(second.profile.title)}`;
-  shell(`<main class="card"><section class="result-head"><div class="eyebrow">${shared?t().shared:(test.entertainment?t().entertainment:t().serious)}</div><div class="symbols">${top.profile.emoji} ${second.profile.emoji}</div><h1>${text(top.profile.title)} + ${text(second.profile.title)}</h1><p class="lead">${text(top.profile.lead)} ${text(second.profile.lead)}</p></section>
+  shell(`<main class="card"><section class="result-head"><div class="eyebrow">${shared?t().shared:(test.entertainment?t().entertainment:t().serious)}</div><div class="symbols">${top.profile.emoji} ${second.profile.emoji}</div><h1>${text(top.profile.title)} + ${text(second.profile.title)}</h1><p class="lead">${combine(top.profile.lead,second.profile.lead)}</p></section>
     ${test.dateRequired&&data.dateNumber?`<section class="block date-code"><div class="date-number">${data.dateNumber}</div><div><div class="eyebrow">${t().dateCode}</div><h2>${text(test.scales[data.dateNumber].title)}</h2><p>${t().dateLayer}</p></div></section>`:''}
-    <section class="feature"><div class="eyebrow">${t().blend}</div><h2>${text(top.profile.label)} × ${text(second.profile.label)}</h2><p>${text(top.profile.lead)} ${text(second.profile.lead)}</p><div class="quote">${text(top.profile.joke)}</div></section>
-    <div class="grid"><section class="mini"><h3>✦ ${t().strength}</h3><p>${text(top.profile.strength)} ${text(second.profile.strength)}</p></section><section class="mini"><h3>⚖ ${t().shadow}</h3><p>${text(top.profile.shadow)} ${text(second.profile.shadow)}</p></section><section class="mini"><h3>☀ ${t().environment}</h3><p>${text(top.profile.environment)} ${text(second.profile.environment)}</p></section><section class="mini"><h3>→ ${t().experiment}</h3><p>${text(top.profile.experiment)} ${text(second.profile.experiment)}</p></section></div>
+    <section class="feature"><div class="eyebrow">${t().blend}</div><h2>${text(top.profile.label)} × ${text(second.profile.label)}</h2><p>${combine(top.profile.lead,second.profile.lead)}</p><div class="quote">${text(top.profile.joke)}</div></section>
+    <div class="grid"><section class="mini"><h3>✦ ${t().strength}</h3><p>${combine(top.profile.strength,second.profile.strength)}</p></section><section class="mini"><h3>⚖ ${t().shadow}</h3><p>${combine(top.profile.shadow,second.profile.shadow)}</p></section><section class="mini"><h3>☀ ${t().environment}</h3><p>${combine(top.profile.environment,second.profile.environment)}</p></section><section class="mini"><h3>→ ${t().experiment}</h3><p>${combine(top.profile.experiment,second.profile.experiment)}</p></section></div>
     <section class="block"><h2>${t().stack}</h2>${test.dateRequired?`<p>${t().behavior}</p>`:''}<div class="stack">${ranked.slice(0,showCount).map(item=>`<article class="stack-item"><span>${item.profile.emoji}</span><div><h3>${text(item.profile.label)}</h3><p>${text(item.profile.areas)}</p></div><b>${data.base[item.id]}%</b></article>`).join('')}</div></section>
     <section class="block"><h2>${t().read}</h2><p>${t().readText}</p><button class="secondary" id="toggle">${t().show}</button><div class="scores" id="scores">${ranked.map(item=>`<div class="score"><strong>${item.profile.emoji} ${text(item.profile.label)}</strong><b>${item.value}%</b><div class="bar"><i style="width:${item.value}%;background:${item.profile.color}"></i></div></div>`).join('')}</div></section>
     <p class="disclaimer">${text(test.disclaimer)}</p><div class="footer-actions"><button class="primary" id="share">${t().share}</button><button class="secondary" id="copy">${t().copy}</button><button class="secondary" id="again">${t().again}</button><a class="btn ghost" href="../../index.html">${t().other}</a></div><div class="support"><button class="ghost" id="support">${t().support}</button></div></main><dialog id="dialog"><h2>${t().support}</h2><p class="lead">${t().supportText}</p><div class="actions"><a class="btn primary" href="${SUPPORT.boosty}" target="_blank" rel="noopener">Boosty</a><a class="btn secondary" href="${SUPPORT.kofi}" target="_blank" rel="noopener">Ko-fi</a><button class="ghost" id="close">${t().close}</button></div></dialog>`);

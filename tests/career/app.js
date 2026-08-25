@@ -13,7 +13,17 @@ const enc = value => btoa(unescape(encodeURIComponent(JSON.stringify(value)))).r
 const dec = value => { try { return JSON.parse(decodeURIComponent(escape(atob(value.replaceAll('-', '+').replaceAll('_', '/'))))); } catch { return null; } };
 let sharedResult = dec(location.hash.startsWith('#r=') ? location.hash.slice(3) : '');
 if (sharedResult?.test === 'career' && sharedResult.scores) { lang = supported.includes(sharedResult.lang) ? sharedResult.lang : lang; screen = 'result'; }
-else sharedResult = null;
+else {
+  sharedResult = null;
+  const launch = new URLSearchParams(location.search);
+  const complete = questions.every(question => answers[question.id] !== undefined);
+  if (launch.get('retake') === '1') {
+    answers = {};
+    localStorage.removeItem('pt.career.v2.answers');
+    screen = 'quiz';
+    history.replaceState(null, '', location.pathname);
+  } else if (launch.get('view') === 'result' && complete) screen = 'result';
+}
 
 const UI = {
   ru: {
