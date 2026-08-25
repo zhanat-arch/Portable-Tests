@@ -20,7 +20,7 @@ const [home, sw, horoscope] = await Promise.all([
 for (const link of ['tests/career/index.html','test=strengths','test=trajectory','test=numerology','compatibility/','syutsai/','horoscope/','test=team','test=decisions','test=environment','test=battery','test=tabs','test=animal','test=lifeAnimal']) {
   home.includes(link) || fail(`home missing ${link}`);
 }
-sw.includes('portable-tests-v1.8.0') || fail('PWA cache not bumped to v1.8.0');
+sw.includes('portable-tests-v1.8.1') || fail('PWA cache not bumped to v1.8.1');
 sw.includes('origin!==self.location.origin') || fail('cross-origin requests must bypass PWA cache');
 horoscope.includes('navigator.geolocation') || fail('horoscope map has no geolocation fallback');
-console.log('OK: share links, new catalog entries, and PWA v1.8.0');
+console.log('OK: share links, new catalog entries, and PWA v1.8.1');

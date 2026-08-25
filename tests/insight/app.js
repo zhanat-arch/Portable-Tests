@@ -28,6 +28,12 @@ const $ = selector => document.querySelector(selector);
 const app = $('#app');
 const t = () => I[lang];
 const text = value => value?.[lang] || value?.ru || '';
+const itemCount = count => {
+  if (lang !== 'ru') return `${count} ${t().items}`;
+  const tail = count % 100;
+  const word = tail >= 11 && tail <= 14 ? 'вопросов' : count % 10 === 1 ? 'вопрос' : count % 10 >= 2 && count % 10 <= 4 ? 'вопроса' : 'вопросов';
+  return `${count} ${word}`;
+};
 function read(key){try{return JSON.parse(localStorage.getItem(key)||'{}')}catch{return{}}}
 
 function shell(body){
@@ -38,7 +44,7 @@ function shell(body){
 
 function intro(){
   const date=localStorage.getItem(`pt.insight.${test.id}.birth`)||'';
-  shell(`<main class="card"><section class="hero"><span class="badge">${test.entertainment?t().entertainment:t().serious}</span><div class="hero-icon">${test.icon}</div><h1>${text(test.title)}</h1><p class="lead">${text(test.intro)}</p></section><div class="meta"><span class="pill">${test.questions.length} ${t().items}</span><span class="pill">${text(test.badge)}</span></div>${test.dateRequired?`<div class="date-box"><label for="birth">${t().date}</label><input id="birth" type="date" value="${date}" max="${new Date().toISOString().slice(0,10)}"><small>${t().dateHint}</small></div>`:''}<div class="privacy">🔒 ${t().private}</div><div class="actions"><button class="primary" id="start">${t().start} →</button></div><p class="disclaimer">${text(test.disclaimer)}</p></main>`);
+  shell(`<main class="card"><section class="hero"><span class="badge">${test.entertainment?t().entertainment:t().serious}</span><div class="hero-icon">${test.icon}</div><h1>${text(test.title)}</h1><p class="lead">${text(test.intro)}</p></section><div class="meta"><span class="pill">${itemCount(test.questions.length)}</span><span class="pill">${text(test.badge)}</span></div>${test.dateRequired?`<div class="date-box"><label for="birth">${t().date}</label><input id="birth" type="date" value="${date}" max="${new Date().toISOString().slice(0,10)}"><small>${t().dateHint}</small></div>`:''}<div class="privacy">🔒 ${t().private}</div><div class="actions"><button class="primary" id="start">${t().start} →</button></div><p class="disclaimer">${text(test.disclaimer)}</p></main>`);
   $('#start').onclick=()=>{
     if(test.dateRequired){const birth=$('#birth').value;if(!birth)return toast(t().missingDate);localStorage.setItem(`pt.insight.${test.id}.birth`,birth)}
     at=firstMissing();screen='quiz';render();

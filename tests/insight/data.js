@@ -4,7 +4,7 @@ const p = (emoji, color, label, title, lead, strength, shadow, environment, expe
 
 const strengths = {
   id: 'strengths', icon: '⚡', count: 24, entertainment: false,
-  title: m('Твои рабочие суперсилы', 'Сіздің жұмыс күштеріңіз', 'Your working superpowers', 'Vos superpouvoirs au travail'),
+  title: m('Ваши рабочие суперсилы', 'Сіздің жұмыс күштеріңіз', 'Your working superpowers', 'Vos superpouvoirs au travail'),
   intro: m('24 понятные ситуации покажут не абстрактный «тип», а способы, которыми вы чаще приносите пользу.', '24 түсінікті жағдай сіздің жұмыста қалай пайда әкелетініңізді көрсетеді.', '24 plain situations reveal how you most naturally create value at work.', '24 situations claires montrent comment vous créez naturellement de la valeur.'),
   badge: m('8 сил · 6 минут', '8 күш · 6 минут', '8 strengths · 6 minutes', '8 forces · 6 minutes'),
   disclaimer: m('Тест описывает привычные способы действия, а не интеллект, характер целиком или ценность человека.', 'Тест әрекет ету әдеттерін сипаттайды, интеллект не адамның құнын емес.', 'This describes preferred ways of acting, not intelligence, your whole personality, or your worth.', 'Ce test décrit des façons d’agir préférées, pas l’intelligence, toute la personnalité ni la valeur humaine.'),
