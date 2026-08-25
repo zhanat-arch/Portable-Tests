@@ -90,7 +90,7 @@
   "how": "Calcul et limites",
   "howText": "Le nombre de conscience est la racine numérique du jour de naissance. Le nombre de mission est la racine numérique de tous les chiffres de la date. L’année, le mois et la semaine forment une couche adaptée et ouverte.",
   "nameTimeRule": "Le prénom sert seulement à vous saluer. L’heure ajoute une note de rythme sans changer les nombres principaux. Le signe astrologique est une information séparée.",
-  "disclaimer": "Le Syutsai, les cycles numériques et l’horoscope sont des interprétations ésotériques ludiques. Ils ne constituent ni diagnostic scientifique, ni conseil médical, ni garantie d’événement.",
+  "disclaimer": "Cette lecture suit les règles et les sources de la méthode Syutsai. Il s’agit d’une interprétation informative ; chacun décide dans quelle mesure elle lui parle et lui est utile. Ne l’utilisez pas à la place d’un avis professionnel ni comme seul fondement d’une décision importante.",
   "year": "Fond de l’année",
   "month": "Accent du mois",
   "week": "Semaine",
@@ -358,3 +358,4 @@
     "flexibility": "Vous changez facilement de méthode quand la situation change."
   }
 }
+

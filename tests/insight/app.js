@@ -34,6 +34,23 @@ const I = {
   fr:{app:'Portable Tests',home:'Accueil',private:'Les réponses et la date restent sur cet appareil',start:'Commencer',items:'questions',back:'Retour',next:'Suivant',of:'sur',questionNote:'À quelle fréquence cela vous ressemble-t-il dans la vie réelle ?',answers:['Presque jamais','Rarement','Cela dépend','Souvent','Presque toujours'],result:'Votre résultat',shared:'Ce résultat a été partagé avec vous',blend:'Combinaison principale',strength:'Comment cela aide',shadow:'Où chercher l’équilibre',environment:'Environnement favorable',experiment:'Test dans la réalité',stack:'Votre ensemble de forces',read:'Comment lire le résultat',readText:'Les pourcentages résument vos réponses dans ce test. Ils ne vous comparent pas aux autres et ne mesurent pas l’intelligence.',show:'Afficher tous les pourcentages',hide:'Masquer les pourcentages',date:'Date de naissance',dateHint:'Utilisée seulement pour le nombre ludique ; elle n’entre pas dans le lien partagé.',dateCode:'Nombre de naissance',behavior:'Ce que montrent les réponses sans la date',dateLayer:'La date a ajouté un poids ludique de 20 % à cette direction.',missingDate:'Indiquez une date de naissance',share:'Partager le résultat',copy:'Copier le lien',copied:'Lien du résultat copié',again:'Recommencer',other:'Autres tests',support:'☕ Soutenir le développeur',supportText:'Tous les résultats restent gratuits. Si ce test vous aide, offrez un café au développeur ou partagez l’application.',close:'Fermer',entertainment:'COUCHE DIVERTISSANTE',serious:'POUR RÉFLÉCHIR SUR SOI'}
 };
 
+Object.assign(I.ru, {
+  dateHint: 'Нужна только для числа даты; в ссылку результата дата не попадает.',
+  dateLayer: 'Дата добавила 20% веса числовому слою этого направления.'
+});
+Object.assign(I.kk, {
+  dateHint: 'Тек туған күн саны үшін керек; нәтиже сілтемесіне күн кірмейді.',
+  dateLayer: 'Күн осы бағыттың сандық қабатына 20% салмақ қосты.'
+});
+Object.assign(I.en, {
+  dateHint: 'Used only for the birth-date number; the date is not included in a shared result link.',
+  dateLayer: 'The date added a 20% weight to this direction’s number layer.'
+});
+Object.assign(I.fr, {
+  dateHint: 'Utilisée seulement pour le nombre de naissance ; elle n’entre pas dans le lien partagé.',
+  dateLayer: 'La date a ajouté un poids de 20 % à la couche numérique de cette direction.'
+});
+
 const $ = selector => document.querySelector(selector);
 const app = $('#app');
 const t = () => I[lang];
@@ -113,3 +130,4 @@ async function copy(value){await navigator.clipboard.writeText(value);toast(t().
 function toast(value){const node=$('#toast');node.textContent=value;node.classList.add('show');setTimeout(()=>node.classList.remove('show'),1800)}
 function render(){document.documentElement.lang=lang;document.title=`${text(test.title)} · Portable Tests`;({intro,quiz,result}[screen])()}
 render();
+

@@ -1,6 +1,6 @@
 {
   "version": "syutsai-date-core-v2+weekly-adapter-v1",
-  "status": "entertainment",
+  "status": "interpretation",
   "coreFormula": {
     "consciousness": "digitalRoot(dayOfBirth)",
     "mission": "digitalRoot(allBirthDateDigits)"
@@ -20,3 +20,4 @@
     "9": ["completion", "meaning"]
   }
 }
+

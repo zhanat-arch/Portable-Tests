@@ -169,7 +169,7 @@
   "engineNote": "Astronomical positions are calculated by Astronomy Engine 2.1.19 (MIT). Place search supplies coordinates and time zone; the chart itself is calculated on your device.",
   "backTitle": "Open weekly Syutsai",
   "otherTests": "Other tests",
-  "disclaimer": "Planetary positions are mathematical calculations; astrological interpretation is esoteric. It is not scientific diagnosis or a guarantee of events.",
+  "disclaimer": "Celestial positions are calculated from the birth date, time, and place; the reading follows astrological tradition. Each person decides how strongly it resonates and helps. Do not use it instead of professional advice or as the sole basis for an important decision.",
   "zodiac": {
     "aries": {
       "name": "Aries",
@@ -234,3 +234,4 @@
   "locating": "Finding your current location…",
   "locationDenied": "Location was not available. Allow access or place the point manually."
 }
+

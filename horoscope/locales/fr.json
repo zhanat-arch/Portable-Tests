@@ -169,7 +169,7 @@
   "engineNote": "Astronomy Engine 2.1.19 (MIT) calcule les positions. La recherche fournit les coordonnées et le fuseau ; le thème est calculé sur l’appareil.",
   "backTitle": "Ouvrir le Syutsai hebdomadaire",
   "otherTests": "Autres tests",
-  "disclaimer": "Les positions planétaires sont calculées mathématiquement ; leur interprétation astrologique est ésotérique. Ce n’est ni un diagnostic scientifique ni une garantie.",
+  "disclaimer": "Les positions célestes sont calculées à partir de la date, de l’heure et du lieu de naissance ; la lecture suit la tradition astrologique. Chacun décide dans quelle mesure elle lui parle et lui est utile. Ne l’utilisez pas à la place d’un avis professionnel ni comme seul fondement d’une décision importante.",
   "zodiac": {
     "aries": {
       "name": "Bélier",
@@ -234,3 +234,4 @@
   "locating": "Recherche de la position actuelle…",
   "locationDenied": "Position indisponible. Autorisez l’accès ou placez le point manuellement."
 }
+

@@ -1,4 +1,4 @@
-const CACHE='portable-tests-v1.8.2';
+const CACHE='portable-tests-v1.8.3';
 const ASSETS=[
   './','./index.html','./manifest.webmanifest','./icon.svg','./hero-career.png','./hero-team.png','./hero-decisions.png','./hero-environment.png',
   './tests/career/index.html','./tests/career/styles.css','./tests/career/app.js','./tests/career/data.js',
@@ -22,3 +22,4 @@ self.addEventListener('fetch',event=>{
   }
   event.respondWith(fetch(request,{cache:'no-store'}).then(response=>{if(response.ok){const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(request,copy))}return response}).catch(()=>caches.match(request,{ignoreSearch:true})));
 });
+
