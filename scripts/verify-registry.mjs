@@ -9,10 +9,10 @@ const locales = JSON.parse(await readFile(resolve(root, 'hub-locales.json'), 'ut
 const home = await readFile(resolve(root, 'index.html'), 'utf8');
 const app = await readFile(resolve(root, 'app.js'), 'utf8');
 
-registry.length >= 15 || fail('Registry lost catalog entries');
+registry.length >= 16 || fail('Registry lost catalog entries');
 new Set(registry.map(item => item.id)).size === registry.length || fail('Registry IDs must be unique');
 const categories = new Set(registry.map(item => item.category));
-for (const category of ['astro','career','psychology','fun']) categories.has(category) || fail(`Missing category ${category}`);
+for (const category of ['astro','career','psychology','fun','interactive']) categories.has(category) || fail(`Missing category ${category}`);
 
 for (const item of registry) {
   item.path?.startsWith('./') || fail(`${item.id}: invalid path`);
@@ -32,7 +32,7 @@ for (const lang of langs) {
   for (const category of categories) locales[lang].categories?.[category] || fail(`${lang}: missing category ${category}`);
 }
 
-home.includes('app.js?v=190') || fail('Dynamic app is not loaded');
+home.includes('app.js?v=191') || fail('Dynamic app is not loaded');
 !home.includes('<article') || fail('Cards must not be hard-coded in HTML');
 for (const marker of ['tests-registry.json','setTimeout(() => { state.limit = 9; renderContent(); renderSuggestions(); }, 100)','data-bottom','data-drawer','showMore']) app.includes(marker) || fail(`Hub app missing ${marker}`);
 registry.every(item => item.metrics.rating === null && item.metrics.shareCount === null) || fail('Do not publish invented ratings or share counts');

@@ -1,4 +1,5 @@
 import { buildForecast } from './engine.mjs';
+import { revealCalculatedResult, showCalculationLoader } from '../loader-overlay.js';
 import { questions as careerQuestions, scales as careerScales } from '../tests/career/data.js';
 import { tests as quickTests } from '../tests/quick/library-1.4.4.js';
 
@@ -122,7 +123,7 @@ function intro() {
     <a class="astro-teaser panel" href="../horoscope/"><span class="astro-icon">✦</span><div><span class="section-kicker">${L.separateSystem}</span><h2>${L.horoscopeTitle}</h2><p>${L.horoscopeText}</p></div><span class="soon">${L.openHoroscope}</span></a>
     <p class="disclaimer centered">${L.disclaimer}</p>
   </main>`);
-  document.querySelector('#build').onclick = () => {
+  document.querySelector('#build').onclick = async () => {
     const enteredName = document.querySelector('#name').value.trim();
     const enteredBirth = document.querySelector('#birth').value;
     const enteredTime = document.querySelector('#birth-time').value;
@@ -130,7 +131,9 @@ function intro() {
     localStorage.setItem('pt.syutsai.name', enteredName);
     localStorage.setItem('pt.syutsai.birth', enteredBirth);
     localStorage.setItem('pt.syutsai.birthTime', enteredTime);
+    await showCalculationLoader({ kind: 'syutsai', lang });
     showForecast(enteredBirth, enteredTime, enteredName);
+    revealCalculatedResult(app.querySelector('.result-page'));
   };
 }
 

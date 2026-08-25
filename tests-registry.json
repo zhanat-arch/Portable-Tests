@@ -135,5 +135,14 @@
     "metrics":{"isViralTop":true,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
     "badge":{"tone":"fun","label":{"ru":"С улыбкой","kk":"Көңіл үшін","en":"Just for fun","fr":"Pour sourire"}},
     "progress":{"key":"pt.lifeAnimal.answers","count":16,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
+    "id":"dice-of-fate",
+    "title":{"ru":"3D Кубик судьбы","kk":"3D Тағдыр кубигі","en":"3D Dice of Fate","fr":"Dé du destin 3D"},
+    "description":{"ru":"Задайте вопрос, бросьте настоящий 3D-кубик и получите случайный символический совет.","kk":"Сұрақ қойып, 3D кубикті лақтырыңыз да, кездейсоқ символдық кеңес алыңыз.","en":"Hold a question in mind, roll a real 3D die, and receive a random symbolic prompt.","fr":"Gardez une question en tête, lancez un vrai dé 3D et recevez une piste symbolique aléatoire."},
+    "category":"interactive","icon":"🎲","path":"./modules/dice-fate.html","time":{"ru":"Интерактив","kk":"Интерактив","en":"Interactive","fr":"Interactif"},
+    "tags":{"ru":["кубик","судьба","совет","интерактив"],"kk":["кубик","тағдыр","кеңес","интерактив"],"en":["dice","fate","advice","interactive"],"fr":["dé","destin","conseil","interactif"]},
+    "metrics":{"isViralTop":true,"isPopular":true,"isNew":true,"rating":null,"shareCount":null},
+    "badge":{"tone":"new","label":{"ru":"✨ Новый интерактив","kk":"✨ Жаңа интерактив","en":"✨ New interactive","fr":"✨ Nouvel interactif"}}
   }
 ]

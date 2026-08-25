@@ -1,6 +1,6 @@
-const VERSION = '1.9.0';
+const VERSION = '1.9.1';
 const SUPPORTED = ['ru', 'kk', 'en', 'fr'];
-const CATEGORY_ICONS = { astro: '🔮', career: '💼', psychology: '🧠', fun: '🙂' };
+const CATEGORY_ICONS = { astro: '🔮', career: '💼', psychology: '🧠', fun: '🙂', interactive: '🎲' };
 const state = { lang: detectLanguage(), registry: [], locales: {}, filter: 'all', query: '', limit: 9, registration: null, suggestions: [], suggestionIndex: -1 };
 
 function detectLanguage() {

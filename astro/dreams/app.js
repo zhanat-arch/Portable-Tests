@@ -1,4 +1,5 @@
 import { decodeResult, encodeResult, interpretDream, interpolate, pick, searchObjects } from './engine.mjs';
+import { revealCalculatedResult, showCalculationLoader } from '../../loader-overlay.js';
 
 const SUPPORTED = ['ru', 'kk', 'en', 'fr'];
 const state = {
@@ -203,7 +204,11 @@ function bindBuilder() {
     renderBuilder();
     document.querySelector(`[data-group="${button.dataset.group}"][data-id="${button.dataset.id}"]`)?.focus();
   }));
-  document.getElementById('interpret')?.addEventListener('click', showResult);
+  document.getElementById('interpret')?.addEventListener('click', async () => {
+    await showCalculationLoader({ kind: 'dreams', lang: state.lang });
+    showResult();
+    revealCalculatedResult(document.querySelector('.result'));
+  });
 }
 
 function graphMarkup(result) {

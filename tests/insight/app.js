@@ -1,4 +1,5 @@
 import { tests } from './data.js';
+import { revealCalculatedResult, showCalculationLoader } from '../../loader-overlay.js';
 
 const ONLINE = 'https://zhanat-arch.github.io/Portable-Tests/';
 const SUPPORT = { boosty: 'https://boosty.to/zhanat-arch', kofi: 'https://ko-fi.com/zhanat_arch' };
@@ -94,7 +95,7 @@ function quiz(){
   shell(`<main class="card"><div class="progress-row"><span>${at+1} ${t().of} ${test.questions.length}</span><span>${percent}%</span></div><div class="track"><i style="width:${percent}%"></i></div><p class="question-note">${t().questionNote}</p><h2 class="question">${text(question.text)}</h2><div class="answers">${t().answers.map((label,index)=>`<button class="answer ${value===index?'selected':''}" data-value="${index}"><b>${index+1}</b><span>${label}</span></button>`).join('')}</div><div class="nav"><button class="secondary" id="back" ${at===0?'disabled':''}>← ${t().back}</button><button class="primary" id="next" ${value===undefined?'disabled':''}>${t().next} →</button></div></main>`);
   document.querySelectorAll('.answer').forEach(button=>button.onclick=()=>{answers[at]=Number(button.dataset.value);localStorage.setItem(`pt.insight.${test.id}.answers`,JSON.stringify(answers));quiz()});
   $('#back').onclick=()=>{if(at>0){at-=1;render()}};
-  $('#next').onclick=()=>{if(at===test.questions.length-1){screen='result'}else at+=1;render()};
+  $('#next').onclick=async()=>{if(at===test.questions.length-1){if(test.id==='numerology')await showCalculationLoader({kind:'numerology',lang});screen='result'}else at+=1;render();if(test.id==='numerology'&&screen==='result')revealCalculatedResult(app.querySelector('main'))};
 }
 function rootNumber(birth){let value=String(birth).replace(/\D/g,'').split('').reduce((sum,digit)=>sum+Number(digit),0);while(value>9)value=String(value).split('').reduce((sum,digit)=>sum+Number(digit),0);return value||9}
 function calculate(){
@@ -130,4 +131,3 @@ async function copy(value){await navigator.clipboard.writeText(value);toast(t().
 function toast(value){const node=$('#toast');node.textContent=value;node.classList.add('show');setTimeout(()=>node.classList.remove('show'),1800)}
 function render(){document.documentElement.lang=lang;document.title=`${text(test.title)} · Portable Tests`;({intro,quiz,result}[screen])()}
 render();
-

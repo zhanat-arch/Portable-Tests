@@ -31,15 +31,15 @@ const quickApp = await readFile(resolve(root, 'tests/quick/app.js'), 'utf8');
 quickIndex.includes('app.js?v=183') || fail('quick tests are not using the current app');
 !quickIndex.includes('app-1.4.4.js') || fail('quick tests still load the frozen legacy app');
 for (const marker of ["launch.get('view')==='result'", "launch.get('retake')==='1'", 'step=test.questions.length']) quickApp.includes(marker) || fail(`quick saved-result routing missing ${marker}`);
-for (const link of ['tests/career/index.html','test=strengths','test=trajectory','test=numerology','compatibility/','syutsai/','horoscope/','astro/dreams/','test=team','test=decisions','test=environment','test=battery','test=tabs','test=animal','test=lifeAnimal']) {
+for (const link of ['tests/career/index.html','test=strengths','test=trajectory','test=numerology','compatibility/','syutsai/','horoscope/','astro/dreams/','modules/dice-fate.html','test=team','test=decisions','test=environment','test=battery','test=tabs','test=animal','test=lifeAnimal']) {
   registry.some(item => item.path.includes(link)) || fail(`registry missing ${link}`);
 }
-home.includes('app.js?v=190') || fail('home does not load the dynamic hub');
+home.includes('app.js?v=191') || fail('home does not load the dynamic hub');
 !home.includes('<article class="card') || fail('home still contains hard-coded cards');
 for (const lang of ['ru','kk','en','fr']) hubLocales[lang]?.viewResult && hubLocales[lang]?.retake || fail(`hub locale ${lang} is incomplete`);
 !home.includes('Красивые игровые разборы') || fail('astrology catalog still uses playful wording');
-sw.includes('portable-tests-v1.9.0') || fail('PWA cache not bumped to v1.9.0');
+sw.includes('portable-tests-v1.9.1') || fail('PWA cache not bumped to v1.9.1');
 for (const asset of ['app.js','styles.css','tests-registry.json','hub-locales.json','astro/dreams/index.html','astro/dreams/app.js','astro/dreams/data/objects.json','astro/dreams/locales/kk.json']) sw.includes(asset) || fail(`PWA missing ${asset}`);
 sw.includes('origin!==self.location.origin') || fail('cross-origin requests must bypass PWA cache');
 horoscope.includes('navigator.geolocation') || fail('horoscope map has no geolocation fallback');
-console.log('OK: share links, dynamic registry hub, saved results, and PWA v1.9.0');
+console.log('OK: share links, dynamic registry hub, saved results, and PWA v1.9.1');

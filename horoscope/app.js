@@ -1,4 +1,5 @@
 import { buildNatalChart, buildPersonalForecasts, SIGN_IDS } from './engine.mjs';
+import { revealCalculatedResult, showCalculationLoader } from '../loader-overlay.js';
 
 const supported = ['ru', 'kk', 'en', 'fr'];
 const browserLang = (navigator.language || 'ru').toLowerCase().split('-')[0];
@@ -237,7 +238,7 @@ function saveInputs() {
   storage.set('pt.horoscope.ready', '1');
 }
 
-function build() {
+async function build() {
   saveDraftFromForm();
   if (!draft.birth) return toast(L.errors.birth);
   if (draft.mode === 'exact' && !draft.exactTime) return toast(L.errors.time);
@@ -248,8 +249,10 @@ function build() {
     return toast(error instanceof RangeError ? L.errors.timezone : L.errors.calculation);
   }
   saveInputs();
+  await showCalculationLoader({ kind: 'horoscope', lang });
   view = 'result';
   render();
+  revealCalculatedResult(app.querySelector('.result-page'));
   scrollTo({ top: 0, behavior: 'smooth' });
 }
 

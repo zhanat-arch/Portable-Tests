@@ -45,7 +45,7 @@ for (const item of ['buildNatalChart', 'buildPersonalForecasts', 'geocoding-api'
 for (const item of ['zonedLocalDate', 'GeoVector', 'Ecliptic', 'ascendantLongitude', 'wholeSignHouses', 'possibleAscendants', 'buildPersonalForecasts', 'YEARLY_BODIES']) {
   engine.includes(item) || fail(`horoscope engine missing ${item}`);
 }
-for (const asset of ['astronomy-engine-2.1.19.min.js', 'leaflet-1.9.4.css', 'leaflet-1.9.4.js', 'tz-lookup-6.1.25.js', 'journal.css?v=4', 'app.js?v=4']) {
+for (const asset of ['astronomy-engine-2.1.19.min.js', 'leaflet-1.9.4.css', 'leaflet-1.9.4.js', 'tz-lookup-6.1.25.js', 'journal.css?v=4', 'app.js?v=5']) {
   page.includes(asset) || fail(`horoscope page missing ${asset}`);
 }
 locales.some(locale => /полная карта.*готовится|full chart coming soon|carte complète bientôt|толық карта — жақында/i.test(JSON.stringify(locale))) && fail('stale horoscope placeholder copy remains');
