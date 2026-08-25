@@ -1,0 +1,139 @@
+[
+  {
+    "id":"dream-interpreter",
+    "title":{"ru":"Толкователь снов","kk":"Түс жорушы","en":"Dream interpreter","fr":"Interprète des rêves"},
+    "description":{"ru":"Пять деталей сна и три взгляда: исламская традиция, психология и народный сонник.","kk":"Түстің бес деталі және үш көзқарас: ислам дәстүрі, психология және халықтық жору.","en":"Five dream details and three perspectives: Islamic tradition, psychology, and folk interpretation.","fr":"Cinq détails et trois regards : tradition islamique, psychologie et interprétation populaire."},
+    "category":"astro","icon":"🌙","path":"./astro/dreams/","time":{"ru":"≈30 сек","kk":"≈30 сек","en":"≈30 sec","fr":"≈30 sec"},
+    "tags":{"ru":["сон","сонник","сны","ислам","психология"],"kk":["түс","түс жору","ислам","психология"],"en":["dream","sleep","Islamic","psychology"],"fr":["rêve","sommeil","islam","psychologie"]},
+    "metrics":{"isViralTop":true,"isPopular":false,"isNew":true,"rating":null,"shareCount":null},
+    "badge":{"tone":"new","label":{"ru":"✨ Новинка","kk":"✨ Жаңа","en":"✨ New","fr":"✨ Nouveau"}}
+  },
+  {
+    "id":"career-interests",
+    "title":{"ru":"Профессиональные интересы","kk":"Кәсіби қызығушылықтар","en":"Career interests","fr":"Intérêts professionnels"},
+    "description":{"ru":"42 понятных действия, сочетание двух направлений и десять профессий для проверки.","kk":"42 түсінікті әрекет, екі бағыттың үйлесімі және тексеруге болатын он кәсіп.","en":"42 plain activities, a two-direction blend, and ten careers worth testing.","fr":"42 activités claires, deux directions combinées et dix métiers à tester."},
+    "category":"career","icon":"🎯","image":"./hero-career.png","path":"./tests/career/index.html","time":{"ru":"≈6 мин","kk":"≈6 мин","en":"≈6 min","fr":"≈6 min"},
+    "tags":{"ru":["профессия","профориентация","работа","карьера"],"kk":["кәсіп","мамандық","жұмыс","мансап"],"en":["career","profession","job","interests"],"fr":["carrière","métier","travail","intérêts"]},
+    "metrics":{"isViralTop":false,"isPopular":true,"isNew":false,"rating":null,"shareCount":null},
+    "progress":{"key":"pt.career.v2.answers","count":42,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
+    "id":"compatibility",
+    "title":{"ru":"Совместимость: Зодиак + Сюцай","kk":"Үйлесімділік: Зодиак + Сюцай","en":"Compatibility: Zodiac + Syutsai","fr":"Compatibilité : Zodiaque + Syutsai"},
+    "description":{"ru":"Проверка конкретной пары или личная таблица подходящих знаков и чисел.","kk":"Нақты жұпты тексеру немесе сәйкес белгілер мен сандардың жеке кестесі.","en":"Check a specific pair or view a personal ranking of matching signs and numbers.","fr":"Testez un couple précis ou consultez un classement personnel des signes et nombres."},
+    "category":"astro","icon":"♡","path":"./compatibility/","time":{"ru":"≈2 мин","kk":"≈2 мин","en":"≈2 min","fr":"≈2 min"},
+    "tags":{"ru":["отношения","пара","любовь","зодиак","сюцай"],"kk":["қарым-қатынас","жұп","махаббат","зодиак","сюцай"],"en":["relationship","couple","love","zodiac","syutsai"],"fr":["relation","couple","amour","zodiaque","syutsai"]},
+    "metrics":{"isViralTop":true,"isPopular":true,"isNew":true,"rating":null,"shareCount":null},
+    "badge":{"tone":"new","label":{"ru":"2 режима","kk":"2 режим","en":"2 modes","fr":"2 modes"}}
+  },
+  {
+    "id":"natal-chart",
+    "title":{"ru":"Натальная карта","kk":"Наталдық карта","en":"Natal chart","fr":"Carte natale"},
+    "description":{"ru":"Карта неба, личная неделя и важные периоды года простыми словами.","kk":"Аспан картасы, жеке апта және жылдың маңызды кезеңдері қарапайым тілмен.","en":"Sky chart, personal week, and key periods of the year in plain language.","fr":"Carte du ciel, semaine personnelle et périodes clés en langage clair."},
+    "category":"astro","icon":"🌌","path":"./horoscope/","time":{"ru":"≈4 мин","kk":"≈4 мин","en":"≈4 min","fr":"≈4 min"},
+    "tags":{"ru":["гороскоп","натальная карта","зодиак","неделя"],"kk":["жорамал","наталдық карта","зодиак","апта"],"en":["horoscope","natal chart","zodiac","week"],"fr":["horoscope","carte natale","zodiaque","semaine"]},
+    "metrics":{"isViralTop":false,"isPopular":true,"isNew":false,"rating":null,"shareCount":null}
+  },
+  {
+    "id":"syutsai",
+    "title":{"ru":"Сюцай: личность и неделя","kk":"Сюцай: тұлға және апта","en":"Syutsai: personality and week","fr":"Syutsai : personnalité et semaine"},
+    "description":{"ru":"Число сознания, миссия, матрица даты и новый недельный разбор.","kk":"Сана саны, миссия, күн матрицасы және жаңа апталық талдау.","en":"Consciousness number, mission, date matrix, and a fresh weekly reading.","fr":"Nombre de conscience, mission, matrice de date et bilan hebdomadaire."},
+    "category":"astro","icon":"🔮","path":"./syutsai/","time":{"ru":"≈3 мин","kk":"≈3 мин","en":"≈3 min","fr":"≈3 min"},
+    "tags":{"ru":["сюцай","числа","дата рождения","неделя"],"kk":["сюцай","сандар","туған күн","апта"],"en":["syutsai","numbers","birth date","week"],"fr":["syutsai","nombres","naissance","semaine"]},
+    "metrics":{"isViralTop":false,"isPopular":false,"isNew":false,"rating":null,"shareCount":null}
+  },
+  {
+    "id":"strengths",
+    "title":{"ru":"Ваши рабочие суперсилы","kk":"Жұмыстағы күшті жақтарыңыз","en":"Your working superpowers","fr":"Vos forces au travail"},
+    "description":{"ru":"Логика, идеи, люди, исполнение и ещё четыре способа приносить пользу.","kk":"Логика, идея, адамдар, орындау және пайда әкелудің тағы төрт тәсілі.","en":"Logic, ideas, people, execution, and four more ways to create value.","fr":"Logique, idées, personnes, exécution et quatre autres façons de créer de la valeur."},
+    "category":"psychology","icon":"⚡","path":"./tests/insight/index.html?test=strengths","time":{"ru":"≈6 мин","kk":"≈6 мин","en":"≈6 min","fr":"≈6 min"},
+    "tags":{"ru":["сильные стороны","работа","таланты","навыки"],"kk":["күшті жақтар","жұмыс","қабілет","дағды"],"en":["strengths","work","talent","skills"],"fr":["forces","travail","talent","compétences"]},
+    "metrics":{"isViralTop":false,"isPopular":true,"isNew":false,"rating":null,"shareCount":null},
+    "progress":{"key":"pt.insight.strengths.answers","count":24,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
+    "id":"trajectory",
+    "title":{"ru":"Какой карьерный путь вам подходит?","kk":"Сізге қандай мансап жолы сай?","en":"Which career path fits you?","fr":"Quel parcours professionnel vous convient ?"},
+    "description":{"ru":"Основатель, руководитель, эксперт, независимый или стабильный профессионал.","kk":"Негізін қалаушы, басшы, сарапшы, тәуелсіз немесе тұрақты кәсіпқой.","en":"Founder, manager, expert, independent, or steady professional.","fr":"Fondateur, manager, expert, indépendant ou professionnel stable."},
+    "category":"career","icon":"🧭","path":"./tests/insight/index.html?test=trajectory","time":{"ru":"≈5 мин","kk":"≈5 мин","en":"≈5 min","fr":"≈5 min"},
+    "tags":{"ru":["карьера","руководитель","эксперт","предприниматель"],"kk":["мансап","басшы","сарапшы","кәсіпкер"],"en":["career","manager","expert","founder"],"fr":["carrière","manager","expert","fondateur"]},
+    "metrics":{"isViralTop":false,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
+    "progress":{"key":"pt.insight.trajectory.answers","count":20,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
+    "id":"team-role",
+    "title":{"ru":"Кто вы в команде?","kk":"Командада сіз кімсіз?","en":"Who are you on a team?","fr":"Quel rôle jouez-vous en équipe ?"},
+    "description":{"ru":"Какой вклад вы естественно привносите в общее дело.","kk":"Ортақ іске қандай табиғи үлес қосатыныңызды көріңіз.","en":"See what contribution you naturally bring to a shared goal.","fr":"Découvrez quelle contribution vous apportez naturellement à un projet commun."},
+    "category":"psychology","icon":"🤝","image":"./hero-team.png","path":"./tests/quick/index.html?test=team","time":{"ru":"≈3 мин","kk":"≈3 мин","en":"≈3 min","fr":"≈3 min"},
+    "tags":{"ru":["команда","роль","работа","общение"],"kk":["команда","рөл","жұмыс","қарым-қатынас"],"en":["team","role","work","communication"],"fr":["équipe","rôle","travail","communication"]},
+    "metrics":{"isViralTop":false,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
+    "progress":{"key":"pt.team.answers","count":12,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
+    "id":"decisions",
+    "title":{"ru":"Как вы принимаете решения?","kk":"Шешімді қалай қабылдайсыз?","en":"How do you make decisions?","fr":"Comment prenez-vous vos décisions ?"},
+    "description":{"ru":"Анализ, интуиция, совет, эксперимент или пауза?","kk":"Талдау, интуиция, кеңес, тәжірибе әлде үзіліс?","en":"Analysis, intuition, advice, experiment, or pause?","fr":"Analyse, intuition, conseil, expérience ou pause ?"},
+    "category":"psychology","icon":"🧠","image":"./hero-decisions.png","path":"./tests/quick/index.html?test=decisions","time":{"ru":"≈3 мин","kk":"≈3 мин","en":"≈3 min","fr":"≈3 min"},
+    "tags":{"ru":["решения","мышление","интуиция","выбор"],"kk":["шешім","ойлау","интуиция","таңдау"],"en":["decisions","thinking","intuition","choice"],"fr":["décisions","réflexion","intuition","choix"]},
+    "metrics":{"isViralTop":false,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
+    "progress":{"key":"pt.decisions.answers","count":10,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
+    "id":"environment",
+    "title":{"ru":"Какая среда вас раскрывает?","kk":"Қандай орта сізді ашады?","en":"Which environment brings out your best?","fr":"Quel environnement révèle votre potentiel ?"},
+    "description":{"ru":"Где вам легче сохранять интерес и показывать сильные стороны.","kk":"Қай ортада қызығушылық пен күшті жақты көрсету оңай екенін біліңіз.","en":"Find where it is easier to stay engaged and use your strengths.","fr":"Découvrez où il est plus facile de rester motivé et d’utiliser vos forces."},
+    "category":"psychology","icon":"🌿","image":"./hero-environment.png","path":"./tests/quick/index.html?test=environment","time":{"ru":"≈3 мин","kk":"≈3 мин","en":"≈3 min","fr":"≈3 min"},
+    "tags":{"ru":["среда","условия работы","интерес","продуктивность"],"kk":["орта","жұмыс жағдайы","қызығушылық","өнімділік"],"en":["environment","workplace","interest","productivity"],"fr":["environnement","travail","intérêt","productivité"]},
+    "metrics":{"isViralTop":false,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
+    "progress":{"key":"pt.environment.answers","count":12,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
+    "id":"career-number",
+    "title":{"ru":"Карьера + число даты","kk":"Мансап + күн саны","en":"Career + birth-date number","fr":"Carrière + nombre de naissance"},
+    "description":{"ru":"Ответы дают основную картину, а число даты добавляет ещё один угол зрения.","kk":"Жауаптар негізгі суретті береді, ал күн саны қосымша көзқарас қосады.","en":"Your answers build the main picture; the date number adds another angle.","fr":"Vos réponses forment l’image principale ; le nombre de date ajoute un autre regard."},
+    "category":"career","icon":"🔢","path":"./tests/insight/index.html?test=numerology","time":{"ru":"≈5 мин","kk":"≈5 мин","en":"≈5 min","fr":"≈5 min"},
+    "tags":{"ru":["карьера","число даты","профессия","нумерология"],"kk":["мансап","күн саны","кәсіп","нумерология"],"en":["career","birth number","profession","numerology"],"fr":["carrière","nombre","métier","numérologie"]},
+    "metrics":{"isViralTop":false,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
+    "progress":{"key":"pt.insight.numerology.answers","count":18,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
+    "id":"battery",
+    "title":{"ru":"Какой у вас режим батарейки?","kk":"Батареяңыздың режимі қандай?","en":"What is your battery mode?","fr":"Quel est votre mode batterie ?"},
+    "description":{"ru":"Турбо, баланс, энергосбережение или легендарный ночной режим?","kk":"Турбо, баланс, қуат үнемдеу әлде аңызға айналған түнгі режим?","en":"Turbo, balance, power saver, or legendary night mode?","fr":"Turbo, équilibre, économie ou légendaire mode nuit ?"},
+    "category":"fun","icon":"🔋","path":"./tests/quick/index.html?test=battery","time":{"ru":"≈2 мин","kk":"≈2 мин","en":"≈2 min","fr":"≈2 min"},
+    "tags":{"ru":["энергия","усталость","батарейка","мем"],"kk":["қуат","шаршау","батарея","мем"],"en":["energy","tired","battery","meme"],"fr":["énergie","fatigue","batterie","mème"]},
+    "metrics":{"isViralTop":false,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
+    "badge":{"tone":"fun","label":{"ru":"С улыбкой","kk":"Көңіл үшін","en":"Just for fun","fr":"Pour sourire"}},
+    "progress":{"key":"pt.battery.answers","count":8,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
+    "id":"tabs",
+    "title":{"ru":"Кто управляет вашими 47 вкладками?","kk":"47 бетіңізді кім басқарады?","en":"Who runs your 47 tabs?","fr":"Qui dirige vos 47 onglets ?"},
+    "description":{"ru":"Цифровая археология без закрытия чего-то действительно важного.","kk":"Шын мәнінде маңыздысын жаппайтын цифрлық археология.","en":"Digital archaeology without closing anything genuinely important.","fr":"Archéologie numérique sans fermer ce qui compte vraiment."},
+    "category":"fun","icon":"🗂️","path":"./tests/quick/index.html?test=tabs","time":{"ru":"≈2 мин","kk":"≈2 мин","en":"≈2 min","fr":"≈2 min"},
+    "tags":{"ru":["вкладки","браузер","интернет","мем"],"kk":["бет","браузер","интернет","мем"],"en":["tabs","browser","internet","meme"],"fr":["onglets","navigateur","internet","mème"]},
+    "metrics":{"isViralTop":false,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
+    "badge":{"tone":"fun","label":{"ru":"С улыбкой","kk":"Көңіл үшін","en":"Just for fun","fr":"Pour sourire"}},
+    "progress":{"key":"pt.tabs.answers","count":8,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
+    "id":"internet-animal",
+    "title":{"ru":"Какое вы животное в интернете?","kk":"Интернетте сіз қай жануарсыз?","en":"Which internet animal are you?","fr":"Quel animal d’Internet êtes-vous ?"},
+    "description":{"ru":"Кот, капибара, енот или сова — мемометр уже включён.","kk":"Мысық, капибара, жанат әлде үкі — мем өлшегіш қосылды.","en":"Cat, capybara, raccoon, or owl—the meme meter is on.","fr":"Chat, capybara, raton laveur ou hibou : le détecteur de mèmes est activé."},
+    "category":"fun","icon":"🐾","image":"./meme-animal-cat.png","path":"./tests/quick/index.html?test=animal","time":{"ru":"≈2 мин","kk":"≈2 мин","en":"≈2 min","fr":"≈2 min"},
+    "tags":{"ru":["животное","интернет","кот","капибара","мем"],"kk":["жануар","интернет","мысық","капибара","мем"],"en":["animal","internet","cat","capybara","meme"],"fr":["animal","internet","chat","capybara","mème"]},
+    "metrics":{"isViralTop":true,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
+    "badge":{"tone":"fun","label":{"ru":"С улыбкой","kk":"Көңіл үшін","en":"Just for fun","fr":"Pour sourire"}},
+    "progress":{"key":"pt.animal.answers","count":8,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
+    "id":"life-animal",
+    "title":{"ru":"Какое вы животное по жизни?","kk":"Өмірде сіз қай жануарсыз?","en":"Which animal are you in life?","fr":"Quel animal êtes-vous dans la vie ?"},
+    "description":{"ru":"16 жизненных ситуаций: волк, лиса, медведь или дельфин.","kk":"16 өмірлік жағдай: қасқыр, түлкі, аю немесе дельфин.","en":"16 life situations: wolf, fox, bear, or dolphin.","fr":"16 situations de vie : loup, renard, ours ou dauphin."},
+    "category":"fun","icon":"🐺","image":"./meme-life-wolf.png","path":"./tests/quick/index.html?test=lifeAnimal","time":{"ru":"≈4 мин","kk":"≈4 мин","en":"≈4 min","fr":"≈4 min"},
+    "tags":{"ru":["животное","характер","волк","медведь","мем"],"kk":["жануар","мінез","қасқыр","аю","мем"],"en":["animal","personality","wolf","bear","meme"],"fr":["animal","caractère","loup","ours","mème"]},
+    "metrics":{"isViralTop":true,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
+    "badge":{"tone":"fun","label":{"ru":"С улыбкой","kk":"Көңіл үшін","en":"Just for fun","fr":"Pour sourire"}},
+    "progress":{"key":"pt.lifeAnimal.answers","count":16,"resultParam":"view=result","retakeParam":"retake=1"}
+  }
+]

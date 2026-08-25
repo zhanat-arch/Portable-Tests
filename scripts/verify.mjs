@@ -58,7 +58,7 @@ for (const object of dreamObjects.objects) for (const lang of langs) {
 }
 
 const sw = await readFile(resolve(root, 'service-worker.js'), 'utf8');
-for (const asset of ['./tests/insight/index.html','./compatibility/index.html','./compatibility/engine.mjs','./compatibility/locales/ru.json','./astro/dreams/index.html','./astro/dreams/data/objects.json','./downloads/career-interests.html']) {
+for (const asset of ['./app.js','./styles.css','./tests-registry.json','./hub-locales.json','./tests/insight/index.html','./compatibility/index.html','./compatibility/engine.mjs','./compatibility/locales/ru.json','./astro/dreams/index.html','./astro/dreams/data/objects.json','./downloads/career-interests.html']) {
   sw.includes(asset) || fail(`PWA cache missing ${asset}`);
 }
 console.log(`OK: 42 balanced career activities, ${careers.length} careers, ${Object.keys(insightTests).length} insight tests, ${Object.keys(quickTests).length} quick tests, 4 compatibility locales`);
