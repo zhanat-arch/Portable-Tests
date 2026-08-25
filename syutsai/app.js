@@ -31,7 +31,7 @@ const avg = values => Math.round(values.reduce((sum, value) => sum + value, 0) /
 const term = (label, hint) => `<button class="term" type="button" aria-expanded="false"><span>${label}</span><i>?</i><span class="term-tip" role="tooltip">${hint}</span></button>`;
 
 function careerTraits() {
-  const answers = read('pt.career.answers');
+  const answers = read('pt.career.v2.answers');
   if (!Object.keys(answers).length) return {};
   const totals = Object.fromEntries(careerScales.map(scale => [scale, { value: 0, max: 0 }]));
   careerQuestions.forEach(question => {

@@ -1,1 +1,53 @@
-import{questions,scales}from'../tests/career/data.js';import{tests}from'../tests/quick/library.js';import{readFile,stat}from'node:fs/promises';import{resolve}from'node:path';const fail=m=>{throw new Error(m)},langs=['ru','kk','en','fr'];questions.length===42||fail('Expected 42 career questions');new Set(questions.map(q=>q.id)).size===42||fail('Career IDs must be unique');for(const q of questions){for(const l of langs)q.text[l]?.trim()||fail(`${q.id}: missing ${l}`);for(const s of Object.keys(q.weights))scales.includes(s)||fail(`${q.id}: unknown scale ${s}`)}for(const[id,t]of Object.entries(tests)){t.questions.length>=8||fail(`${id}: too short`);for(const q of t.questions){for(const l of langs)q.text[l]?.trim()||fail(`${id}: missing ${l}`);t.scales[q.scale]||fail(`${id}: invalid scale`)}await stat(resolve(import.meta.dirname,`../downloads/${id}.html`))}const sw=await readFile(resolve(import.meta.dirname,'../service-worker.js'),'utf8');for(const f of ['career-interests','team','decisions','environment','battery','tabs','animal','lifeAnimal'])sw.includes(`${f}.html`)||fail(`${f}: not cached`);console.log(`OK: career + ${Object.keys(tests).length} tests, 4 languages, standalone builds cached`);
+import { questions, scales, careers } from '../tests/career/data.js';
+import { tests as quickTests } from '../tests/quick/library.js';
+import { tests as insightTests } from '../tests/insight/data.js';
+import { readFile, stat } from 'node:fs/promises';
+import { resolve } from 'node:path';
+
+const fail = message => { throw new Error(message); };
+const langs = ['ru','kk','en','fr'];
+const root = resolve(import.meta.dirname, '..');
+
+questions.length === 42 || fail('Expected 42 career questions');
+new Set(questions.map(question => question.id)).size === 42 || fail('Career IDs must be unique');
+careers.length >= 18 || fail('Career catalog is too small');
+const careerCounts = Object.fromEntries(scales.map(scale => [scale, 0]));
+for (const question of questions) {
+  for (const lang of langs) question.text[lang]?.trim() || fail(`${question.id}: missing ${lang}`);
+  const keys = Object.keys(question.weights);
+  keys.length === 1 || fail(`${question.id}: career activity must measure one scale`);
+  keys.forEach(scale => { scales.includes(scale) || fail(`${question.id}: unknown scale ${scale}`); careerCounts[scale] += 1; });
+}
+new Set(Object.values(careerCounts)).size === 1 || fail('Career scales have unequal question counts');
+
+for (const [id, test] of Object.entries(insightTests)) {
+  const counts = Object.fromEntries(Object.keys(test.scales).map(scale => [scale, 0]));
+  test.questions.length === test.count || fail(`${id}: unexpected question count`);
+  for (const question of test.questions) {
+    for (const lang of langs) question.text[lang]?.trim() || fail(`${id}: missing ${lang}`);
+    counts[question.scale] === undefined && fail(`${id}: unknown scale ${question.scale}`);
+    counts[question.scale] += 1;
+  }
+  new Set(Object.values(counts)).size === 1 || fail(`${id}: scales have unequal exposure`);
+}
+
+for (const [id, test] of Object.entries(quickTests)) {
+  test.questions.length >= 8 || fail(`${id}: too short`);
+  for (const question of test.questions) {
+    for (const lang of langs) question.text[lang]?.trim() || fail(`${id}: missing ${lang}`);
+    test.scales[question.scale] || fail(`${id}: invalid scale`);
+  }
+  await stat(resolve(root, `downloads/${id}.html`));
+}
+
+for (const lang of langs) {
+  const locale = JSON.parse(await readFile(resolve(root, `compatibility/locales/${lang}.json`), 'utf8'));
+  Object.keys(locale.signs).length === 12 || fail(`compatibility ${lang}: missing signs`);
+  Object.keys(locale.numbers).length === 9 || fail(`compatibility ${lang}: missing numbers`);
+}
+
+const sw = await readFile(resolve(root, 'service-worker.js'), 'utf8');
+for (const asset of ['./tests/insight/index.html','./compatibility/index.html','./compatibility/engine.mjs','./compatibility/locales/ru.json','./downloads/career-interests.html']) {
+  sw.includes(asset) || fail(`PWA cache missing ${asset}`);
+}
+console.log(`OK: 42 balanced career activities, ${careers.length} careers, ${Object.keys(insightTests).length} insight tests, ${Object.keys(quickTests).length} quick tests, 4 compatibility locales`);
