@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zhanat-arch.github.io/Portable-Tests/sitemap.xml

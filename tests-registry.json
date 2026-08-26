@@ -12,7 +12,7 @@
     "id":"career-interests",
     "title":{"ru":"Профессиональные интересы","kk":"Кәсіби қызығушылықтар","en":"Career interests","fr":"Intérêts professionnels"},
     "description":{"ru":"42 понятных действия, сочетание двух направлений и десять профессий для проверки.","kk":"42 түсінікті әрекет, екі бағыттың үйлесімі және тексеруге болатын он кәсіп.","en":"42 plain activities, a two-direction blend, and ten careers worth testing.","fr":"42 activités claires, deux directions combinées et dix métiers à tester."},
-    "category":"career","icon":"🎯","image":"./hero-career.png","path":"./tests/career/index.html","time":{"ru":"≈6 мин","kk":"≈6 мин","en":"≈6 min","fr":"≈6 min"},
+    "category":"career","icon":"🎯","image":"./hero-career.webp","path":"./tests/career/index.html","time":{"ru":"≈6 мин","kk":"≈6 мин","en":"≈6 min","fr":"≈6 min"},
     "tags":{"ru":["профессия","профориентация","работа","карьера"],"kk":["кәсіп","мамандық","жұмыс","мансап"],"en":["career","profession","job","interests"],"fr":["carrière","métier","travail","intérêts"]},
     "metrics":{"isViralTop":false,"isPopular":true,"isNew":false,"rating":null,"shareCount":null},
     "progress":{"key":"pt.career.v2.answers","count":42,"resultParam":"view=result","retakeParam":"retake=1"}
@@ -64,7 +64,7 @@
     "id":"team-role",
     "title":{"ru":"Кто вы в команде?","kk":"Командада сіз кімсіз?","en":"Who are you on a team?","fr":"Quel rôle jouez-vous en équipe ?"},
     "description":{"ru":"Какой вклад вы естественно привносите в общее дело.","kk":"Ортақ іске қандай табиғи үлес қосатыныңызды көріңіз.","en":"See what contribution you naturally bring to a shared goal.","fr":"Découvrez quelle contribution vous apportez naturellement à un projet commun."},
-    "category":"psychology","icon":"🤝","image":"./hero-team.png","path":"./tests/quick/index.html?test=team","time":{"ru":"≈3 мин","kk":"≈3 мин","en":"≈3 min","fr":"≈3 min"},
+    "category":"psychology","icon":"🤝","image":"./hero-team.webp","path":"./tests/quick/index.html?test=team","time":{"ru":"≈3 мин","kk":"≈3 мин","en":"≈3 min","fr":"≈3 min"},
     "tags":{"ru":["команда","роль","работа","общение"],"kk":["команда","рөл","жұмыс","қарым-қатынас"],"en":["team","role","work","communication"],"fr":["équipe","rôle","travail","communication"]},
     "metrics":{"isViralTop":false,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
     "progress":{"key":"pt.team.answers","count":12,"resultParam":"view=result","retakeParam":"retake=1"}
@@ -73,7 +73,7 @@
     "id":"decisions",
     "title":{"ru":"Как вы принимаете решения?","kk":"Шешімді қалай қабылдайсыз?","en":"How do you make decisions?","fr":"Comment prenez-vous vos décisions ?"},
     "description":{"ru":"Анализ, интуиция, совет, эксперимент или пауза?","kk":"Талдау, интуиция, кеңес, тәжірибе әлде үзіліс?","en":"Analysis, intuition, advice, experiment, or pause?","fr":"Analyse, intuition, conseil, expérience ou pause ?"},
-    "category":"psychology","icon":"🧠","image":"./hero-decisions.png","path":"./tests/quick/index.html?test=decisions","time":{"ru":"≈3 мин","kk":"≈3 мин","en":"≈3 min","fr":"≈3 min"},
+    "category":"psychology","icon":"🧠","image":"./hero-decisions.webp","path":"./tests/quick/index.html?test=decisions","time":{"ru":"≈3 мин","kk":"≈3 мин","en":"≈3 min","fr":"≈3 min"},
     "tags":{"ru":["решения","мышление","интуиция","выбор"],"kk":["шешім","ойлау","интуиция","таңдау"],"en":["decisions","thinking","intuition","choice"],"fr":["décisions","réflexion","intuition","choix"]},
     "metrics":{"isViralTop":false,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
     "progress":{"key":"pt.decisions.answers","count":10,"resultParam":"view=result","retakeParam":"retake=1"}
@@ -82,7 +82,7 @@
     "id":"environment",
     "title":{"ru":"Какая среда вас раскрывает?","kk":"Қандай орта сізді ашады?","en":"Which environment brings out your best?","fr":"Quel environnement révèle votre potentiel ?"},
     "description":{"ru":"Где вам легче сохранять интерес и показывать сильные стороны.","kk":"Қай ортада қызығушылық пен күшті жақты көрсету оңай екенін біліңіз.","en":"Find where it is easier to stay engaged and use your strengths.","fr":"Découvrez où il est plus facile de rester motivé et d’utiliser vos forces."},
-    "category":"psychology","icon":"🌿","image":"./hero-environment.png","path":"./tests/quick/index.html?test=environment","time":{"ru":"≈3 мин","kk":"≈3 мин","en":"≈3 min","fr":"≈3 min"},
+    "category":"psychology","icon":"🌿","image":"./hero-environment.webp","path":"./tests/quick/index.html?test=environment","time":{"ru":"≈3 мин","kk":"≈3 мин","en":"≈3 min","fr":"≈3 min"},
     "tags":{"ru":["среда","условия работы","интерес","продуктивность"],"kk":["орта","жұмыс жағдайы","қызығушылық","өнімділік"],"en":["environment","workplace","interest","productivity"],"fr":["environnement","travail","intérêt","productivité"]},
     "metrics":{"isViralTop":false,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
     "progress":{"key":"pt.environment.answers","count":12,"resultParam":"view=result","retakeParam":"retake=1"}
@@ -120,7 +120,7 @@
     "id":"internet-animal",
     "title":{"ru":"Какое вы животное в интернете?","kk":"Интернетте сіз қай жануарсыз?","en":"Which internet animal are you?","fr":"Quel animal d’Internet êtes-vous ?"},
     "description":{"ru":"Кот, капибара, енот или сова — мемометр уже включён.","kk":"Мысық, капибара, жанат әлде үкі — мем өлшегіш қосылды.","en":"Cat, capybara, raccoon, or owl—the meme meter is on.","fr":"Chat, capybara, raton laveur ou hibou : le détecteur de mèmes est activé."},
-    "category":"fun","icon":"🐾","image":"./meme-animal-cat.png","path":"./tests/quick/index.html?test=animal","time":{"ru":"≈2 мин","kk":"≈2 мин","en":"≈2 min","fr":"≈2 min"},
+    "category":"fun","icon":"🐾","image":"./meme-animal-cat.webp","path":"./tests/quick/index.html?test=animal","time":{"ru":"≈2 мин","kk":"≈2 мин","en":"≈2 min","fr":"≈2 min"},
     "tags":{"ru":["животное","интернет","кот","капибара","мем"],"kk":["жануар","интернет","мысық","капибара","мем"],"en":["animal","internet","cat","capybara","meme"],"fr":["animal","internet","chat","capybara","mème"]},
     "metrics":{"isViralTop":true,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
     "badge":{"tone":"fun","label":{"ru":"С улыбкой","kk":"Көңіл үшін","en":"Just for fun","fr":"Pour sourire"}},
@@ -130,11 +130,21 @@
     "id":"life-animal",
     "title":{"ru":"Какое вы животное по жизни?","kk":"Өмірде сіз қай жануарсыз?","en":"Which animal are you in life?","fr":"Quel animal êtes-vous dans la vie ?"},
     "description":{"ru":"16 жизненных ситуаций: волк, лиса, медведь или дельфин.","kk":"16 өмірлік жағдай: қасқыр, түлкі, аю немесе дельфин.","en":"16 life situations: wolf, fox, bear, or dolphin.","fr":"16 situations de vie : loup, renard, ours ou dauphin."},
-    "category":"fun","icon":"🐺","image":"./meme-life-wolf.png","path":"./tests/quick/index.html?test=lifeAnimal","time":{"ru":"≈4 мин","kk":"≈4 мин","en":"≈4 min","fr":"≈4 min"},
+    "category":"fun","icon":"🐺","image":"./meme-life-wolf.webp","path":"./tests/quick/index.html?test=lifeAnimal","time":{"ru":"≈4 мин","kk":"≈4 мин","en":"≈4 min","fr":"≈4 min"},
     "tags":{"ru":["животное","характер","волк","медведь","мем"],"kk":["жануар","мінез","қасқыр","аю","мем"],"en":["animal","personality","wolf","bear","meme"],"fr":["animal","caractère","loup","ours","mème"]},
     "metrics":{"isViralTop":true,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
     "badge":{"tone":"fun","label":{"ru":"С улыбкой","kk":"Көңіл үшін","en":"Just for fun","fr":"Pour sourire"}},
     "progress":{"key":"pt.lifeAnimal.answers","count":16,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
+    "id":"gamer-profile",
+    "title":{"ru":"Какой вы игрок — и что вам зайдёт?","kk":"Сіз қандай ойыншысыз — сізге не ұнайды?","en":"What kind of player are you?","fr":"Quel type de joueur êtes-vous ?"},
+    "description":{"ru":"18 игровых ситуаций определят ваши жанры и соберут личный список игр с пояснениями.","kk":"18 ойын жағдайы жанрларыңызды анықтап, түсіндірмесі бар жеке тізім жасайды.","en":"18 gaming situations reveal your genres and build a personal list with explanations.","fr":"18 situations révèlent vos genres et créent une sélection expliquée."},
+    "category":"interactive","icon":"🎮","path":"./tests/quick/index.html?test=gamer","time":{"ru":"≈4 мин","kk":"≈4 мин","en":"≈4 min","fr":"≈4 min"},
+    "tags":{"ru":["игры","геймер","жанры","рекомендации","молодёжь"],"kk":["ойын","геймер","жанр","ұсыныс"],"en":["games","gamer","genres","recommendations"],"fr":["jeux","joueur","genres","recommandations"]},
+    "metrics":{"isViralTop":true,"isPopular":true,"isNew":true,"rating":null,"shareCount":null},
+    "badge":{"tone":"new","label":{"ru":"🎮 Личная подборка","kk":"🎮 Жеке топтама","en":"🎮 Personal picks","fr":"🎮 Sélection perso"}},
+    "progress":{"key":"pt.gamer.answers","count":18,"resultParam":"view=result","retakeParam":"retake=1"}
   },
   {
     "id":"dice-of-fate",

@@ -157,6 +157,11 @@ function chooseObject(id) {
 
 function bindBuilder() {
   const input = document.getElementById('dreamSearch');
+  const suggestions = document.getElementById('suggestions');
+  suggestions?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-object]');
+    if (button) chooseObject(button.dataset.object);
+  });
   if (input) {
     input.addEventListener('focus', () => {
       if (!input.value.trim()) showPopularSuggestions();
@@ -192,7 +197,6 @@ function bindBuilder() {
     updateSearch();
     input.focus();
   });
-  document.querySelectorAll('[data-object]').forEach((button) => button.addEventListener('click', () => chooseObject(button.dataset.object)));
   document.getElementById('changeObject')?.addEventListener('click', () => {
     state.object = null;
     state.selection = { objectId: null, targetId: null, actionId: null, detailId: null, emotionId: null };

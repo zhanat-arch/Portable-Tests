@@ -1,4 +1,5 @@
 import { questions, profiles, scales, careers } from './data.js';
+import '../../site-ui.js';
 
 const ONLINE = 'https://zhanat-arch.github.io/Portable-Tests/';
 const SUPPORT = { boosty: 'https://boosty.to/zhanat-arch', kofi: 'https://ko-fi.com/zhanat_arch' };
@@ -101,7 +102,7 @@ function shell(content) {
 }
 
 function intro() {
-  shell(`<main class="card"><div class="intro-art"><img class="hero-image" src="../../hero-career.png" alt=""><span class="hero-shade"></span><span class="hero-badge">${t().badge}</span></div><h1>${t().introTitle}</h1><p class="lead">${t().intro}</p><div class="meta"><span class="pill">42 ${t().q}</span><span class="pill">${t().min}</span><span class="pill">7 ${t().paths}</span></div><div class="privacy">🔒 ${t().privacy}</div><div class="cta"><button class="primary" id="start">${t().start} →</button><a class="btn secondary" href="../../downloads/career-interests.html" download>${t().download}</a></div></main>`);
+  shell(`<main class="card"><div class="intro-art"><img class="hero-image" src="../../hero-career.webp" alt=""><span class="hero-shade"></span><span class="hero-badge">${t().badge}</span></div><h1>${t().introTitle}</h1><p class="lead">${t().intro}</p><div class="meta"><span class="pill">42 ${t().q}</span><span class="pill">${t().min}</span><span class="pill">7 ${t().paths}</span></div><div class="privacy">🔒 ${t().privacy}</div><div class="cta"><button class="primary" id="start">${t().start} →</button><a class="btn secondary" href="../../downloads/career-interests.html" download>${t().download}</a></div></main>`);
   $('#start').onclick = () => { screen = 'quiz'; at = firstMissing(); render(); };
 }
 

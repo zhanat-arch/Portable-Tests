@@ -1,5 +1,5 @@
 import { questions, scales, careers } from '../tests/career/data.js';
-import { tests as quickTests } from '../tests/quick/library.js';
+import { tests as quickTests, gameGuide } from '../tests/quick/library.js';
 import { tests as insightTests } from '../tests/insight/data.js';
 import { readFile, stat } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -51,14 +51,18 @@ for (const lang of langs) {
 }
 
 const dreamObjects = JSON.parse(await readFile(resolve(root, 'astro/dreams/data/objects.json'), 'utf8'));
-dreamObjects.objects.length >= 40 || fail('dreams: object library is too small');
+dreamObjects.objects.length >= 80 || fail('dreams: object library is too small');
 for (const object of dreamObjects.objects) for (const lang of langs) {
   object.name?.[lang]?.trim() || fail(`dreams ${object.id}: missing ${lang} name`);
   object.focus?.[lang]?.trim() || fail(`dreams ${object.id}: missing ${lang} focus`);
 }
+quickTests.gamer?.questions.length === 18 || fail('gamer: expected 18 situations');
+gameGuide.games.length >= 15 || fail('gamer: game catalog is too small');
+new Set(gameGuide.games.map(game => game.id)).size === gameGuide.games.length || fail('gamer: duplicate game IDs');
 
 const sw = await readFile(resolve(root, 'service-worker.js'), 'utf8');
-for (const asset of ['./app.js','./styles.css','./tests-registry.json','./hub-locales.json','./tests/insight/index.html','./compatibility/index.html','./compatibility/engine.mjs','./compatibility/locales/ru.json','./astro/dreams/index.html','./astro/dreams/data/objects.json','./downloads/career-interests.html']) {
+for (const asset of ['./app.js','./styles.css','./tests-registry.json','./hub-locales.json','./tests/insight/index.html','./compatibility/index.html','./compatibility/engine.mjs','./compatibility/locales/ru.json','./astro/dreams/index.html','./astro/dreams/data/objects.json','./og-cover.webp']) {
   sw.includes(asset) || fail(`PWA cache missing ${asset}`);
 }
+!sw.includes('./downloads/career-interests.html') || fail('Large standalone downloads must load on demand, not during PWA installation');
 console.log(`OK: 42 balanced career activities, ${careers.length} careers, ${Object.keys(insightTests).length} insight tests, ${Object.keys(quickTests).length} quick tests, 4 compatibility locales`);

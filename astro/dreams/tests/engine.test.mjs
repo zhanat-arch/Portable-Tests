@@ -8,7 +8,7 @@ const rules = read('../data/rules.json');
 const ru = read('../locales/ru.json');
 const en = read('../locales/en.json');
 
-assert.equal(objects.objects.length, 47, 'Expected a substantial object library');
+assert.ok(objects.objects.length >= 80, 'Expected a substantial object library');
 assert.equal(searchObjects(objects.objects, 'собачка', 'ru')[0].id, 'dog');
 assert.equal(searchObjects(objects.objects, 'snake', 'en')[0].id, 'snake');
 assert.equal(searchObjects(objects.objects, 'по', 'ru').some((item) => item.id === 'train'), true);
@@ -31,4 +31,4 @@ const encoded = encodeResult(selection, 'ru');
 assert.deepEqual(decodeResult(encoded), { lang: 'ru', selection });
 assert.equal(decodeResult('not-a-result'), null);
 
-console.log('OK: 47 dream symbols, multilingual search, hybrid reading, and share links');
+console.log(`OK: ${objects.objects.length} dream symbols, multilingual search, hybrid reading, and share links`);

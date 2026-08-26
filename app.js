@@ -1,7 +1,15 @@
-const VERSION = '1.9.1';
+const VERSION = '1.9.3';
 const SUPPORTED = ['ru', 'kk', 'en', 'fr'];
 const CATEGORY_ICONS = { astro: '🔮', career: '💼', psychology: '🧠', fun: '🙂', interactive: '🎲' };
-const state = { lang: detectLanguage(), registry: [], locales: {}, filter: 'all', query: '', limit: 9, registration: null, suggestions: [], suggestionIndex: -1 };
+const state = { lang: detectLanguage(), registry: [], locales: {}, filter: 'all', query: '', limit: 9, registration: null, suggestions: [], suggestionIndex: -1, pinned: readLocal('pt.hub.pinned', []), usage: readLocal('pt.hub.usage', {}) };
+const PERSONAL_COPY={ru:{pin:'Закрепить',unpin:'Открепить',pinned:'Закреплено',pinnedLead:'Ваши избранные разделы всегда под рукой.'},kk:{pin:'Бекіту',unpin:'Ажырату',pinned:'Бекітілген',pinnedLead:'Таңдаулы бөлімдеріңіз әрқашан жоғарыда.'},en:{pin:'Pin',unpin:'Unpin',pinned:'Pinned',pinnedLead:'Your favorite sections stay within easy reach.'},fr:{pin:'Épingler',unpin:'Détacher',pinned:'Épinglés',pinnedLead:'Vos rubriques favorites restent toujours accessibles.'}};
+
+function readLocal(key,fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback))}catch{return fallback}}
+function personal(){return PERSONAL_COPY[state.lang]||PERSONAL_COPY.ru}
+function isPinned(id){return state.pinned.includes(id)}
+function personalized(items){return [...items].sort((a,b)=>Number(isPinned(b.id))-Number(isPinned(a.id))+(Number(state.usage[b.id]||0)-Number(state.usage[a.id]||0)))}
+function recordOpen(id){state.usage[id]=Number(state.usage[id]||0)+1;localStorage.setItem('pt.hub.usage',JSON.stringify(state.usage))}
+function togglePin(id){state.pinned=isPinned(id)?state.pinned.filter(item=>item!==id):[id,...state.pinned];localStorage.setItem('pt.hub.pinned',JSON.stringify(state.pinned));renderContent()}
 
 function detectLanguage() {
   const saved = localStorage.getItem('pt.lang')?.toLowerCase();
@@ -83,7 +91,7 @@ function filteredItems() {
     const ids = new Set(trendingItems().map((item) => item.id));
     items = items.filter((item) => ids.has(item.id));
   } else if (state.filter !== 'all') items = items.filter((item) => item.category === state.filter);
-  return items;
+  return personalized(items);
 }
 
 function optionsMarkup() {
@@ -107,7 +115,7 @@ function layoutMarkup() {
     <div class="header-tools"><button class="share-button" id="shareApp" type="button">${locale.shareApp}</button><button class="update-button" id="update" type="button">↻ v${VERSION}</button><select id="lang" aria-label="Language">${optionsMarkup()}</select><button class="icon-button" id="openMenu" type="button" aria-label="${locale.menu}" aria-controls="drawer">☰</button></div>
   </header>
   <main class="shell">
-    <section class="hero"><div class="eyebrow">${locale.eyebrow}</div><h1>${locale.title}</h1><p>${locale.lead}</p><div class="trust">${trust.map((item) => `<span>${item}</span>`).join('')}</div></section>
+    <section class="hero"><div class="eyebrow">${locale.eyebrow}</div><h1>${locale.title}</h1><p>${locale.lead}</p><div class="trust">${trust.slice(0, 2).map((item) => `<span>${item}</span>`).join('')}<div class="hero-languages" aria-label="Language">${SUPPORTED.map((code) => `<button type="button" data-hero-lang="${code}" class="${code === state.lang ? 'active' : ''}" aria-pressed="${code === state.lang}">${code.toUpperCase()}</button>`).join('')}</div></div></section>
     <section class="discover" aria-label="${locale.search}">
       <label class="search-box"><span>⌕</span><input id="search" type="search" autocomplete="off" aria-autocomplete="list" aria-controls="searchSuggestions" placeholder="${locale.search}" value="${escapeHtml(state.query)}"><button class="clear-search" id="clearSearch" type="button" aria-label="Clear"${state.query ? '' : ' hidden'}>×</button></label>
       <div class="search-suggestions" id="searchSuggestions" role="listbox" hidden></div>
@@ -143,8 +151,9 @@ function cardMarkup(item) {
   const primaryPath = complete ? addParam(item.path, item.progress.resultParam) : item.path;
   const badge = item.badge ? `<span class="badge ${item.badge.tone ?? ''}">${text(item.badge.label)}</span>` : '';
   const media = item.image ? `<img src="${item.image}" alt="" loading="lazy">` : `<span aria-hidden="true">${item.icon}</span>`;
-  return `<article class="catalog-card${complete ? ' completed' : ''}" data-id="${item.id}">
-    <div class="card-media">${media}<span class="category-chip">${categoryLabel(item)}</span></div>
+  const pinned=isPinned(item.id),pinLabel=pinned?personal().unpin:personal().pin;
+  return `<article class="catalog-card${complete ? ' completed' : ''}${pinned?' pinned':''}" data-id="${item.id}">
+    <div class="card-media">${media}<span class="category-chip">${categoryLabel(item)}</span><button class="pin-card" type="button" data-pin="${item.id}" aria-label="${pinLabel}" aria-pressed="${pinned}">${pinned?'★':'☆'}</button></div>
     <div class="card-body"><div class="card-flags">${badge}${complete ? `<span class="complete-mark">${locale.completed}</span>` : ''}</div><h3>${text(item.title)}</h3><p>${text(item.description)}</p>
       <div class="card-meta"><span class="metric">⏱ ${text(item.time)}</span>${Number.isFinite(rating) && rating >= 4.8 ? `<span class="metric rating">★ ${rating.toFixed(1)}</span>` : ''}${shares >= 100 ? `<span class="metric share-count">↗ ${shareLabel(shares)}</span>` : ''}</div>
       <div class="card-actions"><a class="open-card" href="${primaryPath}">${complete ? locale.viewResult : locale.start}</a>${complete ? `<a class="retake-card" href="${addParam(item.path, item.progress.retakeParam)}">${locale.retake}</a>` : ''}</div>
@@ -167,10 +176,13 @@ function renderContent() {
     ? state.registry.filter((item) => item.metrics?.isPopular && Number(item.metrics?.rating) >= 4.8).sort((a, b) => b.metrics.rating - a.metrics.rating)
     : state.registry.filter((item) => item.metrics?.isPopular);
   const fresh = state.registry.filter((item) => item.metrics?.isNew);
+  const pinnedItems = state.pinned.map(id=>state.registry.find(item=>item.id===id)).filter(Boolean);
   const shown = allFiltered.slice(0, state.limit);
   const content = document.getElementById('content');
   document.getElementById('foundCount').textContent = interpolate(locale.found, { count: allFiltered.length });
   content.innerHTML = `${activeSearch ? '' : sectionMarkup({
+    id:'pinnedSection', kicker:'★', title:personal().pinned, lead:personal().pinnedLead, items:pinnedItems, variant:'pinned-grid'
+  })}${activeSearch ? '' : sectionMarkup({
     id:'trendingSection', kicker:measuredShares ? locale.sharedKicker : locale.featuredKicker, title:measuredShares ? locale.sharedTitle : locale.featuredTitle, lead:measuredShares ? locale.sharedLead : locale.featuredLead, items:trend, variant:'viral'
   })}${activeSearch ? '' : sectionMarkup({
     id:'popularSection', kicker:measuredRatings ? locale.ratedKicker : locale.recommendedKicker, title:measuredRatings ? locale.ratedTitle : locale.recommendedTitle, lead:measuredRatings ? locale.ratedLead : locale.recommendedLead, items:recommended
@@ -178,6 +190,8 @@ function renderContent() {
     id:'newSection', kicker:locale.newKicker, title:locale.newTitle, lead:locale.newLead, items:fresh
   })}<section class="catalog-section" id="directory"><div class="section-head"><div><div class="section-kicker">${locale.catalogKicker}</div><h2>${locale.catalogTitle}</h2></div><p>${locale.catalogLead}</p></div><div class="cards">${shown.length ? shown.map(cardMarkup).join('') : `<div class="empty">${locale.empty}</div>`}</div>${shown.length < allFiltered.length ? `<button class="show-more" id="showMore" type="button">${locale.showMore}</button>` : ''}</section>`;
   document.getElementById('showMore')?.addEventListener('click', () => { state.limit += 6; renderContent(); document.getElementById('showMore')?.focus(); });
+  content.querySelectorAll('[data-pin]').forEach(button=>button.addEventListener('click',()=>togglePin(button.dataset.pin)));
+  content.querySelectorAll('.open-card,.retake-card').forEach(link=>link.addEventListener('click',()=>recordOpen(link.closest('[data-id]')?.dataset.id)));
   updateActiveControls();
 }
 
@@ -289,6 +303,7 @@ function bindLayout() {
   document.getElementById('closeMenu').addEventListener('click', closeDrawer);
   document.getElementById('drawerBackdrop').addEventListener('click', closeDrawer);
   document.getElementById('shareApp').addEventListener('click', shareApp);
+  document.querySelectorAll('[data-hero-lang]').forEach((button) => button.addEventListener('click', () => { state.lang = button.dataset.heroLang; localStorage.setItem('pt.lang', state.lang); render(); }));
   document.getElementById('lang').addEventListener('change', (event) => { state.lang = event.target.value; localStorage.setItem('pt.lang', state.lang); render(); });
   document.getElementById('update').addEventListener('click', checkOrInstallUpdate);
 }

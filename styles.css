@@ -2,3 +2,31 @@
 .search-suggestions{position:absolute;z-index:8;top:76px;left:0;right:0;max-height:350px;overflow:auto;padding:7px;border:1px solid var(--line);border-radius:18px;background:var(--surface);box-shadow:0 22px 65px #21183c38}.search-suggestions button{display:grid;grid-template-columns:42px 1fr;align-items:center;gap:9px;width:100%;min-height:58px;padding:9px;border:0;border-radius:13px;background:transparent;color:var(--ink);text-align:left;cursor:pointer}.search-suggestions button:hover,.search-suggestions button:focus{background:var(--soft)}.search-suggestions button>span:first-child{font-size:1.45rem}.search-suggestions small{display:block;margin-top:3px;color:var(--muted)}
 .search-suggestions button.active{background:var(--soft)}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* Keep the hub consistently readable when Android forces a dark color scheme. */
+:root{color-scheme:only light;--ink:#171525;--muted:#575264}
+.hero>p,.section-head p,.catalog-card p{font-weight:500}
+.pin-card{position:absolute;z-index:3;top:12px;right:12px;display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid #ffffff66;border-radius:14px;background:#171329cc;color:#fff;font-size:1.35rem;cursor:pointer;backdrop-filter:blur(10px)}
+.pin-card:hover,.pin-card:focus-visible{outline:3px solid #fff7;outline-offset:2px}.catalog-card.pinned{border-color:#9f8af0;box-shadow:0 20px 65px #5947c42c}.cards.pinned-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){.cards.pinned-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:640px){.cards.pinned-grid{grid-template-columns:1fr}}
+.trust span{color:#4f4a5c}
+.search-box input::placeholder{color:#686274;opacity:1}
+@media(prefers-color-scheme:dark){
+  :root{color-scheme:only light;--bg:#f6f5fb;--surface:#fff;--ink:#171525;--muted:#575264;--line:#e7e3ef;--soft:#eeebff;--shadow:0 20px 55px #32275c14}
+  .trust span{background:#ffffffd9;color:#4f4a5c;border-color:#dcd7f2}
+  .filter-pill.active{background:#171525;color:#fff}
+  .search-box,.bottom-nav{background:#ffffffed}
+  .metric{background:#f4f2f8;color:#575264}
+  .retake-card,.show-more,.drawer-link{background:#f1eef8;color:#171525}
+  .drawer-backdrop{background:#15102080}
+  .category-chip{background:#151327c9}
+}
+@media(max-width:640px){
+  .header-tools{gap:5px}
+  .update-button{display:inline-flex;align-items:center;justify-content:center;min-width:74px;padding:8px 9px}
+}
+.hero-languages{display:flex;gap:4px;padding:4px;border:1px solid #dcd7f2;border-radius:999px;background:#ffffffbf}
+.hero-languages button{min-width:40px;min-height:34px;padding:6px 8px;border:0;border-radius:999px;background:transparent;color:#514b5e;font-size:.76rem;font-weight:850;cursor:pointer}
+.hero-languages button.active{background:#5748dc;color:#fff;box-shadow:0 5px 14px #5748dc36}
+.hero-languages button:focus-visible{outline:3px solid #5748dc35;outline-offset:2px}
+@media(max-width:420px){.hero-languages{width:100%;justify-content:space-between}.hero-languages button{flex:1}}

@@ -1,11 +1,10 @@
-const CACHE='portable-tests-v1.9.1';
+const CACHE='portable-tests-v1.9.3';
 const ASSETS=[
-  './','./index.html','./styles.css','./app.js','./loader-overlay.js','./tests-registry.json','./hub-locales.json','./manifest.webmanifest','./icon.svg','./hero-career.png','./hero-team.png','./hero-decisions.png','./hero-environment.png','./modules/dice-fate.html',
+  './','./index.html','./styles.css','./app.js','./site-ui.js','./loader-overlay.js','./tests-registry.json','./hub-locales.json','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png','./og-cover.webp','./robots.txt','./sitemap.xml','./hero-career.webp','./hero-team.webp','./hero-decisions.webp','./hero-environment.webp','./modules/dice-fate.html','./modules/dice-variants.js',
   './tests/career/index.html','./tests/career/styles.css','./tests/career/app.js','./tests/career/data.js',
   './tests/insight/index.html','./tests/insight/styles.css','./tests/insight/app.js','./tests/insight/data.js',
   './tests/quick/index.html','./tests/quick/app.js','./tests/quick/library.js','./tests/quick/app-1.4.3.js','./tests/quick/library-1.4.3.js','./tests/quick/app-1.4.4.js','./tests/quick/library-1.4.4.js',
-  './downloads/career-interests.html','./downloads/team.html','./downloads/decisions.html','./downloads/environment.html','./downloads/battery.html','./downloads/tabs.html','./downloads/animal.html','./downloads/lifeAnimal.html',
-  './meme-animal-cat.png','./meme-animal-capybara.png','./meme-animal-raccoon.png','./meme-animal-owl.png','./meme-life-wolf.png','./meme-life-fox.png','./meme-life-bear.png','./meme-life-dolphin.png',
+  './meme-animal-cat.webp','./meme-animal-capybara.webp','./meme-animal-raccoon.webp','./meme-animal-owl.webp','./meme-life-wolf.webp','./meme-life-fox.webp','./meme-life-bear.webp','./meme-life-dolphin.webp',
   './compatibility/index.html','./compatibility/styles.css','./compatibility/app.js','./compatibility/engine.mjs','./compatibility/locales/ru.json','./compatibility/locales/kk.json','./compatibility/locales/en.json','./compatibility/locales/fr.json',
   './astro/dreams/index.html','./astro/dreams/styles.css','./astro/dreams/app.js','./astro/dreams/engine.mjs','./astro/dreams/data/objects.json','./astro/dreams/data/rules.json','./astro/dreams/locales/ru.json','./astro/dreams/locales/kk.json','./astro/dreams/locales/en.json','./astro/dreams/locales/fr.json',
   './syutsai/index.html','./syutsai/styles.css','./syutsai/app.js','./syutsai/engine.mjs','./syutsai/locales/ru.json','./syutsai/locales/kk.json','./syutsai/locales/en.json','./syutsai/locales/fr.json','./syutsai/data/cycles/numbers.json','./syutsai/data/forecast/rules.json','./syutsai/data/share/cards.json',

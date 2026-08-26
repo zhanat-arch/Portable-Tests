@@ -8,6 +8,7 @@ const registry = JSON.parse(await readFile(resolve(root, 'tests-registry.json'),
 const locales = JSON.parse(await readFile(resolve(root, 'hub-locales.json'), 'utf8'));
 const home = await readFile(resolve(root, 'index.html'), 'utf8');
 const app = await readFile(resolve(root, 'app.js'), 'utf8');
+const styles = await readFile(resolve(root, 'styles.css'), 'utf8');
 
 registry.length >= 16 || fail('Registry lost catalog entries');
 new Set(registry.map(item => item.id)).size === registry.length || fail('Registry IDs must be unique');
@@ -32,9 +33,11 @@ for (const lang of langs) {
   for (const category of categories) locales[lang].categories?.[category] || fail(`${lang}: missing category ${category}`);
 }
 
-home.includes('app.js?v=191') || fail('Dynamic app is not loaded');
+home.includes('app.js?v=193') || fail('Dynamic app is not loaded');
+home.includes('name="color-scheme" content="light"') || fail('Hub must declare a stable light color scheme');
 !home.includes('<article') || fail('Cards must not be hard-coded in HTML');
 for (const marker of ['tests-registry.json','setTimeout(() => { state.limit = 9; renderContent(); renderSuggestions(); }, 100)','data-bottom','data-drawer','showMore']) app.includes(marker) || fail(`Hub app missing ${marker}`);
+for (const marker of ['color-scheme:only light','--muted:#575264','.update-button{display:inline-flex']) styles.includes(marker) || fail(`Mobile contrast fix missing ${marker}`);
 registry.every(item => item.metrics.rating === null && item.metrics.shareCount === null) || fail('Do not publish invented ratings or share counts');
 
 console.log(`OK: ${registry.length} registry modules, ${categories.size} dynamic categories, 4 locales, search, filters, drawer, and mobile nav`);
