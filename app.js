@@ -1,4 +1,4 @@
-const VERSION = '1.9.3';
+const VERSION = '1.9.4';
 const SUPPORTED = ['ru', 'kk', 'en', 'fr'];
 const CATEGORY_ICONS = { astro: '🔮', career: '💼', psychology: '🧠', fun: '🙂', interactive: '🎲' };
 const state = { lang: detectLanguage(), registry: [], locales: {}, filter: 'all', query: '', limit: 9, registration: null, suggestions: [], suggestionIndex: -1, pinned: readLocal('pt.hub.pinned', []), usage: readLocal('pt.hub.usage', {}) };

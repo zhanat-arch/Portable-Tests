@@ -1,5 +1,14 @@
 [
   {
+    "id":"fly-hunt",
+    "title":{"ru":"Муха-наебщица: подстава с результатом","kk":"Айлакер шыбын: нәтижесі бар әзіл","en":"The trickster fly: result prank","fr":"La mouche farceuse : faux résultat"},
+    "description":{"ru":"Отправьте «результат теста», дождитесь мухи и передайте прикол другому.","kk":"«Тест нәтижесін» жіберіп, шыбынды күтіңіз және әзілді басқа адамға жолдаңыз.","en":"Send a “test result”, wait for the fly, and pass the joke to someone else.","fr":"Envoyez un « résultat », attendez la mouche et transmettez la blague."},
+    "category":"interactive","icon":"🪰","image":"./assets/fly-meme.webp","path":"./modules/fly-game.html","time":{"ru":"≈1 мин","kk":"≈1 мин","en":"≈1 min","fr":"≈1 min"},
+    "tags":{"ru":["муха","мем","мини-игра","реакция"],"kk":["шыбын","мем","шағын ойын","реакция"],"en":["fly","meme","mini-game","reaction"],"fr":["mouche","mème","mini-jeu","réaction"]},
+    "metrics":{"isViralTop":true,"isPopular":false,"isNew":true,"rating":null,"shareCount":null},
+    "badge":{"tone":"new","label":{"ru":"18+ мем","kk":"18+ мем","en":"18+ meme","fr":"Mème 18+"}}
+  },
+  {
     "id":"dream-interpreter",
     "title":{"ru":"Толкователь снов","kk":"Түс жорушы","en":"Dream interpreter","fr":"Interprète des rêves"},
     "description":{"ru":"Пять деталей сна и три взгляда: исламская традиция, психология и народный сонник.","kk":"Түстің бес деталі және үш көзқарас: ислам дәстүрі, психология және халықтық жору.","en":"Five dream details and three perspectives: Islamic tradition, psychology, and folk interpretation.","fr":"Cinq détails et trois regards : tradition islamique, psychologie et interprétation populaire."},

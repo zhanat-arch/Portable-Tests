@@ -1,6 +1,6 @@
-const CACHE='portable-tests-v1.9.3';
+const CACHE='portable-tests-v1.9.4';
 const ASSETS=[
-  './','./index.html','./styles.css','./app.js','./site-ui.js','./loader-overlay.js','./tests-registry.json','./hub-locales.json','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png','./og-cover.webp','./robots.txt','./sitemap.xml','./hero-career.webp','./hero-team.webp','./hero-decisions.webp','./hero-environment.webp','./modules/dice-fate.html','./modules/dice-variants.js',
+  './','./index.html','./styles.css','./app.js','./site-ui.js','./loader-overlay.js','./tests-registry.json','./hub-locales.json','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png','./og-cover.webp','./robots.txt','./sitemap.xml','./hero-career.webp','./hero-team.webp','./hero-decisions.webp','./hero-environment.webp','./assets/fly-meme.webp','./modules/dice-fate.html','./modules/dice-variants.js','./modules/fly-game.html','./modules/fly-game.js','./modules/fly-engine.js',
   './tests/career/index.html','./tests/career/styles.css','./tests/career/app.js','./tests/career/data.js',
   './tests/insight/index.html','./tests/insight/styles.css','./tests/insight/app.js','./tests/insight/data.js',
   './tests/quick/index.html','./tests/quick/app.js','./tests/quick/library.js','./tests/quick/app-1.4.3.js','./tests/quick/library-1.4.3.js','./tests/quick/app-1.4.4.js','./tests/quick/library-1.4.4.js',
