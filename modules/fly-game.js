@@ -16,14 +16,28 @@ const ABOUT={
 const lang=flyLanguage(),L=TEXT[lang]||TEXT.ru,A=ABOUT[lang]||ABOUT.ru,params=new URLSearchParams(location.search),validBaits=['reaction','match','focus'];
 let bait=validBaits.includes(params.get('bait'))?params.get('bait'):null,fly=null,frame=0,spriteTimer=0,attempts=0,startedAt=0,tired=false,chosen='reaction';
 const WALK_FRAMES=['../assets/fly-sprite.png?v=207','../assets/fly-sprite-walk2.png?v=207'],GROOM_FRAMES=['../assets/fly-sprite.png?v=207','../assets/fly-sprite-groom.png?v=207'];
+let spriteReady=null,spritePreloads=[];
 const app=document.querySelector('#app'),fmt=(s,v)=>s.replaceAll('{value}',v),baitCopy=(id,value)=>({reaction:[L.baitReaction,fmt(L.baitReactionText,value)],match:[L.baitMatch,fmt(L.baitMatchText,value)],focus:[L.baitFocus,fmt(L.baitFocusText,value)]}[id]);
 const track=(name,data)=>{if(typeof window.ptAnalytics?.track==='function')window.ptAnalytics.track(name,data)};
+
+function prepareSprites(){
+  if(spriteReady)return spriteReady;
+  spriteReady=Promise.all([...new Set([...WALK_FRAMES,...GROOM_FRAMES])].map(src=>new Promise(resolve=>{
+    const image=new Image();
+    spritePreloads.push(image);
+    image.decoding='async';
+    image.onload=()=>typeof image.decode==='function'?image.decode().catch(()=>{}).finally(resolve):resolve();
+    image.onerror=resolve;
+    image.src=src;
+  })));
+  return spriteReady;
+}
 
 function header(){return `<header class="top"><a class="brand" href="../index.html"><span class="mark">🪰</span><span>Portable Tests</span></a><div class="tools"><a href="../index.html">← ${L.home}</a><select id="lang" aria-label="Language"><option>RU</option><option>KK</option><option>EN</option><option>FR</option></select></div></header>`}
 function bindLanguage(){const select=document.querySelector('#lang');if(!select)return;select.value=lang.toUpperCase();select.onchange=e=>{localStorage.setItem('pt.lang',e.target.value.toLowerCase());location.reload()}}
 function landing(){document.body.className='';document.title=`${L.title} ${L.accent} · Portable Tests`;app.innerHTML=`${header()}<main><section class="hero"><div class="hero-copy"><div class="eyebrow">${L.badge}</div><h1>${L.title}<em>${L.accent}</em></h1><p>${L.lead}</p><button class="primary" id="start">${L.start} →</button></div><div class="hero-art"><img src="../assets/fly-meme.webp" alt=""></div></section><section class="how"><div class="eyebrow">${L.how}</div><div class="step-grid">${L.steps.map((s,i)=>`<article><b>0${i+1}</b><p>${s}</p></article>`).join('')}</div></section></main>`;bindLanguage();document.querySelector('#start').onclick=()=>{history.replaceState(null,'',`${location.pathname}?bait=reaction&demo=1`);bait='reaction';prank()}}
 function fakeValue(){const supplied=params.get('value');if(bait==='reaction')return supplied&&/^\d+(\.\d)?$/.test(supplied)?supplied:'4.8';return supplied&&/^\d{2}$/.test(supplied)?supplied:String(86+Math.floor(Math.random()*11))}
-function prank(){document.body.className='prank-mode';attempts=0;tired=false;const value=fakeValue(),[title,text]=baitCopy(bait,value);document.title=`${title} · Portable Tests`;app.innerHTML=`${header()}<main class="prank-page"><div class="result-kicker">${L.fakeKicker}</div><section class="fake-result"><div class="fake-icon">${bait==='reaction'?'⚡':bait==='match'?'♡':'◎'}</div><p>${title}</p><h1>${text}</h1><div class="fake-score">${bait==='reaction'?`${value}s`:`${value}%`}</div><small>🔒 ${L.fakeNote}</small></section><section class="test-about"><h2>${A.title}</h2><p>${A.p1}</p><p>${A.p2}</p></section><p class="loading-line"><i></i>${L.wait}</p></main>`;bindLanguage();startedAt=performance.now();setTimeout(spawnFly,4000)}
+function prank(){document.body.className='prank-mode';attempts=0;tired=false;const value=fakeValue(),[title,text]=baitCopy(bait,value),ready=prepareSprites();document.title=`${title} · Portable Tests`;app.innerHTML=`${header()}<main class="prank-page"><div class="result-kicker">${L.fakeKicker}</div><section class="fake-result"><div class="fake-icon">${bait==='reaction'?'⚡':bait==='match'?'♡':'◎'}</div><p>${title}</p><h1>${text}</h1><div class="fake-score">${bait==='reaction'?`${value}s`:`${value}%`}</div><small>🔒 ${L.fakeNote}</small></section><section class="test-about"><h2>${A.title}</h2><p>${A.p1}</p><p>${A.p2}</p></section><p class="loading-line"><i></i>${L.wait}</p></main>`;bindLanguage();startedAt=performance.now();setTimeout(()=>ready.then(spawnFly),4000)}
 function animateSprite(frames,delay){clearInterval(spriteTimer);let index=0,img=fly?.querySelector('img');if(!img)return;img.src=frames[0];spriteTimer=setInterval(()=>{if(!fly)return clearInterval(spriteTimer);img.src=frames[++index%frames.length]},delay)}
 function edgeSpawn(){const side=Math.floor(Math.random()*4),xMax=Math.max(5,innerWidth-60),yMax=Math.max(65,innerHeight-75),x=30+Math.random()*Math.max(10,xMax-60),y=85+Math.random()*Math.max(10,yMax-110);if(side===0)return{x:5,y,vx:3.6,vy:(Math.random()-.5)*2};if(side===1)return{x:xMax,y,vx:-3.6,vy:(Math.random()-.5)*2};if(side===2)return{x,y:65,vx:(Math.random()-.5)*2,vy:3.6};return{x,y:yMax,vx:(Math.random()-.5)*2,vy:-3.6}}
 function spawnFly(){if(fly)return;const start=edgeSpawn();fly=document.createElement('button');fly.type='button';fly.className='prank-fly';fly.innerHTML='<img src="../assets/fly-sprite.png?v=207" alt="">';fly.setAttribute('aria-label','fly');fly.addEventListener('pointerdown',hit);document.body.appendChild(fly);fly.p={...start,phase:Math.random()*6,mode:'run',cx:0,cy:0,orbit:0,turn:1};animateSprite(WALK_FRAMES,115);frame=requestAnimationFrame(move);track('fly_prank_spawn',{bait})}
