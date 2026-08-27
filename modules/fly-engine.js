@@ -1,5 +1,6 @@
 const FLY_ASSET=globalThis.PORTABLE_FLY_ASSET||(location.pathname.includes('/modules/')?'../assets/fly-meme.webp':'../../assets/fly-meme.webp');
 const FUN_TESTS=new Set(['battery','tabs','animal','lifeAnimal','gamer']);
+const trackFly=(name,data)=>{if(typeof window.ptAnalytics?.track==='function')window.ptAnalytics.track(name,data)};
 const FLY_COPY={
   ru:{phrase:'Ля ты крыса… меня так никто не обманывал))',caught:'Вот теперь попалась!',hint:'Она устала — жмите!',toggle:'Мемная муха'},
   kk:{phrase:'Әй, қусың ғой… әдемі алдап кеттің))',caught:'Енді ұсталды!',hint:'Шаршады — басыңыз!',toggle:'Мем шыбын'},
@@ -32,8 +33,8 @@ function installStyles(){
 export function showFlyMeme({duration=2500,onClose}={}){
   installStyles();const isRu=flyLanguage()==='ru';if(!isRu)playSlap();
   document.querySelector('.pt-fly-overlay')?.remove();
-  const copy=flyCopy(),media=isRu?'<iframe src="https://www.youtube-nocookie.com/embed/XXs4cNBSW_M?autoplay=1&playsinline=1&rel=0&start=3" title="Оригинальный прикол" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>':`<img src="${FLY_ASSET}" alt="">`,overlay=document.createElement('div');overlay.className='pt-fly-overlay';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.innerHTML=`<section class="pt-fly-meme ${isRu?'video':''}"><div class="pt-fly-media">${media}</div><div class="pt-fly-copy"><strong>${copy.phrase}</strong><span>${copy.caught}</span><button class="pt-fly-close" type="button">OK</button></div></section>`;
-  let closed=false,timer;const close=()=>{if(closed)return;closed=true;clearTimeout(timer);overlay.remove();onClose?.()};overlay.querySelector('.pt-fly-close').onclick=close;overlay.onclick=event=>{if(event.target===overlay)close()};document.body.appendChild(overlay);overlay.querySelector('.pt-fly-close').focus();if(isRu)window.ptAnalytics?.track('fly_original_video_open');timer=setTimeout(close,duration);return close;
+  const origin=encodeURIComponent(location.origin),copy=flyCopy(),media=isRu?`<iframe src="https://www.youtube-nocookie.com/embed/XXs4cNBSW_M?autoplay=1&playsinline=1&rel=0&start=4&enablejsapi=1&origin=${origin}" title="Оригинальный прикол" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`:`<img src="${FLY_ASSET}" alt="">`,overlay=document.createElement('div');overlay.className='pt-fly-overlay';overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.innerHTML=`<section class="pt-fly-meme ${isRu?'video':''}"><div class="pt-fly-media">${media}</div><div class="pt-fly-copy"><strong>${copy.phrase}</strong><span>${copy.caught}</span><button class="pt-fly-close" type="button">OK</button></div></section>`;
+  let closed=false,timer,seekTimer;const close=()=>{if(closed)return;closed=true;clearTimeout(timer);clearTimeout(seekTimer);overlay.remove();onClose?.()};overlay.querySelector('.pt-fly-close').onclick=close;overlay.onclick=event=>{if(event.target===overlay)close()};document.body.appendChild(overlay);overlay.querySelector('.pt-fly-close').focus();if(isRu){const iframe=overlay.querySelector('iframe'),seek=()=>{if(!iframe?.contentWindow)return;const send=(func,args=[])=>iframe.contentWindow.postMessage(JSON.stringify({event:'command',func,args}),'https://www.youtube-nocookie.com');send('seekTo',[4,true]);send('playVideo')};iframe.addEventListener('load',()=>{seekTimer=setTimeout(seek,250)},{once:true});seekTimer=setTimeout(seek,900);trackFly('fly_original_video_open')}timer=setTimeout(close,duration);return close;
 }
 
 export class FlyMemeEngine{
@@ -45,14 +46,14 @@ export class FlyMemeEngine{
   }
   spawn(){
     installStyles();this.attempts=0;this.tired=false;this.position={x:Math.max(12,innerWidth*.65),y:Math.max(90,innerHeight*.22),vx:2+Math.random()*1.8,vy:1.5+Math.random()*1.5};
-    const fly=document.createElement('button');fly.type='button';fly.className='pt-meme-fly';fly.setAttribute('aria-label',flyCopy().toggle);fly.textContent='🪰';fly.addEventListener('pointerdown',event=>{event.preventDefault();event.stopPropagation();this.hit()});document.body.appendChild(fly);this.fly=fly;this.animate();window.ptAnalytics?.track('fly_easter_egg_spawn');
+    const fly=document.createElement('button');fly.type='button';fly.className='pt-meme-fly';fly.setAttribute('aria-label',flyCopy().toggle);fly.textContent='🪰';fly.addEventListener('pointerdown',event=>{event.preventDefault();event.stopPropagation();this.hit()});document.body.appendChild(fly);this.fly=fly;this.animate();trackFly('fly_easter_egg_spawn');
   }
   animate=()=>{
     if(!this.fly)return;if(!this.tired){const p=this.position,w=innerWidth-58,h=innerHeight-70;p.x+=p.vx;p.y+=p.vy;if(p.x<6||p.x>w){p.vx*=-1;p.x=Math.max(6,Math.min(w,p.x))}if(p.y<64||p.y>h){p.vy*=-1;p.y=Math.max(64,Math.min(h,p.y))}this.fly.style.transform=`translate3d(${p.x}px,${p.y}px,0) rotate(${p.vx*4}deg)`}this.frame=requestAnimationFrame(this.animate)
   };
   dodge(){const p=this.position;p.vx=(2.8+Math.random()*3.8)*(Math.random()>.5?1:-1);p.vy=(2.3+Math.random()*3.4)*(Math.random()>.5?1:-1);p.x=Math.max(8,Math.min(innerWidth-64,p.x+(Math.random()-.5)*150));p.y=Math.max(70,Math.min(innerHeight-76,p.y+(Math.random()-.5)*130))}
   hit(){
-    if(this.tired){window.ptAnalytics?.track('fly_easter_egg_caught',{attempts:this.attempts});this.remove();showFlyMeme();return}
+    if(this.tired){trackFly('fly_easter_egg_caught',{attempts:this.attempts});this.remove();showFlyMeme();return}
     this.attempts++;if(this.attempts<5){this.dodge();return}
     this.tired=true;this.fly.classList.add('tired');this.hint=document.createElement('div');this.hint.className='pt-fly-hint';this.hint.textContent=flyCopy().hint;document.body.appendChild(this.hint);const p=this.position;this.hint.style.left=`${Math.max(8,Math.min(innerWidth-180,p.x-55))}px`;this.hint.style.top=`${Math.max(55,p.y-48)}px`;setTimeout(()=>{if(!this.fly)return;this.tired=false;this.fly.classList.remove('tired');this.hint?.remove();this.hint=null;this.attempts=3;this.dodge()},1500)
   }
