@@ -1,5 +1,5 @@
 const PT_HOME = 'https://zhanat-arch.github.io/Portable-Tests/';
-const PT_VERSION = '1.9.5';
+const PT_VERSION = '1.9.6';
 const PT_GA_ID = 'G-37RB6NC78X';
 const PT_ROOT = `${location.origin}${location.pathname.includes('/Portable-Tests/')?'/Portable-Tests/':'/'}`;
 const PT_SUPPORT = { boosty:'https://boosty.to/zhanat-arch', kofi:'https://ko-fi.com/zhanat_arch' };
