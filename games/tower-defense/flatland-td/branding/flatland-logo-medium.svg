@@ -1,0 +1,76 @@
+<svg width="560" height="130" viewBox="0 0 560 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mTitleGrad" x1="170" y1="0" x2="540" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F6FAFF"/>
+      <stop offset="0.65" stop-color="#35E7FF"/>
+      <stop offset="1" stop-color="#FF3FD2"/>
+    </linearGradient>
+    <linearGradient id="mTowerGrad" x1="0" y1="18" x2="0" y2="104" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F8FBFF"/>
+      <stop offset="0.35" stop-color="#6EEBFF"/>
+      <stop offset="1" stop-color="#2A6CFF"/>
+    </linearGradient>
+    <linearGradient id="mGridGrad" x1="18" y1="95" x2="155" y2="95" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#35E7FF"/>
+      <stop offset="1" stop-color="#FF3FD2"/>
+    </linearGradient>
+    <linearGradient id="mArcGrad" x1="18" y1="12" x2="155" y2="12" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF3FD2"/>
+      <stop offset="1" stop-color="#2A6CFF"/>
+    </linearGradient>
+    <filter id="mGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g transform="translate(14,8)" filter="url(#mGlow)">
+    <path d="M18 77C18 39.444 48.444 9 86 9C123.556 9 154 39.444 154 77"
+          stroke="url(#mArcGrad)" stroke-width="3" stroke-linecap="round"/>
+
+    <g stroke="url(#mGridGrad)" stroke-width="2">
+      <line x1="24" y1="77" x2="148" y2="77"/>
+      <line x1="32" y1="84" x2="140" y2="84"/>
+      <line x1="42" y1="92" x2="130" y2="92"/>
+      <line x1="54" y1="101" x2="118" y2="101"/>
+      <line x1="86" y1="77" x2="86" y2="102"/>
+      <line x1="86" y1="77" x2="68" y2="102"/>
+      <line x1="86" y1="77" x2="50" y2="102"/>
+      <line x1="86" y1="77" x2="104" y2="102"/>
+      <line x1="86" y1="77" x2="122" y2="102"/>
+    </g>
+
+    <line x1="86" y1="28" x2="86" y2="18" stroke="#F8FBFF" stroke-width="3" stroke-linecap="round"/>
+    <path d="M73 36L80 29H92L99 36V50L92 57H80L73 50V36Z" fill="#0B1328" stroke="#F3F8FF" stroke-width="3"/>
+    <rect x="79" y="36" width="14" height="14" rx="4" fill="#102042" stroke="url(#mTowerGrad)" stroke-width="2"/>
+    <circle cx="86" cy="43" r="3" fill="#35E7FF"/>
+    <rect x="82" y="57" width="8" height="7" rx="2" fill="#F3F8FF"/>
+    <path d="M76 64H96L101 95H71L76 64Z" fill="#0B1328" stroke="#F3F8FF" stroke-width="3"/>
+    <path d="M83 69H89L92 92H80L83 69Z" fill="url(#mTowerGrad)"/>
+    <line x1="86" y1="69" x2="86" y2="92" stroke="#35E7FF" stroke-width="2"/>
+    <path d="M72 74L66 95H73L78 80" fill="#0B1328" stroke="#DCE6FF" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M100 74L106 95H99L94 80" fill="#0B1328" stroke="#DCE6FF" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M75 95H97L110 104H62L75 95Z" fill="#15203D" stroke="url(#mGridGrad)" stroke-width="3"/>
+
+    <circle cx="50" cy="31" r="1.5" fill="#FF3FD2"/>
+    <circle cx="120" cy="38" r="1.5" fill="#35E7FF"/>
+    <circle cx="108" cy="24" r="1.5" fill="#7C5CFF"/>
+  </g>
+
+  <text x="182" y="58"
+        font-family="Orbitron, Rajdhani, Arial, sans-serif"
+        font-size="44" font-weight="800" letter-spacing="2"
+        fill="url(#mTitleGrad)">FLATLAND</text>
+
+  <text x="335" y="103"
+        font-family="Orbitron, Rajdhani, Arial, sans-serif"
+        font-size="44" font-weight="800" letter-spacing="2"
+        fill="url(#mTitleGrad)">TD</text>
+
+  <line x1="303" y1="90" x2="325" y2="90" stroke="#35E7FF" stroke-width="4" stroke-linecap="round"/>
+  <line x1="388" y1="90" x2="428" y2="90" stroke="#FF3FD2" stroke-width="4" stroke-linecap="round"/>
+  <line x1="431" y1="90" x2="445" y2="90" stroke="#35E7FF" stroke-width="4" stroke-linecap="round"/>
+</svg>

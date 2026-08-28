@@ -1,0 +1,60 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sTowerGrad" x1="0" y1="20" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F8FBFF"/>
+      <stop offset="0.35" stop-color="#6EEBFF"/>
+      <stop offset="1" stop-color="#2A6CFF"/>
+    </linearGradient>
+    <linearGradient id="sGridGrad" x1="18" y1="88" x2="110" y2="88" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#35E7FF"/>
+      <stop offset="1" stop-color="#FF3FD2"/>
+    </linearGradient>
+    <linearGradient id="sArcGrad" x1="20" y1="16" x2="108" y2="16" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF3FD2"/>
+      <stop offset="1" stop-color="#2A6CFF"/>
+    </linearGradient>
+    <filter id="sGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#sGlow)">
+    <path d="M20 77C20 52.699 39.699 33 64 33C88.301 33 108 52.699 108 77"
+          stroke="url(#sArcGrad)" stroke-width="4" stroke-linecap="round"/>
+
+    <circle cx="40" cy="43" r="1.5" fill="#FF3FD2"/>
+    <circle cx="92" cy="47" r="1.5" fill="#35E7FF"/>
+    <circle cx="76" cy="40" r="1.2" fill="#7C5CFF"/>
+
+    <g stroke="url(#sGridGrad)" stroke-width="2">
+      <line x1="24" y1="77" x2="104" y2="77"/>
+      <line x1="28" y1="83" x2="100" y2="83"/>
+      <line x1="34" y1="90" x2="94" y2="90"/>
+      <line x1="42" y1="98" x2="86" y2="98"/>
+      <line x1="64" y1="77" x2="64" y2="99"/>
+      <line x1="64" y1="77" x2="51" y2="99"/>
+      <line x1="64" y1="77" x2="38" y2="99"/>
+      <line x1="64" y1="77" x2="77" y2="99"/>
+      <line x1="64" y1="77" x2="90" y2="99"/>
+    </g>
+
+    <line x1="64" y1="40" x2="64" y2="29" stroke="#F8FBFF" stroke-width="3" stroke-linecap="round"/>
+    <path d="M54 47L59 42H69L74 47V57L69 62H59L54 57V47Z"
+          fill="#0B1328" stroke="#F3F8FF" stroke-width="3"/>
+    <rect x="58.5" y="47" width="11" height="11" rx="3" fill="#102042" stroke="url(#sTowerGrad)" stroke-width="2"/>
+    <circle cx="64" cy="52.5" r="2.8" fill="#35E7FF"/>
+    <rect x="61" y="62" width="6" height="6" rx="2" fill="#F3F8FF"/>
+    <path d="M57 68H71L75 92H53L57 68Z"
+          fill="#0B1328" stroke="#F3F8FF" stroke-width="3"/>
+    <path d="M61 72H67L69 89H59L61 72Z" fill="url(#sTowerGrad)"/>
+    <line x1="64" y1="72" x2="64" y2="89" stroke="#35E7FF" stroke-width="2"/>
+    <path d="M53 76L48 92H53L57 82" fill="#0B1328" stroke="#DCE6FF" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M75 76L80 92H75L71 82" fill="#0B1328" stroke="#DCE6FF" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M56 92H72L82 100H46L56 92Z"
+          fill="#15203D" stroke="url(#sGridGrad)" stroke-width="3"/>
+  </g>
+</svg>

@@ -35,7 +35,7 @@ function renderGames(){
     const copy = game.copy[state.lang] || game.copy.ru;
     const features = copy.features.map((feature)=>`<li>${escapeHtml(feature)}</li>`).join('');
     return `<article class="game-card">
-      <a class="game-image" href="${game.path}" aria-label="${escapeHtml(t.open)} — ${escapeHtml(game.title)}"><img src="${game.image}" alt="Last Stand — поле боя Tower Defense" loading="eager"></a>
+      <a class="game-image" href="${game.path}" aria-label="${escapeHtml(t.open)} — ${escapeHtml(game.title)}"><img src="${game.image}" alt="${escapeHtml(game.title)} — Tower Defense" loading="eager"></a>
       <div class="game-content">
         <div class="chips"><span>🏰 ${escapeHtml(t.towerDefense)}</span><span>📱 + 🖥️</span><span class="license-chip">${escapeHtml(game.license)}</span></div>
         <h3>${escapeHtml(game.title)}</h3>

@@ -1,0 +1,36 @@
+{
+  "name": "Flatland TD",
+  "short_name": "FLTD",
+  "description": "Open source neon cyber idle tower defense",
+  "start_url": "/Portable-Tests/games/tower-defense/flatland-td/play/",
+  "scope": "/Portable-Tests/games/tower-defense/flatland-td/",
+  "display": "standalone",
+  "background_color": "#070812",
+  "theme_color": "#070812",
+  "icons": [
+    {
+      "src": "/Portable-Tests/games/tower-defense/flatland-td/branding/flatland-logo-small.svg",
+      "sizes": "128x128",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/Portable-Tests/games/tower-defense/flatland-td/branding/flatland-logo-small.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/Portable-Tests/games/tower-defense/flatland-td/branding/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/Portable-Tests/games/tower-defense/flatland-td/branding/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

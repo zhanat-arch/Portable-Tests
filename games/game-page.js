@@ -33,16 +33,17 @@ function render(){
   $('#notes').innerHTML=(copy.notes||[]).map(note=>`<article class="note-card"><span>${escapeHtml(note.icon)}</span><div><h3>${escapeHtml(note.title)}</h3><p>${escapeHtml(note.text)}</p></div></article>`).join('');
   $('#shareGame').textContent=`↗ ${t.share}`;
   $('#playGame').innerHTML=`<span>${escapeHtml(t.play)}</span><span aria-hidden="true">→</span>`;
-  $('#playGame').href=new URL(game.playPath,gamesRoot).href;
+  $('#playGame').href=new URL(game.launchPath||game.playPath,gamesRoot).href;
   $('#shareNote').textContent=t.note;
   $('#cover').src=new URL(game.image,gamesRoot).href;
+  $('#cover').alt=`${game.title} — Tower Defense`;
   $('#meta').innerHTML=`<p><strong>${escapeHtml(t.author)}:</strong> ${escapeHtml(game.author)} · <strong>${escapeHtml(t.license)}:</strong> <a href="${new URL(`${game.playPath}LICENSE`,gamesRoot).href}" target="_blank">${escapeHtml(game.license)}</a> · <a href="${game.source}" target="_blank" rel="noopener">${escapeHtml(t.source)} ↗</a></p><p><strong>${escapeHtml(t.changes)}:</strong> ${escapeHtml(copy.changes)}</p>`;
 }
 
 async function shareGame(){
   const t=UI[lang];
   const url=`${location.origin}${location.pathname}`;
-  const payload={title:`${game.title} — Tower Defense`,text:t.shareText,url};
+  const payload={title:`${game.title} — Tower Defense`,text:game.copy[lang]?.shareText||t.shareText,url};
   if(navigator.share){
     try{await navigator.share(payload);return}catch(error){if(error?.name==='AbortError')return}
   }
