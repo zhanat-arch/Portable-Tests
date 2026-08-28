@@ -2,7 +2,7 @@
   "ru": {
     "eyebrow":"ТЕСТЫ И ЛИЧНЫЕ РАЗБОРЫ","title":"Найдите то, что<br><em>зацепит именно вас.</em>","lead":"Профессия, характер, отношения, звёзды или сон — всё считается на вашем устройстве.",
     "trust":["🔒 Без отправки ответов","{count} разных модулей","RU · KK · EN · FR"],"search":"Найти тест, тему или вопрос…","all":"Все","trending":"В тренде",
-    "categories":{"astro":"Сонник и астро","career":"Карьера","psychology":"Психология","fun":"С улыбкой","interactive":"Интерактив"},
+    "categories":{"astro":"Сонник и астро","career":"Карьера","psychology":"Психология","fun":"С улыбкой","interactive":"Интерактив","games":"Игры"},
     "featuredKicker":"БЫСТРЫЙ СТАРТ","featuredTitle":"В центре внимания","featuredLead":"Разборы и тесты, которыми удобно делиться с близкими.","sharedKicker":"ЧАСТО ДЕЛЯТСЯ","sharedTitle":"Сейчас в тренде","sharedLead":"Показываем реальные обезличенные счётчики только после 100 действий.",
     "recommendedKicker":"РЕКОМЕНДУЕМ","recommendedTitle":"Стоит попробовать","recommendedLead":"Содержательные разделы, с которых удобно начать знакомство.","ratedKicker":"ВЫСОКИЙ РЕЙТИНГ","ratedTitle":"Популярное и высоко оценённое","ratedLead":"Разделы с реальными пользовательскими оценками.",
     "newKicker":"СВЕЖИЕ РЕЛИЗЫ","newTitle":"Новинки","newLead":"Последние добавленные возможности Portable Tests.","catalogKicker":"ВЕСЬ КАТАЛОГ","catalogTitle":"Выберите свой маршрут","catalogLead":"Фильтруйте по теме или найдите нужное обычными словами.",
@@ -13,7 +13,7 @@
   "kk": {
     "eyebrow":"ТЕСТТЕР ЖӘНЕ ЖЕКЕ ТАЛДАУЛАР","title":"Дәл сізге<br><em>қызық болатын нәрсені табыңыз.</em>","lead":"Мамандық, мінез, қарым-қатынас, жұлдыздар немесе түс — бәрі құрылғыңызда есептеледі.",
     "trust":["🔒 Жауаптар жіберілмейді","{count} түрлі модуль","RU · KK · EN · FR"],"search":"Тестті, тақырыпты немесе сұрақты табу…","all":"Барлығы","trending":"Трендте",
-    "categories":{"astro":"Түс және астро","career":"Мансап","psychology":"Психология","fun":"Көңіл үшін","interactive":"Интерактив"},
+    "categories":{"astro":"Түс және астро","career":"Мансап","psychology":"Психология","fun":"Көңіл үшін","interactive":"Интерактив","games":"Ойындар"},
     "featuredKicker":"ЖЫЛДАМ БАСТАУ","featuredTitle":"Назарда","featuredLead":"Жақындарыңызбен бөлісуге ыңғайлы талдаулар мен тесттер.","sharedKicker":"ЖИІ БӨЛІСЕДІ","sharedTitle":"Қазір трендте","sharedLead":"Нақты жасырын есептегіштер 100 әрекеттен кейін ғана көрсетіледі.",
     "recommendedKicker":"ҰСЫНАМЫЗ","recommendedTitle":"Көріп шығуға тұрарлық","recommendedLead":"Portable Tests-пен танысуды бастауға ыңғайлы мазмұнды бөлімдер.","ratedKicker":"ЖОҒАРЫ БАҒА","ratedTitle":"Танымал және жоғары бағаланған","ratedLead":"Нақты қолданушы бағалары бар бөлімдер.",
     "newKicker":"ЖАҢА МҮМКІНДІКТЕР","newTitle":"Жаңалықтар","newLead":"Portable Tests-ке соңғы қосылған мүмкіндіктер.","catalogKicker":"БАРЛЫҚ КАТАЛОГ","catalogTitle":"Өз бағытыңызды таңдаңыз","catalogLead":"Тақырып бойынша сүзгіден өткізіңіз немесе қарапайым сөзбен іздеңіз.",
@@ -24,7 +24,7 @@
   "en": {
     "eyebrow":"QUIZZES AND PERSONAL READINGS","title":"Find something that<br><em>speaks to you.</em>","lead":"Career, personality, relationships, stars, or dreams—everything is calculated on your device.",
     "trust":["🔒 Answers are not sent","{count} different modules","RU · KK · EN · FR"],"search":"Find a quiz, topic, or question…","all":"All","trending":"Trending",
-    "categories":{"astro":"Dreams and astro","career":"Career","psychology":"Psychology","fun":"Just for fun","interactive":"Interactive"},
+    "categories":{"astro":"Dreams and astro","career":"Career","psychology":"Psychology","fun":"Just for fun","interactive":"Interactive","games":"Games"},
     "featuredKicker":"QUICK START","featuredTitle":"In the spotlight","featuredLead":"Readings and quizzes that are easy to share with people close to you.","sharedKicker":"OFTEN SHARED","sharedTitle":"Trending now","sharedLead":"Real anonymous counters appear only after 100 actions.",
     "recommendedKicker":"RECOMMENDED","recommendedTitle":"Worth trying","recommendedLead":"Thoughtful sections that make a good place to start.","ratedKicker":"HIGHLY RATED","ratedTitle":"Popular and highly rated","ratedLead":"Sections with real user ratings.",
     "newKicker":"FRESH RELEASES","newTitle":"What’s new","newLead":"The latest additions to Portable Tests.","catalogKicker":"FULL DIRECTORY","catalogTitle":"Choose your route","catalogLead":"Filter by topic or search using everyday words.",
@@ -35,7 +35,7 @@
   "fr": {
     "eyebrow":"TESTS ET ANALYSES PERSONNELLES","title":"Trouvez ce qui<br><em>vous parle vraiment.</em>","lead":"Carrière, personnalité, relations, étoiles ou rêves : tout est calculé sur votre appareil.",
     "trust":["🔒 Réponses non envoyées","{count} modules différents","RU · KK · EN · FR"],"search":"Trouver un test, un thème ou une question…","all":"Tout","trending":"Tendances",
-    "categories":{"astro":"Rêves et astro","career":"Carrière","psychology":"Psychologie","fun":"Pour sourire","interactive":"Interactif"},
+    "categories":{"astro":"Rêves et astro","career":"Carrière","psychology":"Psychologie","fun":"Pour sourire","interactive":"Interactif","games":"Jeux"},
     "featuredKicker":"DÉMARRAGE RAPIDE","featuredTitle":"À découvrir","featuredLead":"Des analyses et tests faciles à partager avec vos proches.","sharedKicker":"SOUVENT PARTAGÉS","sharedTitle":"Tendances du moment","sharedLead":"Les compteurs anonymes réels apparaissent seulement après 100 actions.",
     "recommendedKicker":"RECOMMANDÉS","recommendedTitle":"À essayer","recommendedLead":"Des rubriques soignées pour bien commencer.","ratedKicker":"TRÈS BIEN NOTÉS","ratedTitle":"Populaires et très bien notés","ratedLead":"Des rubriques avec de vraies évaluations utilisateurs.",
     "newKicker":"NOUVEAUTÉS","newTitle":"Nouveaux modules","newLead":"Les derniers ajouts à Portable Tests.","catalogKicker":"CATALOGUE COMPLET","catalogTitle":"Choisissez votre parcours","catalogLead":"Filtrez par thème ou cherchez avec des mots simples.",

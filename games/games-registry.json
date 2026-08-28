@@ -1,0 +1,36 @@
+[
+  {
+    "id": "last-stand",
+    "title": "Last Stand",
+    "category": "tower-defense",
+    "path": "./tower-defense/last-stand/",
+    "image": "./tower-defense/last-stand/docs/hero.png",
+    "author": "Devin Jones",
+    "source": "https://github.com/devinjones521/last-stand",
+    "license": "MIT",
+    "upstreamCommit": "89e5d598859d8c6728ae14ac39b8579ec76959ca",
+    "platforms": ["mobile", "desktop"],
+    "copy": {
+      "ru": {
+        "description": "Полноценная Tower Defense про последний рубеж: стройте оборону, исследуйте улучшения и переживайте всё более тяжёлые волны.",
+        "features": ["4 карты", "8 видов башен", "Исследования и сохранение прогресса", "Работает мышью и касаниями"],
+        "changes": "Игровая механика, графика и баланс сохранены без изменений. Добавлены только размещение в каталоге Portable Tests и эта плашка с авторством."
+      },
+      "kk": {
+        "description": "Соңғы шеп туралы толық Tower Defense: қорғаныс құрып, жаңартуларды зерттеп, барған сайын қиындайтын толқындарға төтеп беріңіз.",
+        "features": ["4 карта", "8 мұнара түрі", "Зерттеу және прогресті сақтау", "Тышқанмен және сенсорлық экранмен жұмыс істейді"],
+        "changes": "Ойын механикасы, графикасы мен теңгерімі өзгертілмеді. Тек Portable Tests каталогына орналастыру және авторлық туралы осы белгі қосылды."
+      },
+      "en": {
+        "description": "A complete tower-defense game about holding the last line: build defenses, research upgrades, and survive increasingly difficult waves.",
+        "features": ["4 maps", "8 tower types", "Research and saved progress", "Mouse and touch controls"],
+        "changes": "Gameplay, visuals, and balance are unchanged. Only Portable Tests catalog placement and this attribution panel were added."
+      },
+      "fr": {
+        "description": "Un tower defense complet : construisez vos défenses, recherchez des améliorations et résistez à des vagues toujours plus difficiles.",
+        "features": ["4 cartes", "8 types de tours", "Recherche et progression sauvegardée", "Commandes souris et tactiles"],
+        "changes": "Le gameplay, les graphismes et l’équilibrage restent inchangés. Seuls l’ajout au catalogue Portable Tests et ce panneau d’attribution ont été ajoutés."
+      }
+    }
+  }
+]

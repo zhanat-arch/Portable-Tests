@@ -1,5 +1,14 @@
 [
   {
+    "id":"games-hub",
+    "title":{"ru":"Игры","kk":"Ойындар","en":"Games","fr":"Jeux"},
+    "description":{"ru":"Полноценные браузерные игры для телефона и компьютера. Начинаем с Tower Defense — Last Stand.","kk":"Телефон мен компьютерге арналған толық браузерлік ойындар. Tower Defense — Last Stand ойынынан бастаймыз.","en":"Complete browser games for mobile and desktop, starting with the tower-defense game Last Stand.","fr":"Des jeux complets dans le navigateur sur mobile et ordinateur, à commencer par le tower defense Last Stand."},
+    "category":"games","icon":"🎮","image":"./games/tower-defense/last-stand/docs/hero.png","path":"./games/","time":{"ru":"Играть","kk":"Ойнау","en":"Play","fr":"Jouer"},
+    "tags":{"ru":["игры","tower defense","стратегия","оборона"],"kk":["ойындар","tower defense","стратегия","қорғаныс"],"en":["games","tower defense","strategy","defense"],"fr":["jeux","tower defense","stratégie","défense"]},
+    "metrics":{"isViralTop":false,"isPopular":true,"isNew":true,"rating":null,"shareCount":null},
+    "badge":{"tone":"new","label":{"ru":"🎮 Новый раздел","kk":"🎮 Жаңа бөлім","en":"🎮 New section","fr":"🎮 Nouvelle rubrique"}}
+  },
+  {
     "id":"fly-hunt",
     "title":{"ru":"Муха-наебщица: подстава с результатом","kk":"Айлакер шыбын: нәтижесі бар әзіл","en":"The trickster fly: result prank","fr":"La mouche farceuse : faux résultat"},
     "description":{"ru":"Отправьте «результат теста», дождитесь мухи и передайте прикол другому.","kk":"«Тест нәтижесін» жіберіп, шыбынды күтіңіз және әзілді басқа адамға жолдаңыз.","en":"Send a “test result”, wait for the fly, and pass the joke to someone else.","fr":"Envoyez un « résultat », attendez la mouche et transmettez la blague."},

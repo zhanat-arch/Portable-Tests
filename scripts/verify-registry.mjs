@@ -13,7 +13,7 @@ const styles = await readFile(resolve(root, 'styles.css'), 'utf8');
 registry.length >= 16 || fail('Registry lost catalog entries');
 new Set(registry.map(item => item.id)).size === registry.length || fail('Registry IDs must be unique');
 const categories = new Set(registry.map(item => item.category));
-for (const category of ['astro','career','psychology','fun','interactive']) categories.has(category) || fail(`Missing category ${category}`);
+for (const category of ['astro','career','psychology','fun','interactive','games']) categories.has(category) || fail(`Missing category ${category}`);
 
 for (const item of registry) {
   item.path?.startsWith('./') || fail(`${item.id}: invalid path`);
@@ -33,7 +33,7 @@ for (const lang of langs) {
   for (const category of categories) locales[lang].categories?.[category] || fail(`${lang}: missing category ${category}`);
 }
 
-home.includes('app.js?v=193') || fail('Dynamic app is not loaded');
+/app\.js\?v=\d+/.test(home) || fail('Dynamic app is not loaded');
 home.includes('name="color-scheme" content="light"') || fail('Hub must declare a stable light color scheme');
 !home.includes('<article') || fail('Cards must not be hard-coded in HTML');
 for (const marker of ['tests-registry.json','setTimeout(() => { state.limit = 9; renderContent(); renderSuggestions(); }, 100)','data-bottom','data-drawer','showMore']) app.includes(marker) || fail(`Hub app missing ${marker}`);
