@@ -28,6 +28,6 @@ License 1.1. Their provenance and full license terms are preserved in
 
 Gameplay, visuals, and balance are preserved from upstream version 0.12.0.
 Portable Tests adds a static GitHub Pages build, nested-path support, and a
-compact mobile-landscape presentation. The game remains local-first; upstream
+mobile portrait presentation with the battlefield above the controls. The game remains local-first; upstream
 server-only account, cloud-save, and verified leaderboard features are not
 available on this static host.

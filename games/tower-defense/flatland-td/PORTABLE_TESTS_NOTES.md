@@ -6,7 +6,7 @@
 - Upstream version: 0.12.0
 
 This distribution preserves the upstream gameplay, visual assets, and balance.
-Portable Tests adds nested-path support for GitHub Pages, a portrait rotation
-hint, and a compact landscape layout for short phone screens. Local saves work
+Portable Tests adds nested-path support for GitHub Pages and a portrait phone
+layout with the battlefield above a separately scrolling upgrade panel. Local saves work
 in the browser. Server-only accounts, cloud saves, and verified leaderboards
 are unavailable on the static GitHub Pages build.

@@ -74,51 +74,51 @@
     "copy": {
       "ru": {
         "description": "Неоновая Tower Defense с постоянными улучшениями: отбивайте волны геометрических врагов, усиливайте башню и открывайте новые фронты.",
-        "shareText": "Flatland TD — неоновая Tower Defense с волнами, улучшениями и постоянным прогрессом. На телефоне удобнее играть горизонтально.",
+        "shareText": "Flatland TD — неоновая Tower Defense с волнами, улучшениями и постоянным прогрессом. На телефоне есть удобный вертикальный режим.",
         "features": ["Бесконечные волны и боссы", "Полевые и постоянные улучшения", "Несколько фронтов и уровней сложности", "Локальное сохранение прогресса"],
         "notes": [
-          {"icon":"↔️","title":"На телефоне — горизонтально","text":"Поверните телефон набок. Мы уплотнили панели и стартовый экран именно для короткого горизонтального экрана."},
+          {"icon":"📱","title":"Вертикальный режим","text":"Поле боя закреплено сверху, а улучшения прокручиваются отдельно снизу. Поворачивать телефон необязательно."},
           {"icon":"🌐","title":"Перевод в браузере","text":"Игра на английском. В меню браузера можно включить «Перевести страницу» — основные надписи станут понятнее."},
           {"icon":"💾","title":"Прогресс хранится здесь","text":"Сохранение остаётся в этом браузере. Если очистить данные сайта или открыть игру в другом браузере, локальный прогресс не перенесётся."},
           {"icon":"⚙️","title":"После первой попытки","text":"Загляните в Orbital Command: там сплав превращается в постоянные улучшения для следующих запусков."}
         ],
-        "changes": "Сохранены механика, графика и баланс версии 0.12.0. Добавлены статическая сборка для GitHub Pages, корректные вложенные пути и адаптация коротких мобильных экранов в горизонтальном режиме."
+        "changes": "Сохранены механика, графика и баланс версии 0.12.0. Добавлены статическая сборка для GitHub Pages и мобильный портретный режим: бой сверху, улучшения снизу."
       },
       "kk": {
         "description": "Тұрақты жақсартулары бар неон Tower Defense: геометриялық жаулардың толқындарын тоқтатып, мұнараны күшейтіп, жаңа майдандарды ашыңыз.",
-        "shareText": "Flatland TD — толқындары, жақсартулары және тұрақты прогресі бар неон Tower Defense. Телефонда көлденең ойнаған ыңғайлы.",
+        "shareText": "Flatland TD — толқындары, жақсартулары және тұрақты прогресі бар неон Tower Defense. Телефонда ыңғайлы тік режим бар.",
         "features": ["Шексіз толқындар мен бастықтар", "Далалық және тұрақты жақсартулар", "Бірнеше майдан мен қиындық деңгейі", "Прогресті жергілікті сақтау"],
         "notes": [
-          {"icon":"↔️","title":"Телефонда — көлденең","text":"Телефонды қырына бұрыңыз. Панельдер мен бастау экраны қысқа көлденең экранға бейімделді."},
+          {"icon":"📱","title":"Тік режим","text":"Ұрыс алаңы жоғарыда бекітіледі, ал жақсартулар төменде бөлек айналдырылады. Телефонды бұру міндетті емес."},
           {"icon":"🌐","title":"Браузердегі аударма","text":"Ойын ағылшын тілінде. Негізгі жазулар үшін браузер мәзірінен «Бетті аудару» мүмкіндігін қосуға болады."},
           {"icon":"💾","title":"Прогресс осы жерде сақталады","text":"Сақтау осы браузерде қалады. Сайт деректерін тазаласаңыз немесе басқа браузер ашсаңыз, жергілікті прогресс көшпейді."},
           {"icon":"⚙️","title":"Алғашқы ойыннан кейін","text":"Orbital Command бөліміне кіріңіз: онда қорытпа келесі ойындарға арналған тұрақты жақсартуларға айналады."}
         ],
-        "changes": "0.12.0 нұсқасының механикасы, графикасы мен теңгерімі сақталды. GitHub Pages үшін статикалық жинақ, ішкі жолдар және көлденең мобильді экранға бейімдеу қосылды."
+        "changes": "0.12.0 нұсқасының механикасы, графикасы мен теңгерімі сақталды. GitHub Pages жинағы және жоғарыда ұрыс, төменде жақсартулар бар мобильді тік режим қосылды."
       },
       "en": {
         "description": "A neon tower-defense game with persistent upgrades: repel geometric waves, strengthen your tower, and unlock new fronts.",
-        "shareText": "Flatland TD is a neon tower-defense game with waves, upgrades, and persistent progress. Landscape mode is recommended on phones.",
+        "shareText": "Flatland TD is a neon tower-defense game with waves, upgrades, persistent progress, and a phone-friendly portrait mode.",
         "features": ["Endless waves and bosses", "Field and permanent upgrades", "Multiple fronts and difficulty bands", "Local saved progress"],
         "notes": [
-          {"icon":"↔️","title":"Landscape on phones","text":"Turn your phone sideways. The panels and launch screen were compacted for short landscape viewports."},
+          {"icon":"📱","title":"Portrait mode","text":"The battlefield stays pinned above a separately scrolling upgrade panel, so rotating the phone is optional."},
           {"icon":"🌐","title":"Browser translation","text":"The game is in English. Your browser's page translation can translate most interface labels."},
           {"icon":"💾","title":"Progress stays here","text":"The save remains in this browser. Clearing site data or switching browsers does not transfer local progress."},
           {"icon":"⚙️","title":"After the first run","text":"Visit Orbital Command: it turns Alloy into permanent improvements for future deployments."}
         ],
-        "changes": "Gameplay, visuals, and balance from version 0.12.0 are preserved. We added a GitHub Pages build, nested-path support, and compact landscape-phone layout."
+        "changes": "Gameplay, visuals, and balance from version 0.12.0 are preserved. We added GitHub Pages support and a portrait phone layout with battle above upgrades."
       },
       "fr": {
         "description": "Un tower defense néon avec améliorations permanentes : repoussez des vagues géométriques, renforcez la tour et débloquez de nouveaux fronts.",
-        "shareText": "Flatland TD est un tower defense néon avec vagues, améliorations et progression permanente. Le mode paysage est conseillé sur téléphone.",
+        "shareText": "Flatland TD est un tower defense néon avec vagues, améliorations, progression permanente et mode portrait mobile.",
         "features": ["Vagues infinies et boss", "Améliorations de terrain et permanentes", "Plusieurs fronts et niveaux de difficulté", "Progression sauvegardée localement"],
         "notes": [
-          {"icon":"↔️","title":"Paysage sur téléphone","text":"Tournez le téléphone. Les panneaux et l’écran de lancement ont été adaptés aux écrans horizontaux peu hauts."},
+          {"icon":"📱","title":"Mode portrait","text":"Le champ de bataille reste fixé en haut et les améliorations défilent séparément en bas. Tourner le téléphone est facultatif."},
           {"icon":"🌐","title":"Traduction du navigateur","text":"Le jeu est en anglais. La traduction de page du navigateur peut traduire les principaux libellés."},
           {"icon":"💾","title":"La progression reste ici","text":"La sauvegarde reste dans ce navigateur. Effacer les données du site ou changer de navigateur ne transfère pas la progression."},
           {"icon":"⚙️","title":"Après la première partie","text":"Ouvrez Orbital Command : l’alliage y devient une amélioration permanente pour les prochains déploiements."}
         ],
-        "changes": "Le gameplay, les graphismes et l’équilibrage de la version 0.12.0 sont conservés. Nous avons ajouté la publication GitHub Pages, les chemins imbriqués et une mise en page paysage compacte sur téléphone."
+        "changes": "Le gameplay, les graphismes et l’équilibrage de la version 0.12.0 sont conservés. Nous avons ajouté GitHub Pages et une mise en page portrait mobile."
       }
     }
   }
