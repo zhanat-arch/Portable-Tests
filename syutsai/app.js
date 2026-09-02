@@ -9,7 +9,7 @@ let lang = localStorage.getItem('pt.lang') || (supported.includes(browserLang) ?
 let L;
 let forecast;
 const app = document.querySelector('#app');
-const ONLINE = 'https://zhanat-arch.github.io/Portable-Tests/';
+const ONLINE = globalThis.PT_CONFIG.onlineRoot;
 const enc = value => btoa(unescape(encodeURIComponent(JSON.stringify(value)))).replaceAll('+', '-').replaceAll('/', '_').replaceAll('=', '');
 const dec = value => { try { return JSON.parse(decodeURIComponent(escape(atob(value.replaceAll('-', '+').replaceAll('_', '/'))))); } catch { return null; } };
 let sharedResult = dec(location.hash.startsWith('#r=') ? location.hash.slice(3) : '');

@@ -11,8 +11,8 @@
   </style>
 </head>
 <body><div class="app" id="app"></div>
-<script src="dice-variants.js?v=193"></script><script>
-const ONLINE='https://zhanat-arch.github.io/Portable-Tests/modules/dice-fate.html';
+<script src="../site-ui.js?v=198"></script><script src="dice-variants.js?v=193"></script><script>
+const ONLINE=globalThis.PT_CONFIG.onlineUrl('modules/dice-fate.html');
 const LANGS=['ru','kk','en','fr'];
 const EXTRA=globalThis.DICE_VARIANTS;
 let lang=localStorage.getItem('pt.lang')||((navigator.language||'ru').slice(0,2).toLowerCase());if(!LANGS.includes(lang))lang='ru';
@@ -44,4 +44,4 @@ function downloadCard(){const t=T(),canvas=document.createElement('canvas');canv
 async function enableShake(){try{if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission==='function'){const permission=await DeviceMotionEvent.requestPermission();if(permission!=='granted')return}shakeEnabled=true;window.addEventListener('devicemotion',onMotion);shell()}catch(error){console.error(error)}}
 function onMotion(event){const a=event.accelerationIncludingGravity;if(!a)return;if(previousAcceleration){const delta=Math.abs(a.x-previousAcceleration.x)+Math.abs(a.y-previousAcceleration.y)+Math.abs(a.z-previousAcceleration.z),now=Date.now();if(delta>26&&now-lastShake>2200&&!rolling){lastShake=now;roll()}}previousAcceleration={x:a.x,y:a.y,z:a.z}}
 const shared=location.hash.startsWith('#r=')?decode(location.hash.slice(3)):null;if(shared&&Number.isInteger(shared.face)&&shared.face>=1&&shared.face<=6&&Number.isInteger(shared.chance)&&shared.chance>=35&&shared.chance<=94&&D[shared.lang]&&D[shared.lang].topics[shared.topic]){lang=shared.lang;topic=shared.topic;const count=EXTRA[lang][topic].length,variant=Number.isInteger(shared.variant)&&shared.variant>=0&&shared.variant<count?shared.variant:0;currentResult={face:shared.face,chance:shared.chance,variant,lang:shared.lang,topic:shared.topic}}shell();navigator.serviceWorker?.register('../service-worker.js').then(r=>r.update()).catch(()=>{});
-</script><script src="../site-ui.js?v=193"></script></body></html>
+</script></body></html>

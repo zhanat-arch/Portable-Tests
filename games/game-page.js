@@ -42,7 +42,8 @@ function render(){
 
 async function shareGame(){
   const t=UI[lang];
-  const url=`${location.origin}${location.pathname}`;
+  const pagePath=`games/${document.body.dataset.gameId}/`;
+  const url=globalThis.PT_CONFIG?.onlineUrl(pagePath)||new URL(location.href).href;
   const payload={title:`${game.title} — Tower Defense`,text:game.copy[lang]?.shareText||t.shareText,url};
   if(navigator.share){
     try{await navigator.share(payload);return}catch(error){if(error?.name==='AbortError')return}

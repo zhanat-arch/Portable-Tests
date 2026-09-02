@@ -1,7 +1,22 @@
-const PT_HOME = 'https://zhanat-arch.github.io/Portable-Tests/';
-const PT_VERSION = '1.9.7';
+const PT_LIVE_ROOT = 'https://zhanat-arch.github.io/Portable-Tests/';
+const PT_ROOT = (() => {
+  if (location.protocol === 'file:') return PT_LIVE_ROOT;
+  const scriptUrl = document.currentScript?.src;
+  if (scriptUrl) return new URL('./', scriptUrl).href;
+  const projectPath = '/Portable-Tests/';
+  return new URL(location.pathname.includes(projectPath) ? projectPath : '/', location.origin).href;
+})();
+const PT_ONLINE_ROOT = location.protocol === 'file:' ? PT_LIVE_ROOT : PT_ROOT;
+const PT_HOME = PT_ONLINE_ROOT;
+globalThis.PT_CONFIG = Object.freeze({
+  liveRoot: PT_LIVE_ROOT,
+  appRoot: PT_ROOT,
+  onlineRoot: PT_ONLINE_ROOT,
+  url(path = '') { return new URL(path, PT_ROOT).href; },
+  onlineUrl(path = '') { return new URL(path, PT_ONLINE_ROOT).href; }
+});
+const PT_VERSION = '1.9.8';
 const PT_GA_ID = 'G-37RB6NC78X';
-const PT_ROOT = `${location.origin}${location.pathname.includes('/Portable-Tests/')?'/Portable-Tests/':'/'}`;
 const PT_SUPPORT = { boosty:'https://boosty.to/zhanat-arch', kofi:'https://ko-fi.com/zhanat_arch' };
 const PT_LANGS = ['ru','kk','en','fr'];
 let ptInstallPrompt = null;
@@ -39,7 +54,7 @@ function ptTrack(eventName,parameters={}){
   window.gtag('event',eventName,safe);
 }
 function ptAnalytics(){
-  if(location.hostname!=='zhanat-arch.github.io'||document.querySelector(`script[data-pt-ga="${PT_GA_ID}"]`))return;
+  if(location.protocol!=='https:'||document.querySelector(`script[data-pt-ga="${PT_GA_ID}"]`))return;
   window.dataLayer=window.dataLayer||[];
   window.gtag=function(){window.dataLayer.push(arguments)};
   window.gtag('js',new Date());

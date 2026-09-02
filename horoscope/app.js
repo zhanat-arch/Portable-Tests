@@ -10,7 +10,7 @@ let searchResults = [];
 let searchTimer;
 let mapOpen = false;
 const app = document.querySelector('#app');
-const ONLINE = 'https://zhanat-arch.github.io/Portable-Tests/horoscope/';
+const ONLINE = globalThis.PT_CONFIG.onlineUrl('horoscope/');
 const SUPPORT = { boosty: 'https://boosty.to/zhanat-arch', kofi: 'https://ko-fi.com/zhanat_arch' };
 const BODY_SYMBOLS = { Sun: '☉', Moon: '☾', Mercury: '☿', Venus: '♀', Mars: '♂', Jupiter: '♃', Saturn: '♄', Uranus: '♅', Neptune: '♆', Pluto: '♇' };
 const storage = {

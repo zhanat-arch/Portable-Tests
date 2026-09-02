@@ -1,4 +1,4 @@
-const VERSION = '1.9.7';
+const VERSION = '1.9.8';
 const SUPPORTED = ['ru', 'kk', 'en', 'fr'];
 const CATEGORY_ICONS = { astro: '🔮', career: '💼', psychology: '🧠', fun: '🙂', interactive: '🎲', games: '🎮' };
 const state = { lang: detectLanguage(), registry: [], locales: {}, filter: 'all', query: '', limit: 9, registration: null, suggestions: [], suggestionIndex: -1, pinned: readLocal('pt.hub.pinned', []), usage: readLocal('pt.hub.usage', {}) };
@@ -255,7 +255,7 @@ function closeDrawer() {
 
 async function shareApp() {
   const locale = state.locales[state.lang];
-  const data = { title:'Portable Tests', text:locale.shareText, url:'https://zhanat-arch.github.io/Portable-Tests/' };
+  const data = { title:'Portable Tests', text:locale.shareText, url:globalThis.PT_CONFIG?.onlineRoot || location.href };
   if (navigator.share) {
     try { await navigator.share(data); return; } catch (error) { if (error.name === 'AbortError') return; }
   }

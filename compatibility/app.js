@@ -1,6 +1,6 @@
 import { pairCompatibility, soloCompatibility, signs } from './engine.mjs';
 
-const ONLINE='https://zhanat-arch.github.io/Portable-Tests/';
+const ONLINE=globalThis.PT_CONFIG.onlineRoot;
 const SUPPORT={boosty:'https://boosty.to/zhanat-arch',kofi:'https://ko-fi.com/zhanat_arch'};
 const supported=['ru','kk','en','fr'];
 const browserLang=(navigator.language||'ru').toLowerCase().split('-')[0];
