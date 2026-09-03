@@ -42,15 +42,16 @@
   "systemIndex": "layer index",
   "strongTitle": "What may come more easily",
   "attentionTitle": "What is worth saying out loud",
-  "categoriesTitle": "Five relationship areas",
+  "categoriesTitle": "Six relationship areas",
   "howRead": "How to read 72%, 81%, and other numbers",
-  "howReadText": "This scale belongs to our algorithm: 55% zodiac and 45% number layer. It helps compare areas but does not measure love, maturity, or a couple’s future.",
+  "howReadText": "This scale belongs to our algorithm: 52% zodiac and 48% Syutsai numbers. It helps compare areas but does not measure love, maturity, or a couple’s future.",
   "categories": {
     "communication": "Conversation and understanding",
-    "pace": "Pace of life",
-    "closeness": "Closeness and support",
+    "emotions": "Emotions and support",
     "daily": "Daily life and agreements",
-    "decisions": "Decisions and responsibility"
+    "attraction": "Attraction",
+    "pace": "Shared pace",
+    "repair": "Making up after conflict"
   },
   "strong": {
     "communication": "It may be easier to put thoughts into words and return to a conversation after a misunderstanding.",

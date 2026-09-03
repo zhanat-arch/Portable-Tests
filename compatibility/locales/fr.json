@@ -42,15 +42,16 @@
   "systemIndex": "indice de couche",
   "strongTitle": "Ce qui peut venir plus facilement",
   "attentionTitle": "Ce qu’il vaut mieux dire clairement",
-  "categoriesTitle": "Cinq domaines de relation",
+  "categoriesTitle": "Six dimensions de la relation",
   "howRead": "Comment lire 72 %, 81 % et les autres nombres",
-  "howReadText": "Cette échelle appartient à notre algorithme : 55 % zodiaque et 45 % nombres. Elle compare les domaines, mais ne mesure ni l’amour, ni la maturité, ni l’avenir.",
+  "howReadText": "Cette échelle appartient à notre algorithme : 52 % zodiaque et 48 % nombres Syutsai. Elle compare les domaines, mais ne mesure ni l’amour, ni la maturité, ni l’avenir.",
   "categories": {
     "communication": "Dialogue et compréhension",
-    "pace": "Rythme de vie",
-    "closeness": "Proximité et soutien",
+    "emotions": "Émotions et soutien",
     "daily": "Quotidien et accords",
-    "decisions": "Décisions et responsabilité"
+    "attraction": "Attirance",
+    "pace": "Rythme commun",
+    "repair": "Capacité à se réconcilier"
   },
   "strong": {
     "communication": "Il peut être plus facile de mettre les pensées en mots et de reprendre le dialogue après un malentendu.",
