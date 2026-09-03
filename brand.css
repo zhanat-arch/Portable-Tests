@@ -1,0 +1,40 @@
+.brand{
+  display:grid;
+  grid-template-columns:auto;
+  gap:4px;
+  color:var(--ink);
+  text-decoration:none;
+}
+.brand-wordmark{
+  display:flex;
+  align-items:center;
+  width:max-content;
+  font-size:1.58rem;
+  font-weight:950;
+  line-height:1;
+  letter-spacing:-.055em;
+}
+.brand-port{color:var(--ink)}
+.brand-hub{
+  margin-left:2px;
+  padding:5px 7px 6px;
+  border-radius:7px;
+  background:linear-gradient(145deg,#7b46f0,#5921d0);
+  color:#0d0b13;
+  box-shadow:0 7px 18px #6634df32;
+}
+.brand-tagline{
+  color:var(--muted);
+  font-size:.54rem;
+  font-weight:850;
+  line-height:1.1;
+  letter-spacing:.055em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+@media(max-width:640px){
+  .brand{display:grid!important;gap:3px!important}
+  .brand span:last-child.brand-tagline{display:block;font-size:.43rem;max-width:145px;overflow:hidden;text-overflow:ellipsis}
+  .brand-wordmark{font-size:1.35rem}
+  .brand-hub{padding:4px 6px 5px}
+}

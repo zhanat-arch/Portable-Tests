@@ -1,4 +1,4 @@
-const VERSION = '1.9.9';
+const VERSION = '1.10.0';
 const SUPPORTED = ['ru', 'kk', 'en', 'fr'];
 const CATEGORY_ICONS = { astro: '🔮', career: '💼', psychology: '🧠', fun: '🙂', interactive: '🎲', games: '🎮' };
 const state = { lang: detectLanguage(), registry: [], locales: {}, filter: 'all', query: '', limit: 9, registration: null, suggestions: [], suggestionIndex: -1, pinned: readLocal('pt.hub.pinned', []), usage: readLocal('pt.hub.usage', {}) };
@@ -111,7 +111,7 @@ function layoutMarkup() {
   const locale = state.locales[state.lang];
   const trust = locale.trust.map((item) => interpolate(item, { count: state.registry.length }));
   return `<header class="topbar">
-    <a class="brand" href="./"><span class="logo">P</span><span>Portable Tests</span></a>
+    <a class="brand" href="./" aria-label="PortHub — ${escapeHtml(locale.brandTagline)}"><span class="brand-wordmark"><span class="brand-port">Port</span><span class="brand-hub">Hub</span></span><span class="brand-tagline">${escapeHtml(locale.brandTagline)}</span></a>
     <div class="header-tools"><button class="share-button" id="shareApp" type="button">${locale.shareApp}</button><button class="update-button" id="update" type="button">↻ v${VERSION}</button><select id="lang" aria-label="Language">${optionsMarkup()}</select><button class="icon-button" id="openMenu" type="button" aria-label="${locale.menu}" aria-controls="drawer">☰</button></div>
   </header>
   <main class="shell">
@@ -255,7 +255,7 @@ function closeDrawer() {
 
 async function shareApp() {
   const locale = state.locales[state.lang];
-  const data = { title:'Portable Tests', text:locale.shareText, url:globalThis.PT_CONFIG?.onlineRoot || location.href };
+  const data = { title:'PortHub', text:locale.shareText.replaceAll('Portable Tests','PortHub'), url:globalThis.PT_CONFIG?.onlineRoot || location.href };
   if (navigator.share) {
     try { await navigator.share(data); return; } catch (error) { if (error.name === 'AbortError') return; }
   }
@@ -351,7 +351,7 @@ async function init() {
     initPwa().catch(() => {});
   } catch (error) {
     console.error(error);
-    document.getElementById('app').innerHTML = `<header class="topbar"><a class="brand" href="./"><span class="logo">P</span><span>Portable Tests</span></a></header><main class="shell"><section class="loading-card">${state.locales[state.lang]?.loadError ?? 'Каталог не загрузился.'}<br><button class="show-more" onclick="location.reload()">↻</button></section></main>`;
+    document.getElementById('app').innerHTML = `<header class="topbar"><a class="brand" href="./"><span class="brand-wordmark"><span class="brand-port">Port</span><span class="brand-hub">Hub</span></span></a></header><main class="shell"><section class="loading-card">${state.locales[state.lang]?.loadError ?? 'Каталог не загрузился.'}<br><button class="show-more" onclick="location.reload()">↻</button></section></main>`;
   }
 }
 

@@ -15,7 +15,7 @@ globalThis.PT_CONFIG = Object.freeze({
   url(path = '') { return new URL(path, PT_ROOT).href; },
   onlineUrl(path = '') { return new URL(path, PT_ONLINE_ROOT).href; }
 });
-const PT_VERSION = '1.9.9';
+const PT_VERSION = '1.10.0';
 const PT_GA_ID = 'G-37RB6NC78X';
 const PT_SUPPORT = { boosty:'https://boosty.to/zhanat-arch', kofi:'https://ko-fi.com/zhanat_arch' };
 const PT_LANGS = ['ru','kk','en','fr'];
@@ -34,6 +34,8 @@ const PT_METRICS_COPY={
   fr:'Des statistiques anonymes nous aident à améliorer l’application. Noms, dates, réponses, rêves et résultats ne sont jamais envoyés.'
 };
 const PT_LEGAL_COPY={ru:'Конфиденциальность и условия',kk:'Құпиялылық және шарттар',en:'Privacy and terms',fr:'Confidentialité et conditions'};
+const PT_BRAND_TAGLINE={ru:'Твой порт в мир развлечений',kk:'Ойын-сауық әлеміне апарар портыңыз',en:'Your port to entertainment',fr:'Votre porte vers le divertissement'};
+function ptCopy(){return Object.fromEntries(Object.entries(PT_COPY[ptLanguage()]).map(([key,value])=>[key,typeof value==='string'?value.replaceAll('Portable Tests','PortHub'):value]))}
 
 function ptSafeValue(value){return String(value||'').toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,48)}
 function ptModuleId(){
@@ -86,7 +88,7 @@ function ptAnalytics(){
 }
 
 function ptEnsureSeo(){
-  const url=ptSafePage(),image=`${PT_HOME}og-cover.webp`,description=document.querySelector('meta[name="description"]')?.content||'Приватные тесты и личные разборы Portable Tests — без регистрации, прямо на вашем устройстве.';
+  const url=ptSafePage(),image=`${PT_HOME}og-cover.webp`,description=document.querySelector('meta[name="description"]')?.content||'PortHub — тесты, игры и личные разборы без регистрации, прямо на вашем устройстве.';
   const ensure=(selector,tag,attributes)=>{let node=document.head.querySelector(selector);if(!node){node=document.createElement(tag);for(const [key,value] of Object.entries(attributes))node.setAttribute(key,value);document.head.appendChild(node)}return node};
   ensure('link[rel="canonical"]','link',{rel:'canonical',href:url}).href=url;
   const metas=[['meta[property="og:type"]',{property:'og:type',content:'website'}],['meta[property="og:url"]',{property:'og:url',content:url}],['meta[property="og:title"]',{property:'og:title',content:document.title}],['meta[property="og:description"]',{property:'og:description',content:description}],['meta[property="og:image"]',{property:'og:image',content:image}],['meta[name="twitter:card"]',{name:'twitter:card',content:'summary_large_image'}]];
@@ -125,6 +127,7 @@ function ptInstallStyles(){
     body{overflow-wrap:break-word}
     .pt-global-footer{position:relative;z-index:7;width:min(980px,calc(100% - 20px));margin:48px auto max(90px,env(safe-area-inset-bottom));padding:clamp(22px,5vw,38px);border:1px solid #36314a;border-radius:28px;background:linear-gradient(145deg,#211b3a,#141222);color:#fff;box-shadow:0 26px 80px #08061155}
     .pt-global-footer *{box-sizing:border-box}.pt-global-footer h2{margin:5px 0 10px;color:#fff;font-size:clamp(1.55rem,5vw,2.35rem);line-height:1.08;letter-spacing:-.025em}.pt-global-footer p{max-width:760px;margin:0;color:#d6d0df;font-size:1rem;line-height:1.65}.pt-footer-kicker{color:#f2cb75;font-size:.75rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+    .pt-footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}.pt-footer-wordmark{display:flex;align-items:center;color:#fff;font-size:1.5rem;font-weight:950;line-height:1;letter-spacing:-.055em}.pt-footer-wordmark b{margin-left:2px;padding:5px 7px 6px;border-radius:7px;background:linear-gradient(145deg,#7b46f0,#5921d0);color:#0d0b13}.pt-footer-tagline{color:#aaa2b8;font-size:.72rem;font-weight:750;line-height:1.25}.pt-footer-version{color:#f2cb75;font-size:.68rem;font-weight:850}
     .pt-footer-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:22px}.pt-footer-button{display:flex;align-items:center;justify-content:center;min-height:50px;padding:11px 14px;border:1px solid #514964;border-radius:15px;background:#2c2643;color:#fff!important;font-size:.92rem;font-weight:800;text-align:center;text-decoration:none;cursor:pointer}.pt-footer-button.primary{border-color:#f2cb75;background:#f2cb75;color:#20182d!important}.pt-footer-button:hover,.pt-footer-button:focus-visible{outline:3px solid #9c8aff55;outline-offset:2px}.pt-footer-button[data-pt-update]{grid-column:1/-1}
     .pt-footer-privacy{display:block;margin-top:12px;color:#aaa2b8;font-size:.8rem;line-height:1.5}.pt-footer-legal{display:inline-flex;margin-top:11px;color:#f2cb75!important;font-size:.84rem;font-weight:800;text-decoration:none}.pt-footer-legal:hover{text-decoration:underline}.pt-footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:24px;padding-top:18px;border-top:1px solid #3b354c}.pt-footer-theme{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.pt-footer-theme>span{margin-right:3px;color:#bdb6c8;font-size:.82rem}.pt-theme-choice{min-height:42px;padding:8px 11px;border:1px solid #4b455b;border-radius:12px;background:#201c31;color:#dcd6e4;font-weight:750;cursor:pointer}.pt-theme-choice.active{border-color:#f2cb75;background:#3a3043;color:#fff}.pt-ambassador{max-width:420px!important;color:#aaa2b8!important;font-size:.8rem!important;text-align:right}
     .pt-global-toast{position:fixed;z-index:10000;left:50%;bottom:90px;transform:translate(-50%,130px);max-width:calc(100% - 24px);padding:12px 16px;border-radius:14px;background:#171321;color:#fff;font-weight:800;text-align:center;transition:.22s}.pt-global-toast.show{transform:translate(-50%,0)}.pt-install-dialog{width:min(500px,calc(100% - 24px));padding:0;border:1px solid #49415c;border-radius:24px;background:#1d1830;color:#fff;box-shadow:0 30px 90px #08061199}.pt-install-dialog::backdrop{background:#0d0a18bb;backdrop-filter:blur(6px)}.pt-install-card{padding:25px}.pt-install-card h2{margin:0 0 12px;color:#fff;font-size:1.65rem}.pt-install-card p{margin:0 0 19px;color:#d6d0df;line-height:1.65}.pt-install-card button{width:100%;min-height:50px;border:0;border-radius:14px;background:#f2cb75;color:#20182d;font-weight:850;cursor:pointer}
@@ -147,8 +150,8 @@ function ptRemoveLegacySupport(){
 }
 
 function ptFooterMarkup(){
-  const copy=PT_COPY[ptLanguage()],theme=ptTheme();
-  return `<span class="pt-footer-kicker">PORTABLE TESTS · v${PT_VERSION}</span><h2>${copy.title}</h2><p>${copy.text}</p><div class="pt-footer-actions"><button class="pt-footer-button primary" type="button" data-pt-install>📲 ${copy.install}</button><button class="pt-footer-button" type="button" data-pt-share>↗ ${copy.share}</button><a class="pt-footer-button" href="${PT_SUPPORT.boosty}" target="_blank" rel="noopener">☕ ${copy.boosty}</a><a class="pt-footer-button" href="${PT_SUPPORT.kofi}" target="_blank" rel="noopener">☕ ${copy.kofi}</a><button class="pt-footer-button" type="button" data-pt-update>↻ ${copy.update} · v${PT_VERSION}</button></div><small class="pt-footer-privacy">🔒 ${copy.privacy}<br>📊 ${PT_METRICS_COPY[ptLanguage()]}</small><a class="pt-footer-legal" href="${PT_CONFIG.url('privacy/')}">🛡️ ${PT_LEGAL_COPY[ptLanguage()]}</a><div class="pt-footer-bottom"><div class="pt-footer-theme"><span>Аа · ${copy.theme}</span><button class="pt-theme-choice ${theme==='normal'?'active':''}" type="button" data-pt-theme-choice="normal" aria-pressed="${theme==='normal'}">${copy.normal}</button><button class="pt-theme-choice ${theme==='readable'?'active':''}" type="button" data-pt-theme-choice="readable" aria-pressed="${theme==='readable'}">${copy.readable}</button></div><p class="pt-ambassador">📣 ${copy.ambassador}</p></div>`;
+  const copy=ptCopy(),theme=ptTheme();
+  return `<div class="pt-footer-brand"><span class="pt-footer-wordmark">Port<b>Hub</b></span><span class="pt-footer-tagline">${PT_BRAND_TAGLINE[ptLanguage()]}<br><span class="pt-footer-version">v${PT_VERSION}</span></span></div><h2>${copy.title.replaceAll('Portable Tests','PortHub')}</h2><p>${copy.text}</p><div class="pt-footer-actions"><button class="pt-footer-button primary" type="button" data-pt-install>📲 ${copy.install}</button><button class="pt-footer-button" type="button" data-pt-share>↗ ${copy.share}</button><a class="pt-footer-button" href="${PT_SUPPORT.boosty}" target="_blank" rel="noopener">☕ ${copy.boosty}</a><a class="pt-footer-button" href="${PT_SUPPORT.kofi}" target="_blank" rel="noopener">☕ ${copy.kofi}</a><button class="pt-footer-button" type="button" data-pt-update>↻ ${copy.update} · v${PT_VERSION}</button></div><small class="pt-footer-privacy">🔒 ${copy.privacy.replaceAll('Portable Tests','PortHub')}<br>📊 ${PT_METRICS_COPY[ptLanguage()]}</small><a class="pt-footer-legal" href="${PT_CONFIG.url('privacy/')}">🛡️ ${PT_LEGAL_COPY[ptLanguage()]}</a><div class="pt-footer-bottom"><div class="pt-footer-theme"><span>Аа · ${copy.theme}</span><button class="pt-theme-choice ${theme==='normal'?'active':''}" type="button" data-pt-theme-choice="normal" aria-pressed="${theme==='normal'}">${copy.normal}</button><button class="pt-theme-choice ${theme==='readable'?'active':''}" type="button" data-pt-theme-choice="readable" aria-pressed="${theme==='readable'}">${copy.readable}</button></div><p class="pt-ambassador">📣 ${copy.ambassador}</p></div>`;
 }
 
 function ptToast(message){
@@ -158,8 +161,8 @@ function ptToast(message){
 }
 
 async function ptShareApp(){
-  const copy=PT_COPY[ptLanguage()];
-  const data={title:'Portable Tests',text:copy.text,url:PT_HOME};
+  const copy=ptCopy();
+  const data={title:'PortHub',text:copy.text,url:PT_HOME};
   try{
     if(navigator.share)await navigator.share(data);
     else{await navigator.clipboard.writeText(PT_HOME);ptToast(copy.copied)}
@@ -171,7 +174,7 @@ function ptIsInstalled(){
 }
 
 function ptInstallHelp(){
-  const copy=PT_COPY[ptLanguage()],isIos=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const copy=ptCopy(),isIos=/iphone|ipad|ipod/i.test(navigator.userAgent);
   let dialog=document.querySelector('.pt-install-dialog');
   if(!dialog){dialog=document.createElement('dialog');dialog.className='pt-install-dialog';document.body.appendChild(dialog)}
   dialog.innerHTML=`<div class="pt-install-card"><h2>📲 ${copy.installTitle}</h2><p>${isIos?copy.iosSteps:copy.browserSteps}</p><button type="button">${copy.close}</button></div>`;
@@ -180,7 +183,7 @@ function ptInstallHelp(){
 }
 
 async function ptInstallApp(){
-  const copy=PT_COPY[ptLanguage()];
+  const copy=ptCopy();
   if(ptIsInstalled())return ptToast(copy.installed);
   if(!ptInstallPrompt)return ptInstallHelp();
   ptInstallPrompt.prompt();
@@ -189,7 +192,7 @@ async function ptInstallApp(){
 }
 
 async function ptUpdateApp(){
-  const copy=PT_COPY[ptLanguage()];
+  const copy=ptCopy();
   try{
     const registration=await navigator.serviceWorker?.getRegistration(PT_ROOT) || await navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js`,{scope:PT_ROOT});
     await registration?.update();
@@ -230,6 +233,6 @@ function ptStart(){
 }
 
 window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();ptInstallPrompt=event});
-window.addEventListener('appinstalled',()=>{ptInstallPrompt=null;ptToast(PT_COPY[ptLanguage()].installed)});
+window.addEventListener('appinstalled',()=>{ptInstallPrompt=null;ptToast(ptCopy().installed)});
 navigator.serviceWorker?.addEventListener('controllerchange',()=>{if(ptReloading)return;ptReloading=true;location.reload()});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ptStart,{once:true});else ptStart();
