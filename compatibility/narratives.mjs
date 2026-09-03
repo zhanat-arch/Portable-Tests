@@ -67,7 +67,7 @@ export function buildPairNarrative(result,names,lang='ru',tone='humor'){
     strength:C.strong[ctx.strongest][style],
     friction:C.friction[ctx.attention][style],
     advice:C.advice[ctx.attention][style],
-    share:lang==='ru'?`${names[0]} + ${names[1]} — ${result.overall}%. Главный вердикт лучше увидеть самому.`:lang==='kk'?`${names[0]} + ${names[1]} — ${result.overall}%. Негізгі қорытындыны өзің көр.`:lang==='fr'?`${names[0]} + ${names[1]} : ${result.overall} %. Le verdict vaut le détour.`:`${names[0]} + ${names[1]} — ${result.overall}%. You should see the main verdict yourself.`
+    share:lang==='ru'?`${names[0]} + ${names[1]} — ${result.overall}%. Главный вердикт лучше открыть по ссылке.`:lang==='kk'?`${names[0]} + ${names[1]} — ${result.overall}%. Негізгі қорытындыны өзің көр.`:lang==='fr'?`${names[0]} + ${names[1]} : ${result.overall} %. Le verdict vaut le détour.`:`${names[0]} + ${names[1]} — ${result.overall}%. You should see the main verdict yourself.`
   };
 }
 
