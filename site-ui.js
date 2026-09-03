@@ -15,7 +15,7 @@ globalThis.PT_CONFIG = Object.freeze({
   url(path = '') { return new URL(path, PT_ROOT).href; },
   onlineUrl(path = '') { return new URL(path, PT_ONLINE_ROOT).href; }
 });
-const PT_VERSION = '1.10.1';
+const PT_VERSION = '1.10.2';
 const PT_GA_ID = 'G-37RB6NC78X';
 const PT_SUPPORT = { boosty:'https://boosty.to/zhanat-arch', kofi:'https://ko-fi.com/zhanat_arch' };
 const PT_LANGS = ['ru','kk','en','fr'];
@@ -118,6 +118,20 @@ function ptApplyTheme(theme){
   });
 }
 
+function ptApplyBranding(){
+  const lang=ptLanguage(),tagline=PT_BRAND_TAGLINE[lang];
+  document.querySelectorAll('header.top,header.topbar').forEach(header=>{
+    header.classList.add('pt-site-header');
+    const brand=header.querySelector('a.brand');
+    if(!brand)return;
+    brand.href=PT_ROOT;
+    brand.setAttribute('aria-label',`PortHub — ${tagline}`);
+    if(brand.dataset.ptBrandLang===lang)return;
+    brand.dataset.ptBrandLang=lang;
+    brand.innerHTML=`<span class="brand-wordmark"><span class="brand-port">Port</span><span class="brand-hub">Hub</span></span><span class="brand-tagline">${tagline}</span>`;
+  });
+}
+
 function ptInstallStyles(){
   if(document.getElementById('pt-global-ui-styles'))return;
   const style=document.createElement('style');
@@ -125,6 +139,7 @@ function ptInstallStyles(){
   style.textContent=`
     html,body,button,input,select,textarea{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif!important;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;font-synthesis:none}
     body{overflow-wrap:break-word}
+    .pt-site-header{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;width:min(1180px,calc(100% - 20px))!important;margin:10px auto 18px!important;padding:11px 14px!important;border:1px solid #2e2a39!important;border-radius:18px!important;background:#15131c!important;color:#fff!important;box-shadow:0 14px 35px #17121f33!important}.pt-site-header .brand{display:grid!important;gap:4px!important;color:#fff!important;text-decoration:none!important}.pt-site-header .brand-wordmark{display:flex!important;align-items:center!important;width:max-content!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#fff!important;font-size:1.52rem!important;font-weight:950!important;line-height:1!important;letter-spacing:-.055em!important;box-shadow:none!important}.pt-site-header .brand-port{display:inline!important;color:#fff!important}.pt-site-header .brand-hub{display:inline!important;margin-left:2px!important;padding:5px 7px 6px!important;border-radius:7px!important;background:linear-gradient(145deg,#a77bff,#7c45ed)!important;color:#0d0b13!important;box-shadow:0 7px 18px #6634df32!important}.pt-site-header .brand-tagline{display:block!important;max-width:none!important;color:#bdb7c7!important;font-size:.52rem!important;font-weight:850!important;line-height:1.1!important;letter-spacing:.055em!important;text-transform:uppercase!important;white-space:nowrap!important}.pt-site-header .tools,.pt-site-header .header-tools{color:#fff}.pt-site-header select,.pt-site-header button,.pt-site-header .tools a{border-color:#494354!important;background:#24212d!important;color:#fff!important}
     .pt-global-footer{position:relative;z-index:7;width:min(980px,calc(100% - 20px));margin:48px auto max(90px,env(safe-area-inset-bottom));padding:clamp(22px,5vw,38px);border:1px solid #36314a;border-radius:28px;background:linear-gradient(145deg,#211b3a,#141222);color:#fff;box-shadow:0 26px 80px #08061155}
     .pt-global-footer *{box-sizing:border-box}.pt-global-footer h2{margin:5px 0 10px;color:#fff;font-size:clamp(1.55rem,5vw,2.35rem);line-height:1.08;letter-spacing:-.025em}.pt-global-footer p{max-width:760px;margin:0;color:#d6d0df;font-size:1rem;line-height:1.65}.pt-footer-kicker{color:#f2cb75;font-size:.75rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
     .pt-footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}.pt-footer-wordmark{display:flex;align-items:center;padding:7px 8px 7px 11px;border-radius:10px;background:#0d0c11;color:#fff;font-size:1.5rem;font-weight:950;line-height:1;letter-spacing:-.055em}.pt-footer-wordmark b{margin-left:2px;padding:5px 7px 6px;border-radius:7px;background:linear-gradient(145deg,#a77bff,#7c45ed);color:#0d0b13}.pt-footer-tagline{color:#aaa2b8;font-size:.72rem;font-weight:750;line-height:1.25}.pt-footer-version{color:#f2cb75;font-size:.68rem;font-weight:850}
@@ -137,7 +152,7 @@ function ptInstallStyles(){
     html[data-pt-theme="readable"] :where(h1,h2,h3){line-height:1.1!important;letter-spacing:-.025em!important;font-weight:800!important}
     html[data-pt-theme="readable"] :where(button,.btn,a.open-card,a.link-btn){min-height:50px;font-weight:750!important}
     html[data-pt-theme="readable"] :where(.panel,.card,.catalog-card,.block,.feature){backdrop-filter:none!important}
-    @media(max-width:680px){.pt-global-footer{border-radius:22px;padding:22px 18px}.pt-footer-actions{grid-template-columns:1fr}.pt-footer-button[data-pt-update]{grid-column:auto}.pt-footer-bottom{align-items:flex-start;flex-direction:column}.pt-ambassador{text-align:left!important}.pt-footer-theme{width:100%}.pt-theme-choice{flex:1}}
+    @media(max-width:680px){.pt-site-header{padding:9px 10px!important;border-radius:15px!important}.pt-site-header .brand-wordmark{font-size:1.3rem!important}.pt-site-header .brand-hub{padding:4px 6px 5px!important}.pt-site-header .brand-tagline{font-size:.42rem!important;max-width:145px!important;overflow:hidden!important;text-overflow:ellipsis!important}.pt-global-footer{border-radius:22px;padding:22px 18px}.pt-footer-actions{grid-template-columns:1fr}.pt-footer-button[data-pt-update]{grid-column:auto}.pt-footer-bottom{align-items:flex-start;flex-direction:column}.pt-ambassador{text-align:left!important}.pt-footer-theme{width:100%}.pt-theme-choice{flex:1}}
     @media(prefers-reduced-motion:reduce){.pt-global-toast{transition:none}}
   `;
   document.head.appendChild(style);
@@ -225,9 +240,10 @@ function ptStart(){
   ptEnsureSeo();
   ptAnalytics();
   ptEnsurePwa();
+  ptApplyBranding();
   ptRenderFooter();
   let scheduled=false;
-  const refresh=()=>{if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;ptRemoveLegacySupport()})};
+  const refresh=()=>{if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;ptApplyBranding();ptRemoveLegacySupport()})};
   new MutationObserver(refresh).observe(document.body,{childList:true,subtree:true});
   new MutationObserver(ptRenderFooter).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 }

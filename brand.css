@@ -9,9 +9,7 @@
   display:flex;
   align-items:center;
   width:max-content;
-  padding:7px 8px 7px 11px;
-  border-radius:10px;
-  background:#111015;
+  padding:0;
   font-size:1.58rem;
   font-weight:950;
   line-height:1;
@@ -39,6 +37,16 @@
   .brand{display:grid!important;gap:3px!important}
   .brand span:last-child.brand-tagline{display:block;font-size:.43rem;max-width:145px;overflow:hidden;text-overflow:ellipsis}
   .brand-wordmark{font-size:1.35rem}
-  .brand-wordmark{padding:6px 7px 6px 9px}
   .brand-hub{padding:4px 6px 5px}
 }
+.topbar{
+  width:min(1180px,calc(100% - 20px));
+  margin:10px auto 18px;
+  padding:11px 14px;
+  border:1px solid #2e2a39;
+  border-radius:18px;
+  background:#15131c;
+  color:#fff;
+  box-shadow:0 14px 35px #17121f22;
+}
+.topbar .brand-tagline{color:#bdb7c7}
