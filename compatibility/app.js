@@ -1,5 +1,5 @@
-import { pairCompatibility, soloCompatibility, signs } from './engine.mjs?v=1113';
-import { buildPairNarrative, buildRankingDetail, narrativeUi } from './narratives.mjs?v=1113';
+import { pairCompatibility, soloCompatibility, signs } from './engine.mjs?v=1114';
+import { buildPairNarrative, buildRankingDetail, narrativeUi } from './narratives.mjs?v=1114';
 
 const ONLINE=globalThis.PT_CONFIG?.onlineRoot||new URL('../',location.href).href;
 const supported=['ru','kk','en','fr'];
@@ -22,7 +22,7 @@ if(shared&&['normal','humor'].includes(shared.tone))tone=shared.tone;
 
 const $=selector=>document.querySelector(selector);
 const app=$('#app');
-const load=async code=>{try{return await fetch(`locales/${code}.json?v=1113`,{cache:'no-store'}).then(response=>response.json())}catch{return fetch('locales/ru.json?v=1113',{cache:'no-store'}).then(response=>response.json())}};
+const load=async code=>{try{return await fetch(`locales/${code}.json?v=1114`,{cache:'no-store'}).then(response=>response.json())}catch{return fetch('locales/ru.json?v=1114',{cache:'no-store'}).then(response=>response.json())}};
 const f=(template,values={})=>Object.entries(values).reduce((value,[key,replacement])=>value.replaceAll(`{${key}}`,replacement),template);
 const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const cleanName=value=>String(value||'').trim().replace(/\s+/g,' ').slice(0,32);
@@ -40,10 +40,10 @@ function hero(){return `<section class="panel hero"><span class="badge">${L.badg
 
 function research(){return `<section class="panel research"><div class="eyebrow">${L.researchKicker}</div><h2>${L.researchTitle}</h2><p>${L.researchIntro}</p><div class="fact"><b>10M+</b><div><strong>${L.voasTitle}</strong><p>${L.voasText}</p></div></div><div class="fact"><b>65K+</b><div><strong>${L.swedenTitle}</strong><p>${L.swedenText}</p></div></div><div class="fact"><b>↔</b><div><strong>${L.realTitle}</strong><p>${L.realText}</p></div></div><details><summary>${L.sources}</summary><ul><li><a href="https://magonia.com/wp-content/uploads/2018/04/voas-astrology.pdf" target="_blank" rel="noopener">${L.sourceVoas}</a></li><li><a href="https://link.springer.com/article/10.1186/s41118-020-00103-5" target="_blank" rel="noopener">${L.sourceSweden}</a></li><li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4298140/" target="_blank" rel="noopener">${L.sourceCommunication}</a></li></ul></details><p class="disclaimer">${L.researchLimit}</p></section>`}
 
-function personForm(prefix,title,stored={}){return `<section class="person"><h2>${title}</h2><div class="field"><label for="${prefix}-name">${L.name}</label><input id="${prefix}-name" maxlength="32" autocomplete="off" placeholder="${L.namePlaceholder}" value="${esc(stored.name||'')}"><small>${L.nameHint}</small></div><div class="field"><label for="${prefix}-birth">${L.birth} *</label><input id="${prefix}-birth" type="date" max="${new Date().toISOString().slice(0,10)}" value="${esc(stored.birth||'')}"></div></section>`}
+function personForm(prefix,title,stored={}){const person=stored&&typeof stored==='object'?stored:{};return `<section class="person"><h2>${title}</h2><div class="field"><label for="${prefix}-name">${L.name}</label><input id="${prefix}-name" maxlength="32" autocomplete="off" placeholder="${L.namePlaceholder}" value="${esc(person.name||'')}"><small>${L.nameHint}</small></div><div class="field"><label for="${prefix}-birth">${L.birth} *</label><input id="${prefix}-birth" type="date" max="${new Date().toISOString().slice(0,10)}" value="${esc(person.birth||'')}"></div></section>`}
 
 function intro(){
-  const saved=(()=>{try{return JSON.parse(localStorage.getItem('pt.compatibility.form')||'{}')}catch{return{}}})();
+  const saved=(()=>{try{const value=JSON.parse(localStorage.getItem('pt.compatibility.form')||'{}');return value&&typeof value==='object'&&!Array.isArray(value)?value:{}}catch{return{}}})();
   shell(`${hero()}<div class="tabs"><button class="tab ${mode==='pair'?'active':''}" data-mode="pair">♡ ${L.pairMode}</button><button class="tab ${mode==='solo'?'active':''}" data-mode="solo">✦ ${L.soloMode}</button></div><section class="panel form-panel">${mode==='pair'?`<div class="form-grid">${personForm('a',L.personA,saved.a)}${personForm('b',L.personB,saved.b)}</div><div class="vs">${L.vs}</div>`:personForm('a',L.yourProfile,saved.a)}<div class="honesty">💡 ${L.honesty}</div><div class="privacy">🔒 ${L.privacy}</div><button class="primary wide" id="calculate">${mode==='pair'?L.calculatePair:L.calculateSolo}</button></section>${research()}`);
   document.querySelectorAll('.tab').forEach(button=>button.onclick=()=>{mode=button.dataset.mode;render()});
   $('#calculate').onclick=calculate;

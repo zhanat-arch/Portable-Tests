@@ -39,7 +39,7 @@
     "id":"compatibility",
     "title":{"ru":"Совместимость: Зодиак + Сюцай","kk":"Үйлесімділік: Зодиак + Сюцай","en":"Compatibility: Zodiac + Syutsai","fr":"Compatibilité : Zodiaque + Syutsai"},
     "description":{"ru":"Проверка конкретной пары или личная таблица подходящих знаков и чисел.","kk":"Нақты жұпты тексеру немесе сәйкес белгілер мен сандардың жеке кестесі.","en":"Check a specific pair or view a personal ranking of matching signs and numbers.","fr":"Testez un couple précis ou consultez un classement personnel des signes et nombres."},
-    "category":"astro","icon":"♡","path":"./compatibility/?v=1113","time":{"ru":"≈2 мин","kk":"≈2 мин","en":"≈2 min","fr":"≈2 min"},
+    "category":"astro","icon":"♡","path":"./compatibility/?v=1114","time":{"ru":"≈2 мин","kk":"≈2 мин","en":"≈2 min","fr":"≈2 min"},
     "tags":{"ru":["отношения","пара","любовь","зодиак","сюцай"],"kk":["қарым-қатынас","жұп","махаббат","зодиак","сюцай"],"en":["relationship","couple","love","zodiac","syutsai"],"fr":["relation","couple","amour","zodiaque","syutsai"]},
     "metrics":{"isViralTop":true,"isPopular":true,"isNew":true,"rating":null,"shareCount":null},
     "badge":{"tone":"new","label":{"ru":"2 режима","kk":"2 режим","en":"2 modes","fr":"2 modes"}}
