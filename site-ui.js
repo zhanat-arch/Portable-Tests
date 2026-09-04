@@ -15,12 +15,13 @@ globalThis.PT_CONFIG = Object.freeze({
   url(path = '') { return new URL(path, PT_ROOT).href; },
   onlineUrl(path = '') { return new URL(path, PT_ONLINE_ROOT).href; }
 });
-const PT_VERSION = '1.12.1';
+const PT_VERSION = '1.12.2';
 const PT_GA_ID = 'G-37RB6NC78X';
 const PT_SUPPORT = { boosty:'https://boosty.to/zhanat-arch', kofi:'https://ko-fi.com/zhanat_arch' };
 const PT_LANGS = ['ru','kk','en','fr'];
 let ptInstallPrompt = null;
 let ptReloading = false;
+let ptReloadOnUpdate = false;
 const PT_COPY = {
   ru:{title:'Portable Tests остаётся бесплатным',text:'Установите всё приложение, поделитесь им или поддержите разработчика. Личный результат и ответы не передаются.',install:'Установить приложение',installed:'Приложение уже установлено',update:'Проверить обновление',updating:'Устанавливаем новую версию…',current:'У вас уже свежая версия',boosty:'Поддержать проект',kofi:'Угостить кофе',share:'Поделиться приложением',privacy:'Устанавливается главный каталог Portable Tests. При отправке откроется обычная ссылка — без вашего результата.',theme:'Оформление',normal:'Обычная тема',readable:'Читаемая тема',ambassador:'Ищем эксперта по Сюцай и астрологии для сотрудничества.',copied:'Ссылка на приложение скопирована',installTitle:'Как установить Portable Tests',iosSteps:'Откройте страницу в Safari, нажмите «Поделиться» внизу экрана и выберите «На экран Домой».',browserSteps:'Откройте меню браузера и выберите «Установить приложение» или «Добавить на главный экран».',close:'Понятно'},
   kk:{title:'Portable Tests тегін болып қалады',text:'Толық қолданбаны орнатыңыз, бөлісіңіз немесе әзірлеушіні қолдаңыз. Жеке нәтиже мен жауаптар берілмейді.',install:'Қолданбаны орнату',installed:'Қолданба орнатылған',update:'Жаңартуды тексеру',updating:'Жаңа нұсқа орнатылуда…',current:'Сізде соңғы нұсқа орнатылған',boosty:'Жобаны қолдау',kofi:'Кофеге қолдау',share:'Қолданбамен бөлісу',privacy:'Portable Tests басты каталогы орнатылады. Нәтижеңізсіз қарапайым сілтеме жіберіледі.',theme:'Көрініс',normal:'Қалыпты тақырып',readable:'Оқуға ыңғайлы',ambassador:'Сюцай және астрология маманын ынтымақтастыққа шақырамыз.',copied:'Қолданба сілтемесі көшірілді',installTitle:'Portable Tests орнату жолы',iosSteps:'Бетті Safari-де ашыңыз, төмендегі «Бөлісу» батырмасын басып, «Басты экранға» таңдаңыз.',browserSteps:'Браузер мәзірін ашып, «Қолданбаны орнату» немесе «Басты экранға қосу» таңдаңыз.',close:'Түсінікті'},
@@ -209,9 +210,14 @@ async function ptInstallApp(){
 async function ptUpdateApp(){
   const copy=ptCopy();
   try{
-    const registration=await navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1201`,{scope:PT_ROOT,updateViaCache:'none'});
+    const registration=await navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1202`,{scope:PT_ROOT,updateViaCache:'none'});
     await registration?.update();
-    if(registration?.waiting){ptToast(copy.updating);registration.waiting.postMessage({type:'SKIP_WAITING'});return}
+    const installing=registration?.installing;
+    if(installing&&!['installed','redundant'].includes(installing.state))await new Promise(resolve=>{
+      const ready=()=>{if(['installed','redundant'].includes(installing.state)){installing.removeEventListener('statechange',ready);resolve()}};
+      installing.addEventListener('statechange',ready);
+    });
+    if(registration?.waiting){ptReloadOnUpdate=true;ptToast(copy.updating);registration.waiting.postMessage({type:'SKIP_WAITING'});return}
   }catch{}
   ptToast(copy.current);
 }
@@ -220,7 +226,7 @@ function ptEnsurePwa(){
   if(!document.querySelector('link[rel="manifest"]')){const link=document.createElement('link');link.rel='manifest';link.href=`${PT_ROOT}manifest.webmanifest`;document.head.appendChild(link)}
   if(!document.querySelector('link[rel="apple-touch-icon"]')){const link=document.createElement('link');link.rel='apple-touch-icon';link.href=`${PT_ROOT}icon-porthub-192.png`;document.head.appendChild(link)}
   if(!document.querySelector('meta[name="apple-mobile-web-app-capable"]')){const meta=document.createElement('meta');meta.name='apple-mobile-web-app-capable';meta.content='yes';document.head.appendChild(meta)}
-  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1201`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
+  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1202`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
 }
 
 function ptRenderFooter(){
@@ -249,5 +255,5 @@ function ptStart(){
 
 window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();ptInstallPrompt=event});
 window.addEventListener('appinstalled',()=>{ptInstallPrompt=null;ptToast(ptCopy().installed)});
-navigator.serviceWorker?.addEventListener('controllerchange',()=>{if(ptReloading)return;ptReloading=true;location.reload()});
+navigator.serviceWorker?.addEventListener('controllerchange',()=>{if(!ptReloadOnUpdate||ptReloading)return;ptReloading=true;location.reload()});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ptStart,{once:true});else ptStart();

@@ -44,6 +44,8 @@ for (const lang of ['ru','kk','en','fr']) hubLocales[lang]?.viewResult && hubLoc
 /(?:portable-tests|porthub)-v\d+\.\d+\.\d+/.test(sw) || fail('PWA cache version is missing');
 for (const asset of ['app.js','styles.css','tests-registry.json','hub-locales.json','tests/anti-iq/index.html','tests/anti-iq/app.js','astro/dreams/index.html','astro/dreams/app.js','astro/dreams/data/objects.json','astro/dreams/locales/kk.json']) sw.includes(asset) || fail(`PWA missing ${asset}`);
 sw.includes('origin!==self.location.origin') || fail('cross-origin requests must bypass PWA cache');
+!sw.includes('.then(()=>self.skipWaiting())') || fail('PWA must not activate an update during an active test');
+siteUi.includes('!ptReloadOnUpdate||ptReloading') || fail('PWA reload must happen only after a manual update');
 horoscope.includes('navigator.geolocation') || fail('horoscope map has no geolocation fallback');
 siteUi.includes('G-37RB6NC78X') || fail('GA4 measurement ID missing');
 siteUi.includes('send_page_view:false') && siteUi.includes('ptSafePage()') || fail('GA4 page views are not privacy-sanitized');
