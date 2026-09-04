@@ -43,7 +43,7 @@
     return signs2[month - 1 + Number(day >= edge[month - 1])];
   }
 
-  // compatibility/engine.mjs?v=1114
+  // compatibility/engine.mjs?v=1115
   var ENGINE_VERSION = "compatibility-symbolic-v2";
   var categories = ["communication", "emotions", "daily", "attraction", "pace", "repair"];
   var signs = {
@@ -186,7 +186,7 @@
     return { version: ENGINE_VERSION, person, signRanking, numberRanking };
   }
 
-  // compatibility/narratives.mjs?v=1114
+  // compatibility/narratives.mjs?v=1115
   var COPY = {
     ru: {
       ui: { normal: "\u{1F607} \u0421\u043F\u043E\u043A\u043E\u0439\u043D\u043E", humor: "\u{1F3AD} \u0421 \u044E\u043C\u043E\u0440\u043E\u043C", toneLabel: "\u041A\u0430\u043A \u0440\u0430\u0441\u0441\u043A\u0430\u0437\u0430\u0442\u044C \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442", locked: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0432\u0435\u0440\u0434\u0438\u043A\u0442 \u0433\u043E\u0442\u043E\u0432", unlock: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0432\u0435\u0440\u0434\u0438\u043A\u0442", unlocked: "\u0412\u0435\u0440\u0434\u0438\u043A\u0442 \u043E\u0442\u043A\u0440\u044B\u0442", strength: "\u0427\u0442\u043E \u0432\u0430\u0441 \u0441\u0431\u043B\u0438\u0436\u0430\u0435\u0442", friction: "\u0413\u0434\u0435 \u043C\u043E\u0436\u0435\u0442 \u0438\u0441\u043A\u0440\u0438\u0442\u044C", advice: "\u0427\u0442\u043E \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u043F\u043E\u043C\u043E\u0436\u0435\u0442", details: "\u041D\u0430\u0436\u043C\u0438\u0442\u0435 \u043D\u0430 \u0441\u0444\u0435\u0440\u0443 \u2014 \u043F\u043E\u043A\u0430\u0436\u0435\u043C, \u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u043B\u0430\u0441\u044C \u043E\u0446\u0435\u043D\u043A\u0430", why: "\u041F\u043E\u0447\u0435\u043C\u0443 \u0442\u0430\u043A", sharePair: "\u041F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F \u043D\u0430\u0448\u0438\u043C \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u043C", shareSafe: "\u0412 \u0441\u0441\u044B\u043B\u043A\u0435 \u0431\u0443\u0434\u0443\u0442 \u0438\u043C\u0435\u043D\u0430 \u0438 \u0433\u043E\u0442\u043E\u0432\u044B\u0439 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u043F\u0430\u0440\u044B. \u0414\u0430\u0442\u044B \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F \u043D\u0435 \u043F\u0435\u0440\u0435\u0434\u0430\u044E\u0442\u0441\u044F.", shareSafeSolo: "\u0412 \u0441\u0441\u044B\u043B\u043A\u0435 \u0431\u0443\u0434\u0443\u0442 \u0438\u043C\u044F, \u0437\u043D\u0430\u043A \u0438 \u0433\u043E\u0442\u043E\u0432\u044B\u0439 \u0440\u0435\u0439\u0442\u0438\u043D\u0433. \u0414\u0430\u0442\u0430 \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F \u043D\u0435 \u043F\u0435\u0440\u0435\u0434\u0430\u0451\u0442\u0441\u044F.", rankOpen: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u043E\u044F\u0441\u043D\u0435\u043D\u0438\u0435", rankWhy: "\u041F\u043E\u0447\u0435\u043C\u0443 \u043F\u043E\u0434\u0445\u043E\u0434\u0438\u0442", rankRisk: "\u0413\u0434\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u0430 \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u044C", rankTip: "\u0427\u0442\u043E \u043F\u043E\u043C\u043E\u0436\u0435\u0442" },
@@ -275,6 +275,190 @@
     return { why: C.strong[item.strongest][style], risk: C.friction[item.attention][style], tip: C.advice[item.attention][style] };
   }
 
+  // loader-overlay.js?v=1115
+  var COPY2 = {
+    ru: {
+      title: "\u0421\u043E\u0431\u0438\u0440\u0430\u0435\u043C \u0432\u0430\u0448 \u0440\u0430\u0437\u0431\u043E\u0440",
+      local: "\u0420\u0430\u0441\u0447\u0451\u0442 \u0432\u044B\u043F\u043E\u043B\u043D\u044F\u0435\u0442\u0441\u044F \u043D\u0430 \u044D\u0442\u043E\u043C \u0443\u0441\u0442\u0440\u043E\u0439\u0441\u0442\u0432\u0435",
+      horoscope: ["\u0421\u0447\u0438\u0442\u044B\u0432\u0430\u0435\u043C \u0430\u0441\u0442\u0440\u043E\u043B\u043E\u0433\u0438\u0447\u0435\u0441\u043A\u0443\u044E \u043C\u0430\u0442\u0440\u0438\u0446\u0443\u2026", "\u0421\u043E\u043F\u043E\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u043C \u043A\u043E\u043E\u0440\u0434\u0438\u043D\u0430\u0442\u044B \u043A\u0430\u0440\u0442\u044B \u043D\u0435\u0431\u0430\u2026", "\u0421\u043E\u0431\u0438\u0440\u0430\u0435\u043C \u0438\u043D\u0434\u0438\u0432\u0438\u0434\u0443\u0430\u043B\u044C\u043D\u044B\u0439 \u043F\u0440\u043E\u0433\u043D\u043E\u0437\u2026"],
+      syutsai: ["\u0421\u043E\u043F\u043E\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u043C \u0447\u0438\u0441\u043B\u043E\u0432\u044B\u0435 \u043A\u043E\u0434\u044B \u0421\u044E\u0446\u0430\u0439\u2026", "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u043C \u043B\u0438\u0447\u043D\u044B\u0435 \u0446\u0438\u043A\u043B\u044B \u043D\u0435\u0434\u0435\u043B\u0438\u2026", "\u0421\u043E\u0431\u0438\u0440\u0430\u0435\u043C \u043F\u043E\u043D\u044F\u0442\u043D\u044B\u0439 \u0440\u0430\u0437\u0431\u043E\u0440\u2026"],
+      numerology: ["\u0421\u0447\u0438\u0442\u044B\u0432\u0430\u0435\u043C \u043E\u0442\u0432\u0435\u0442\u044B \u0442\u0435\u0441\u0442\u0430\u2026", "\u0421\u043E\u043F\u043E\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u043C \u0447\u0438\u0441\u043B\u043E \u0434\u0430\u0442\u044B\u2026", "\u0421\u043E\u0431\u0438\u0440\u0430\u0435\u043C \u043A\u0430\u0440\u044C\u0435\u0440\u043D\u044B\u0439 \u043F\u0440\u043E\u0444\u0438\u043B\u044C\u2026"],
+      dreams: ["\u0421\u043E\u0435\u0434\u0438\u043D\u044F\u0435\u043C \u0434\u0435\u0442\u0430\u043B\u0438 \u0441\u043D\u0430\u2026", "\u0421\u043E\u043F\u043E\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u043C \u0442\u0440\u0438 \u0442\u0440\u0430\u0434\u0438\u0446\u0438\u0438\u2026", "\u0421\u043E\u0431\u0438\u0440\u0430\u0435\u043C \u043B\u0438\u0447\u043D\u043E\u0435 \u0442\u043E\u043B\u043A\u043E\u0432\u0430\u043D\u0438\u0435\u2026"],
+      compatibility: ["\u0421\u043E\u043F\u043E\u0441\u0442\u0430\u0432\u043B\u044F\u0435\u043C \u0437\u043D\u0430\u043A\u0438 \u0437\u043E\u0434\u0438\u0430\u043A\u0430\u2026", "\u041F\u0440\u043E\u0432\u0435\u0440\u044F\u0435\u043C \u0441\u043E\u0447\u0435\u0442\u0430\u043D\u0438\u0435 \u0447\u0438\u0441\u0435\u043B \u0421\u044E\u0446\u0430\u0439\u2026", "\u0421\u043E\u0431\u0438\u0440\u0430\u0435\u043C \u0440\u0430\u0437\u0431\u043E\u0440 \u0432\u0430\u0448\u0435\u0439 \u0441\u043E\u0432\u043C\u0435\u0441\u0442\u0438\u043C\u043E\u0441\u0442\u0438\u2026"]
+    },
+    kk: {
+      title: "\u0422\u0430\u043B\u0434\u0430\u0443\u044B\u04A3\u044B\u0437\u0434\u044B \u0436\u0438\u043D\u0430\u043F \u0436\u0430\u0442\u044B\u0440\u043C\u044B\u0437",
+      local: "\u0415\u0441\u0435\u043F \u043E\u0441\u044B \u049B\u04B1\u0440\u044B\u043B\u0493\u044B\u0434\u0430 \u043E\u0440\u044B\u043D\u0434\u0430\u043B\u0430\u0434\u044B",
+      horoscope: ["\u0410\u0441\u0442\u0440\u043E\u043B\u043E\u0433\u0438\u044F\u043B\u044B\u049B \u043C\u0430\u0442\u0440\u0438\u0446\u0430\u043D\u044B \u043E\u049B\u044B\u043F \u0436\u0430\u0442\u044B\u0440\u043C\u044B\u0437\u2026", "\u0410\u0441\u043F\u0430\u043D \u043A\u0430\u0440\u0442\u0430\u0441\u044B\u043D\u044B\u04A3 \u043A\u043E\u043E\u0440\u0434\u0438\u043D\u0430\u0442\u0442\u0430\u0440\u044B\u043D \u0441\u0430\u043B\u044B\u0441\u0442\u044B\u0440\u0430\u043C\u044B\u0437\u2026", "\u0416\u0435\u043A\u0435 \u0431\u043E\u043B\u0436\u0430\u043C\u0434\u044B \u0436\u0438\u043D\u0430\u0439\u043C\u044B\u0437\u2026"],
+      syutsai: ["\u0421\u044E\u0446\u0430\u0439 \u0441\u0430\u043D\u0434\u044B\u049B \u043A\u043E\u0434\u0442\u0430\u0440\u044B\u043D \u0441\u0430\u043B\u044B\u0441\u0442\u044B\u0440\u0430\u043C\u044B\u0437\u2026", "\u0410\u043F\u0442\u0430\u043D\u044B\u04A3 \u0436\u0435\u043A\u0435 \u0446\u0438\u043A\u043B\u0434\u0435\u0440\u0456\u043D \u0442\u0435\u043A\u0441\u0435\u0440\u0435\u043C\u0456\u0437\u2026", "\u0422\u04AF\u0441\u0456\u043D\u0456\u043A\u0442\u0456 \u0442\u0430\u043B\u0434\u0430\u0443\u0434\u044B \u0436\u0438\u043D\u0430\u0439\u043C\u044B\u0437\u2026"],
+      numerology: ["\u0422\u0435\u0441\u0442 \u0436\u0430\u0443\u0430\u043F\u0442\u0430\u0440\u044B\u043D \u043E\u049B\u0438\u043C\u044B\u0437\u2026", "\u041A\u04AF\u043D \u0441\u0430\u043D\u044B\u043D \u0441\u0430\u043B\u044B\u0441\u0442\u044B\u0440\u0430\u043C\u044B\u0437\u2026", "\u041C\u0430\u043D\u0441\u0430\u043F \u043F\u0440\u043E\u0444\u0438\u043B\u0456\u043D \u0436\u0438\u043D\u0430\u0439\u043C\u044B\u0437\u2026"],
+      dreams: ["\u0422\u04AF\u0441 \u0434\u0435\u0442\u0430\u043B\u044C\u0434\u0435\u0440\u0456\u043D \u0431\u0456\u0440\u0456\u043A\u0442\u0456\u0440\u0435\u043C\u0456\u0437\u2026", "\u04AE\u0448 \u0434\u04D9\u0441\u0442\u04AF\u0440\u0434\u0456 \u0441\u0430\u043B\u044B\u0441\u0442\u044B\u0440\u0430\u043C\u044B\u0437\u2026", "\u0416\u0435\u043A\u0435 \u0436\u043E\u0440\u0443\u0434\u044B \u0436\u0438\u043D\u0430\u0439\u043C\u044B\u0437\u2026"],
+      compatibility: ["\u0417\u043E\u0434\u0438\u0430\u043A \u0431\u0435\u043B\u0433\u0456\u043B\u0435\u0440\u0456\u043D \u0441\u0430\u043B\u044B\u0441\u0442\u044B\u0440\u0430\u043C\u044B\u0437\u2026", "\u0421\u044E\u0446\u0430\u0439 \u0441\u0430\u043D\u0434\u0430\u0440\u044B\u043D\u044B\u04A3 \u04AF\u0439\u043B\u0435\u0441\u0456\u043C\u0456\u043D \u0442\u0435\u043A\u0441\u0435\u0440\u0435\u043C\u0456\u0437\u2026", "\u04AE\u0439\u043B\u0435\u0441\u0456\u043C\u0434\u0456\u043B\u0456\u043A \u0442\u0430\u043B\u0434\u0430\u0443\u044B\u043D \u0436\u0438\u043D\u0430\u0439\u043C\u044B\u0437\u2026"]
+    },
+    en: {
+      title: "Assembling your reading",
+      local: "The calculation runs on this device",
+      horoscope: ["Reading the astrological matrix\u2026", "Matching the sky-chart coordinates\u2026", "Assembling your personal forecast\u2026"],
+      syutsai: ["Matching the Syutsai number codes\u2026", "Checking your weekly cycles\u2026", "Assembling a clear reading\u2026"],
+      numerology: ["Reading your quiz answers\u2026", "Matching the birth-date number\u2026", "Assembling your career profile\u2026"],
+      dreams: ["Connecting the dream details\u2026", "Comparing three traditions\u2026", "Assembling your personal interpretation\u2026"],
+      compatibility: ["Matching your zodiac signs\u2026", "Checking your Syutsai number pairing\u2026", "Assembling your compatibility reading\u2026"]
+    },
+    fr: {
+      title: "Cr\xE9ation de votre analyse",
+      local: "Le calcul s\u2019effectue sur cet appareil",
+      horoscope: ["Lecture de la matrice astrologique\u2026", "Comparaison des coordonn\xE9es du ciel\u2026", "Cr\xE9ation de votre pr\xE9vision personnelle\u2026"],
+      syutsai: ["Comparaison des codes num\xE9riques Syutsai\u2026", "V\xE9rification de vos cycles de la semaine\u2026", "Cr\xE9ation d\u2019une analyse claire\u2026"],
+      numerology: ["Lecture de vos r\xE9ponses\u2026", "Comparaison du nombre de naissance\u2026", "Cr\xE9ation de votre profil professionnel\u2026"],
+      dreams: ["Connexion des d\xE9tails du r\xEAve\u2026", "Comparaison de trois traditions\u2026", "Cr\xE9ation de votre interpr\xE9tation personnelle\u2026"],
+      compatibility: ["Comparaison de vos signes du zodiaque\u2026", "V\xE9rification des nombres Syutsai\u2026", "Cr\xE9ation de votre analyse de compatibilit\xE9\u2026"]
+    }
+  };
+  var activeLoader = null;
+  function installStyles() {
+    if (document.getElementById("calculation-loader-styles")) return;
+    const style = document.createElement("style");
+    style.id = "calculation-loader-styles";
+    style.textContent = `
+    .calculation-overlay{position:fixed;z-index:9999;inset:0;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 50% 30%,#372274 0,#111027 46%,#080712 100%);color:#fff;text-align:center;opacity:1;transition:opacity .28s;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}.calculation-overlay.closing{opacity:0}.calculation-loader-card{width:min(520px,100%);padding:26px 20px;border:1px solid #ffffff20;border-radius:30px;background:#17142bd9;box-shadow:0 35px 100px #000b;backdrop-filter:blur(18px)}.calculation-canvas{display:block;width:min(320px,78vw);height:min(320px,78vw);margin:auto}.calculation-loader-card h2{margin:4px 0 8px;font-size:clamp(1.65rem,6vw,2.35rem);letter-spacing:-.04em}.calculation-status{min-height:48px;margin:0;color:#d8d0ec;font-size:1rem;line-height:1.5}.calculation-local{display:inline-flex;margin-top:12px;padding:7px 10px;border-radius:999px;background:#ffffff0d;color:#aaa2c2;font-size:.76rem;font-weight:800}.calculation-dots{display:flex;justify-content:center;gap:7px;margin:13px 0 0}.calculation-dots i{width:7px;height:7px;border-radius:50%;background:#6655aa}.calculation-dots i.active{background:#f1c86f;box-shadow:0 0 18px #f1c86f}.calculation-reveal>*{animation:calculation-rise .55s both}.calculation-reveal>*:nth-child(2){animation-delay:.08s}.calculation-reveal>*:nth-child(3){animation-delay:.16s}.calculation-reveal>*:nth-child(4){animation-delay:.24s}.calculation-typewriter::after{content:'\u258D';color:#735cff;animation:calculation-caret .7s step-end infinite}@keyframes calculation-rise{from{opacity:0;transform:translateY(14px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}@keyframes calculation-caret{50%{opacity:0}}@media(prefers-reduced-motion:reduce){.calculation-reveal>*{animation:none}.calculation-typewriter::after{display:none}}
+  `;
+    document.head.appendChild(style);
+  }
+  function makeOverlay(copy2) {
+    const overlay = document.createElement("div");
+    overlay.className = "calculation-overlay";
+    overlay.setAttribute("role", "status");
+    overlay.setAttribute("aria-live", "polite");
+    overlay.innerHTML = `<section class="calculation-loader-card"><canvas class="calculation-canvas" aria-hidden="true"></canvas><h2>${copy2.title}</h2><p class="calculation-status"></p><div class="calculation-dots"><i class="active"></i><i></i><i></i></div><span class="calculation-local">\u{1F512} ${copy2.local}</span></section>`;
+    return overlay;
+  }
+  function rotate4([x, y, z, w], angle) {
+    let c = Math.cos(angle), s = Math.sin(angle);
+    [x, w] = [x * c - w * s, x * s + w * c];
+    c = Math.cos(angle * 0.73);
+    s = Math.sin(angle * 0.73);
+    [y, z] = [y * c - z * s, y * s + z * c];
+    c = Math.cos(angle * 0.41);
+    s = Math.sin(angle * 0.41);
+    [x, y] = [x * c - y * s, x * s + y * c];
+    return [x, y, z, w];
+  }
+  function animateScanner(canvas) {
+    const context = canvas.getContext("2d");
+    const vertices = Array.from({ length: 16 }, (_, index) => [index & 1 ? 1 : -1, index & 2 ? 1 : -1, index & 4 ? 1 : -1, index & 8 ? 1 : -1]);
+    const edges = [];
+    for (let a = 0; a < 16; a++) for (let b = a + 1; b < 16; b++) if (((a ^ b) & (a ^ b) - 1) === 0) edges.push([a, b]);
+    const particles = Array.from({ length: 42 }, (_, index) => ({ a: index * 2.399, r: 65 + index % 7 * 13, s: 0.25 + index % 5 * 0.08, o: 0.18 + index % 4 * 0.1 }));
+    let frame = 0, stopped = false;
+    const draw = (time) => {
+      if (stopped) return;
+      const size = Math.min(360, innerWidth * 0.78), dpr = Math.min(devicePixelRatio || 1, 2);
+      if (canvas.width !== Math.round(size * dpr)) {
+        canvas.width = Math.round(size * dpr);
+        canvas.height = Math.round(size * dpr);
+        canvas.style.width = `${size}px`;
+        canvas.style.height = `${size}px`;
+      }
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      context.clearRect(0, 0, size, size);
+      const center = size / 2, t = time / 1e3;
+      for (const particle of particles) {
+        const a = particle.a + t * particle.s, x = center + Math.cos(a) * particle.r, y = center + Math.sin(a * 1.19) * particle.r * 0.72;
+        context.fillStyle = `rgba(164,133,255,${particle.o})`;
+        context.beginPath();
+        context.arc(x, y, 1.1 + particle.r % 3, 0, Math.PI * 2);
+        context.fill();
+      }
+      const points = vertices.map((point) => {
+        const [x, y, z, w] = rotate4(point, t * 0.8);
+        const p4 = 2.7 / (3.5 - w);
+        const X = x * p4, Y = y * p4, Z = z * p4;
+        const p3 = 3.8 / (5 - Z);
+        return [center + X * p3 * 66, center + Y * p3 * 66, Z];
+      });
+      context.lineWidth = 1.5;
+      context.shadowBlur = 15;
+      context.shadowColor = "#9d7cff";
+      edges.forEach(([a, b], index) => {
+        const alpha = 0.25 + (index + frame) % 9 / 16;
+        const gradient = context.createLinearGradient(points[a][0], points[a][1], points[b][0], points[b][1]);
+        gradient.addColorStop(0, `rgba(112,91,255,${alpha})`);
+        gradient.addColorStop(1, `rgba(242,184,219,${alpha})`);
+        context.strokeStyle = gradient;
+        context.beginPath();
+        context.moveTo(points[a][0], points[a][1]);
+        context.lineTo(points[b][0], points[b][1]);
+        context.stroke();
+      });
+      context.shadowBlur = 10;
+      points.forEach((point, index) => {
+        context.fillStyle = index % 3 ? "#b7a5ff" : "#f2ca72";
+        context.beginPath();
+        context.arc(point[0], point[1], 2.2, 0, Math.PI * 2);
+        context.fill();
+      });
+      context.shadowBlur = 0;
+      frame++;
+      requestAnimationFrame(draw);
+    };
+    requestAnimationFrame(draw);
+    return () => {
+      stopped = true;
+    };
+  }
+  async function runCalculationLoader({ kind = "horoscope", lang: lang2 = "ru", duration = 3e3 } = {}) {
+    var _a2, _b;
+    installStyles();
+    (_a2 = document.querySelector(".calculation-overlay")) == null ? void 0 : _a2.remove();
+    const code = COPY2[lang2] ? lang2 : "ru", copy2 = COPY2[code], statuses = (_b = copy2[kind]) != null ? _b : copy2.horoscope;
+    const overlay = makeOverlay(copy2), status = overlay.querySelector(".calculation-status"), dots = [...overlay.querySelectorAll(".calculation-dots i")];
+    document.body.appendChild(overlay);
+    const stop = animateScanner(overlay.querySelector("canvas"));
+    let index = 0;
+    status.textContent = statuses[index];
+    const timer = setInterval(() => {
+      index = Math.min(index + 1, statuses.length - 1);
+      status.textContent = statuses[index];
+      dots.forEach((dot, i) => dot.classList.toggle("active", i === index));
+    }, 800);
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    await new Promise((resolve) => setTimeout(resolve, reduced ? 450 : duration));
+    clearInterval(timer);
+    stop();
+    overlay.classList.add("closing");
+    await new Promise((resolve) => setTimeout(resolve, reduced ? 0 : 280));
+    overlay.remove();
+  }
+  function showCalculationLoader(options = {}) {
+    if (activeLoader) return activeLoader;
+    activeLoader = runCalculationLoader(options).finally(() => {
+      activeLoader = null;
+    });
+    return activeLoader;
+  }
+  function revealCalculatedResult(root) {
+    if (!root) return;
+    installStyles();
+    root.classList.add("calculation-reveal");
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const target = root.querySelector("[data-typewriter], h1");
+    if (!target || target.dataset.typed === "1") return;
+    const value = target.textContent.trim();
+    if (!value) return;
+    target.dataset.typed = "1";
+    target.setAttribute("aria-label", value);
+    target.textContent = "";
+    target.classList.add("calculation-typewriter");
+    let index = 0;
+    const step = () => {
+      index = Math.min(value.length, index + Math.max(1, Math.ceil(value.length / 28)));
+      target.textContent = value.slice(0, index);
+      if (index < value.length) setTimeout(step, 24);
+      else setTimeout(() => target.classList.remove("calculation-typewriter"), 350);
+    };
+    step();
+  }
+
   // compatibility/app.js
   var _a;
   var ONLINE = ((_a = globalThis.PT_CONFIG) == null ? void 0 : _a.onlineRoot) || new URL("../", location.href).href;
@@ -304,9 +488,9 @@
   var app = $("#app");
   var load = async (code) => {
     try {
-      return await fetch(`locales/${code}.json?v=1114`, { cache: "no-store" }).then((response) => response.json());
+      return await fetch(`locales/${code}.json?v=1115`, { cache: "no-store" }).then((response) => response.json());
     } catch (e) {
-      return fetch("locales/ru.json?v=1114", { cache: "no-store" }).then((response) => response.json());
+      return fetch("locales/ru.json?v=1115", { cache: "no-store" }).then((response) => response.json());
     }
   };
   var f = (template, values = {}) => Object.entries(values).reduce((value, [key, replacement]) => value.replaceAll(`{${key}}`, replacement), template);
@@ -354,7 +538,7 @@
     });
     $("#calculate").onclick = calculate;
   }
-  function calculate() {
+  async function calculate() {
     const a = { name: cleanName($("#a-name").value), birth: $("#a-birth").value };
     const b = mode === "pair" ? { name: cleanName($("#b-name").value), birth: $("#b-birth").value } : null;
     if (!a.birth || mode === "pair" && !b.birth) return toast(L.missing);
@@ -370,7 +554,9 @@
     history.replaceState(null, "", location.pathname);
     trackMetric();
     track("compatibility_calculate", { calculation_mode: mode });
+    await showCalculationLoader({ kind: "compatibility", lang });
     render();
+    revealCalculatedResult(app.querySelector("main"));
   }
   function toneControl() {
     const U = ui();

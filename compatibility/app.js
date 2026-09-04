@@ -1,5 +1,6 @@
-import { pairCompatibility, soloCompatibility, signs } from './engine.mjs?v=1114';
-import { buildPairNarrative, buildRankingDetail, narrativeUi } from './narratives.mjs?v=1114';
+import { pairCompatibility, soloCompatibility, signs } from './engine.mjs?v=1115';
+import { buildPairNarrative, buildRankingDetail, narrativeUi } from './narratives.mjs?v=1115';
+import { revealCalculatedResult, showCalculationLoader } from '../loader-overlay.js?v=1115';
 
 const ONLINE=globalThis.PT_CONFIG?.onlineRoot||new URL('../',location.href).href;
 const supported=['ru','kk','en','fr'];
@@ -22,7 +23,7 @@ if(shared&&['normal','humor'].includes(shared.tone))tone=shared.tone;
 
 const $=selector=>document.querySelector(selector);
 const app=$('#app');
-const load=async code=>{try{return await fetch(`locales/${code}.json?v=1114`,{cache:'no-store'}).then(response=>response.json())}catch{return fetch('locales/ru.json?v=1114',{cache:'no-store'}).then(response=>response.json())}};
+const load=async code=>{try{return await fetch(`locales/${code}.json?v=1115`,{cache:'no-store'}).then(response=>response.json())}catch{return fetch('locales/ru.json?v=1115',{cache:'no-store'}).then(response=>response.json())}};
 const f=(template,values={})=>Object.entries(values).reduce((value,[key,replacement])=>value.replaceAll(`{${key}}`,replacement),template);
 const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const cleanName=value=>String(value||'').trim().replace(/\s+/g,' ').slice(0,32);
@@ -49,7 +50,7 @@ function intro(){
   $('#calculate').onclick=calculate;
 }
 
-function calculate(){
+async function calculate(){
   const a={name:cleanName($('#a-name').value),birth:$('#a-birth').value};
   const b=mode==='pair'?{name:cleanName($('#b-name').value),birth:$('#b-birth').value}:null;
   if(!a.birth||(mode==='pair'&&!b.birth))return toast(L.missing);
@@ -63,7 +64,10 @@ function calculate(){
     resultData={mode:'solo',name:a.name||L.personA,person:result.person,result};
   }
   history.replaceState(null,'',location.pathname);
-  trackMetric();track('compatibility_calculate',{calculation_mode:mode});render();
+  trackMetric();track('compatibility_calculate',{calculation_mode:mode});
+  await showCalculationLoader({kind:'compatibility',lang});
+  render();
+  revealCalculatedResult(app.querySelector('main'));
 }
 
 function toneControl(){

@@ -4,28 +4,32 @@ const COPY = {
     horoscope:['Считываем астрологическую матрицу…','Сопоставляем координаты карты неба…','Собираем индивидуальный прогноз…'],
     syutsai:['Сопоставляем числовые коды Сюцай…','Проверяем личные циклы недели…','Собираем понятный разбор…'],
     numerology:['Считываем ответы теста…','Сопоставляем число даты…','Собираем карьерный профиль…'],
-    dreams:['Соединяем детали сна…','Сопоставляем три традиции…','Собираем личное толкование…']
+    dreams:['Соединяем детали сна…','Сопоставляем три традиции…','Собираем личное толкование…'],
+    compatibility:['Сопоставляем знаки зодиака…','Проверяем сочетание чисел Сюцай…','Собираем разбор вашей совместимости…']
   },
   kk: {
     title:'Талдауыңызды жинап жатырмыз', local:'Есеп осы құрылғыда орындалады',
     horoscope:['Астрологиялық матрицаны оқып жатырмыз…','Аспан картасының координаттарын салыстырамыз…','Жеке болжамды жинаймыз…'],
     syutsai:['Сюцай сандық кодтарын салыстырамыз…','Аптаның жеке циклдерін тексереміз…','Түсінікті талдауды жинаймыз…'],
     numerology:['Тест жауаптарын оқимыз…','Күн санын салыстырамыз…','Мансап профилін жинаймыз…'],
-    dreams:['Түс детальдерін біріктіреміз…','Үш дәстүрді салыстырамыз…','Жеке жоруды жинаймыз…']
+    dreams:['Түс детальдерін біріктіреміз…','Үш дәстүрді салыстырамыз…','Жеке жоруды жинаймыз…'],
+    compatibility:['Зодиак белгілерін салыстырамыз…','Сюцай сандарының үйлесімін тексереміз…','Үйлесімділік талдауын жинаймыз…']
   },
   en: {
     title:'Assembling your reading', local:'The calculation runs on this device',
     horoscope:['Reading the astrological matrix…','Matching the sky-chart coordinates…','Assembling your personal forecast…'],
     syutsai:['Matching the Syutsai number codes…','Checking your weekly cycles…','Assembling a clear reading…'],
     numerology:['Reading your quiz answers…','Matching the birth-date number…','Assembling your career profile…'],
-    dreams:['Connecting the dream details…','Comparing three traditions…','Assembling your personal interpretation…']
+    dreams:['Connecting the dream details…','Comparing three traditions…','Assembling your personal interpretation…'],
+    compatibility:['Matching your zodiac signs…','Checking your Syutsai number pairing…','Assembling your compatibility reading…']
   },
   fr: {
     title:'Création de votre analyse', local:'Le calcul s’effectue sur cet appareil',
     horoscope:['Lecture de la matrice astrologique…','Comparaison des coordonnées du ciel…','Création de votre prévision personnelle…'],
     syutsai:['Comparaison des codes numériques Syutsai…','Vérification de vos cycles de la semaine…','Création d’une analyse claire…'],
     numerology:['Lecture de vos réponses…','Comparaison du nombre de naissance…','Création de votre profil professionnel…'],
-    dreams:['Connexion des détails du rêve…','Comparaison de trois traditions…','Création de votre interprétation personnelle…']
+    dreams:['Connexion des détails du rêve…','Comparaison de trois traditions…','Création de votre interprétation personnelle…'],
+    compatibility:['Comparaison de vos signes du zodiaque…','Vérification des nombres Syutsai…','Création de votre analyse de compatibilité…']
   }
 };
 

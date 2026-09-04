@@ -5,9 +5,9 @@ const root = resolve(import.meta.dirname, '..');
 const fail = message => { throw new Error(message); };
 const read = path => readFile(resolve(root, path), 'utf8');
 
-const [loader, dice, diceVariants, horoscope, syutsai, insight, dreams, dreamObjectsText, registryText, sw] = await Promise.all([
+const [loader, dice, diceVariants, horoscope, syutsai, insight, compatibility, dreams, dreamObjectsText, registryText, sw] = await Promise.all([
   read('loader-overlay.js'), read('modules/dice-fate.html'), read('modules/dice-variants.js'), read('horoscope/app.js'),
-  read('syutsai/app.js'), read('tests/insight/app.js'), read('astro/dreams/app.js'), read('astro/dreams/data/objects.json'),
+  read('syutsai/app.js'), read('tests/insight/app.js'), read('compatibility/app.js'), read('astro/dreams/app.js'), read('astro/dreams/data/objects.json'),
   read('tests-registry.json'), read('service-worker.js')
 ]);
 const registry = JSON.parse(registryText);
@@ -17,7 +17,7 @@ for (const marker of ['duration=3000','setInterval','},800)','requestAnimationFr
 }
 for (const [name, source, kind] of [
   ['horoscope', horoscope, 'horoscope'], ['syutsai', syutsai, 'syutsai'],
-  ['numerology', insight, 'numerology'], ['dreams', dreams, 'dreams']
+  ['numerology', insight, 'numerology'], ['compatibility', compatibility, 'compatibility'], ['dreams', dreams, 'dreams']
 ]) {
   source.includes('loader-overlay.js') || fail(`${name}: loader import missing`);
   source.includes(`kind: '${kind}'`) || source.includes(`kind:'${kind}'`) || fail(`${name}: wrong loader profile`);
@@ -44,4 +44,4 @@ item.metrics.rating === null && item.metrics.shareCount === null || fail('Do not
 for (const asset of ['./loader-overlay.js','./modules/dice-fate.html','./modules/dice-variants.js','./site-ui.js']) sw.includes(asset) || fail(`PWA missing ${asset}`);
 !registryText.includes('38.9k') && !registryText.includes('"rating":5') || fail('Invented metrics leaked into registry');
 
-console.log('OK: local 3-second loader in 4 calculation flows, 3D dice, sharing, PNG, haptics, shake, privacy, and PWA assets');
+console.log('OK: local 3-second loader in 5 calculation flows, 3D dice, sharing, PNG, haptics, shake, privacy, and PWA assets');
