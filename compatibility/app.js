@@ -1,7 +1,7 @@
-import { pairCompatibility, soloCompatibility, signs } from './engine.mjs';
-import { buildPairNarrative, buildRankingDetail, narrativeUi } from './narratives.mjs';
+import { pairCompatibility, soloCompatibility, signs } from './engine.mjs?v=1112';
+import { buildPairNarrative, buildRankingDetail, narrativeUi } from './narratives.mjs?v=1112';
 
-const ONLINE=globalThis.PT_CONFIG.onlineRoot;
+const ONLINE=globalThis.PT_CONFIG?.onlineRoot||new URL('../',location.href).href;
 const supported=['ru','kk','en','fr'];
 const browserLang=(navigator.language||'ru').toLowerCase().split('-')[0];
 let lang=localStorage.getItem('pt.lang')||(supported.includes(browserLang)?browserLang:'ru');
@@ -22,7 +22,7 @@ if(shared&&['normal','humor'].includes(shared.tone))tone=shared.tone;
 
 const $=selector=>document.querySelector(selector);
 const app=$('#app');
-const load=async code=>{try{return await fetch(`locales/${code}.json?v=210`,{cache:'no-store'}).then(response=>response.json())}catch{return fetch('locales/ru.json?v=210',{cache:'no-store'}).then(response=>response.json())}};
+const load=async code=>{try{return await fetch(`locales/${code}.json?v=1112`,{cache:'no-store'}).then(response=>response.json())}catch{return fetch('locales/ru.json?v=1112',{cache:'no-store'}).then(response=>response.json())}};
 const f=(template,values={})=>Object.entries(values).reduce((value,[key,replacement])=>value.replaceAll(`{${key}}`,replacement),template);
 const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const cleanName=value=>String(value||'').trim().replace(/\s+/g,' ').slice(0,32);
