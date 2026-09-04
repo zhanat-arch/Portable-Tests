@@ -23,6 +23,9 @@ for (const [name, source, kind] of [
   source.includes(`kind: '${kind}'`) || source.includes(`kind:'${kind}'`) || fail(`${name}: wrong loader profile`);
   source.includes('revealCalculatedResult') || fail(`${name}: result reveal missing`);
 }
+for (const [name, source] of [['horoscope',horoscope],['syutsai',syutsai],['compatibility',compatibility],['dreams',dreams],['dice',dice]]) {
+  !/serviceWorker\??\.register/.test(source) || fail(`${name}: Service Worker registration must be owned by site-ui.js`);
+}
 insight.includes("test.id==='numerology'") || fail('Loader must not delay every insight quiz');
 
 for (const marker of ['transform-style:preserve-3d','crypto.getRandomValues','navigator.vibrate','devicemotion','DeviceMotionEvent.requestPermission','navigator.share','toDataURL(\'image/png\')','#r=','Символический шанс','Символдық мүмкіндік','Symbolic chance','Chance symbolique']) {

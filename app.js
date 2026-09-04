@@ -1,4 +1,4 @@
-const VERSION = '1.11.5';
+const VERSION = '1.11.6';
 const SUPPORTED = ['ru', 'kk', 'en', 'fr'];
 const CATEGORY_ICONS = { astro: '🔮', career: '💼', psychology: '🧠', fun: '🙂', interactive: '🎲', games: '🎮' };
 const state = { lang: detectLanguage(), registry: [], locales: {}, filter: 'all', query: '', limit: 9, registration: null, suggestions: [], suggestionIndex: -1, pinned: readLocal('pt.hub.pinned', []), usage: readLocal('pt.hub.usage', {}) };
@@ -334,11 +334,9 @@ async function checkOrInstallUpdate() {
 
 async function initPwa() {
   if (!('serviceWorker' in navigator)) return;
-  state.registration = await navigator.serviceWorker.register('./service-worker.js?v=1115', { updateViaCache:'none' });
-  await state.registration.update();
+  state.registration = await navigator.serviceWorker.ready;
   showUpdateReady();
   state.registration.addEventListener('updatefound', () => state.registration.installing?.addEventListener('statechange', showUpdateReady));
-  navigator.serviceWorker.addEventListener('controllerchange', () => location.reload());
   setInterval(() => state.registration?.update(), 60 * 60 * 1000);
 }
 

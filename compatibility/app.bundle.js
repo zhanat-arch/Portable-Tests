@@ -43,7 +43,7 @@
     return signs2[month - 1 + Number(day >= edge[month - 1])];
   }
 
-  // compatibility/engine.mjs?v=1115
+  // compatibility/engine.mjs?v=1116
   var ENGINE_VERSION = "compatibility-symbolic-v2";
   var categories = ["communication", "emotions", "daily", "attraction", "pace", "repair"];
   var signs = {
@@ -186,7 +186,7 @@
     return { version: ENGINE_VERSION, person, signRanking, numberRanking };
   }
 
-  // compatibility/narratives.mjs?v=1115
+  // compatibility/narratives.mjs?v=1116
   var COPY = {
     ru: {
       ui: { normal: "\u{1F607} \u0421\u043F\u043E\u043A\u043E\u0439\u043D\u043E", humor: "\u{1F3AD} \u0421 \u044E\u043C\u043E\u0440\u043E\u043C", toneLabel: "\u041A\u0430\u043A \u0440\u0430\u0441\u0441\u043A\u0430\u0437\u0430\u0442\u044C \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442", locked: "\u0413\u043B\u0430\u0432\u043D\u044B\u0439 \u0432\u0435\u0440\u0434\u0438\u043A\u0442 \u0433\u043E\u0442\u043E\u0432", unlock: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0432\u0435\u0440\u0434\u0438\u043A\u0442", unlocked: "\u0412\u0435\u0440\u0434\u0438\u043A\u0442 \u043E\u0442\u043A\u0440\u044B\u0442", strength: "\u0427\u0442\u043E \u0432\u0430\u0441 \u0441\u0431\u043B\u0438\u0436\u0430\u0435\u0442", friction: "\u0413\u0434\u0435 \u043C\u043E\u0436\u0435\u0442 \u0438\u0441\u043A\u0440\u0438\u0442\u044C", advice: "\u0427\u0442\u043E \u0440\u0435\u0430\u043B\u044C\u043D\u043E \u043F\u043E\u043C\u043E\u0436\u0435\u0442", details: "\u041D\u0430\u0436\u043C\u0438\u0442\u0435 \u043D\u0430 \u0441\u0444\u0435\u0440\u0443 \u2014 \u043F\u043E\u043A\u0430\u0436\u0435\u043C, \u043E\u0442\u043A\u0443\u0434\u0430 \u0432\u0437\u044F\u043B\u0430\u0441\u044C \u043E\u0446\u0435\u043D\u043A\u0430", why: "\u041F\u043E\u0447\u0435\u043C\u0443 \u0442\u0430\u043A", sharePair: "\u041F\u043E\u0434\u0435\u043B\u0438\u0442\u044C\u0441\u044F \u043D\u0430\u0448\u0438\u043C \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u043E\u043C", shareSafe: "\u0412 \u0441\u0441\u044B\u043B\u043A\u0435 \u0431\u0443\u0434\u0443\u0442 \u0438\u043C\u0435\u043D\u0430 \u0438 \u0433\u043E\u0442\u043E\u0432\u044B\u0439 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u043F\u0430\u0440\u044B. \u0414\u0430\u0442\u044B \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F \u043D\u0435 \u043F\u0435\u0440\u0435\u0434\u0430\u044E\u0442\u0441\u044F.", shareSafeSolo: "\u0412 \u0441\u0441\u044B\u043B\u043A\u0435 \u0431\u0443\u0434\u0443\u0442 \u0438\u043C\u044F, \u0437\u043D\u0430\u043A \u0438 \u0433\u043E\u0442\u043E\u0432\u044B\u0439 \u0440\u0435\u0439\u0442\u0438\u043D\u0433. \u0414\u0430\u0442\u0430 \u0440\u043E\u0436\u0434\u0435\u043D\u0438\u044F \u043D\u0435 \u043F\u0435\u0440\u0435\u0434\u0430\u0451\u0442\u0441\u044F.", rankOpen: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u043E\u044F\u0441\u043D\u0435\u043D\u0438\u0435", rankWhy: "\u041F\u043E\u0447\u0435\u043C\u0443 \u043F\u043E\u0434\u0445\u043E\u0434\u0438\u0442", rankRisk: "\u0413\u0434\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u0430 \u0441\u043B\u043E\u0436\u043D\u043E\u0441\u0442\u044C", rankTip: "\u0427\u0442\u043E \u043F\u043E\u043C\u043E\u0436\u0435\u0442" },
@@ -275,7 +275,7 @@
     return { why: C.strong[item.strongest][style], risk: C.friction[item.attention][style], tip: C.advice[item.attention][style] };
   }
 
-  // loader-overlay.js?v=1115
+  // loader-overlay.js?v=1116
   var COPY2 = {
     ru: {
       title: "\u0421\u043E\u0431\u0438\u0440\u0430\u0435\u043C \u0432\u0430\u0448 \u0440\u0430\u0437\u0431\u043E\u0440",
@@ -488,9 +488,9 @@
   var app = $("#app");
   var load = async (code) => {
     try {
-      return await fetch(`locales/${code}.json?v=1115`, { cache: "no-store" }).then((response) => response.json());
+      return await fetch(`locales/${code}.json?v=1116`, { cache: "no-store" }).then((response) => response.json());
     } catch (e) {
-      return fetch("locales/ru.json?v=1115", { cache: "no-store" }).then((response) => response.json());
+      return fetch("locales/ru.json?v=1116", { cache: "no-store" }).then((response) => response.json());
     }
   };
   var f = (template, values = {}) => Object.entries(values).reduce((value, [key, replacement]) => value.replaceAll(`{${key}}`, replacement), template);

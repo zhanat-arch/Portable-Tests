@@ -351,7 +351,6 @@ async function init() {
     addEventListener('popstate', () => {
       if (!readHash()) renderBuilder();
     });
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('../../service-worker.js').catch(() => {});
   } catch (error) {
     console.error(error);
     document.getElementById('app').innerHTML = `<header class="top"><a class="brand" href="../../index.html"><span class="mark">☾</span><span>Portable Tests</span></a></header><main><section class="builder panel"><h1>Portable Tests</h1><p>${state.locale?.loadError ?? 'Не удалось открыть базу толкований.'}</p><button class="primary" onclick="location.reload()">↻</button></section></main>`;

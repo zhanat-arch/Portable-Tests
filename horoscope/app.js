@@ -457,4 +457,3 @@ function render() {
 document.documentElement.lang = lang;
 L = await load(lang);
 render();
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('../service-worker.js').then(registration => registration.update()).catch(() => {});
