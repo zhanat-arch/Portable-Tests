@@ -61,7 +61,7 @@ gameGuide.games.length >= 15 || fail('gamer: game catalog is too small');
 new Set(gameGuide.games.map(game => game.id)).size === gameGuide.games.length || fail('gamer: duplicate game IDs');
 
 const sw = await readFile(resolve(root, 'service-worker.js'), 'utf8');
-for (const asset of ['./app.js','./styles.css','./tests-registry.json','./hub-locales.json','./tests/insight/index.html','./compatibility/index.html','./compatibility/engine.mjs','./compatibility/locales/ru.json','./astro/dreams/index.html','./astro/dreams/data/objects.json','./og-cover.webp']) {
+for (const asset of ['./app.js','./styles.css','./tests-registry.json','./hub-locales.json','./tests/insight/index.html','./compatibility/index.html','./compatibility/app.bundle.js','./compatibility/locales/ru.json','./astro/dreams/index.html','./astro/dreams/data/objects.json','./og-cover.webp']) {
   sw.includes(asset) || fail(`PWA cache missing ${asset}`);
 }
 !sw.includes('./downloads/career-interests.html') || fail('Large standalone downloads must load on demand, not during PWA installation');

@@ -40,7 +40,7 @@ item.path === './modules/dice-fate.html' || fail('Dice path is incorrect');
 item.category === 'interactive' || fail('Dice category is incorrect');
 item.metrics.rating === null && item.metrics.shareCount === null || fail('Do not publish invented dice metrics');
 
-/portable-tests-v\d+\.\d+\.\d+/.test(sw) || fail('PWA cache version is missing');
+/(?:portable-tests|porthub)-v\d+\.\d+\.\d+/.test(sw) || fail('PWA cache version is missing');
 for (const asset of ['./loader-overlay.js','./modules/dice-fate.html','./modules/dice-variants.js','./site-ui.js']) sw.includes(asset) || fail(`PWA missing ${asset}`);
 !registryText.includes('38.9k') && !registryText.includes('"rating":5') || fail('Invented metrics leaked into registry');
 

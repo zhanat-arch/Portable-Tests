@@ -1,5 +1,5 @@
-import { pairCompatibility, soloCompatibility, signs } from './engine.mjs?v=1112';
-import { buildPairNarrative, buildRankingDetail, narrativeUi } from './narratives.mjs?v=1112';
+import { pairCompatibility, soloCompatibility, signs } from './engine.mjs?v=1113';
+import { buildPairNarrative, buildRankingDetail, narrativeUi } from './narratives.mjs?v=1113';
 
 const ONLINE=globalThis.PT_CONFIG?.onlineRoot||new URL('../',location.href).href;
 const supported=['ru','kk','en','fr'];
@@ -22,7 +22,7 @@ if(shared&&['normal','humor'].includes(shared.tone))tone=shared.tone;
 
 const $=selector=>document.querySelector(selector);
 const app=$('#app');
-const load=async code=>{try{return await fetch(`locales/${code}.json?v=1112`,{cache:'no-store'}).then(response=>response.json())}catch{return fetch('locales/ru.json?v=1112',{cache:'no-store'}).then(response=>response.json())}};
+const load=async code=>{try{return await fetch(`locales/${code}.json?v=1113`,{cache:'no-store'}).then(response=>response.json())}catch{return fetch('locales/ru.json?v=1113',{cache:'no-store'}).then(response=>response.json())}};
 const f=(template,values={})=>Object.entries(values).reduce((value,[key,replacement])=>value.replaceAll(`{${key}}`,replacement),template);
 const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const cleanName=value=>String(value||'').trim().replace(/\s+/g,' ').slice(0,32);
@@ -157,4 +157,8 @@ async function copy(value){try{await navigator.clipboard.writeText(value)}catch{
 function toast(value){const element=$('#toast');element.textContent=value;element.classList.add('show');setTimeout(()=>element.classList.remove('show'),1800)}
 function render(){document.documentElement.lang=lang;document.title=`${L.title} · PortHub`;if(shared&&!resultData)restoreShared();if(resultData?.mode==='pair')pairResult();else if(resultData?.mode==='solo')soloResult();else intro()}
 
-L=await load(lang);render();
+load(lang).then(locale=>{L=locale;render()}).catch(error=>{
+  console.error('Compatibility startup failed',error);
+  app.innerHTML=`<main class="startup-error"><section class="panel"><span class="badge">PortHub</span><h1>Не удалось открыть расчёт</h1><p>Файлы страницы не загрузились полностью. Обновите страницу — введённые ранее данные останутся на этом устройстве.</p><button class="primary wide" type="button" id="startup-retry">Обновить страницу</button></section></main>`;
+  document.querySelector('#startup-retry')?.addEventListener('click',()=>location.reload());
+});

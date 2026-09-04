@@ -41,7 +41,7 @@ for (const link of ['tests/career/index.html','test=strengths','test=trajectory'
 !home.includes('<article class="card') || fail('home still contains hard-coded cards');
 for (const lang of ['ru','kk','en','fr']) hubLocales[lang]?.viewResult && hubLocales[lang]?.retake || fail(`hub locale ${lang} is incomplete`);
 !home.includes('Красивые игровые разборы') || fail('astrology catalog still uses playful wording');
-/portable-tests-v\d+\.\d+\.\d+/.test(sw) || fail('PWA cache version is missing');
+/(?:portable-tests|porthub)-v\d+\.\d+\.\d+/.test(sw) || fail('PWA cache version is missing');
 for (const asset of ['app.js','styles.css','tests-registry.json','hub-locales.json','astro/dreams/index.html','astro/dreams/app.js','astro/dreams/data/objects.json','astro/dreams/locales/kk.json']) sw.includes(asset) || fail(`PWA missing ${asset}`);
 sw.includes('origin!==self.location.origin') || fail('cross-origin requests must bypass PWA cache');
 horoscope.includes('navigator.geolocation') || fail('horoscope map has no geolocation fallback');
