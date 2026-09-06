@@ -32,6 +32,15 @@
 .art[data-issue="eclipse-protocol"][data-panel="5"] .bubble{top:14px;bottom:auto;left:14px;max-width:40%}
 .art[data-issue="eclipse-protocol"] .bubble:after{display:none}
 
+/* Issue 03: portrait-safe zones selected from each source frame. */
+.art[data-issue="anatomy-of-feelings"][data-panel="0"] .bubble{top:14px;bottom:auto;left:14px;max-width:38%}
+.art[data-issue="anatomy-of-feelings"][data-panel="1"] .bubble{top:14px;bottom:auto;left:14px;max-width:38%}
+.art[data-issue="anatomy-of-feelings"][data-panel="2"] .bubble{top:14px;bottom:auto;left:auto;right:14px;max-width:36%}
+.art[data-issue="anatomy-of-feelings"][data-panel="3"] .bubble{top:auto;bottom:14px;left:14px;max-width:38%}
+.art[data-issue="anatomy-of-feelings"][data-panel="4"] .bubble{top:14px;bottom:auto;left:14px;max-width:34%}
+.art[data-issue="anatomy-of-feelings"][data-panel="5"] .bubble{top:auto;bottom:14px;left:14px;max-width:46%}
+.art[data-issue="anatomy-of-feelings"] .bubble:after{display:none}
+
 .issue-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0 34px}.issue-picker>span{grid-column:1/-1;color:#9ea9bd;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.issue-picker a{display:flex;align-items:center;gap:10px;min-height:58px;padding:10px 12px;border:1px solid #283249;border-radius:15px;color:#dbe5f5;text-decoration:none;background:#101622}.issue-picker a.active{border-color:#b26cff;background:linear-gradient(135deg,#25153d,#121a2a);box-shadow:0 0 0 1px #7c3aed55}.issue-picker b{display:grid;place-items:center;min-width:34px;height:34px;border-radius:10px;background:#7c3aed;color:#fff}.issue-picker small{font-weight:750;line-height:1.2}
 
 @media(max-width:420px){.art[data-panel] .bubble{line-height:1.2;padding:9px 11px}.art[data-issue="night-noir"][data-panel="2"] .bubble{max-width:62%}.issue-picker{gap:8px}.issue-picker a{padding:8px;min-height:54px}.issue-picker small{font-size:.72rem}}

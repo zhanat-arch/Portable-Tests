@@ -2,7 +2,7 @@
   {
     "id":"mini-comics",
     "title":{"ru":"Мини-комиксы PortHub","kk":"PortHub мини-комикстері","en":"PortHub Mini Comics","fr":"Mini-BD PortHub"},
-    "description":{"ru":"Два неоновых выпуска об Алекс и Максе. Выбирайте историю и читайте на четырёх языках.","kk":"Алекс пен Макс туралы екі неонды шығарылым. Оқиғаны таңдап, төрт тілде оқыңыз.","en":"Two neon adventures starring Alex and Max. Choose an issue and read in four languages.","fr":"Deux aventures au néon avec Alex et Max. Choisissez un épisode, disponible en quatre langues."},
+    "description":{"ru":"Три коротких выпуска: киберпанк, приключения и тёплая студенческая романтика на четырёх языках.","kk":"Үш қысқа шығарылым: киберпанк, шытырман оқиға және төрт тілдегі жылы студенттік романтика.","en":"Three short issues: cyberpunk action and a warm student romance in four languages.","fr":"Trois épisodes courts : action cyberpunk et romance étudiante en quatre langues."},
     "category":"fun","icon":"💥","image":"./comics/eclipse-protocol/frame-01.webp","path":"./comics/","time":{"ru":"≈4 мин","kk":"≈4 мин","en":"≈4 min","fr":"≈4 min"},
     "tags":{"ru":["комикс","киберпанк","нуар","история"],"kk":["комикс","киберпанк","нуар","оқиға"],"en":["comic","cyberpunk","noir","story"],"fr":["bd","cyberpunk","noir","histoire"]},
     "metrics":{"isViralTop":true,"isPopular":false,"isNew":true,"rating":null,"shareCount":null},
