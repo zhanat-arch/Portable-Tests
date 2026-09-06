@@ -15,7 +15,7 @@ globalThis.PT_CONFIG = Object.freeze({
   url(path = '') { return new URL(path, PT_ROOT).href; },
   onlineUrl(path = '') { return new URL(path, PT_ONLINE_ROOT).href; }
 });
-const PT_VERSION = '1.14.4';
+const PT_VERSION = '1.14.5';
 const PT_GA_ID = 'G-37RB6NC78X';
 const PT_SUPPORT = { boosty:'https://boosty.to/zhanat-arch', kofi:'https://ko-fi.com/zhanat_arch' };
 const PT_LANGS = ['ru','kk','en','fr'];
@@ -210,7 +210,7 @@ async function ptInstallApp(){
 async function ptUpdateApp(){
   const copy=ptCopy();
   try{
-    const registration=await navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1144`,{scope:PT_ROOT,updateViaCache:'none'});
+    const registration=await navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1145`,{scope:PT_ROOT,updateViaCache:'none'});
     await registration?.update();
     const installing=registration?.installing;
     if(installing&&!['installed','redundant'].includes(installing.state))await new Promise(resolve=>{
@@ -226,7 +226,7 @@ function ptEnsurePwa(){
   if(!document.querySelector('link[rel="manifest"]')){const link=document.createElement('link');link.rel='manifest';link.href=`${PT_ROOT}manifest.webmanifest`;document.head.appendChild(link)}
   if(!document.querySelector('link[rel="apple-touch-icon"]')){const link=document.createElement('link');link.rel='apple-touch-icon';link.href=`${PT_ROOT}icon-porthub-192.png`;document.head.appendChild(link)}
   if(!document.querySelector('meta[name="apple-mobile-web-app-capable"]')){const meta=document.createElement('meta');meta.name='apple-mobile-web-app-capable';meta.content='yes';document.head.appendChild(meta)}
-  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1144`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
+  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1145`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
 }
 
 function ptRenderFooter(){
