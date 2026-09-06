@@ -42,7 +42,7 @@ for (const link of ['comics/','tests/anti-iq/','tests/career/index.html','test=s
 for (const lang of ['ru','kk','en','fr']) hubLocales[lang]?.viewResult && hubLocales[lang]?.retake || fail(`hub locale ${lang} is incomplete`);
 !home.includes('Красивые игровые разборы') || fail('astrology catalog still uses playful wording');
 /(?:portable-tests|porthub)-v\d+\.\d+\.\d+/.test(sw) || fail('PWA cache version is missing');
-for (const asset of ['app.js','styles.css','tests-registry.json','hub-locales.json','comics/index.html','comics/bubbles.css','comics/night-noir/frame-06.webp','tests/anti-iq/index.html','tests/anti-iq/app.js','astro/dreams/index.html','astro/dreams/app.js','astro/dreams/data/objects.json','astro/dreams/locales/kk.json']) sw.includes(asset) || fail(`PWA missing ${asset}`);
+for (const asset of ['app.js','styles.css','tests-registry.json','hub-locales.json','comics/index.html','comics/bubbles.css','comics/night-noir/frame-06.webp','comics/eclipse-protocol/frame-06.webp','tests/anti-iq/index.html','tests/anti-iq/app.js','astro/dreams/index.html','astro/dreams/app.js','astro/dreams/data/objects.json','astro/dreams/locales/kk.json']) sw.includes(asset) || fail(`PWA missing ${asset}`);
 sw.includes('origin!==self.location.origin') || fail('cross-origin requests must bypass PWA cache');
 !sw.includes('.then(()=>self.skipWaiting())') || fail('PWA must not activate an update during an active test');
 siteUi.includes('!ptReloadOnUpdate||ptReloading') || fail('PWA reload must happen only after a manual update');

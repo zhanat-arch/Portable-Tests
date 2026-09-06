@@ -2,25 +2,36 @@
 .art[data-panel] .bubble{right:auto;overflow-wrap:anywhere;hyphens:auto;font-size:clamp(.78rem,2.8vw,.98rem)}
 
 /* 1: open sky above Alex; keep the face and body clear. */
-.art[data-panel="0"] .bubble{top:14px;bottom:auto;left:14px;max-width:calc(100% - 28px)}
+.art[data-issue="night-noir"][data-panel="0"] .bubble{top:14px;bottom:auto;left:14px;max-width:calc(100% - 28px)}
 
 /* 2: the lower-left corner is clear of Alex's face. */
-.art[data-panel="1"] .bubble{top:auto;bottom:14px;left:14px;max-width:78%}
-.art[data-panel="1"] .bubble:after{top:-10px;bottom:auto;left:32px;right:auto;border-width:0 9px 11px;border-color:transparent transparent #fff}
+.art[data-issue="night-noir"][data-panel="1"] .bubble{top:auto;bottom:14px;left:14px;max-width:78%}
+.art[data-issue="night-noir"][data-panel="1"] .bubble:after{top:-10px;bottom:auto;left:32px;right:auto;border-width:0 9px 11px;border-color:transparent transparent #fff}
 
 /* 3: Max's helmet is on the right, so use a narrow upper-left bubble. */
-.art[data-panel="2"] .bubble{top:14px;bottom:auto;left:14px;max-width:60%}
+.art[data-issue="night-noir"][data-panel="2"] .bubble{top:14px;bottom:auto;left:14px;max-width:60%}
 
 /* 4: Max's head and chest stay visible in the upper-right area. */
-.art[data-panel="3"] .bubble{top:auto;bottom:14px;left:14px;max-width:78%}
-.art[data-panel="3"] .bubble:after{top:-10px;bottom:auto;left:auto;right:28px;border-width:0 9px 11px;border-color:transparent transparent #fff}
+.art[data-issue="night-noir"][data-panel="3"] .bubble{top:auto;bottom:14px;left:14px;max-width:78%}
+.art[data-issue="night-noir"][data-panel="3"] .bubble:after{top:-10px;bottom:auto;left:auto;right:28px;border-width:0 9px 11px;border-color:transparent transparent #fff}
 
 /* 5: both faces are at the top; dialogue moves below them. */
-.art[data-panel="4"] .bubble{top:auto;bottom:14px;left:14px;max-width:calc(100% - 28px)}
-.art[data-panel="4"] .bubble:after{top:-10px;bottom:auto;left:48%;right:auto;border-width:0 9px 11px;border-color:transparent transparent #fff}
+.art[data-issue="night-noir"][data-panel="4"] .bubble{top:auto;bottom:14px;left:14px;max-width:calc(100% - 28px)}
+.art[data-issue="night-noir"][data-panel="4"] .bubble:after{top:-10px;bottom:auto;left:48%;right:auto;border-width:0 9px 11px;border-color:transparent transparent #fff}
 
 /* 6: no character faces; place the bubble over the darker foreground. */
-.art[data-panel="5"] .bubble{top:auto;bottom:14px;left:14px;max-width:78%}
-.art[data-panel="5"] .bubble:after{top:-10px;bottom:auto;left:auto;right:28px;border-width:0 9px 11px;border-color:transparent transparent #fff}
+.art[data-issue="night-noir"][data-panel="5"] .bubble{top:auto;bottom:14px;left:14px;max-width:78%}
+.art[data-issue="night-noir"][data-panel="5"] .bubble:after{top:-10px;bottom:auto;left:auto;right:28px;border-width:0 9px 11px;border-color:transparent transparent #fff}
 
-@media(max-width:420px){.art[data-panel] .bubble{line-height:1.2;padding:9px 11px}.art[data-panel="2"] .bubble{max-width:62%}}
+/* Issue 02: every bubble sits in a deliberately empty image zone. */
+.art[data-issue="eclipse-protocol"][data-panel="0"] .bubble{top:auto;bottom:14px;left:14px;max-width:58%}
+.art[data-issue="eclipse-protocol"][data-panel="1"] .bubble{top:auto;bottom:14px;left:auto;right:14px;max-width:58%}
+.art[data-issue="eclipse-protocol"][data-panel="2"] .bubble{top:auto;bottom:14px;left:14px;max-width:54%}
+.art[data-issue="eclipse-protocol"][data-panel="3"] .bubble{top:14px;bottom:auto;left:14px;max-width:50%}
+.art[data-issue="eclipse-protocol"][data-panel="4"] .bubble{top:auto;bottom:14px;left:auto;right:14px;max-width:58%}
+.art[data-issue="eclipse-protocol"][data-panel="5"] .bubble{top:14px;bottom:auto;left:14px;max-width:40%}
+.art[data-issue="eclipse-protocol"] .bubble:after{display:none}
+
+.issue-picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0 34px}.issue-picker>span{grid-column:1/-1;color:#9ea9bd;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.issue-picker a{display:flex;align-items:center;gap:10px;min-height:58px;padding:10px 12px;border:1px solid #283249;border-radius:15px;color:#dbe5f5;text-decoration:none;background:#101622}.issue-picker a.active{border-color:#b26cff;background:linear-gradient(135deg,#25153d,#121a2a);box-shadow:0 0 0 1px #7c3aed55}.issue-picker b{display:grid;place-items:center;min-width:34px;height:34px;border-radius:10px;background:#7c3aed;color:#fff}.issue-picker small{font-weight:750;line-height:1.2}
+
+@media(max-width:420px){.art[data-panel] .bubble{line-height:1.2;padding:9px 11px}.art[data-issue="night-noir"][data-panel="2"] .bubble{max-width:62%}.issue-picker{gap:8px}.issue-picker a{padding:8px;min-height:54px}.issue-picker small{font-size:.72rem}}
