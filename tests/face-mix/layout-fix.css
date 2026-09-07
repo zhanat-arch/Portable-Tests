@@ -1,0 +1,7 @@
+.portrait{height:min(48dvh,460px);object-fit:contain;object-position:center;background:#09070e;-webkit-touch-callout:none;user-select:none}
+.stage-back{border:0;background:none;color:var(--muted);padding:5px 0 12px;cursor:pointer}
+.quiz.name-stage .portrait,.quiz.name-stage .question-title,.quiz.name-stage .categories,.quiz.feedback-stage .portrait,.quiz.feedback-stage .question-title,.quiz.feedback-stage .categories,.quiz.feedback-stage .names{display:none}
+.quiz.name-stage,.quiz.feedback-stage{min-height:calc(100dvh - 92px);display:flex;flex-direction:column}
+.quiz.name-stage .names,.quiz.feedback-stage #feedback{margin:auto 0}
+.review-item img{object-fit:contain;background:#0d0914}
+@media(max-width:640px){.portrait{height:44dvh;min-height:220px}.name-choice{font-size:.88rem;padding:9px 10px;min-height:46px}}
