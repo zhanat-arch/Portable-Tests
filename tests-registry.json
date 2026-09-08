@@ -1,5 +1,15 @@
 [
   {
+    "id":"matrix-iq",
+    "title":{"ru":"Matrix IQ: подвижный интеллект","kk":"Matrix IQ: икемді ойлау","en":"Matrix IQ: fluid reasoning","fr":"Matrix IQ : raisonnement fluide"},
+    "description":{"ru":"12 culture-fair матриц: вращения, прогрессии, OR и XOR. Без эрудиции — только закономерности.","kk":"12 culture-fair матрица: айналу, прогрессия, OR және XOR.","en":"12 culture-fair matrices: rotations, progressions, OR and XOR. No trivia.","fr":"12 matrices culture-fair : rotations, progressions, OR et XOR."},
+    "category":"psychology","icon":"◫","path":"./tests/matrix-iq/","time":{"ru":"12 мин","kk":"12 мин","en":"12 min","fr":"12 min"},
+    "tags":{"ru":["iq","логика","матрицы","мышление"],"kk":["iq","логика","матрица","ойлау"],"en":["iq","logic","matrices","reasoning"],"fr":["qi","logique","matrices","raisonnement"]},
+    "metrics":{"isViralTop":true,"isPopular":true,"isNew":true,"rating":null,"shareCount":null},
+    "badge":{"tone":"new","label":{"ru":"Новый IQ‑тест","kk":"Жаңа IQ‑тест","en":"New IQ test","fr":"Nouveau test QI"}},
+    "progress":{"key":"pt.matrixIq.result","count":1,"resultParam":"view=result","retakeParam":"retake=1"}
+  },
+  {
     "id":"face-mix",
     "title":{"ru":"Кто это: кино, сериалы или 18+?","kk":"Бұл кім: кино, сериал әлде 18+?","en":"Who is this: movies, TV or 18+?","fr":"Qui est-ce : cinéma, séries ou 18+ ?"},
     "description":{"ru":"32 лица: Голливуд, сериалы, Болливуд и Pornhub. Проверка подозрительно выборочной памяти.","kk":"32 адам: Hollywood, сериалдар, Bollywood және Pornhub. Таңдаулы жадыңды тексер.","en":"32 faces from Hollywood, TV, Bollywood and Pornhub. Test your suspiciously selective memory.","fr":"32 visages de Hollywood, séries, Bollywood et Pornhub. Testez votre mémoire étrangement sélective."},
