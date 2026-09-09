@@ -1,5 +1,6 @@
-const VERSION = '1.16.1';
+const VERSION = '1.16.2';
 const SUPPORTED = ['ru', 'kk', 'en', 'fr'];
+const APP_ROOT = new URL('./', import.meta.url);
 const CATEGORY_ICONS = { astro: '🔮', career: '💼', psychology: '🧠', fun: '🙂', interactive: '🎲', games: '🎮' };
 const state = { lang: detectLanguage(), registry: [], locales: {}, filter: 'all', query: '', limit: 9, registration: null, suggestions: [], suggestionIndex: -1, pinned: readLocal('pt.hub.pinned', []), usage: readLocal('pt.hub.usage', {}) };
 const PERSONAL_COPY={ru:{pin:'Закрепить',unpin:'Открепить',pinned:'Закреплено',pinnedLead:'Ваши избранные разделы всегда под рукой.'},kk:{pin:'Бекіту',unpin:'Ажырату',pinned:'Бекітілген',pinnedLead:'Таңдаулы бөлімдеріңіз әрқашан жоғарыда.'},en:{pin:'Pin',unpin:'Unpin',pinned:'Pinned',pinnedLead:'Your favorite sections stay within easy reach.'},fr:{pin:'Épingler',unpin:'Détacher',pinned:'Épinglés',pinnedLead:'Vos rubriques favorites restent toujours accessibles.'}};
@@ -12,11 +13,21 @@ function recordOpen(id){state.usage[id]=Number(state.usage[id]||0)+1;localStorag
 function togglePin(id){state.pinned=isPinned(id)?state.pinned.filter(item=>item!==id):[id,...state.pinned];localStorage.setItem('pt.hub.pinned',JSON.stringify(state.pinned));renderContent()}
 
 function detectLanguage() {
-  const saved = localStorage.getItem('pt.lang')?.toLowerCase();
-  if (SUPPORTED.includes(saved)) return saved;
+  const pathLanguage = location.pathname.split('/').filter(Boolean).find((part) => SUPPORTED.includes(part.toLowerCase()))?.toLowerCase();
+  if (pathLanguage) {
+    try { localStorage.setItem('pt.lang', pathLanguage); } catch {}
+    return pathLanguage;
+  }
+  try {
+    const saved = localStorage.getItem('pt.lang')?.toLowerCase();
+    if (SUPPORTED.includes(saved)) return saved;
+  } catch {}
   const browser = navigator.language?.slice(0, 2).toLowerCase();
   return SUPPORTED.includes(browser) ? browser : 'ru';
 }
+
+function appUrl(path = '') { return new URL(path, APP_ROOT).href; }
+function languageHome(code = state.lang) { return appUrl(`${code}/`); }
 
 function text(value) {
   if (typeof value === 'string') return value;
@@ -36,7 +47,7 @@ function normalize(value = '') {
 }
 
 async function readJson(path) {
-  const response = await fetch(path, { cache: 'no-store' });
+  const response = await fetch(appUrl(path), { cache: 'no-store' });
   if (!response.ok) throw new Error(`${path}: ${response.status}`);
   return response.json();
 }
@@ -111,7 +122,7 @@ function layoutMarkup() {
   const locale = state.locales[state.lang];
   const trust = locale.trust.map((item) => interpolate(item, { count: state.registry.length }));
   return `<header class="topbar">
-    <a class="brand" href="./" aria-label="PortHub — ${escapeHtml(locale.brandTagline)}"><span class="brand-wordmark"><span class="brand-port">Port</span><span class="brand-hub">Hub</span></span><span class="brand-tagline">${escapeHtml(locale.brandTagline)}</span></a>
+    <a class="brand" href="${languageHome()}" aria-label="PortHub — ${escapeHtml(locale.brandTagline)}"><span class="brand-wordmark"><span class="brand-port">Port</span><span class="brand-hub">Hub</span></span><span class="brand-tagline">${escapeHtml(locale.brandTagline)}</span></a>
     <div class="header-tools"><button class="share-button" id="shareApp" type="button">${locale.shareApp}</button><button class="update-button" id="update" type="button">↻ v${VERSION}</button><select id="lang" aria-label="Language">${optionsMarkup()}</select><button class="icon-button" id="openMenu" type="button" aria-label="${locale.menu}" aria-controls="drawer">☰</button></div>
   </header>
   <main class="shell">
@@ -150,13 +161,13 @@ function cardMarkup(item) {
   const shares = shareValue(item.metrics?.shareCount);
   const primaryPath = complete ? addParam(item.path, item.progress.resultParam) : item.path;
   const badge = item.badge ? `<span class="badge ${item.badge.tone ?? ''}">${text(item.badge.label)}</span>` : '';
-  const media = item.image ? `<img src="${item.image}" alt="" loading="lazy">` : `<span aria-hidden="true">${item.icon}</span>`;
+  const media = item.image ? `<img src="${appUrl(item.image)}" alt="" loading="lazy">` : `<span aria-hidden="true">${item.icon}</span>`;
   const pinned=isPinned(item.id),pinLabel=pinned?personal().unpin:personal().pin;
   return `<article class="catalog-card${complete ? ' completed' : ''}${pinned?' pinned':''}" data-id="${item.id}">
     <div class="card-media">${media}<span class="category-chip">${categoryLabel(item)}</span><button class="pin-card" type="button" data-pin="${item.id}" aria-label="${pinLabel}" aria-pressed="${pinned}">${pinned?'★':'☆'}</button></div>
     <div class="card-body"><div class="card-flags">${badge}${complete ? `<span class="complete-mark">${locale.completed}</span>` : ''}</div><h3>${text(item.title)}</h3><p>${text(item.description)}</p>
       <div class="card-meta"><span class="metric">⏱ ${text(item.time)}</span>${Number.isFinite(rating) && rating >= 4.8 ? `<span class="metric rating">★ ${rating.toFixed(1)}</span>` : ''}${shares >= 100 ? `<span class="metric share-count">↗ ${shareLabel(shares)}</span>` : ''}</div>
-      <div class="card-actions"><a class="open-card" href="${primaryPath}">${complete ? locale.viewResult : locale.start}</a>${complete ? `<a class="retake-card" href="${addParam(item.path, item.progress.retakeParam)}">${locale.retake}</a>` : ''}</div>
+      <div class="card-actions"><a class="open-card" href="${appUrl(primaryPath)}">${complete ? locale.viewResult : locale.start}</a>${complete ? `<a class="retake-card" href="${appUrl(addParam(item.path, item.progress.retakeParam))}">${locale.retake}</a>` : ''}</div>
     </div></article>`;
 }
 
@@ -255,7 +266,7 @@ function closeDrawer() {
 
 async function shareApp() {
   const locale = state.locales[state.lang];
-  const data = { title:'PortHub', text:locale.shareText.replaceAll('Portable Tests','PortHub'), url:globalThis.PT_CONFIG?.onlineRoot || location.href };
+  const data = { title:'PortHub', text:locale.shareText.replaceAll('Portable Tests','PortHub'), url:languageHome() };
   if (navigator.share) {
     try { await navigator.share(data); return; } catch (error) { if (error.name === 'AbortError') return; }
   }
@@ -303,8 +314,9 @@ function bindLayout() {
   document.getElementById('closeMenu').addEventListener('click', closeDrawer);
   document.getElementById('drawerBackdrop').addEventListener('click', closeDrawer);
   document.getElementById('shareApp').addEventListener('click', shareApp);
-  document.querySelectorAll('[data-hero-lang]').forEach((button) => button.addEventListener('click', () => { state.lang = button.dataset.heroLang; localStorage.setItem('pt.lang', state.lang); render(); }));
-  document.getElementById('lang').addEventListener('change', (event) => { state.lang = event.target.value; localStorage.setItem('pt.lang', state.lang); render(); });
+  const chooseLanguage = (code) => { try { localStorage.setItem('pt.lang', code); } catch {} location.assign(languageHome(code)); };
+  document.querySelectorAll('[data-hero-lang]').forEach((button) => button.addEventListener('click', () => chooseLanguage(button.dataset.heroLang)));
+  document.getElementById('lang').addEventListener('change', (event) => chooseLanguage(event.target.value));
   document.getElementById('update').addEventListener('click', checkOrInstallUpdate);
 }
 
@@ -349,7 +361,7 @@ async function init() {
     initPwa().catch(() => {});
   } catch (error) {
     console.error(error);
-    document.getElementById('app').innerHTML = `<header class="topbar"><a class="brand" href="./"><span class="brand-wordmark"><span class="brand-port">Port</span><span class="brand-hub">Hub</span></span></a></header><main class="shell"><section class="loading-card">${state.locales[state.lang]?.loadError ?? 'Каталог не загрузился.'}<br><button class="show-more" onclick="location.reload()">↻</button></section></main>`;
+    document.getElementById('app').innerHTML = `<header class="topbar"><a class="brand" href="${languageHome()}"><span class="brand-wordmark"><span class="brand-port">Port</span><span class="brand-hub">Hub</span></span></a></header><main class="shell"><section class="loading-card">${state.locales[state.lang]?.loadError ?? 'Каталог не загрузился.'}<br><button class="show-more" onclick="location.reload()">↻</button></section></main>`;
   }
 }
 

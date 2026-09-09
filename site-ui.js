@@ -15,10 +15,17 @@ globalThis.PT_CONFIG = Object.freeze({
   url(path = '') { return new URL(path, PT_ROOT).href; },
   onlineUrl(path = '') { return new URL(path, PT_ONLINE_ROOT).href; }
 });
-const PT_VERSION = '1.16.1';
+const PT_VERSION = '1.16.2';
 const PT_GA_ID = 'G-37RB6NC78X';
 const PT_SUPPORT = { boosty:'https://boosty.to/zhanat-arch', kofi:'https://ko-fi.com/zhanat_arch' };
 const PT_LANGS = ['ru','kk','en','fr'];
+try{
+  const requestedLanguage=(new URLSearchParams(location.search).get('lang')||'').slice(0,2).toLowerCase();
+  if(PT_LANGS.includes(requestedLanguage)){
+    localStorage.setItem('pt.lang',requestedLanguage);
+    document.documentElement.lang=requestedLanguage;
+  }
+}catch{}
 let ptInstallPrompt = null;
 let ptReloading = false;
 let ptReloadOnUpdate = false;
@@ -125,7 +132,7 @@ function ptApplyBranding(){
     header.classList.add('pt-site-header');
     const brand=header.querySelector('a.brand');
     if(!brand)return;
-    brand.href=PT_ROOT;
+    brand.href=PT_CONFIG.url(`${lang}/`);
     brand.setAttribute('aria-label',`PortHub — ${tagline}`);
     if(brand.dataset.ptBrandLang===lang)return;
     brand.dataset.ptBrandLang=lang;
@@ -167,7 +174,7 @@ function ptRemoveLegacySupport(){
 
 function ptFooterMarkup(){
   const copy=ptCopy(),theme=ptTheme();
-  return `<div class="pt-footer-brand"><span class="pt-footer-wordmark">Port<b>Hub</b></span><span class="pt-footer-tagline">${PT_BRAND_TAGLINE[ptLanguage()]}<br><span class="pt-footer-version">v${PT_VERSION}</span></span></div><h2>${copy.title.replaceAll('Portable Tests','PortHub')}</h2><p>${copy.text}</p><div class="pt-footer-actions"><button class="pt-footer-button primary" type="button" data-pt-install>📲 ${copy.install}</button><button class="pt-footer-button" type="button" data-pt-share>↗ ${copy.share}</button><a class="pt-footer-button" href="${PT_SUPPORT.boosty}" target="_blank" rel="noopener">☕ ${copy.boosty}</a><a class="pt-footer-button" href="${PT_SUPPORT.kofi}" target="_blank" rel="noopener">☕ ${copy.kofi}</a><button class="pt-footer-button" type="button" data-pt-update>↻ ${copy.update} · v${PT_VERSION}</button></div><small class="pt-footer-privacy">🔒 ${copy.privacy.replaceAll('Portable Tests','PortHub')}<br>📊 ${PT_METRICS_COPY[ptLanguage()]}</small><a class="pt-footer-legal" href="${PT_CONFIG.url('privacy/')}">🛡️ ${PT_LEGAL_COPY[ptLanguage()]}</a><div class="pt-footer-bottom"><div class="pt-footer-theme"><span>Аа · ${copy.theme}</span><button class="pt-theme-choice ${theme==='normal'?'active':''}" type="button" data-pt-theme-choice="normal" aria-pressed="${theme==='normal'}">${copy.normal}</button><button class="pt-theme-choice ${theme==='readable'?'active':''}" type="button" data-pt-theme-choice="readable" aria-pressed="${theme==='readable'}">${copy.readable}</button></div><p class="pt-ambassador">📣 ${copy.ambassador}</p></div>`;
+  return `<div class="pt-footer-brand"><span class="pt-footer-wordmark">Port<b>Hub</b></span><span class="pt-footer-tagline">${PT_BRAND_TAGLINE[ptLanguage()]}<br><span class="pt-footer-version">v${PT_VERSION}</span></span></div><h2>${copy.title.replaceAll('Portable Tests','PortHub')}</h2><p>${copy.text}</p><div class="pt-footer-actions"><button class="pt-footer-button primary" type="button" data-pt-install>📲 ${copy.install}</button><button class="pt-footer-button" type="button" data-pt-share>↗ ${copy.share}</button><a class="pt-footer-button" href="${PT_SUPPORT.boosty}" target="_blank" rel="noopener">☕ ${copy.boosty}</a><a class="pt-footer-button" href="${PT_SUPPORT.kofi}" target="_blank" rel="noopener">☕ ${copy.kofi}</a><button class="pt-footer-button" type="button" data-pt-update aria-label="${copy.update}">↻ v${PT_VERSION}</button></div><small class="pt-footer-privacy">🔒 ${copy.privacy.replaceAll('Portable Tests','PortHub')}<br>📊 ${PT_METRICS_COPY[ptLanguage()]}</small><a class="pt-footer-legal" href="${PT_CONFIG.url('privacy/')}">🛡️ ${PT_LEGAL_COPY[ptLanguage()]}</a><div class="pt-footer-bottom"><div class="pt-footer-theme"><span>Аа · ${copy.theme}</span><button class="pt-theme-choice ${theme==='normal'?'active':''}" type="button" data-pt-theme-choice="normal" aria-pressed="${theme==='normal'}">${copy.normal}</button><button class="pt-theme-choice ${theme==='readable'?'active':''}" type="button" data-pt-theme-choice="readable" aria-pressed="${theme==='readable'}">${copy.readable}</button></div><p class="pt-ambassador">📣 ${copy.ambassador}</p></div>`;
 }
 
 function ptToast(message){
@@ -178,7 +185,7 @@ function ptToast(message){
 
 async function ptShareApp(){
   const copy=ptCopy();
-  const data={title:'PortHub',text:copy.text,url:PT_HOME};
+  const data={title:'PortHub',text:copy.text,url:PT_CONFIG.url(`${ptLanguage()}/`)};
   try{
     if(navigator.share)await navigator.share(data);
     else{await navigator.clipboard.writeText(PT_HOME);ptToast(copy.copied)}
@@ -210,7 +217,7 @@ async function ptInstallApp(){
 async function ptUpdateApp(){
   const copy=ptCopy();
   try{
-    const registration=await navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1161`,{scope:PT_ROOT,updateViaCache:'none'});
+    const registration=await navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1162`,{scope:PT_ROOT,updateViaCache:'none'});
     await registration?.update();
     const installing=registration?.installing;
     if(installing&&!['installed','redundant'].includes(installing.state))await new Promise(resolve=>{
@@ -226,7 +233,7 @@ function ptEnsurePwa(){
   if(!document.querySelector('link[rel="manifest"]')){const link=document.createElement('link');link.rel='manifest';link.href=`${PT_ROOT}manifest.webmanifest`;document.head.appendChild(link)}
   if(!document.querySelector('link[rel="apple-touch-icon"]')){const link=document.createElement('link');link.rel='apple-touch-icon';link.href=`${PT_ROOT}icon-porthub-192.png`;document.head.appendChild(link)}
   if(!document.querySelector('meta[name="apple-mobile-web-app-capable"]')){const meta=document.createElement('meta');meta.name='apple-mobile-web-app-capable';meta.content='yes';document.head.appendChild(meta)}
-  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1161`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
+  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1162`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
 }
 
 function ptRenderFooter(){
