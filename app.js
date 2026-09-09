@@ -1,4 +1,4 @@
-const VERSION = '1.16.3';
+const VERSION = '1.16.4';
 const SUPPORTED = ['ru', 'kk', 'en', 'fr'];
 const APP_ROOT = new URL('./', import.meta.url);
 const CATEGORY_ICONS = { astro: '🔮', career: '💼', psychology: '🧠', fun: '🙂', interactive: '🎲', games: '🎮' };
