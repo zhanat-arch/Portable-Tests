@@ -18,7 +18,7 @@ for (const name of ['career','quick','insight','antiIq']) {
 }
 
 const [home, sw, horoscope, registrySource, hubLocalesSource, siteUi, robots, sitemap] = await Promise.all([
-  readFile(resolve(root, 'index.html'), 'utf8'),
+  readFile(resolve(root, 'ru/index.html'), 'utf8'),
   readFile(resolve(root, 'service-worker.js'), 'utf8'),
   readFile(resolve(root, 'horoscope/app.js'), 'utf8'),
   readFile(resolve(root, 'tests-registry.json'), 'utf8'),

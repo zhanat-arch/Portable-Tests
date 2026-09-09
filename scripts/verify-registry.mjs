@@ -6,7 +6,7 @@ const fail = message => { throw new Error(message); };
 const langs = ['ru','kk','en','fr'];
 const registry = JSON.parse(await readFile(resolve(root, 'tests-registry.json'), 'utf8'));
 const locales = JSON.parse(await readFile(resolve(root, 'hub-locales.json'), 'utf8'));
-const home = await readFile(resolve(root, 'index.html'), 'utf8');
+const home = await readFile(resolve(root, 'ru/index.html'), 'utf8');
 const app = await readFile(resolve(root, 'app.js'), 'utf8');
 const styles = await readFile(resolve(root, 'styles.css'), 'utf8');
 

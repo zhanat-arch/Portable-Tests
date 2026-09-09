@@ -15,7 +15,7 @@ globalThis.PT_CONFIG = Object.freeze({
   url(path = '') { return new URL(path, PT_ROOT).href; },
   onlineUrl(path = '') { return new URL(path, PT_ONLINE_ROOT).href; }
 });
-const PT_VERSION = '1.16.2';
+const PT_VERSION = '1.16.3';
 const PT_GA_ID = 'G-37RB6NC78X';
 const PT_SUPPORT = { boosty:'https://boosty.to/zhanat-arch', kofi:'https://ko-fi.com/zhanat_arch' };
 const PT_LANGS = ['ru','kk','en','fr'];
@@ -43,6 +43,12 @@ const PT_METRICS_COPY={
 };
 const PT_LEGAL_COPY={ru:'Конфиденциальность и условия',kk:'Құпиялылық және шарттар',en:'Privacy and terms',fr:'Confidentialité et conditions'};
 const PT_BRAND_TAGLINE={ru:'Твой порт в мир развлечений',kk:'Ойын-сауық әлеміне апарар портыңыз',en:'Your port to entertainment',fr:'Votre porte vers le divertissement'};
+const PT_SUPPORT_COPY={
+  ru:{title:'ИИ съел токены — PortHub просит добавки',text:'Новые тесты, игры и исправления требуют времени, кофе и расходов на сервисы. Если PortHub вас развлёк, помогите следующему обновлению выйти быстрее.',button:'Кофе, токены и новые игры'},
+  kk:{title:'ЖИ токендерді жеп қойды — PortHub-қа қуат керек',text:'Жаңа тесттер, ойындар мен түзетулерге уақыт, кофе және сервистерге шығын қажет. PortHub ұнаса, келесі жаңартуды жылдамдатуға көмектесіңіз.',button:'Кофе, токендер және жаңа ойындар'},
+  en:{title:'AI ate the tokens — PortHub needs a refill',text:'New tests, games and fixes take time, coffee and paid tools. If PortHub made you smile, help the next update ship faster.',button:'Coffee, tokens and new games'},
+  fr:{title:'L’IA a mangé les jetons — PortHub reprend des forces',text:'Les nouveaux tests, jeux et correctifs demandent du temps, du café et des outils payants. Si PortHub vous a plu, aidez la prochaine mise à jour à arriver plus vite.',button:'Café, jetons et nouveaux jeux'}
+};
 function ptCopy(){return Object.fromEntries(Object.entries(PT_COPY[ptLanguage()]).map(([key,value])=>[key,typeof value==='string'?value.replaceAll('Portable Tests','PortHub'):value]))}
 
 function ptSafeValue(value){return String(value||'').toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,48)}
@@ -52,6 +58,7 @@ function ptModuleId(){
   if(test)return `quick_${test}`;
   const rootIndex=path.indexOf('Portable-Tests');
   const parts=path.slice(rootIndex>=0?rootIndex+1:0).filter(part=>!part.endsWith('.html'));
+  if(PT_LANGS.includes(parts[0]))parts.shift();
   return ptSafeValue(parts.join('_'))||'home';
 }
 function ptSafePage(){
@@ -105,9 +112,14 @@ function ptEnsureSeo(){
 }
 
 function ptLanguage(){
-  const html=(document.documentElement.lang||'').slice(0,2).toLowerCase();
-  if(PT_LANGS.includes(html))return html;
+  const rootPath=new URL(PT_ROOT).pathname,relative=location.pathname.startsWith(rootPath)?location.pathname.slice(rootPath.length):'';
+  const pathLanguage=relative.split('/').filter(Boolean)[0]?.slice(0,2).toLowerCase();
+  if(PT_LANGS.includes(pathLanguage))return pathLanguage;
   try{const saved=(localStorage.getItem('pt.lang')||'').slice(0,2).toLowerCase();if(PT_LANGS.includes(saved))return saved}catch{}
+  const html=(document.documentElement.lang||'').slice(0,2).toLowerCase();
+  if(PT_LANGS.includes(html)&&html!=='ru')return html;
+  const browser=(navigator.language||'').slice(0,2).toLowerCase();
+  if(PT_LANGS.includes(browser))return browser;
   return 'ru';
 }
 
@@ -140,6 +152,22 @@ function ptApplyBranding(){
   });
 }
 
+function ptLocalizeLinks(root=document){
+  const lang=ptLanguage(),rootUrl=new URL(PT_ROOT),rootPath=rootUrl.pathname;
+  root.querySelectorAll?.('a[href]').forEach(link=>{
+    const raw=link.getAttribute('href');
+    if(!raw||raw.startsWith('#')||link.hasAttribute('download')||/^(?:mailto:|tel:|javascript:)/i.test(raw))return;
+    let url;try{url=new URL(raw,document.baseURI)}catch{return}
+    if(url.origin!==rootUrl.origin||!url.pathname.startsWith(rootPath))return;
+    const relative=url.pathname.slice(rootPath.length).replace(/^\/+/,''),first=relative.split('/')[0];
+    if(PT_LANGS.includes(first))return;
+    const leaf=relative.split('/').pop()||'',extension=/\.([a-z0-9]+)$/i.exec(leaf)?.[1]?.toLowerCase();
+    if(extension&&extension!=='html')return;
+    url.pathname=`${rootPath}${lang}/${relative}`.replace(/\/{2,}/g,'/');
+    link.href=url.href;
+  });
+}
+
 function ptInstallStyles(){
   if(document.getElementById('pt-global-ui-styles'))return;
   const style=document.createElement('style');
@@ -150,7 +178,7 @@ function ptInstallStyles(){
     .pt-site-header{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;width:min(1180px,calc(100% - 20px))!important;margin:10px auto 18px!important;padding:11px 14px!important;border:1px solid #2e2a39!important;border-radius:18px!important;background:#15131c!important;color:#fff!important;box-shadow:0 14px 35px #17121f33!important}.pt-site-header .brand{display:grid!important;gap:4px!important;color:#fff!important;text-decoration:none!important}.pt-site-header .brand-wordmark{display:flex!important;align-items:center!important;width:max-content!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#fff!important;font-size:1.52rem!important;font-weight:950!important;line-height:1!important;letter-spacing:-.055em!important;box-shadow:none!important}.pt-site-header .brand-port{display:inline!important;color:#fff!important}.pt-site-header .brand-hub{display:inline!important;margin-left:2px!important;padding:5px 7px 6px!important;border-radius:7px!important;background:linear-gradient(145deg,#a77bff,#7c45ed)!important;color:#0d0b13!important;box-shadow:0 7px 18px #6634df32!important}.pt-site-header .brand-tagline{display:block!important;max-width:none!important;color:#bdb7c7!important;font-size:.52rem!important;font-weight:850!important;line-height:1.1!important;letter-spacing:.055em!important;text-transform:uppercase!important;white-space:nowrap!important}.pt-site-header .tools,.pt-site-header .header-tools{color:#fff}.pt-site-header select,.pt-site-header button,.pt-site-header .tools a{border-color:#494354!important;background:#24212d!important;color:#fff!important}
     .pt-global-footer{position:relative;z-index:7;width:min(980px,calc(100% - 20px));margin:48px auto max(90px,env(safe-area-inset-bottom));padding:clamp(22px,5vw,38px);border:1px solid #36314a;border-radius:28px;background:linear-gradient(145deg,#211b3a,#141222);color:#fff;box-shadow:0 26px 80px #08061155}
     .pt-global-footer *{box-sizing:border-box}.pt-global-footer h2{margin:5px 0 10px;color:#fff;font-size:clamp(1.55rem,5vw,2.35rem);line-height:1.08;letter-spacing:-.025em}.pt-global-footer p{max-width:760px;margin:0;color:#d6d0df;font-size:1rem;line-height:1.65}.pt-footer-kicker{color:#f2cb75;font-size:.75rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
-    .pt-footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}.pt-footer-wordmark{display:flex;align-items:center;padding:7px 8px 7px 11px;border-radius:10px;background:#0d0c11;color:#fff;font-size:1.5rem;font-weight:950;line-height:1;letter-spacing:-.055em}.pt-footer-wordmark b{margin-left:2px;padding:5px 7px 6px;border-radius:7px;background:linear-gradient(145deg,#a77bff,#7c45ed);color:#0d0b13}.pt-footer-tagline{color:#aaa2b8;font-size:.72rem;font-weight:750;line-height:1.25}.pt-footer-version{color:#f2cb75;font-size:.68rem;font-weight:850}
+    .pt-footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:12px;text-decoration:none}.pt-footer-wordmark{display:flex;align-items:center;padding:7px 8px 7px 11px;border-radius:10px;background:#0d0c11;color:#fff;font-size:1.5rem;font-weight:950;line-height:1;letter-spacing:-.055em}.pt-footer-wordmark b{margin-left:2px;padding:5px 7px 6px;border-radius:7px;background:linear-gradient(145deg,#a77bff,#7c45ed);color:#0d0b13}.pt-footer-tagline{color:#aaa2b8;font-size:.72rem;font-weight:750;line-height:1.25}.pt-footer-version{color:#f2cb75;font-size:.68rem;font-weight:850}
     .pt-footer-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:22px}.pt-footer-button{display:flex;align-items:center;justify-content:center;min-height:50px;padding:11px 14px;border:1px solid #514964;border-radius:15px;background:#2c2643;color:#fff!important;font-size:.92rem;font-weight:800;text-align:center;text-decoration:none;cursor:pointer}.pt-footer-button.primary{border-color:#f2cb75;background:#f2cb75;color:#20182d!important}.pt-footer-button:hover,.pt-footer-button:focus-visible{outline:3px solid #9c8aff55;outline-offset:2px}.pt-footer-button[data-pt-update]{grid-column:1/-1}
     .pt-footer-privacy{display:block;margin-top:12px;color:#aaa2b8;font-size:.8rem;line-height:1.5}.pt-footer-legal{display:inline-flex;margin-top:11px;color:#f2cb75!important;font-size:.84rem;font-weight:800;text-decoration:none}.pt-footer-legal:hover{text-decoration:underline}.pt-footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:24px;padding-top:18px;border-top:1px solid #3b354c}.pt-footer-theme{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.pt-footer-theme>span{margin-right:3px;color:#bdb6c8;font-size:.82rem}.pt-theme-choice{min-height:42px;padding:8px 11px;border:1px solid #4b455b;border-radius:12px;background:#201c31;color:#dcd6e4;font-weight:750;cursor:pointer}.pt-theme-choice.active{border-color:#f2cb75;background:#3a3043;color:#fff}.pt-ambassador{max-width:420px!important;color:#aaa2b8!important;font-size:.8rem!important;text-align:right}
     .pt-global-toast{position:fixed;z-index:10000;left:50%;bottom:90px;transform:translate(-50%,130px);max-width:calc(100% - 24px);padding:12px 16px;border-radius:14px;background:#171321;color:#fff;font-weight:800;text-align:center;transition:.22s}.pt-global-toast.show{transform:translate(-50%,0)}.pt-install-dialog{width:min(500px,calc(100% - 24px));padding:0;border:1px solid #49415c;border-radius:24px;background:#1d1830;color:#fff;box-shadow:0 30px 90px #08061199}.pt-install-dialog::backdrop{background:#0d0a18bb;backdrop-filter:blur(6px)}.pt-install-card{padding:25px}.pt-install-card h2{margin:0 0 12px;color:#fff;font-size:1.65rem}.pt-install-card p{margin:0 0 19px;color:#d6d0df;line-height:1.65}.pt-install-card button{width:100%;min-height:50px;border:0;border-radius:14px;background:#f2cb75;color:#20182d;font-weight:850;cursor:pointer}
@@ -173,8 +201,8 @@ function ptRemoveLegacySupport(){
 }
 
 function ptFooterMarkup(){
-  const copy=ptCopy(),theme=ptTheme();
-  return `<div class="pt-footer-brand"><span class="pt-footer-wordmark">Port<b>Hub</b></span><span class="pt-footer-tagline">${PT_BRAND_TAGLINE[ptLanguage()]}<br><span class="pt-footer-version">v${PT_VERSION}</span></span></div><h2>${copy.title.replaceAll('Portable Tests','PortHub')}</h2><p>${copy.text}</p><div class="pt-footer-actions"><button class="pt-footer-button primary" type="button" data-pt-install>📲 ${copy.install}</button><button class="pt-footer-button" type="button" data-pt-share>↗ ${copy.share}</button><a class="pt-footer-button" href="${PT_SUPPORT.boosty}" target="_blank" rel="noopener">☕ ${copy.boosty}</a><a class="pt-footer-button" href="${PT_SUPPORT.kofi}" target="_blank" rel="noopener">☕ ${copy.kofi}</a><button class="pt-footer-button" type="button" data-pt-update aria-label="${copy.update}">↻ v${PT_VERSION}</button></div><small class="pt-footer-privacy">🔒 ${copy.privacy.replaceAll('Portable Tests','PortHub')}<br>📊 ${PT_METRICS_COPY[ptLanguage()]}</small><a class="pt-footer-legal" href="${PT_CONFIG.url('privacy/')}">🛡️ ${PT_LEGAL_COPY[ptLanguage()]}</a><div class="pt-footer-bottom"><div class="pt-footer-theme"><span>Аа · ${copy.theme}</span><button class="pt-theme-choice ${theme==='normal'?'active':''}" type="button" data-pt-theme-choice="normal" aria-pressed="${theme==='normal'}">${copy.normal}</button><button class="pt-theme-choice ${theme==='readable'?'active':''}" type="button" data-pt-theme-choice="readable" aria-pressed="${theme==='readable'}">${copy.readable}</button></div><p class="pt-ambassador">📣 ${copy.ambassador}</p></div>`;
+  const copy=ptCopy(),theme=ptTheme(),support=PT_SUPPORT_COPY[ptLanguage()];
+  return `<a class="pt-footer-brand" href="${PT_CONFIG.url(`${ptLanguage()}/`)}" aria-label="PortHub — ${PT_BRAND_TAGLINE[ptLanguage()]}"><span class="pt-footer-wordmark">Port<b>Hub</b></span><span class="pt-footer-tagline">${PT_BRAND_TAGLINE[ptLanguage()]}<br><span class="pt-footer-version">v${PT_VERSION}</span></span></a><h2>${support.title}</h2><p>${support.text}</p><div class="pt-footer-actions"><button class="pt-footer-button primary" type="button" data-pt-install>📲 ${copy.install}</button><button class="pt-footer-button" type="button" data-pt-share>↗ ${copy.share}</button><a class="pt-footer-button" href="${PT_SUPPORT.boosty}" target="_blank" rel="noopener">☕ ${support.button}</a><a class="pt-footer-button" href="${PT_SUPPORT.kofi}" target="_blank" rel="noopener">☕ Ko-fi</a><button class="pt-footer-button" type="button" data-pt-update aria-label="${copy.update}">↻ v${PT_VERSION}</button></div><small class="pt-footer-privacy">🔒 ${copy.privacy.replaceAll('Portable Tests','PortHub')}<br>📊 ${PT_METRICS_COPY[ptLanguage()]}</small><a class="pt-footer-legal" href="${PT_CONFIG.url(`${ptLanguage()}/privacy/`)}">🛡️ ${PT_LEGAL_COPY[ptLanguage()]}</a><div class="pt-footer-bottom"><div class="pt-footer-theme"><span>Аа · ${copy.theme}</span><button class="pt-theme-choice ${theme==='normal'?'active':''}" type="button" data-pt-theme-choice="normal" aria-pressed="${theme==='normal'}">${copy.normal}</button><button class="pt-theme-choice ${theme==='readable'?'active':''}" type="button" data-pt-theme-choice="readable" aria-pressed="${theme==='readable'}">${copy.readable}</button></div></div>`;
 }
 
 function ptToast(message){
@@ -217,7 +245,7 @@ async function ptInstallApp(){
 async function ptUpdateApp(){
   const copy=ptCopy();
   try{
-    const registration=await navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1162`,{scope:PT_ROOT,updateViaCache:'none'});
+    const registration=await navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1163`,{scope:PT_ROOT,updateViaCache:'none'});
     await registration?.update();
     const installing=registration?.installing;
     if(installing&&!['installed','redundant'].includes(installing.state))await new Promise(resolve=>{
@@ -233,7 +261,7 @@ function ptEnsurePwa(){
   if(!document.querySelector('link[rel="manifest"]')){const link=document.createElement('link');link.rel='manifest';link.href=`${PT_ROOT}manifest.webmanifest`;document.head.appendChild(link)}
   if(!document.querySelector('link[rel="apple-touch-icon"]')){const link=document.createElement('link');link.rel='apple-touch-icon';link.href=`${PT_ROOT}icon-porthub-192.png`;document.head.appendChild(link)}
   if(!document.querySelector('meta[name="apple-mobile-web-app-capable"]')){const meta=document.createElement('meta');meta.name='apple-mobile-web-app-capable';meta.content='yes';document.head.appendChild(meta)}
-  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1162`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
+  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=1163`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
 }
 
 function ptRenderFooter(){
@@ -248,14 +276,31 @@ function ptRenderFooter(){
   ptApplyTheme(ptTheme());
 }
 
+function ptFollowLanguageSelect(event){
+  const select=event.target.closest?.('select#lang');
+  if(!select)return;
+  const lang=String(select.value||'').slice(0,2).toLowerCase();
+  if(!PT_LANGS.includes(lang))return;
+  try{localStorage.setItem('pt.lang',lang)}catch{}
+  document.documentElement.lang=lang;
+  const rootPath=new URL(PT_ROOT).pathname,relative=location.pathname.startsWith(rootPath)?location.pathname.slice(rootPath.length):'';
+  const parts=relative.split('/').filter(Boolean);
+  if(PT_LANGS.includes(parts[0]))parts.shift();
+  const next=`${rootPath}${lang}/${parts.join('/')}${location.pathname.endsWith('/')||!parts.length?'/':''}`.replace(/\/{2,}/g,'/');
+  if(next!==location.pathname)location.assign(`${next}${location.search}${location.hash}`);
+}
+
 function ptStart(){
+  document.documentElement.lang=ptLanguage();
   ptEnsureSeo();
   ptAnalytics();
   ptEnsurePwa();
   ptApplyBranding();
   ptRenderFooter();
+  ptLocalizeLinks();
+  document.addEventListener('change',ptFollowLanguageSelect);
   let scheduled=false;
-  const refresh=()=>{if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;ptApplyBranding();ptRemoveLegacySupport()})};
+  const refresh=()=>{if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;ptApplyBranding();ptRemoveLegacySupport();ptLocalizeLinks()})};
   new MutationObserver(refresh).observe(document.body,{childList:true,subtree:true});
   new MutationObserver(ptRenderFooter).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 }

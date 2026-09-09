@@ -1,4 +1,4 @@
-const VERSION = '1.16.2';
+const VERSION = '1.16.3';
 const SUPPORTED = ['ru', 'kk', 'en', 'fr'];
 const APP_ROOT = new URL('./', import.meta.url);
 const CATEGORY_ICONS = { astro: '🔮', career: '💼', psychology: '🧠', fun: '🙂', interactive: '🎲', games: '🎮' };
@@ -28,6 +28,15 @@ function detectLanguage() {
 
 function appUrl(path = '') { return new URL(path, APP_ROOT).href; }
 function languageHome(code = state.lang) { return appUrl(`${code}/`); }
+function languageUrl(path, code = state.lang) {
+  const url = new URL(path, APP_ROOT);
+  const rootPath = APP_ROOT.pathname;
+  if (url.origin !== APP_ROOT.origin || !url.pathname.startsWith(rootPath)) return url.href;
+  const relative = url.pathname.slice(rootPath.length).replace(/^\/+/, '');
+  if (SUPPORTED.includes(relative.split('/')[0])) return url.href;
+  url.pathname = `${rootPath}${code}/${relative}`.replace(/\/{2,}/g, '/');
+  return url.href;
+}
 
 function text(value) {
   if (typeof value === 'string') return value;
@@ -167,7 +176,7 @@ function cardMarkup(item) {
     <div class="card-media">${media}<span class="category-chip">${categoryLabel(item)}</span><button class="pin-card" type="button" data-pin="${item.id}" aria-label="${pinLabel}" aria-pressed="${pinned}">${pinned?'★':'☆'}</button></div>
     <div class="card-body"><div class="card-flags">${badge}${complete ? `<span class="complete-mark">${locale.completed}</span>` : ''}</div><h3>${text(item.title)}</h3><p>${text(item.description)}</p>
       <div class="card-meta"><span class="metric">⏱ ${text(item.time)}</span>${Number.isFinite(rating) && rating >= 4.8 ? `<span class="metric rating">★ ${rating.toFixed(1)}</span>` : ''}${shares >= 100 ? `<span class="metric share-count">↗ ${shareLabel(shares)}</span>` : ''}</div>
-      <div class="card-actions"><a class="open-card" href="${appUrl(primaryPath)}">${complete ? locale.viewResult : locale.start}</a>${complete ? `<a class="retake-card" href="${appUrl(addParam(item.path, item.progress.retakeParam))}">${locale.retake}</a>` : ''}</div>
+      <div class="card-actions"><a class="open-card" href="${languageUrl(primaryPath)}">${complete ? locale.viewResult : locale.start}</a>${complete ? `<a class="retake-card" href="${languageUrl(addParam(item.path, item.progress.retakeParam))}">${locale.retake}</a>` : ''}</div>
     </div></article>`;
 }
 
