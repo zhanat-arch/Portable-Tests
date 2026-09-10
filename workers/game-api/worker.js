@@ -23,8 +23,8 @@ async function getRoom(request,env,id,origin){const room=await roomAuth(request,
 async function updateScore(request,env,id,playerId,origin){const player=await playerAuth(request,env,id,playerId);if(!player)return json({error:'not_found'},404,origin);const body=await request.json(),score=safeInt(body.score,0,2147483647),maxTile=safeInt(body.maxTile,2,1073741824,2),lives=safeInt(body.lives,0,3,3),moves=safeInt(body.moves,0,2147483647),activeMs=safeInt(body.activeMs,0,2147483647),status=body.status==='finished'?'finished':'playing',now=Date.now();if(score<player.score||moves<player.moves||activeMs<player.active_ms)return json({error:'stale_state'},409,origin);
   // Only impossible jumps between snapshots are reviewed; a large gradual total stays clean.
   const deltaMoves=moves-player.moves,deltaMs=activeMs-player.active_ms,deltaScore=score-player.score;
-  const tooFast=deltaMs>=30000&&deltaMoves>0&&deltaMoves/(deltaMs/1000)>safeInt(env.MAX_MOVES_PER_SECOND,4,20,8);
-  const impossibleGain=deltaMoves>=20&&deltaScore>Math.max(50000,deltaMoves*Math.max(128,maxTile*8));
+  const tooFast=deltaMs>=120000&&deltaMoves>0&&deltaMoves/(deltaMs/1000)>safeInt(env.MAX_MOVES_PER_SECOND,8,30,18);
+  const impossibleGain=deltaMoves>=40&&deltaScore>Math.max(200000,deltaMoves*Math.max(256,maxTile*16));
   const reviewUntil=tooFast||impossibleGain?now+86400000:Number(player.review_until)||0;
   await env.DB.batch([env.DB.prepare('UPDATE players SET score=?,max_tile=?,lives=?,moves=?,active_ms=?,status=?,review_until=?,updated_at=? WHERE id=?').bind(score,maxTile,lives,moves,activeMs,status,reviewUntil,now,playerId),env.DB.prepare('UPDATE rooms SET updated_at=? WHERE id=?').bind(now,id)]);return json({ok:true,review:reviewUntil>now,syncAfter:safeInt(env.SYNC_SECONDS,60,3600,120)},200,origin)}
 
