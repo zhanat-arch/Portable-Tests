@@ -1,0 +1,13 @@
+name = "porthub-game-api"
+main = "worker.js"
+compatibility_date = "2026-08-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "porthub-games"
+database_id = "REPLACE_AFTER_D1_CREATE"
+
+[vars]
+ALLOWED_ORIGIN = "https://porthub.fyi"
+SYNC_SECONDS = "120"
+MAX_MOVES_PER_SECOND = "8"

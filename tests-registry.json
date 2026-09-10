@@ -1,5 +1,14 @@
 [
   {
+    "id":"game-2048",
+    "title":{"ru":"2048: три жизни","kk":"2048: үш өмір","en":"2048: three lives","fr":"2048 : trois vies"},
+    "description":{"ru":"Полноэкранная числовая головоломка с сохранением каждого хода, достижениями и будущими комнатами друзей.","kk":"Әр жүрісті сақтайтын, жетістіктері және достар бөлмесі бар толық экранды сандық ойын.","en":"A focused full-screen number puzzle with per-move saves, achievements, and friends rooms.","fr":"Le jeu de nombres en plein écran avec sauvegarde, succès et salons d’amis."},
+    "category":"games","icon":"2048","image":"./games/2048/cover.svg","path":"./games/2048/","time":{"ru":"Играть","kk":"Ойнау","en":"Play","fr":"Jouer"},
+    "tags":{"ru":["2048","игра","головоломка","цифры","друзья"],"kk":["2048","ойын","басқатырғыш","сандар","достар"],"en":["2048","game","puzzle","numbers","friends"],"fr":["2048","jeu","puzzle","nombres","amis"]},
+    "metrics":{"isViralTop":true,"isPopular":true,"isNew":true,"rating":null,"shareCount":null},
+    "badge":{"tone":"new","label":{"ru":"🎮 Новая игра","kk":"🎮 Жаңа ойын","en":"🎮 New game","fr":"🎮 Nouveau jeu"}}
+  },
+  {
     "id":"matrix-iq",
     "title":{"ru":"Matrix IQ: подвижный интеллект","kk":"Matrix IQ: икемді ойлау","en":"Matrix IQ: fluid reasoning","fr":"Matrix IQ : raisonnement fluide"},
     "description":{"ru":"12 culture-fair матриц: вращения, прогрессии, OR и XOR. Без эрудиции — только закономерности.","kk":"12 culture-fair матрица: айналу, прогрессия, OR және XOR.","en":"12 culture-fair matrices: rotations, progressions, OR and XOR. No trivia.","fr":"12 matrices culture-fair : rotations, progressions, OR et XOR."},

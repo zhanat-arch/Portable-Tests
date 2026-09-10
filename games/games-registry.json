@@ -1,5 +1,25 @@
 [
   {
+    "id": "2048",
+    "title": "2048 PortHub",
+    "category": "puzzle",
+    "path": "./2048/",
+    "playPath": "./2048/",
+    "launchPath": "./2048/",
+    "image": "./2048/cover.svg",
+    "author": "Gabriele Cirulli / PortHub",
+    "source": "https://github.com/gabrielecirulli/2048",
+    "license": "MIT",
+    "upstreamCommit": "478b6ec346e3787f589e4af751378d06ded4cbbc",
+    "platforms": ["mobile", "desktop"],
+    "copy": {
+      "ru": {"description":"Знакомая числовая головоломка в полноэкранном режиме: три жизни, достижения, сохранение и комнаты друзей.","features":["Три одинаковые жизни для всех","Свайпы, стрелки и WASD","Автосохранение после каждого хода","Рейтинг друзей после подключения PortHub Cloud"],"changes":"Сохранены правила движения и объединения оригинальной MIT-игры. PortHub добавил новый адаптивный интерфейс, три жизни, достижения, локальное сохранение и архитектуру комнат друзей."},
+      "kk": {"description":"Толық экрандағы таныс сандық басқатырғыш: үш өмір, жетістіктер, сақтау және достар бөлмесі.","features":["Барлығына бірдей үш өмір","Свайп, жебелер және WASD","Әр жүрістен кейін автоматты сақтау","PortHub Cloud қосылғаннан кейін достар рейтингі"],"changes":"Түпнұсқа MIT ойынының қозғалыс және біріктіру ережелері сақталды. PortHub жаңа бейімделетін интерфейс, үш өмір, жетістіктер мен сақтау жүйесін қосты."},
+      "en": {"description":"The familiar number puzzle in a focused full-screen layout, with three lives, achievements, saves, and friends rooms.","features":["The same three lives for everyone","Swipe, arrow, and WASD controls","Autosave after every move","Friends leaderboard when PortHub Cloud connects"],"changes":"The original MIT game's movement and merging rules are preserved. PortHub adds a new responsive interface, three lives, achievements, local saves, and friends-room architecture."},
+      "fr": {"description":"Le célèbre jeu de nombres en plein écran, avec trois vies, des succès, une sauvegarde et des salons d’amis.","features":["Les mêmes trois vies pour tous","Balayage, flèches et WASD","Sauvegarde après chaque mouvement","Classement des amis avec PortHub Cloud"],"changes":"Les règles de déplacement et de fusion du jeu MIT original sont conservées. PortHub ajoute une interface adaptative, trois vies, des succès, la sauvegarde locale et les salons d’amis."}
+    }
+  },
+  {
     "id": "last-stand",
     "title": "Last Stand",
     "category": "tower-defense",
