@@ -2,12 +2,17 @@ name = "porthub-game-api"
 main = "worker.js"
 compatibility_date = "2026-08-01"
 
+routes = [
+  { pattern = "api.porthub.fyi", custom_domain = true }
+]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "porthub-games"
-database_id = "REPLACE_AFTER_D1_CREATE"
+database_id = "2dccfd35-644a-4bdb-b2c7-e789a7d282bb"
 
 [vars]
 ALLOWED_ORIGIN = "https://porthub.fyi"
+GOOGLE_CLIENT_ID = "57476430330-0g2sg02g1p8j0691vdv0shtb15rmi6k9.apps.googleusercontent.com"
 SYNC_SECONDS = "120"
 MAX_MOVES_PER_SECOND = "18"
