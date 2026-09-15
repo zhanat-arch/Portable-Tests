@@ -77,5 +77,29 @@ CREATE TABLE IF NOT EXISTS game_scores (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- Runs belong to players. A room only shows its members' best run.
+CREATE TABLE IF NOT EXISTS game_runs (
+  id TEXT NOT NULL,user_id TEXT NOT NULL,device_id TEXT NOT NULL,device_label TEXT NOT NULL DEFAULT '',
+  game TEXT NOT NULL,mode TEXT NOT NULL,state_json TEXT NOT NULL DEFAULT '',revision INTEGER NOT NULL DEFAULT 0,
+  score INTEGER NOT NULL DEFAULT 0,max_tile INTEGER NOT NULL DEFAULT 0,rebirths INTEGER NOT NULL DEFAULT 0,
+  board_total INTEGER NOT NULL DEFAULT 0,board_rows INTEGER NOT NULL DEFAULT 0,board_cols INTEGER NOT NULL DEFAULT 0,
+  lives INTEGER NOT NULL DEFAULT 0,used_lives INTEGER NOT NULL DEFAULT 0,moves INTEGER NOT NULL DEFAULT 0,
+  active_ms INTEGER NOT NULL DEFAULT 0,review_until INTEGER NOT NULL DEFAULT 0,status TEXT NOT NULL DEFAULT 'playing',
+  created_at INTEGER NOT NULL,last_checkpoint_at INTEGER NOT NULL,updated_at INTEGER NOT NULL,
+  PRIMARY KEY (id,user_id),FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS room_invites (
+  token_hash TEXT PRIMARY KEY,room_id TEXT NOT NULL,created_by TEXT NOT NULL,created_at INTEGER NOT NULL,expires_at INTEGER NOT NULL,
+  FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE,FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS room_bans (
+  room_id TEXT NOT NULL,user_id TEXT NOT NULL,banned_by TEXT NOT NULL,created_at INTEGER NOT NULL,
+  PRIMARY KEY (room_id,user_id),FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE,FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions(expires_at);
 CREATE INDEX IF NOT EXISTS scores_room_game ON game_scores(room_id, game, mode, score DESC);
+CREATE INDEX IF NOT EXISTS runs_user_game ON game_runs(user_id,game,mode,updated_at DESC);
+CREATE INDEX IF NOT EXISTS runs_game_score ON game_runs(game,mode,score DESC);
+CREATE INDEX IF NOT EXISTS members_user ON room_members(user_id,joined_at DESC);
+CREATE INDEX IF NOT EXISTS invites_room ON room_invites(room_id,expires_at);
