@@ -5,6 +5,11 @@
   <url><loc>https://porthub.fyi/kk/</loc><lastmod>2026-09-09</lastmod><priority>1.0</priority></url>
   <url><loc>https://porthub.fyi/en/</loc><lastmod>2026-09-09</lastmod><priority>1.0</priority></url>
   <url><loc>https://porthub.fyi/fr/</loc><lastmod>2026-09-09</lastmod><priority>1.0</priority></url>
+  <url><loc>https://porthub.fyi/blog/</loc><lastmod>2026-09-16</lastmod><priority>0.8</priority></url>
+  <url><loc>https://porthub.fyi/ru/blog/</loc><lastmod>2026-09-16</lastmod><priority>0.8</priority></url>
+  <url><loc>https://porthub.fyi/kk/blog/</loc><lastmod>2026-09-16</lastmod><priority>0.8</priority></url>
+  <url><loc>https://porthub.fyi/en/blog/</loc><lastmod>2026-09-16</lastmod><priority>0.8</priority></url>
+  <url><loc>https://porthub.fyi/fr/blog/</loc><lastmod>2026-09-16</lastmod><priority>0.8</priority></url>
   <url><loc>https://zhanat-arch.github.io/Portable-Tests/privacy/</loc><lastmod>2026-09-02</lastmod><priority>0.5</priority></url>
   <url><loc>https://zhanat-arch.github.io/Portable-Tests/games/</loc><lastmod>2026-08-28</lastmod><priority>0.8</priority></url>
   <url><loc>https://zhanat-arch.github.io/Portable-Tests/games/last-stand/</loc><lastmod>2026-08-28</lastmod><priority>0.8</priority></url>

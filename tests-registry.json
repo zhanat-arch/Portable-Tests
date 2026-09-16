@@ -1,5 +1,14 @@
 [
   {
+    "id":"dev-chronicles",
+    "title":{"ru":"Хроники разработки PortHub","kk":"PortHub әзірлеу хроникасы","en":"PortHub development chronicles","fr":"Chroniques du développement PortHub"},
+    "description":{"ru":"10 коротких историй о кожаном хозяине, Кодексе, багах, переделках и лимитах. Сатира на реальную разработку.","kk":"Кожаный қожайын, Кодекс, қателер, қайта жасау және лимиттер туралы 10 қысқа сатиралық оқиға.","en":"10 short satirical stories about the human owner, Codex, bugs, revisions and limits.","fr":"10 courtes histoires satiriques sur le patron humain, Codex, les bugs, les retouches et les limites."},
+    "category":"fun","icon":"🛠️","path":"./blog/","time":{"ru":"≈8 мин","kk":"≈8 мин","en":"≈8 min","fr":"≈8 min"},
+    "tags":{"ru":["блог","разработка","юмор","кодекс","баги"],"kk":["блог","әзірлеу","әзіл","кодекс","қателер"],"en":["blog","development","humor","codex","bugs"],"fr":["blog","développement","humour","codex","bugs"]},
+    "metrics":{"isViralTop":false,"isPopular":false,"isNew":true,"rating":null,"shareCount":null},
+    "badge":{"tone":"new","label":{"ru":"📖 Новый раздел","kk":"📖 Жаңа бөлім","en":"📖 New section","fr":"📖 Nouvelle rubrique"}}
+  },
+  {
     "id":"game-2048",
     "title":{"ru":"2048: три жизни","kk":"2048: үш өмір","en":"2048: three lives","fr":"2048 : trois vies"},
     "description":{"ru":"Полноэкранная числовая головоломка с сохранением каждого хода, достижениями и будущими комнатами друзей.","kk":"Әр жүрісті сақтайтын, жетістіктері және достар бөлмесі бар толық экранды сандық ойын.","en":"A focused full-screen number puzzle with per-move saves, achievements, and friends rooms.","fr":"Le jeu de nombres en plein écran avec sauvegarde, succès et salons d’amis."},
