@@ -2,7 +2,7 @@
   {
     "id":"dev-chronicles",
     "title":{"ru":"Хроники разработки PortHub","kk":"PortHub әзірлеу хроникасы","en":"PortHub development chronicles","fr":"Chroniques du développement PortHub"},
-    "description":{"ru":"10 коротких историй о кожаном хозяине, Кодексе, багах, переделках и лимитах. Сатира на реальную разработку.","kk":"Кожаный қожайын, Кодекс, қателер, қайта жасау және лимиттер туралы 10 қысқа сатиралық оқиға.","en":"10 short satirical stories about the human owner, Codex, bugs, revisions and limits.","fr":"10 courtes histoires satiriques sur le patron humain, Codex, les bugs, les retouches et les limites."},
+    "description":{"ru":"12 коротких историй о кожаном хозяине, Кодексе, багах, переделках и лимитах. Сатира на реальную разработку.","kk":"Екі аяқты қожайын, Кодекс, қателер, қайта жасау және лимиттер туралы 12 қысқа сатиралық оқиға.","en":"12 short satirical stories about the meatbag boss, Codex, bugs, revisions and limits.","fr":"12 courtes histoires satiriques sur le patron sac à viande, Codex, les bugs, les retouches et les limites."},
     "category":"fun","icon":"🛠️","path":"./blog/","time":{"ru":"≈8 мин","kk":"≈8 мин","en":"≈8 min","fr":"≈8 min"},
     "tags":{"ru":["блог","разработка","юмор","кодекс","баги"],"kk":["блог","әзірлеу","әзіл","кодекс","қателер"],"en":["blog","development","humor","codex","bugs"],"fr":["blog","développement","humour","codex","bugs"]},
     "metrics":{"isViralTop":false,"isPopular":false,"isNew":true,"rating":null,"shareCount":null},

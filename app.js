@@ -1,4 +1,4 @@
-const VERSION = '1.17.9';
+const VERSION = '1.17.10';
 const SUPPORTED = ['ru', 'kk', 'en', 'fr'];
 const APP_ROOT = new URL('./', import.meta.url);
 const CATEGORY_ICONS = { astro: '🔮', career: '💼', psychology: '🧠', fun: '🙂', interactive: '🎲', games: '🎮' };
@@ -153,6 +153,7 @@ function layoutMarkup() {
   </nav>
   <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
   <aside class="drawer" id="drawer" aria-label="${locale.menu}" hidden><div class="drawer-head"><h2>${locale.menu}</h2><button class="icon-button" id="closeMenu" type="button" aria-label="Close">×</button></div><div class="drawer-list">
+    <a class="drawer-link" href="${languageUrl('./blog/')}">📖 ${{ru:'Блог разработки',kk:'Әзірлеу блогы',en:'Development blog',fr:'Blog du développement'}[state.lang]}</a>
     <button class="drawer-link" type="button" data-drawer="all"><span>⌂ ${locale.all}</span><span>${interpolate(locale.tests,{count:state.registry.length})}</span></button>
     ${categoryIds().map((id) => { const count = state.registry.filter((item) => item.category === id).length; return `<button class="drawer-link" type="button" data-drawer="${id}"><span>${CATEGORY_ICONS[id] ?? '•'} ${locale.categories[id] ?? id}</span><span>${interpolate(locale.tests,{count})}</span></button>`; }).join('')}
   </div></aside><div id="toast" role="status"></div>`;
