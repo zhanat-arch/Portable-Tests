@@ -40,6 +40,7 @@ function renderGames(){
       <div class="game-content">
         <div class="chips"><span>${game.category==='puzzle'?'🔢 '+escapeHtml(t.puzzle):'🏰 '+escapeHtml(t.towerDefense)}</span><span>📱 + 🖥️</span><span class="license-chip">${escapeHtml(game.license)}</span></div>
         <h3>${escapeHtml(game.title)}</h3>
+        ${copy.notice?`<p class="platform-notice">🖥️ ${escapeHtml(copy.notice)}</p>`:''}
         <p>${escapeHtml(copy.description)}</p>
         <ul class="features">${features}</ul>
         <a class="play" href="${game.path}">${escapeHtml(t.open)} <span aria-hidden="true">→</span></a>

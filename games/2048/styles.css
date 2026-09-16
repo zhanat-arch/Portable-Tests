@@ -18,3 +18,15 @@ html,body{overscroll-behavior:none}.fullscreen-toggle{font-size:18px}.danger-but
 .number-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:9px 16px;margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--panel2)}.number-card span{color:var(--muted)}.number-card b{text-align:right;overflow-wrap:anywhere}.number-card sup{color:var(--lime)}
 .tile.has-scale{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.02em;line-height:.84}.tile.has-scale span{font-size:.92em}.tile.has-scale small{font-size:.31em;line-height:1;letter-spacing:.02em;opacity:.78}.tile.has-scale sup{font-size:.72em;color:inherit}
 .board-stack{width:100%;min-height:0;display:grid;place-items:center;gap:6px}.rebirth-status{min-height:28px;padding:3px 10px;border:1px solid var(--line);border-radius:10px;color:var(--muted);background:rgba(23,20,34,.92);font-size:12px;font-weight:750;cursor:pointer}.rebirth-status b{display:inline-grid;place-items:center;width:20px;height:20px;margin-left:4px;border-radius:50%;color:#111;background:var(--lime)}.room-switcher{display:grid;gap:6px;margin-bottom:10px}.room-switcher>b{color:var(--muted);font-size:12px}.room-choice{display:flex;justify-content:space-between;align-items:center;padding:0 12px!important}.room-choice.active{border-color:var(--lime);background:rgba(169,255,104,.08)}.members-admin{display:grid;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}.members-admin>div{display:flex;align-items:center;justify-content:space-between;gap:8px}.members-admin button{min-height:34px;padding:4px 9px;color:#ff9ab1;border-color:var(--danger)}
+/* Shared PortHub header, compact enough for the game viewport. */
+.game-shell header.game-top.pt-site-header{width:100%!important;margin:0!important;padding:4px 6px!important;min-height:48px;height:auto;gap:6px!important}
+.game-top #lang{width:58px;min-height:36px;border-radius:9px;font:inherit}
+.game-top .top-actions{margin-left:auto}
+.game-shell .stat .record-value{display:flex;flex-direction:column;line-height:1.05;gap:2px}
+.record-value span:last-child{font-size:.75em;color:var(--muted)}
+.room-danger-zone{margin-top:30px;padding-top:18px;border-top:1px solid var(--line)}
+.room-danger-zone button{width:100%;color:var(--danger)}
+.modal select{width:100%;min-height:46px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px}
+.number-card{overflow-wrap:anywhere}
+body>.pt-global-footer{display:none}
+@media(max-width:600px){.game-shell header.game-top.pt-site-header{flex-wrap:wrap}.game-top .brand-tagline{display:none!important}.game-top .top-actions{gap:5px}.game-top .back{padding:0 8px;min-height:36px}.game-top .brand-wordmark{font-size:1.1rem!important}.game-top .room-pill{display:none}.game-top .menu-button{width:30px;min-height:34px}.game-top .quick-toggle{width:30px}.game-top #lang{width:52px;font-size:12px}}

@@ -6,7 +6,7 @@
     "path": "./2048/",
     "playPath": "./2048/",
     "launchPath": "./2048/",
-    "image": "./2048/cover.svg",
+    "image": "./2048/cover.svg?v=11711",
     "author": "Gabriele Cirulli / PortHub",
     "source": "https://github.com/gabrielecirulli/2048",
     "license": "MIT",
@@ -33,44 +33,48 @@
     "platforms": ["mobile", "desktop"],
     "copy": {
       "ru": {
+        "notice": "Лучше играть на ПК — На телефоне интерфейс слишком мелкий, управлять неудобно. Рекомендуем компьютер и мышь.",
         "description": "Полноценная Tower Defense про последний рубеж: стройте оборону, исследуйте улучшения и переживайте всё более тяжёлые волны.",
         "features": ["4 карты", "8 видов башен", "Исследования и сохранение прогресса", "Работает мышью и касаниями"],
         "notes": [
           {"icon":"🌐","title":"Перевод в браузере","text":"Игра на английском. Включите «Перевести страницу» в меню браузера — основные надписи переведутся автоматически."},
-          {"icon":"📱","title":"Управление на телефоне","text":"Щипок двумя пальцами меняет масштаб, два пальца двигают поле, а одним пальцем можно перемещать увеличенную карту."},
+          {"icon":"🖥️","title":"Лучше играть на ПК","text":"На телефоне интерфейс слишком мелкий, управлять неудобно. Рекомендуем компьютер и мышь."},
           {"icon":"💾","title":"Не потеряйте прогресс","text":"Игра автоматически сохраняется в этом браузере после каждой пройденной волны. Очистка данных сайта удалит сохранение."},
           {"icon":"🧱","title":"Совет для первого запуска","text":"Не спешите покупать только дорогие башни: дешёвые баррикады удлиняют путь противников и дают оружию больше времени."}
         ],
         "changes": "Игровая механика, графика и баланс сохранены без изменений. Добавлены только размещение в каталоге Portable Tests и эта плашка с авторством."
       },
       "kk": {
+        "notice": "Компьютерде ойнаған ыңғайлы — Телефонда интерфейс тым ұсақ, басқару қолайсыз. Компьютер мен тінтуірді пайдалануды ұсынамыз.",
         "description": "Соңғы шеп туралы толық Tower Defense: қорғаныс құрып, жаңартуларды зерттеп, барған сайын қиындайтын толқындарға төтеп беріңіз.",
         "features": ["4 карта", "8 мұнара түрі", "Зерттеу және прогресті сақтау", "Тышқанмен және сенсорлық экранмен жұмыс істейді"],
         "notes": [
           {"icon":"🌐","title":"Браузердегі аударма","text":"Ойын ағылшын тілінде. Браузер мәзіріндегі «Бетті аудару» мүмкіндігін қоссаңыз, негізгі жазулар автоматты түрде аударылады."},
-          {"icon":"📱","title":"Телефондағы басқару","text":"Екі саусақпен қысып масштабтаңыз, екі саусақпен алаңды жылжытыңыз, ал үлкейтілген картаны бір саусақпен сүйреуге болады."},
+          {"icon":"🖥️","title":"Компьютерде ойнаған ыңғайлы","text":"Телефонда интерфейс тым ұсақ, басқару қолайсыз. Компьютер мен тінтуірді пайдалануды ұсынамыз."},
           {"icon":"💾","title":"Прогресті жоғалтпаңыз","text":"Әр аяқталған толқыннан кейін ойын осы браузерде автоматты түрде сақталады. Сайт деректерін тазарту сақтауды жояды."},
           {"icon":"🧱","title":"Алғашқы ойынға кеңес","text":"Тек қымбат мұнараларға асықпаңыз: арзан бөгеттер жаудың жолын ұзартып, қаруға көбірек уақыт береді."}
         ],
         "changes": "Ойын механикасы, графикасы мен теңгерімі өзгертілмеді. Тек Portable Tests каталогына орналастыру және авторлық туралы осы белгі қосылды."
       },
       "en": {
+        "notice": "Best played on PC — The interface is too small and awkward to use on a phone. We recommend a computer and mouse.",
         "description": "A complete tower-defense game about holding the last line: build defenses, research upgrades, and survive increasingly difficult waves.",
         "features": ["4 maps", "8 tower types", "Research and saved progress", "Mouse and touch controls"],
         "notes": [
           {"icon":"🌐","title":"Browser translation","text":"The game is in English. Browser page translation can translate most interface labels if you need another language."},
-          {"icon":"📱","title":"Phone controls","text":"Pinch to zoom, use two fingers to pan, and drag the enlarged board with one finger."},
+          {"icon":"🖥️","title":"Best played on PC","text":"The interface is too small and awkward to use on a phone. We recommend a computer and mouse."},
           {"icon":"💾","title":"Keep your progress","text":"The game autosaves in this browser after every cleared wave. Clearing site data removes the save."},
           {"icon":"🧱","title":"First-run tip","text":"Do not rush into expensive towers only: cheap barricades lengthen the route and give your weapons more time."}
         ],
         "changes": "Gameplay, visuals, and balance are unchanged. Only Portable Tests catalog placement and this attribution panel were added."
       },
       "fr": {
+        "notice": "À jouer de préférence sur PC — Sur téléphone, l’interface est trop petite et peu pratique. Nous recommandons un ordinateur et une souris.",
         "description": "Un tower defense complet : construisez vos défenses, recherchez des améliorations et résistez à des vagues toujours plus difficiles.",
         "features": ["4 cartes", "8 types de tours", "Recherche et progression sauvegardée", "Commandes souris et tactiles"],
         "notes": [
           {"icon":"🌐","title":"Traduction du navigateur","text":"Le jeu est en anglais. Utilisez « Traduire la page » pour traduire automatiquement les principaux libellés."},
-          {"icon":"📱","title":"Commandes sur téléphone","text":"Pincez pour zoomer, utilisez deux doigts pour déplacer la vue et un doigt pour faire glisser le plateau agrandi."},
+          {"icon":"🖥️","title":"À jouer de préférence sur PC","text":"Sur téléphone, l’interface est trop petite et peu pratique. Nous recommandons un ordinateur et une souris."},
           {"icon":"💾","title":"Conservez votre progression","text":"Le jeu est sauvegardé automatiquement dans ce navigateur après chaque vague terminée. Effacer les données du site supprime la sauvegarde."},
           {"icon":"🧱","title":"Conseil pour débuter","text":"Ne misez pas uniquement sur les tours coûteuses : les barricades bon marché allongent le trajet des ennemis."}
         ],
