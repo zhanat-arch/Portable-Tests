@@ -163,7 +163,7 @@ export async function buildBlog({sourceRoot=ROOT,outRoot=ROOT,features=FEATURES}
  // Unprefixed URLs retain browser-language detection and old #post-N bookmarks.
  for(const rel of ['blog/',BASE+'/']){
   const links=LANGS.map(l=>'<a href="/'+l+'/'+rel+'">'+l.toUpperCase()+'</a>').join(' · ');
-  set(rel+'index.html','<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="canonical" href="'+ORIGIN+'/ru/'+rel+'"><title>PortHub · Blog</title></head><body data-blog-page="redirect"><nav>'+links+'</nav><script src="/'+BASE+'/app.js?v=11712"></script></body></html>');
+  set(rel+'index.html','<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="canonical" href="'+ORIGIN+'/ru/'+rel+'"><title>PortHub · Blog</title></head><body data-blog-page="redirect"><nav>'+links+'</nav><script src="/'+BASE+'/app.js?v=11713"></script></body></html>');
  }
  // Keep all non-blog sitemap entries intact; split the blog at the sitemap limit.
  const core=await readFile(path.join(sourceRoot,'sitemap-pages.xml'),'utf8');
