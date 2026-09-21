@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "revision": "8f3455d3682a268b",
+  "total": 12,
+  "pageSize": 10,
+  "pages": 2,
+  "firstId": 1,
+  "lastId": 12,
+  "languages": [
+    "ru",
+    "kk",
+    "en",
+    "fr"
+  ],
+  "pagePattern": "index/{lang}/{order}/{page}.json"
+}

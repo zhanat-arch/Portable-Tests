@@ -1,7 +1,7 @@
 // Generates thin 200-status language pages while keeping one source implementation.
 import {readdir,rm,mkdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
-const root=path.resolve(import.meta.dirname,'..'),langs=['ru','kk','en','fr'],skip=new Set([...langs,'downloads','.git','node_modules']);
+const root=path.resolve(import.meta.dirname,'..'),langs=['ru','kk','en','fr'],skip=new Set([...langs,'blog','downloads','.git','.github','_site','workers','node_modules']);
 async function walk(dir=''){
   const entries=await readdir(path.join(root,dir),{withFileTypes:true}),files=[];
   for(const entry of entries){

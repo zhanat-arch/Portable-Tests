@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#120d20">
+  <meta name="description" content="{{description}}">
+  <meta property="og:type" content="{{type}}">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:url" content="{{canonical}}">
+  <meta property="og:image" content="https://porthub.fyi/og-cover.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="{{canonical}}">
+  {{alternates}}
+  <link rel="icon" href="{{root}}icon-porthub-192.png">
+  <link rel="stylesheet" href="{{root}}blog/development/styles.css?v=11712">
+  <title>{{title}}</title>
+  {{schema}}
+</head>
+<body data-blog-page="{{kind}}" data-blog-order="{{order}}">
+  <header class="topbar">
+    <a class="back" href="{{home}}">{{homeLabel}}</a>
+    <a class="brand" href="{{home}}" aria-label="PortHub"><span class="brand-wordmark"><span class="brand-port">Port</span><span class="brand-hub">Hub</span></span></a>
+    <select id="lang" aria-label="Language">{{languages}}</select>
+  </header>
+  <main class="shell">
+    {{content}}
+  </main>
+  <script src="{{root}}blog/development/app.js?v=11712" defer></script>
+  <script src="{{root}}site-ui.js?v=11712" defer></script>
+</body>
+</html>
