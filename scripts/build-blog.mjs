@@ -32,7 +32,7 @@ function attrs(text,file){
 }
 // Deliberately small authoring format, not executable HTML from an AI response.
 function validateBody(body,file){
- const allowed=new Set(['h2','h3','p','blockquote','ul','ol','li','strong','em','br','a','img','figure','figcaption','footer','code']);
+ const allowed=new Set(['h2','h3','p','blockquote','ul','ol','li','strong','em','br','a','img','figure','figcaption','footer','code','details','summary']);
  const voids=new Set(['br','img']),stack=[];
  for(const m of body.matchAll(/<([^>]+)>/g)){
   const closing=m[1].startsWith('/'),tag=/^\/?([a-z][a-z0-9]*)\b/.exec(m[1])?.[1];
@@ -72,6 +72,8 @@ export function parsePost(source,filename){
  const date=metadata['post-date'],status=metadata['post-status']||'published';
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date||'')||new Date(date+'T12:00:00Z').toISOString().slice(0,10)!==date)throw Error(name+': invalid date');
  if(!['published','draft'].includes(status))throw Error(name+': invalid post-status');
+ const image=metadata['post-image'];
+ if(image!==undefined&&!/^\/blog\/development\/assets\/[a-zA-Z0-9_-]+\.jpg$/.test(image))throw Error(name+': post-image must be a local 1200×630 JPEG');
  const versions={};
  for(const m of source.matchAll(/<template\b([^>]*)>([\s\S]*?)<\/template>/g)){
   const a=attrs(m[1],name),lang=a['data-lang'];
@@ -83,7 +85,7 @@ export function parsePost(source,filename){
   versions[lang]={title,summary,html};
  }
  if(LANGS.some(l=>!versions[l]))throw Error(name+': all four languages are required');
- return {id:Number(idText),date,status,versions};
+ return {id:Number(idText),date,status,versions,image};
 }
 const catalogPath=(lang,order='oldest',page=1)=>lang+'/'+BASE+'/'+(order==='newest'?'newest/':'')+(page>1?'page/'+page+'/':'');
 const postPath=(lang,id)=>lang+'/'+BASE+'/'+id+'/';
@@ -100,6 +102,7 @@ export async function buildBlog({sourceRoot=ROOT,outRoot=ROOT,features=FEATURES}
  const posts=[];
  for(const name of names){
   const p=parsePost(await readFile(path.join(folder,name),'utf8'),name);
+  if(p.image)await readFile(path.join(sourceRoot,p.image.slice(1)));
   // Catch broken local images before publication, without fetching external sites.
   for(const v of Object.values(p.versions))for(const m of v.html.matchAll(/<img[^>]*src="([^"]+)"/g)){
    await readFile(path.join(sourceRoot,m[1].slice(1)));
@@ -108,6 +111,7 @@ export async function buildBlog({sourceRoot=ROOT,outRoot=ROOT,features=FEATURES}
  }
  posts.sort((a,b)=>a.id-b.id);
  const template=await readFile(path.join(sourceRoot,BASE,'template.html'),'utf8'),outputs=new Map(),urls=[];
+ const postImages=new Map(posts.flatMap(p=>p.image?LANGS.map(l=>[postPath(l,p.id),p.image]):[]));
  const revision=hash(JSON.stringify(posts)+template+JSON.stringify(UI)+JSON.stringify(features)+JSON.stringify(POST_UI));
  const set=(rel,body)=>{if(!safeGenerated(rel))throw Error('Unsafe output: '+rel);outputs.set(rel,body.endsWith('\n')?body:body+'\n')};
  const disclaimer=l=>'<aside class="disclaimer"><span class="disclaimer-icon">🎭</span><div><strong>'+esc(UI[l].disclaimerTitle)+'</strong><p>'+esc(UI[l].disclaimer)+'</p></div></aside>';
@@ -127,6 +131,7 @@ export async function buildBlog({sourceRoot=ROOT,outRoot=ROOT,features=FEATURES}
  function page(rel,l,{title,description,content,kind='catalog',order='',schema=null,alternate}){
   const root=path.posix.relative(path.posix.dirname(rel+'index.html'),'.')+'/';
   const data={lang:l,title:esc(title),description:esc(description),type:kind==='post'?'article':'website',canonical:ORIGIN+'/'+rel,root,kind,order,home:'/'+l+'/',homeLabel:esc(UI[l].home),languages:LANGS.map(x=>'<option value="'+x+'"'+(x===l?' selected':'')+'>'+x.toUpperCase()+'</option>').join(''),alternates:LANGS.map(x=>'<link rel="alternate" hreflang="'+x+'" href="'+ORIGIN+'/'+alternate(x)+'">').join('\n'),schema:schema?'<script type="application/ld+json" data-pt-schema>'+JSON.stringify(schema).replace(/</g,'\\u003c')+'</script>':'',content};
+  data.image=ORIGIN+(postImages.get(rel)||'/assets/og/porthub-devlog-v1.jpg');
   set(rel+'index.html',template.replace(/{{([a-zA-Z]+)}}/g,(_,key)=>{if(!(key in data))throw Error('Unknown template key '+key);return data[key]}).replace(/[ \t]+$/gm,''));
   urls.push({path:rel});
  }

@@ -18,6 +18,15 @@
     "badge":{"tone":"new","label":{"ru":"🎮 Новая игра","kk":"🎮 Жаңа ойын","en":"🎮 New game","fr":"🎮 Nouveau jeu"}}
   },
   {
+    "id":"two-porthubs",
+    "title":{"ru":"Искали PortHub для Android?","kk":"Android-қа арналған PortHub іздедіңіз бе?","en":"Looking for PortHub on Android?","fr":"Vous cherchiez PortHub pour Android ?"},
+    "description":{"ru":"Два проекта с одним названием: где играть в браузере, где найти APK и как его установить.","kk":"Атауы бірдей екі жоба: браузерде қайда ойнауға болады және APK файлын қайдан тауып, қалай орнатуға болады.","en":"Two projects share a name. Find browser games, the Android APK, and installation steps.","fr":"Deux projets portent le même nom : où jouer dans le navigateur, trouver l’APK et l’installer."},
+    "category":"games","icon":"📱","image":"./blog/development/assets/two-porthubs-v1.jpg","path":"./blog/development/15/","time":{"ru":"≈3 мин","kk":"≈3 мин","en":"≈3 min","fr":"≈3 min"},
+    "tags":{"ru":["андроид","apk","установка"],"kk":["андроид","apk","орнату"],"en":["android","apk","install"],"fr":["android","apk","installation"]},
+    "metrics":{"isViralTop":true,"isPopular":false,"isNew":false,"rating":null,"shareCount":null},
+    "badge":{"tone":"new","label":{"ru":"📱 Справка","kk":"📱 Анықтама","en":"📱 Guide","fr":"📱 Guide"}}
+  },
+  {
     "id":"matrix-iq",
     "title":{"ru":"Matrix IQ: подвижный интеллект","kk":"Matrix IQ: икемді ойлау","en":"Matrix IQ: fluid reasoning","fr":"Matrix IQ : raisonnement fluide"},
     "description":{"ru":"12 culture-fair матриц: вращения, прогрессии, OR и XOR. Без эрудиции — только закономерности.","kk":"12 culture-fair матрица: айналу, прогрессия, OR және XOR.","en":"12 culture-fair matrices: rotations, progressions, OR and XOR. No trivia.","fr":"12 matrices culture-fair : rotations, progressions, OR et XOR."},

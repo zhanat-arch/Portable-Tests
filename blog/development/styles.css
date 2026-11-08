@@ -20,6 +20,10 @@ a{color:inherit}
 .post h2 a,.post-meta a{text-decoration:none}.post-meta a{color:var(--cyan)}
 .post img{display:block;width:100%;height:auto;max-height:80vh;object-fit:contain;border-radius:14px}
 .post figure{margin:22px 0}.post figcaption{color:var(--muted);font-size:.9rem}
+.post details{margin:10px 0;padding:0 16px;border:1px solid var(--line);border-radius:12px}
+.post summary{padding:13px 0;font-weight:750;cursor:pointer}
+.post summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.post details li{margin:.65em 0}
 .order-explanation{color:var(--muted);font-size:.95rem}
 .reading-order a{padding:8px 11px;border-radius:9px;color:var(--muted);font-size:12px;font-weight:800;text-decoration:none;text-align:center}
 .reading-order a[aria-current="page"]{background:linear-gradient(135deg,#7450d8,#a845a8);color:#fff}
