@@ -9,7 +9,7 @@ const UI = {
 const state = { lang:'ru', category:'all', games:[] };
 const $ = (selector) => document.querySelector(selector);
 const arcadeLabel = {ru:'47 браузерных игр',kk:'47 браузерлік ойын',en:'47 browser games',fr:'47 jeux sur navigateur'};
-const tanksLabel = {ru:'Танчики',kk:'Танктер',en:'Tank Battle',fr:'Bataille de chars'};
+const retroLabel = {ru:'Ретро',kk:'Ретро',en:'Retro',fr:'Rétro'};
 
 function initialLanguage(){
   const saved = localStorage.getItem('pt.lang');
@@ -27,7 +27,8 @@ function renderFilters(){
   $('#filters').innerHTML = [
     ['all', t.all],
     ['puzzle', `🔢 ${t.puzzle}`],
-    ['tower-defense', `🏰 ${t.towerDefense}`]
+    ['tower-defense', `🏰 ${t.towerDefense}`],
+    ['retro', `🕹️ ${retroLabel[state.lang]}`]
   ].map(([id,label])=>`<button type="button" class="filter ${state.category===id?'active':''}" data-category="${id}" aria-pressed="${state.category===id}">${label}</button>`).join('');
 }
 
@@ -37,15 +38,20 @@ function renderGames(){
   $('#games').innerHTML = visible.map((game)=>{
     const copy = game.copy[state.lang] || game.copy.ru;
     const features = copy.features.map((feature)=>`<li>${escapeHtml(feature)}</li>`).join('');
+    const path = game.category==='retro' ? `${game.path}?lang=${state.lang}` : game.path;
+    const keepPath = game.category==='retro' ? ' data-pt-keep-path' : '';
+    const category = game.category==='retro' ? `🕹️ ${retroLabel[state.lang]}`
+      : game.category==='puzzle' ? `🔢 ${t.puzzle}` : `🏰 ${t.towerDefense}`;
+    const title = copy.title || game.title;
     return `<article class="game-card">
-      <a class="game-image" href="${game.path}" aria-label="${escapeHtml(t.open)} — ${escapeHtml(game.title)}"><img src="${game.image}" alt="${escapeHtml(game.title)}" loading="eager"></a>
+      <a class="game-image" href="${path}"${keepPath} aria-label="${escapeHtml(t.open)} — ${escapeHtml(title)}"><img src="${game.image}" alt="${escapeHtml(title)}" loading="eager"></a>
       <div class="game-content">
-        <div class="chips"><span>${game.category==='puzzle'?'🔢 '+escapeHtml(t.puzzle):'🏰 '+escapeHtml(t.towerDefense)}</span><span>📱 + 🖥️</span><span class="license-chip">${escapeHtml(game.license)}</span></div>
-        <h3>${escapeHtml(game.title)}</h3>
+        <div class="chips"><span>${escapeHtml(category)}</span><span>📱 + 🖥️</span><span class="license-chip">${escapeHtml(game.license)}</span></div>
+        <h3>${escapeHtml(title)}</h3>
         ${copy.notice?`<p class="platform-notice">🖥️ ${escapeHtml(copy.notice)}</p>`:''}
         <p>${escapeHtml(copy.description)}</p>
         <ul class="features">${features}</ul>
-        <a class="play" href="${game.path}">${escapeHtml(t.open)} <span aria-hidden="true">→</span></a>
+        <a class="play" href="${path}"${keepPath}>${escapeHtml(t.open)} <span aria-hidden="true">→</span></a>
         <details class="attribution">
           <summary>${escapeHtml(t.details)}</summary>
           <dl>
@@ -66,9 +72,6 @@ function renderCopy(){
   const arcadeLink = $('#arcadeLink');
   arcadeLink.href = `./arcade/?lang=${state.lang}`;
   arcadeLink.textContent = `🎮 ${arcadeLabel[state.lang]} →`;
-  const tanksLink = $('#tanksLink');
-  tanksLink.href = `/games/tanks/?lang=${state.lang}`;
-  tanksLink.textContent = `🕹️ ${tanksLabel[state.lang]} →`;
   document.documentElement.lang = state.lang;
   document.title = `${state.lang==='ru'?'Игры':state.lang==='kk'?'Ойындар':state.lang==='fr'?'Jeux':'Games'} — Portable Tests`;
   $('#language').value = state.lang;

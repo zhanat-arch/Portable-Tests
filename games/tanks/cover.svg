@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#292244"/><stop offset="1" stop-color="#101927"/></linearGradient>
+    <pattern id="brick" width="40" height="24" patternUnits="userSpaceOnUse"><path fill="#97524c" d="M0 0h40v24H0z"/><path fill="none" stroke="#e48970" stroke-width="2" d="M0 0h40M0 12h40M20 0v12M8 12v12M39 12v12"/></pattern>
+    <g id="tank"><path fill="#111821" d="M0 22h18v75H0zm58 0h18v75H58z"/><path fill="currentColor" d="M18 28h40v66H18zM31 0h14v40H31z"/><path fill="#f7e7ba" opacity=".5" d="M25 34h26v50H25z"/><path fill="#25263b" d="M27 42h22v25H27z"/><path fill="currentColor" d="M32 47h12v15H32z"/><path stroke="#656879" stroke-width="4" d="M3 31h12M3 45h12M3 59h12M3 73h12M3 87h12m46-56h12m-12 14h12m-12 14h12m-12 14h12m-12 14h12"/></g>
+  </defs>
+  <path fill="url(#bg)" d="M0 0h640v360H0z"/>
+  <path fill="url(#brick)" d="M55 52h120v72H55zm405 0h124v72H460zM55 240h94v62H55zm433 0h96v62h-96zM251 264h138v25H251zm0 25h24v46h-24zm114 0h24v46h-24z"/>
+  <path fill="#ffce65" opacity=".8" d="M305 306h30v20h-30zm-9-8h12v18h-12zm36 0h12v18h-12zm-15 0h7v12h-7z"/>
+  <use href="#tank" x="182" y="154" color="#f6b952"/>
+  <use href="#tank" x="378" y="178" color="#86d5a1"/>
+  <use href="#tank" transform="translate(354 122) rotate(180)" color="#ef716e"/>
+  <path fill="#ffe49e" d="M216 121h7v14h-7zm196 23h7v14h-7z"/>
+</svg>

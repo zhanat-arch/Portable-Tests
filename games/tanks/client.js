@@ -23,14 +23,13 @@ let me = null;            // my slot
 let joined = false;
 let statusText = 'lobby';
 
-// interpolation buffer: render ~INTERP_DELAY ms in the past and lerp between
-// snapshots so 30Hz server state renders as smooth 60fps motion + absorbs jitter
+// Interpolate by one simulation step offline and two steps online.
 const snaps = [];
-const INTERP_DELAY = 100;
+const tickMs = 1000 / window.TankEngine.TICK_HZ;
 
 let myRoom = null;        // room code once joined
-let localGame = null, localTimer = null, localSecond = null, localControls = null;
-let localStage = 0, localStatus = '';
+let localGame = null, localSecond = null, localControls = null;
+let localStage = 0, localStatus = '', nextLocalTick = 0;
 let pendingCommand = null;
 
 // ---- DOM ----
@@ -98,14 +97,14 @@ function connect() {
 
 let overlayMode = 'menu';
 
-function handle(m) {
+function handle(m, snapshotTime = performance.now()) {
   switch (m.t) {
     case 'hello':
       TILE = m.tile; COLS = m.cols; ROWS = m.rows; FIELD_W = COLS * TILE; FIELD_H = ROWS * TILE;
       setupCanvases();
       break;
     case 'map':
-      setGrid(m.map); statusText = m.status; break;
+      setGrid(m.map); statusText = m.status; snaps.length = 0; break;
     case 'init':
       me = m.you; joined = true; myRoom = m.room;
       setGrid(m.map); statusText = m.status;
@@ -115,10 +114,11 @@ function handle(m) {
       showErr(tankText(m.reason));
       break;
     case 'state':
+      if (m.status === 'playing' && latest?.status !== 'playing' && m.stage === 1) playStartSound();
       latest = m; statusText = m.status;
       for (const d of m.mapDelta) applyDelta(d.x, d.y, d.t);
       if (m.events && m.events.length) for (const e of m.events) playSfx(e);
-      snaps.push({ t: performance.now(), s: m });
+      snaps.push({ t: snapshotTime, s: m });
       while (snaps.length > 12) snaps.shift();
       updateHud(m);
       updateOverlay();
@@ -216,7 +216,6 @@ function resetMatch() {
   ws = null;
   if (closing?.readyState < WebSocket.CLOSING) closing.close();
   pendingCommand = null;
-  clearInterval(localTimer);
   localGame = null;
   joined = false;
   latest = null;
@@ -232,19 +231,25 @@ function resetMatch() {
   showOverlay('menu');
 }
 
-function playLocal() {
+function playLocal(playerCount) {
   ensureAudio();
   resetMatch();
-  const { Game, TICK_HZ } = window.TankEngine;
-  localControls = document.getElementById('localControls').value;
+  const { Game } = window.TankEngine;
+  localControls = playerCount === 1 ? 'solo' : document.getElementById('localControls').value;
   localGame = new Game();
   me = localGame.addPlayer('P1').slot;
-  localSecond = localGame.addPlayer('P2').slot;
+  localSecond = playerCount === 2 ? localGame.addPlayer('P2').slot : null;
+  if (playerCount === 1) localGame.startGame();
   joined = true;
   netEl.textContent = tankText('offline');
   localStage = 0;
   localStatus = '';
-  localTimer = setInterval(() => {
+  nextLocalTick = performance.now();
+}
+
+function advanceLocal(now) {
+  if (now - nextLocalTick > 3 * tickMs) nextLocalTick = now;
+  while (now >= nextLocalTick) {
     localGame.update();
     if (localStage !== localGame.stage || localStatus !== localGame.status) {
       if (localGame.status === 'playing') {
@@ -254,10 +259,12 @@ function playLocal() {
       localStage = localGame.stage;
       localStatus = localGame.status;
     }
-    handle(localGame.snapshot());
-  }, 1000 / TICK_HZ);
+    handle(localGame.snapshot(), nextLocalTick);
+    nextLocalTick += tickMs;
+  }
 }
-document.getElementById('localBtn').addEventListener('click', playLocal);
+document.getElementById('localBtn').addEventListener('click', () => playLocal(2));
+document.getElementById('soloBtn').addEventListener('click', () => playLocal(1));
 document.getElementById('menuBtn').addEventListener('click', resetMatch);
 const fullscreen = document.getElementById('fullscreen');
 fullscreen.addEventListener('click', async () => {
@@ -275,7 +282,7 @@ document.addEventListener('fullscreenchange', () => {
 document.addEventListener('tanklanguage', () => {
   if (myRoom) roomChip.textContent = `${tankText('match')} · 📋`;
   if (localGame) netEl.textContent = tankText('offline');
-  if (overlayMode) showOverlay(overlayMode);
+  if (overlayMode) showOverlay(overlayMode, true);
 });
 
 // =====================================================================
@@ -384,12 +391,14 @@ function pickFrame(rt) {
 // previous-position lookup by id (linear; entity counts are tiny) — no per-frame allocation
 function prevPos(list, id) { if (!list) return null; for (let i = 0; i < list.length; i++) if (list[i].id === id) return list[i]; return null; }
 
-function render() {
+function render(now = performance.now()) {
   pollGamepads();
   requestAnimationFrame(render);
+  if (document.hidden || !joined) return;
+  if (localGame) advanceLocal(now);
   if (!grid) return;
   const tick = latest ? latest.tick : 0;
-  pickFrame(performance.now() - INTERP_DELAY);
+  pickFrame(now - tickMs * (localGame ? 1 : 2));
   const b = frame.b, a = frame.a, al = frame.al;
 
   ctx.fillStyle = '#000'; ctx.fillRect(0, 0, FIELD_W, FIELD_H);
@@ -400,6 +409,7 @@ function render() {
   if (b) {
     for (const p of b.powerups) drawPowerup(p, tick);
     for (const t of b.tanks) {
+      if (!localGame && t.k === 'p' && t.slot === me) continue;
       let ix = t.x, iy = t.y;
       if (a) { const p = prevPos(a.tanks, t.id); if (p) { ix = p.x + (t.x - p.x) * al; iy = p.y + (t.y - p.y) * al; } }
       drawTank(t, tick, b.frozen, ix, iy);
@@ -410,6 +420,11 @@ function render() {
       drawBullet(bl, ix, iy);
     }
     for (const e of b.effects) drawEffect(e);
+  }
+  // The local player's online tank does not wait in the interpolation buffer.
+  if (!localGame) {
+    const player = latest?.tanks.find(t => t.k === 'p' && t.slot === me);
+    if (player) drawTank(player, tick, false, player.x, player.y);
   }
 
   ctx.drawImage(forest, 0, 0); // bushes conceal tanks underneath
@@ -631,26 +646,33 @@ function updateOverlay() {
   if (!joined) { showOverlay('menu'); return; }
   if (statusText === 'waiting') { showOverlay('waiting'); return; }
   if (statusText === 'gameover') { showOverlay('gameover'); return; }
-  overlayMode = null;
-  overlay.classList.add('hidden');
+  if (overlayMode) {
+    overlayMode = null;
+    overlay.classList.add('hidden');
+  }
 }
 
-function showOverlay(mode) {
-  overlayMode = mode;
-  overlay.classList.remove('hidden');
-  // drive via inline display so exactly one card shows regardless of cached CSS
-  ovMenu.style.display = mode === 'menu' ? 'flex' : 'none';
-  ovWait.style.display = mode === 'waiting' ? 'flex' : 'none';
-  ovOver.style.display = mode === 'gameover' ? 'flex' : 'none';
+function showOverlay(mode, refresh = false) {
+  if (overlayMode !== mode || refresh) {
+    overlayMode = mode;
+    overlay.classList.remove('hidden');
+    ovMenu.style.display = mode === 'menu' ? 'flex' : 'none';
+    ovWait.style.display = mode === 'waiting' ? 'flex' : 'none';
+    ovOver.style.display = mode === 'gameover' ? 'flex' : 'none';
+    if (mode === 'waiting') {
+      invCode.textContent = myRoom;
+      invLink.textContent = inviteLink(myRoom);
+    }
+  }
   if (mode === 'waiting') {
-    invCode.textContent = myRoom;
-    invLink.textContent = inviteLink(myRoom);
-    waitCount.textContent = latest ? latest.players.length : 1;
+    const players = String(latest?.players.length ?? 1);
+    if (waitCount.textContent !== players) waitCount.textContent = players;
   }
   if (mode === 'gameover') {
     const mine = latest && latest.players.find(p => p.slot === me);
-    overSub.textContent = localGame && latest ? latest.players.map(p => `${p.name} · ${tankText('score')}: ${p.score}`).join(' / ')
+    const result = localGame && latest ? latest.players.map(p => `${p.name} · ${tankText('score')}: ${p.score}`).join(' / ')
       : mine ? `${tankText('score')}: ${mine.score}` : '';
+    if (overSub.textContent !== result) overSub.textContent = result;
   }
 }
 
@@ -685,9 +707,9 @@ function pollGamepads() {
   }
   const first = readPad(pads[padSlots[0]]);
   const second = readPad(pads[padSlots[1]]);
-  padInput = !localGame || localControls === 'pads' ? first : null;
+  padInput = !localGame || localControls !== 'keyboard-pad' ? first : null;
   sendCtrl();
-  if (localGame) {
+  if (localGame && localSecond !== null) {
     const player = localGame.players.get(localSecond);
     const input = localControls === 'pads' ? second : first;
     player.ctrl = { dir: input?.moving ? input.dir : player.ctrl.dir, moving: !!input?.moving, fire: !!input?.fire };
@@ -785,7 +807,7 @@ window.addEventListener('keyup', e => {
 });
 window.addEventListener('blur', () => {
   held.fill(false); dirStack.length = 0; fireHeld = touchShot = turboHeld = false; padInput = null;
-  if (localGame) {
+  if (localGame && localSecond !== null) {
     const player = localGame.players.get(localSecond);
     player.ctrl = { dir: player.ctrl.dir, moving: false, fire: false };
   }
@@ -796,7 +818,7 @@ window.addEventListener('blur', () => {
 // =====================================================================
 // Sound (WebAudio)
 // =====================================================================
-let audio = null, muted = false;
+let audio = null, noiseBuffer = null, muted = false;
 function ensureAudio() { if (!audio) { try { audio = new (window.AudioContext || window.webkitAudioContext)(); } catch {} } if (audio && audio.state === 'suspended') audio.resume(); }
 muteEl.addEventListener('click', () => { muted = !muted; muteEl.textContent = muted ? '🔇' : '🔊'; });
 
@@ -811,20 +833,39 @@ function tone(freq, dur, type = 'square', vol = 0.05) {
 }
 function noise(dur, vol = 0.08) {
   if (!audio || muted) return;
-  const n = Math.floor(audio.sampleRate * dur);
-  const buf = audio.createBuffer(1, n, audio.sampleRate);
-  const d = buf.getChannelData(0);
-  for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / n);
-  const src = audio.createBufferSource(); src.buffer = buf;
-  const g = audio.createGain(); g.gain.value = vol;
-  src.connect(g); g.connect(audio.destination); src.start();
+  if (!noiseBuffer) {
+    noiseBuffer = audio.createBuffer(1, Math.ceil(audio.sampleRate * .65), audio.sampleRate);
+    const samples = noiseBuffer.getChannelData(0);
+    // Stepped noise gives explosions a coarse, cartridge-era texture.
+    for (let i = 0; i < samples.length; i += 4) {
+      samples.fill(Math.random() * 2 - 1, i, i + 4);
+    }
+  }
+  const src = audio.createBufferSource(); src.buffer = noiseBuffer;
+  const g = audio.createGain();
+  g.gain.setValueAtTime(vol, audio.currentTime);
+  g.gain.exponentialRampToValueAtTime(.0001, audio.currentTime + dur);
+  src.connect(g); g.connect(audio.destination); src.start(0, 0, dur);
+}
+
+function playStartSound() {
+  tone(392, .07, 'square', .025);
+  setTimeout(() => tone(523, .07, 'square', .025), 75);
+  setTimeout(() => tone(659, .12, 'square', .025), 150);
 }
 let lastShoot = 0;
 function playSfx(e) {
   switch (e) {
-    case 'shoot': { const now = performance.now(); if (now - lastShoot < 40) break; lastShoot = now; tone(680, 0.06, 'square', 0.04); } break;
-    case 'hitBrick': tone(180, 0.05, 'square', 0.04); break;
-    case 'hitSteel': tone(1200, 0.04, 'square', 0.03); break;
+    case 'shoot': {
+      const now = performance.now();
+      if (now - lastShoot < 40) break;
+      lastShoot = now;
+      tone(740, .025, 'square', .034);
+      setTimeout(() => tone(370, .042, 'square', .024), 23);
+      break;
+    }
+    case 'hitBrick': noise(.07, .055); break;
+    case 'hitSteel': tone(1250, .045, 'square', .033); break;
     case 'explodeTank': noise(0.22, 0.09); break;
     case 'explodeBase': noise(0.6, 0.14); tone(90, 0.5, 'sawtooth', 0.06); break;
     case 'powerup': tone(880, 0.08, 'triangle', 0.05); break;

@@ -6,6 +6,7 @@ const tankCopy = {
   fr: ['Crée une partie et invite tes amis', 'Ton nom', 'Créer une partie en ligne', 'ou rejoindre avec un code', 'Code de la partie', 'Rejoindre', 'Clavier + manette', 'Deux manettes', 'Deux joueurs sur le même écran', 'Défends la base à l’aigle contre les chars ennemis.', 'Partie', 'Joueurs', 'Envoie ce lien à tes amis', 'Copier le lien', 'Démarrer', 'Partie terminée', 'Rejouer', 'Niveau', 'Ennemis', 'Tir', 'Turbo', 'Plein écran', 'Jeux', 'Connexion…', 'Connexion perdue. Rejoins la partie.', 'Partie introuvable.', 'La partie compte déjà quatre joueurs.', 'Toutes les parties sont occupées. Réessaie plus tard.', 'Saisis le code à 16 caractères.', 'Lien copié', 'Score', 'Jeu local', 'Démarrer', 'Retour au menu', 'Joystick', 'Son', 'La partie démarre à l’arrivée du deuxième joueur.']
 };
 const tankKeys = 'intro name create or code join keyboardPad pads local hint match players send copy begin over again stage enemies fire turbo fullscreen games connecting disconnected notfound full busy invalid copied score offline start menu joystick sound autoStart'.split(' ');
+const soloLabel = {ru:'Одиночная игра',kk:'Жеке ойын',en:'Single player',fr:'Jouer en solo'};
 const tankText = key => tankCopy[tankLanguage][tankKeys.indexOf(key)] || '';
 const tankSelect = document.getElementById('tankLang');
 let tankLanguage = ['ru','kk','en','fr'].includes(new URLSearchParams(location.search).get('lang'))
@@ -32,6 +33,7 @@ function translateTanks() {
     '#fireBtn':'fire','#turboBtn':'turbo','#tankHome':'games','#startBtn':'start','#menuBtn':'menu'
   })) set(selector,key);
   set('#nameInput','name','placeholder'); set('#codeInput','code','placeholder');
+  document.getElementById('soloBtn').textContent = soloLabel[tankLanguage];
   set('#fullscreen','fullscreen','title'); set('#fullscreen','fullscreen','aria-label');
   set('#stick','joystick','aria-label'); set('#mute','sound','aria-label');
   document.getElementById('tankHome').href = '/' + tankLanguage + '/games/';

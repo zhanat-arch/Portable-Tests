@@ -1,5 +1,25 @@
 [
   {
+    "id": "tanks",
+    "title": "Tank Battle 90",
+    "category": "retro",
+    "path": "/games/tanks/",
+    "playPath": "/games/tanks/",
+    "launchPath": "/games/tanks/",
+    "image": "/games/tanks/cover.svg",
+    "author": "phanngoc / PortHub",
+    "source": "https://github.com/phanngoc/tank-battle-90",
+    "license": "MIT",
+    "upstreamCommit": "d1e0cb85c3170b2a7d64e00b7314feeaf6cb4951",
+    "platforms": ["mobile", "desktop"],
+    "copy": {
+      "ru": {"title":"Танчики","description":"Защищай базу, пробивай кирпичные стены и отбивай волны вражеских танков.","features":["Одиночная игра и двое на одном экране","Онлайн до четырёх игроков по ссылке","Геймпады, сенсорный стик и полный экран"],"changes":"PortHub добавил локальные режимы, поддержку геймпадов, четыре языка и собственный сервер для онлайн-матчей."},
+      "kk": {"title":"Танктер","description":"Базаны қорға, кірпіш қабырғаларды бұз және жау танктерінің шабуылын тойтар.","features":["Жеке ойын және бір экранда екі ойыншы","Сілтеме арқылы төрт адамға дейін онлайн ойнау","Геймпадтар, сенсорлық джойстик және толық экран"],"changes":"PortHub жергілікті режимдер, геймпад қолдауы, төрт тіл және онлайн матчтарға өз серверін қосты."},
+      "en": {"title":"Tank Battle","description":"Defend your base, blast through brick walls and fight off waves of enemy tanks.","features":["Solo and same-screen co-op","Online matches for up to four by invite link","Gamepads, touch joystick and fullscreen"],"changes":"PortHub adds local modes, gamepad support, four languages and a dedicated online game server."},
+      "fr": {"title":"Bataille de chars","description":"Défends ta base, détruis les murs de briques et repousse les vagues de chars ennemis.","features":["Jeu solo et coopération sur un même écran","Parties en ligne jusqu’à quatre par lien d’invitation","Manettes, joystick tactile et plein écran"],"changes":"PortHub ajoute les modes locaux, la prise en charge des manettes, quatre langues et un serveur de jeu en ligne."}
+    }
+  },
+  {
     "id": "2048",
     "title": "2048 PortHub",
     "category": "puzzle",
