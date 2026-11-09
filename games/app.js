@@ -9,6 +9,7 @@ const UI = {
 const state = { lang:'ru', category:'all', games:[] };
 const $ = (selector) => document.querySelector(selector);
 const arcadeLabel = {ru:'47 браузерных игр',kk:'47 браузерлік ойын',en:'47 browser games',fr:'47 jeux sur navigateur'};
+const tanksLabel = {ru:'Танчики',kk:'Танктер',en:'Tank Battle',fr:'Bataille de chars'};
 
 function initialLanguage(){
   const saved = localStorage.getItem('pt.lang');
@@ -65,6 +66,9 @@ function renderCopy(){
   const arcadeLink = $('#arcadeLink');
   arcadeLink.href = `./arcade/?lang=${state.lang}`;
   arcadeLink.textContent = `🎮 ${arcadeLabel[state.lang]} →`;
+  const tanksLink = $('#tanksLink');
+  tanksLink.href = `/games/tanks/?lang=${state.lang}`;
+  tanksLink.textContent = `🕹️ ${tanksLabel[state.lang]} →`;
   document.documentElement.lang = state.lang;
   document.title = `${state.lang==='ru'?'Игры':state.lang==='kk'?'Ойындар':state.lang==='fr'?'Jeux':'Games'} — Portable Tests`;
   $('#language').value = state.lang;

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="theme-color" content="#1c1f2b" />
+<title>TANK BATTLE 90</title>
+<link rel="stylesheet" href="style.css?v=1" />
+</head>
+<body>
+  <div class="console" id="console">
+    <!-- top brand + status -->
+    <div class="brand-row">
+      <div class="brand">TANK&nbsp;BATTLE&nbsp;<span class="brand-90">90</span></div>
+      <select id="tankLang" aria-label="Language"><option value="ru">RU</option><option value="kk">KK</option><option value="en">EN</option><option value="fr">FR</option></select>
+      <button class="room-chip" id="fullscreen" type="button" title="Fullscreen">⛶</button>
+      <button class="room-chip hidden" id="roomChip" title="Copy link mời"></button>
+      <div class="net" id="net">• offline</div>
+    </div>
+
+    <!-- HUD strip -->
+    <div class="hud" id="hud">
+      <div class="hud-left">
+        <span class="hud-chip"><span id="stageLabel">Stage</span> <b id="hudStage">1</b></span>
+        <span class="hud-chip"><span id="enemyLabel">Enemies</span> <b id="hudEnemies">20</b></span>
+      </div>
+      <div class="hud-players" id="hudPlayers"></div>
+    </div>
+
+    <!-- LCD screen -->
+    <div class="screen-bezel">
+      <div class="screen" id="screen">
+        <canvas id="game" width="416" height="416"></canvas>
+        <div class="overlay" id="overlay">
+          <!-- MENU: create / join a room -->
+          <div class="ov-card" id="ovMenu">
+            <div class="ov-title">TANK BATTLE 90</div>
+            <div class="ov-sub" id="ovSub">Tạo phòng rồi mời bạn bè vào chơi co-op</div>
+            <input class="ov-input" id="nameInput" maxlength="12" placeholder="Tên của bạn" />
+            <button class="ov-btn" id="createBtn">🎮 TẠO PHÒNG MỚI</button>
+            <div class="ov-or">— hoặc vào phòng có sẵn —</div>
+            <div class="ov-join">
+              <input class="ov-input code" id="codeInput" maxlength="16" placeholder="CODE" autocapitalize="characters" />
+              <button class="ov-btn ghost" id="joinBtn">VÀO</button>
+            </div>
+            <select class="ov-input" id="localControls"><option value="keyboard-pad">Keyboard + gamepad</option><option value="pads">Two gamepads</option></select>
+            <button class="ov-btn ghost" id="localBtn">Two players on this device</button>
+            <div class="ov-err" id="ovErr" role="status"></div>
+            <div class="ov-hint">Bảo vệ đại bàng 🦅 · Diệt 20 xe địch · Bắn xe nhấp nháy nhận vật phẩm</div>
+          </div>
+          <!-- WAITING ROOM: shown after creating a room, until player 2 joins or host starts -->
+          <div class="ov-card" id="ovWait" style="display:none">
+            <div class="ov-title"><span id="matchLabel">Match</span> <span id="invCode" class="inv-code">----</span></div>
+            <div class="ov-wait" id="ovWaitMsg"><span id="playersLabel">Players</span> <b id="waitCount">1</b>/4</div>
+            <div class="ov-sub" id="inviteLabel">Send the link to friends</div>
+            <div class="ov-link" id="invLink"></div>
+            <button class="ov-btn" id="copyBtn">📋 Copy link mời</button>
+            <button class="ov-btn ghost" id="beginBtn">▶ BẮT ĐẦU NGAY</button>
+            <div class="ov-hint">Trận tự bắt đầu khi người chơi thứ 2 vào (tối đa 4 người).</div>
+          </div>
+          <!-- GAME OVER -->
+          <div class="ov-card" id="ovOver" style="display:none">
+            <div class="ov-title">GAME OVER</div>
+            <div class="ov-sub" id="overSub"></div>
+            <button class="ov-btn" id="restartBtn2">CHƠI LẠI</button>
+          </div>
+        </div>
+        <button class="mute" id="mute" type="button" aria-label="Sound">🔊</button>
+      </div>
+    </div>
+
+    <!-- control deck -->
+    <div class="deck">
+      <div class="dpad" id="dpad">
+        <button class="dbtn up"    data-dir="0" aria-label="up">▲</button>
+        <button class="dbtn left"  data-dir="3" aria-label="left">◀</button>
+        <div class="dcenter"></div>
+        <button class="dbtn right" data-dir="1" aria-label="right">▶</button>
+        <button class="dbtn down"  data-dir="2" aria-label="down">▼</button>
+      </div>
+      <div class="stick" id="stick" role="group" aria-label="Joystick"><span></span></div>
+
+      <div class="actions">
+        <div class="sys-btns">
+          <button class="sys" id="startBtn">START</button>
+          <button class="sys" id="menuBtn">Menu</button>
+        </div>
+        <button class="fire" id="fireBtn">Fire</button>
+        <button class="fire turbo" id="turboBtn">Turbo</button>
+      </div>
+    </div>
+
+    <div class="speaker"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+
+  <footer class="tank-credit"><a id="tankHome" href="../">Games</a> · <a href="https://github.com/phanngoc/tank-battle-90">phanngoc</a> · <a href="LICENSE">MIT</a></footer>
+  <script src="engine.js?v=1"></script>
+  <script src="copy.js?v=1"></script>
+  <script src="client.js?v=1"></script>
+  <script src="../../site-ui.js" data-pt-analytics-only></script>
+</body>
+</html>
