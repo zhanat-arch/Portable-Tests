@@ -27,7 +27,7 @@ if (gameIds.length !== 47 || new Set(gameIds).size !== 47 || gameIds.includes('2
 if (Object.keys(arcadeRules).length !== gameIds.length || gameIds.some(id => !Object.hasOwn(arcadeRules, id))) {
   throw Error('Arcade score rules do not match the catalog');
 }
-const release = '11720';
+const release = '11721';
 const directionalControls = {
   snake: 'keys', 'slide-puzzle': 'keys',
   'maze-muncher': '#pad', sokoban: '#dpad', 'cross-road': '#dpad'
