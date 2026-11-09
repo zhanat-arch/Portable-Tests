@@ -18,6 +18,39 @@
     "badge":{"tone":"new","label":{"ru":"🎮 Новая игра","kk":"🎮 Жаңа ойын","en":"🎮 New game","fr":"🎮 Nouveau jeu"}}
   },
   {
+    "id":"arcade-pack",
+    "title":{"ru":"47 игр в браузере","kk":"Браузердегі 47 ойын","en":"47 browser games","fr":"47 jeux dans le navigateur"},
+    "description":{"ru":"Змейка, Сапёр, аркады и головоломки. Выбирайте игру и запускайте сразу на телефоне или компьютере.","kk":"Жылан, Сапёр, аркадалар мен басқатырғыштар. Ойынды таңдап, телефонда не компьютерде бірден ойнаңыз.","en":"Snake, Minesweeper, arcade games and puzzles. Pick one and play instantly on mobile or desktop.","fr":"Snake, Démineur, jeux d’arcade et casse-têtes. Choisissez un jeu et lancez-le sur mobile ou ordinateur."},
+    "category":"games","icon":"🎮","image":"./games/arcade/cover.svg","path":"./games/arcade/","time":{"ru":"47 игр","kk":"47 ойын","en":"47 games","fr":"47 jeux"},
+    "tags":{"ru":["аркады","игры","змейка","головоломки"],"kk":["аркадалар","ойындар","жылан","басқатырғыштар"],"en":["arcade","games","snake","puzzles"],"fr":["arcade","jeux","snake","casse-têtes"]},
+    "metrics":{"isViralTop":true,"isNew":true},
+    "badge":{"tone":"new","label":{"ru":"🎮 Подборка","kk":"🎮 Топтама","en":"🎮 Collection","fr":"🎮 Collection"}}
+  },
+  {
+    "id":"arcade-snake",
+    "title":{"ru":"Змейка","kk":"Жылан","en":"Snake","fr":"Snake"},
+    "description":{"ru":"Собирайте еду, растите и уворачивайтесь от собственного хвоста.","kk":"Қорек жинап, ұзарған сайын өз құйрығыңызға соғылмауға тырысыңыз.","en":"Grab food, grow longer and dodge your own tail.","fr":"Attrapez la nourriture, grandissez et évitez votre propre queue."},
+    "category":"games","icon":"🐍","path":"./games/arcade/snake/","time":{"ru":"Играть","kk":"Ойнау","en":"Play","fr":"Jouer"},
+    "tags":{"ru":["змейка","классика"],"kk":["жылан","классика"],"en":["snake","classic"],"fr":["snake","classique"]},
+    "metrics":{"isNew":true}
+  },
+  {
+    "id":"arcade-ant-jump",
+    "title":{"ru":"Прыжки муравья","kk":"Құмырсқа секіруі","en":"Ant Jump","fr":"Sauts de fourmi"},
+    "description":{"ru":"Направляйте муравья с платформы на платформу и побейте свой рекорд высоты.","kk":"Құмырсқаны бір тұғырдан келесісіне бағыттап, биіктік рекордыңызды жаңартыңыз.","en":"Guide the ant from platform to platform and beat your height record.","fr":"Guidez la fourmi de plateforme en plateforme et battez votre record de hauteur."},
+    "category":"games","icon":"🐜","path":"./games/arcade/ant-jump/","time":{"ru":"Играть","kk":"Ойнау","en":"Play","fr":"Jouer"},
+    "tags":{"ru":["муравей","прыжки","аркада"],"kk":["құмырсқа","секіру","аркада"],"en":["ant","jump","arcade"],"fr":["fourmi","saut","arcade"]},
+    "metrics":{"isNew":true}
+  },
+  {
+    "id":"arcade-minesweeper",
+    "title":{"ru":"Сапёр","kk":"Мина іздеу","en":"Minesweeper","fr":"Démineur"},
+    "description":{"ru":"Читайте подсказки на клетках, отмечайте мины и очищайте поле.","kk":"Ұяшықтардағы сандарға қарап, миналарды белгілеңіз де, алаңды тазартыңыз.","en":"Read the clues, flag the mines and clear the board.","fr":"Lisez les indices, signalez les mines et libérez la grille."},
+    "category":"games","icon":"🚩","path":"./games/arcade/minesweeper/","time":{"ru":"Играть","kk":"Ойнау","en":"Play","fr":"Jouer"},
+    "tags":{"ru":["сапёр","мины","логика"],"kk":["мина","логика"],"en":["mines","logic","minesweeper"],"fr":["mines","logique","démineur"]},
+    "metrics":{"isNew":true}
+  },
+  {
     "id":"two-porthubs",
     "title":{"ru":"Искали PortHub для Android?","kk":"Android-қа арналған PortHub іздедіңіз бе?","en":"Looking for PortHub on Android?","fr":"Vous cherchiez PortHub pour Android ?"},
     "description":{"ru":"Два проекта с одним названием: где играть в браузере, где найти APK и как его установить.","kk":"Атауы бірдей екі жоба: браузерде қайда ойнауға болады және APK файлын қайдан тауып, қалай орнатуға болады.","en":"Two projects share a name. Find browser games, the Android APK, and installation steps.","fr":"Deux projets portent le même nom : où jouer dans le navigateur, trouver l’APK et l’installer."},

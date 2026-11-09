@@ -15,7 +15,7 @@ globalThis.PT_CONFIG = Object.freeze({
   url(path = '') { return new URL(path, PT_ROOT).href; },
   onlineUrl(path = '') { return new URL(path, PT_ONLINE_ROOT).href; }
 });
-const PT_VERSION = '1.17.14';
+const PT_VERSION = '1.17.15';
 const PT_GA_ID = 'G-37RB6NC78X';
 const PT_SUPPORT = { boosty:'https://boosty.to/zhanat-arch', kofi:'https://ko-fi.com/zhanat_arch' };
 const PT_LANGS = ['ru','kk','en','fr'];
@@ -182,6 +182,9 @@ function ptInstallStyles(){
     .pt-support-callout{margin:18px 0;padding:18px;border:1px solid #7c5cb7;border-radius:18px;background:linear-gradient(145deg,#34244d,#241b36);box-shadow:0 14px 32px #0b071533}.pt-support-callout h2{margin:0 0 8px;color:#fff}.pt-support-callout p{margin:0;color:#d8d0e4}.pt-support-actions,.pt-footer-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px}.pt-footer-actions{margin-top:22px}.pt-footer-button{display:flex;align-items:center;justify-content:center;min-height:50px;padding:11px 14px;border:1px solid #514964;border-radius:15px;background:#2c2643;color:#fff!important;font-size:.92rem;font-weight:800;text-align:center;text-decoration:none;cursor:pointer}.pt-footer-button.primary{border-color:#f2cb75;background:#f2cb75;color:#20182d!important}.pt-support-callout .pt-footer-button{border-color:#f2cb75;background:#f2cb75;color:#20182d!important}.pt-support-callout .pt-support-share{grid-column:1/-1;border-color:#67577f;background:#2c2643;color:#fff!important}.pt-footer-button:hover,.pt-footer-button:focus-visible{outline:3px solid #9c8aff55;outline-offset:2px}.pt-footer-button[data-pt-update]{grid-column:1/-1}
     .pt-footer-privacy{display:block;margin-top:12px;color:#aaa2b8;font-size:.8rem;line-height:1.5}.pt-footer-legal{display:inline-flex;margin-top:11px;color:#f2cb75!important;font-size:.84rem;font-weight:800;text-decoration:none}.pt-footer-legal:hover{text-decoration:underline}.pt-footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:24px;padding-top:18px;border-top:1px solid #3b354c}.pt-footer-theme{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.pt-footer-theme>span{margin-right:3px;color:#bdb6c8;font-size:.82rem}.pt-theme-choice{min-height:42px;padding:8px 11px;border:1px solid #4b455b;border-radius:12px;background:#201c31;color:#dcd6e4;font-weight:750;cursor:pointer}.pt-theme-choice.active{border-color:#f2cb75;background:#3a3043;color:#fff}.pt-ambassador{max-width:420px!important;color:#aaa2b8!important;font-size:.8rem!important;text-align:right}
     .pt-global-toast{position:fixed;z-index:10000;left:50%;bottom:90px;transform:translate(-50%,130px);max-width:calc(100% - 24px);padding:12px 16px;border-radius:14px;background:#171321;color:#fff;font-weight:800;text-align:center;transition:.22s}.pt-global-toast.show{transform:translate(-50%,0)}.pt-install-dialog{width:min(500px,calc(100% - 24px));padding:0;border:1px solid #49415c;border-radius:24px;background:#1d1830;color:#fff;box-shadow:0 30px 90px #08061199}.pt-install-dialog::backdrop{background:#0d0a18bb;backdrop-filter:blur(6px)}.pt-install-card{padding:25px}.pt-install-card h2{margin:0 0 12px;color:#fff;font-size:1.65rem}.pt-install-card p{margin:0 0 19px;color:#d6d0df;line-height:1.65}.pt-install-card button{width:100%;min-height:50px;border:0;border-radius:14px;background:#f2cb75;color:#20182d;font-weight:850;cursor:pointer}
+    .pt-scroll-top{position:fixed;z-index:22;right:max(14px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));width:46px;height:46px;padding:0;border:1px solid #b499ee;border-radius:15px;background:#362464;color:#fff;font:900 1.4rem/1 system-ui;box-shadow:0 5px 16px #180b3d66;cursor:pointer}
+    .pt-scroll-top[hidden]{display:none!important}.pt-scroll-top:focus-visible{outline:3px solid #c5a7ff;outline-offset:3px}
+    @media(max-width:640px){.pt-scroll-top{bottom:calc(86px + env(safe-area-inset-bottom))}}
     html[data-pt-theme="readable"]{font-size:18px}
     html[data-pt-theme="readable"] body{font-size:1rem}
     html[data-pt-theme="readable"] :where(p,li,label,small,.lead,.muted){line-height:1.72!important;letter-spacing:.002em!important;opacity:1!important}
@@ -261,7 +264,7 @@ function ptEnsurePwa(){
   if(!document.querySelector('link[rel="manifest"]')){const link=document.createElement('link');link.rel='manifest';link.href=`${PT_ROOT}manifest.webmanifest`;document.head.appendChild(link)}
   if(!document.querySelector('link[rel="apple-touch-icon"]')){const link=document.createElement('link');link.rel='apple-touch-icon';link.href=`${PT_ROOT}icon-porthub-192.png`;document.head.appendChild(link)}
   if(!document.querySelector('meta[name="apple-mobile-web-app-capable"]')){const meta=document.createElement('meta');meta.name='apple-mobile-web-app-capable';meta.content='yes';document.head.appendChild(meta)}
-  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=11714`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
+  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=11715`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
 }
 
 function ptRenderFooter(){
@@ -307,7 +310,28 @@ function ptStart(){
   let scheduled=false;
   const refresh=()=>{if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;ptApplyBranding();ptRemoveLegacySupport();ptLocalizeLinks()})};
   new MutationObserver(refresh).observe(document.body,{childList:true,subtree:true});
-  new MutationObserver(ptRenderFooter).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+  const scrollTopButton=ptMountScrollTop();
+  new MutationObserver(()=>{ptRenderFooter();scrollTopButton?.localize()}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+}
+
+function ptMountScrollTop(){
+  if(!document.body.hasAttribute('data-pt-scroll-top'))return;
+  const button=document.createElement('button');
+  button.type='button';
+  button.className='pt-scroll-top';
+  button.textContent='↑';
+  const localize=()=>{
+    const label={ru:'Наверх',kk:'Жоғарыға',en:'Back to top',fr:'Retour en haut'}[ptLanguage()];
+    button.setAttribute('aria-label',label);
+    button.title=label;
+  };
+  const refresh=()=>{button.hidden=window.scrollY<420};
+  button.addEventListener('click',()=>window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}));
+  window.addEventListener('scroll',refresh,{passive:true});
+  localize();
+  refresh();
+  document.body.append(button);
+  return {localize};
 }
 
 window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();ptInstallPrompt=event});

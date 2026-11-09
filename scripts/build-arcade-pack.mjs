@@ -67,7 +67,8 @@ const catalog = rawCatalog
   select.addEventListener('change',function(){ WG.setLang(select.value); });
   WG.onChange(function(){ syncPicker(); renderAll(); });
   syncPicker();`)
-  .replace('</body>', `<script src="../../site-ui.js?v=${release}"></script></body>`);
+  .replace('<body>', '<body data-pt-scroll-top>')
+  .replace('</body>', '<script src="../../site-ui.js?v=11715"></script></body>');
 
 const css = await readFile(path.join(root, 'workers/arcade-local/catalog.css'), 'utf8');
 const license = await read('LICENSE');
