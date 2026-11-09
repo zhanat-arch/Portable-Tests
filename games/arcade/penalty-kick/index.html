@@ -153,9 +153,9 @@
     .over-btns button { min-height: 44px; font-size: 13px; }
   }
 </style>
-<script src="../i18n.js?v=11714"></script>
-</head>
-<body data-wg-home>
+<script src="../i18n.js?v=11716"></script>
+<link rel="stylesheet" href="../game-tools.css?v=11716"></head>
+<body data-wg-home data-ph-arcade data-ph-game="penalty-kick"><header class="wg-tools ph-arcade-toolbar"></header>
 
 <div class="panel" id="panel">
   <div class="topbar">
@@ -824,7 +824,7 @@
   document.getElementById('btn-restart').addEventListener('click', function () { newGame(false); startRound(); });
   document.getElementById('btn-share').addEventListener('click', function () {
     var btn = document.getElementById('btn-share');
-    var txt = t('penaltyKick.share', { y: you, a: ai, url: location.href });
+    var txt = t('penaltyKick.share', { y: you, a: ai, url: PHArcadeShare.url() });
     function done() {
       btn.textContent = t('common.copied');
       setTimeout(function () { btn.textContent = t('common.shareScore'); }, 1500);
@@ -836,7 +836,7 @@
       try { document.execCommand('copy'); done(); } catch (err) {}
       document.body.removeChild(ta);
     }
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, fb);
+    if (window.PHArcadeShare) PHArcadeShare.score(txt, done, fb);
     else fb();
   });
 
@@ -896,5 +896,5 @@
   requestAnimationFrame(loop);
 })();
 </script>
-</body>
+<script src="../../../site-ui.js?v=11716" data-pt-analytics-only></script></body>
 </html>

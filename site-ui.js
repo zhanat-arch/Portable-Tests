@@ -15,7 +15,8 @@ globalThis.PT_CONFIG = Object.freeze({
   url(path = '') { return new URL(path, PT_ROOT).href; },
   onlineUrl(path = '') { return new URL(path, PT_ONLINE_ROOT).href; }
 });
-const PT_VERSION = '1.17.15';
+const PT_VERSION = '1.17.16';
+const PT_ANALYTICS_ONLY = document.currentScript?.hasAttribute('data-pt-analytics-only');
 const PT_GA_ID = 'G-37RB6NC78X';
 const PT_SUPPORT = { boosty:'https://boosty.to/zhanat-arch', kofi:'https://ko-fi.com/zhanat_arch' };
 const PT_LANGS = ['ru','kk','en','fr'];
@@ -67,10 +68,11 @@ function ptSafePage(){
 }
 function ptTrack(eventName,parameters={}){
   if(typeof window.gtag!=='function')return;
-  const safe={module_id:ptModuleId(),language:ptLanguage()};
+  const safe={module_id:ptModuleId(),language:ptAnalyticsLanguage()};
   for(const [key,value] of Object.entries(parameters))safe[key]=typeof value==='number'?value:ptSafeValue(value);
   window.gtag('event',eventName,safe);
 }
+function ptAnalyticsLanguage(){return PT_ANALYTICS_ONLY ? window.WG?.current() || ptLanguage() : ptLanguage()}
 function ptAnalytics(){
   if(location.protocol!=='https:'||document.querySelector(`script[data-pt-ga="${PT_GA_ID}"]`))return;
   window.dataLayer=window.dataLayer||[];
@@ -78,11 +80,14 @@ function ptAnalytics(){
   window.gtag('js',new Date());
   window.gtag('config',PT_GA_ID,{send_page_view:false,anonymize_ip:true,allow_google_signals:false});
   const script=document.createElement('script');script.async=true;script.dataset.ptGa=PT_GA_ID;script.src=`https://www.googletagmanager.com/gtag/js?id=${PT_GA_ID}`;document.head.appendChild(script);
-  window.gtag('event','page_view',{page_title:document.title,page_location:ptSafePage(),page_path:location.pathname,module_id:ptModuleId(),language:ptLanguage()});
+  window.gtag('event','page_view',{page_title:document.title,page_location:ptSafePage(),page_path:location.pathname,module_id:ptModuleId(),language:ptAnalyticsLanguage()});
   document.addEventListener('click',event=>{
     const target=event.target.closest('button,a,[data-object],[data-pin]');if(!target)return;
     let name='',extra={};
-    if(target.matches('[data-pt-install]'))name='app_install_click';
+    if(target.matches('.ph-arcade-share'))name='game_share';
+    else if(PT_ANALYTICS_ONLY&&target.matches('[data-i18n="common.shareScore"]'))name='game_score_share';
+    else if(PT_ANALYTICS_ONLY&&target.matches('[data-i18n="common.start"],[data-i18n="common.playAgain"]'))name='game_start';
+    else if(target.matches('[data-pt-install]'))name='app_install_click';
     else if(target.matches('[data-pt-share]'))name='app_share';
     else if(target.matches('[data-pt-update]'))name='app_update_check';
     else if(target.matches('[data-pin]')){name='module_pin';extra.item_id=target.dataset.pin}
@@ -264,7 +269,7 @@ function ptEnsurePwa(){
   if(!document.querySelector('link[rel="manifest"]')){const link=document.createElement('link');link.rel='manifest';link.href=`${PT_ROOT}manifest.webmanifest`;document.head.appendChild(link)}
   if(!document.querySelector('link[rel="apple-touch-icon"]')){const link=document.createElement('link');link.rel='apple-touch-icon';link.href=`${PT_ROOT}icon-porthub-192.png`;document.head.appendChild(link)}
   if(!document.querySelector('meta[name="apple-mobile-web-app-capable"]')){const meta=document.createElement('meta');meta.name='apple-mobile-web-app-capable';meta.content='yes';document.head.appendChild(meta)}
-  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=11715`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
+  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=11716`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
 }
 
 function ptRenderFooter(){
@@ -299,6 +304,7 @@ function ptFollowLanguageSelect(event){
 }
 
 function ptStart(){
+  if(PT_ANALYTICS_ONLY){ptAnalytics();return}
   document.documentElement.lang=ptLanguage();
   ptEnsureSeo();
   ptAnalytics();

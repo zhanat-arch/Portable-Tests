@@ -103,9 +103,9 @@
     .stat span { font-size: 13px; }
   }
 </style>
-<script src="../i18n.js?v=11714"></script>
-</head>
-<body data-wg-home>
+<script src="../i18n.js?v=11716"></script>
+<link rel="stylesheet" href="../game-tools.css?v=11716"></head>
+<body data-wg-home data-ph-arcade data-ph-game="helix-drop"><header class="wg-tools ph-arcade-toolbar"></header>
 
 <div class="panel" id="panel">
   <div class="topbar">
@@ -539,7 +539,7 @@
   document.getElementById('btn-next').addEventListener('click', function () { newLevel(level + 1, true); startOverlay.classList.add('hidden'); });
   document.getElementById('btn-again').addEventListener('click', function () { newLevel(1, false); startOverlay.classList.add('hidden'); });
 
-  function shareText() { return t('helixDrop.share', { n: score, url: location.href }); }
+  function shareText() { return t('helixDrop.share', { n: score, url: PHArcadeShare.url() }); }
   function fallbackCopy(text, done) {
     var ta = document.createElement('textarea');
     ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
@@ -553,8 +553,8 @@
       btn.textContent = t('common.copied');
       setTimeout(function () { btn.textContent = t('common.shareScore'); }, 1500);
     }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(full).then(done, function () { fallbackCopy(full, done); });
+    if (window.PHArcadeShare) {
+      PHArcadeShare.score(full, done, function () { fallbackCopy(full, done); });
     } else fallbackCopy(full, done);
   });
 
@@ -563,5 +563,5 @@
   requestAnimationFrame(loop);
 })();
 </script>
-</body>
+<script src="../../../site-ui.js?v=11716" data-pt-analytics-only></script></body>
 </html>

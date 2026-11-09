@@ -1,0 +1,132 @@
+body[data-ph-arcade] {
+  padding-top: calc(56px + env(safe-area-inset-top)) !important;
+}
+
+.ph-arcade-toolbar {
+  position: absolute;
+  z-index: 1000;
+  top: calc(6px + env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: max-content;
+  max-width: calc(100% - 16px);
+  padding: 2px;
+  border: 1px solid #665483;
+  border-radius: 13px;
+  background: #1c152c;
+  color: #fff;
+}
+
+.ph-arcade-toolbar #mute-btn,
+.ph-arcade-toolbar a.wg-home-btn,
+.ph-arcade-toolbar .wg-lang-btn,
+.ph-arcade-toolbar > button {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  min-height: 42px;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  background: #37294f;
+  border: 0;
+  border-radius: 9px;
+  box-shadow: none;
+  font: 700 19px/1 system-ui, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ph-arcade-toolbar .wg-lang-btn {
+  width: auto;
+  max-width: 105px;
+  padding-inline: 8px;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.ph-arcade-toolbar .wg-lang-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ph-arcade-toolbar .wg-mute-lbl,
+.ph-arcade-toolbar .wg-home-lbl {
+  display: none;
+}
+
+.ph-arcade-toolbar button[aria-pressed="true"] {
+  background: #6442a8;
+}
+
+.ph-arcade-toolbar .ph-arcade-arrow-toggle {
+  position: relative;
+}
+
+.ph-arcade-arrow-toggle[aria-pressed="true"]::after {
+  content: "✓";
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  font-size: 10px;
+  color: #dcffad;
+}
+
+.ph-arcade-toolbar :is(button, a):focus-visible,
+.ph-arcade-dpad button:focus-visible {
+  outline: 2px solid #e4ceff;
+  outline-offset: 2px;
+}
+
+.ph-arcade-feedback {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #1c152c;
+  color: #fff;
+  font: 600 13px system-ui, sans-serif;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.ph-arcade-feedback:empty {
+  display: none;
+}
+
+.ph-arcade-dpad {
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+  touch-action: manipulation;
+}
+
+.ph-arcade-dpad button {
+  width: 48px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid #aaa0ce;
+  border-radius: 12px;
+  background: #302744;
+  color: #fff;
+  font: 800 22px/1 system-ui, sans-serif;
+}
+
+body[data-ph-arcade] [hidden] {
+  display: none !important;
+}
+
+body[data-ph-game="snake"].ph-arcade-arrows-on .wrap {
+  width: min(440px, 100%, max(230px, calc((100svh - 176px) * .917)));
+}

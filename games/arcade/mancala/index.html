@@ -153,9 +153,9 @@
     .over-btns button { min-height: 44px; font-size: 12px; }
   }
 </style>
-<script src="../i18n.js?v=11714"></script>
-</head>
-<body data-wg-home>
+<script src="../i18n.js?v=11716"></script>
+<link rel="stylesheet" href="../game-tools.css?v=11716"></head>
+<body data-wg-home data-ph-arcade data-ph-game="mancala"><header class="wg-tools ph-arcade-toolbar"></header>
 
 <div class="panel" id="panel">
   <div class="topbar">
@@ -666,9 +666,9 @@
   function shareText() {
     if (endStats) {
       var w = endStats.h > endStats.a;
-      return t(w ? 'mancala.share' : 'mancala.shareLose', { a: endStats.h, b: endStats.a, url: location.href });
+      return t(w ? 'mancala.share' : 'mancala.shareLose', { a: endStats.h, b: endStats.a, url: PHArcadeShare.url() });
     }
-    return t('mancala.shareLose', { a: pits[6], b: pits[13], url: location.href });
+    return t('mancala.shareLose', { a: pits[6], b: pits[13], url: PHArcadeShare.url() });
   }
   function fallbackCopy(text, done) {
     var ta = document.createElement('textarea');
@@ -683,13 +683,13 @@
       btn.textContent = t('common.copied');
       setTimeout(function () { btn.textContent = t('common.shareScore'); }, 1500);
     }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(full).then(done, function () { fallbackCopy(full, done); });
+    if (window.PHArcadeShare) {
+      PHArcadeShare.score(full, done, function () { fallbackCopy(full, done); });
     } else fallbackCopy(full, done);
   });
 
   if (location.hash === '#play') startOverlay.classList.add('hidden');
 })();
 </script>
-</body>
+<script src="../../../site-ui.js?v=11716" data-pt-analytics-only></script></body>
 </html>

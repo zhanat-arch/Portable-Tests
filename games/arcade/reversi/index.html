@@ -172,9 +172,9 @@
     .actions button, .over-btns button { min-height: 44px; font-size: 13px; }
   }
 </style>
-<script src="../i18n.js?v=11714"></script>
-</head>
-<body data-wg-home>
+<script src="../i18n.js?v=11716"></script>
+<link rel="stylesheet" href="../game-tools.css?v=11716"></head>
+<body data-wg-home data-ph-arcade data-ph-game="reversi"><header class="wg-tools ph-arcade-toolbar"></header>
 
 <div class="panel" id="panel">
   <div class="side">
@@ -674,7 +674,7 @@
   // ===== 分享 =====
   function shareText() {
     var r = lastResult || tally(board);
-    return t('reversi.share', { n: (r.b !== undefined ? r.b : 0) + ':' + (r.w !== undefined ? r.w : 0), url: location.href });
+    return t('reversi.share', { n: (r.b !== undefined ? r.b : 0) + ':' + (r.w !== undefined ? r.w : 0), url: PHArcadeShare.url() });
   }
   function fallbackCopy(text, done) {
     var ta = document.createElement('textarea');
@@ -689,8 +689,8 @@
       btn.textContent = t('common.copied');
       setTimeout(function () { btn.textContent = t('common.shareScore'); }, 1500);
     }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(full).then(done, function () { fallbackCopy(full, done); });
+    if (window.PHArcadeShare) {
+      PHArcadeShare.score(full, done, function () { fallbackCopy(full, done); });
     } else fallbackCopy(full, done);
   });
 
@@ -742,5 +742,5 @@
   setTimeout(fit, 120);
 })();
 </script>
-</body>
+<script src="../../../site-ui.js?v=11716" data-pt-analytics-only></script></body>
 </html>

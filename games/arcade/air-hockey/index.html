@@ -92,9 +92,9 @@
     .footer { width: 142px; flex: 0 0 auto; max-width: none; margin: 0 0 0 8px; font-size: 11px; }
   }
 </style>
-<script src="../i18n.js?v=11714"></script>
-</head>
-<body data-wg-home>
+<script src="../i18n.js?v=11716"></script>
+<link rel="stylesheet" href="../game-tools.css?v=11716"></head>
+<body data-wg-home data-ph-arcade data-ph-game="air-hockey"><header class="wg-tools ph-arcade-toolbar"></header>
 
 <div class="panel" id="panel">
   <div class="topbar">
@@ -597,7 +597,7 @@
   document.getElementById('btn-again').addEventListener('click', newMatch);
 
   // ===== 分享 =====
-  function shareText() { return t('airHockey.share', { n: playerScore, m: aiScore, url: location.href }); }
+  function shareText() { return t('airHockey.share', { n: playerScore, m: aiScore, url: PHArcadeShare.url() }); }
   function fallbackCopy(text, done) {
     var ta = document.createElement('textarea');
     ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
@@ -608,7 +608,7 @@
   document.getElementById('btn-share').addEventListener('click', function () {
     var full = shareText(), btn = document.getElementById('btn-share');
     function done() { btn.textContent = t('common.copied'); setTimeout(function () { btn.textContent = t('common.shareScore'); }, 1500); }
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(full).then(done, function () { fallbackCopy(full, done); });
+    if (window.PHArcadeShare) PHArcadeShare.score(full, done, function () { fallbackCopy(full, done); });
     else fallbackCopy(full, done);
   });
 
@@ -654,5 +654,5 @@
   setTimeout(fit, 60);
 })();
 </script>
-</body>
+<script src="../../../site-ui.js?v=11716" data-pt-analytics-only></script></body>
 </html>

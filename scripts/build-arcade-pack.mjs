@@ -20,7 +20,11 @@ const gameIds = [...rawCatalog.matchAll(/\{ id: '([a-z0-9-]+)',/g)].map(match =>
 if (gameIds.length !== 47 || new Set(gameIds).size !== 47 || gameIds.includes('2048')) {
   throw Error('Unexpected reviewed game registry');
 }
-const release = '11714';
+const release = '11716';
+const directionalControls = {
+  snake: 'keys', 'slide-puzzle': 'keys',
+  'maze-muncher': '#pad', sokoban: '#dpad', 'cross-road': '#dpad'
+};
 const localCopy = Object.fromEntries(Object.entries(terms).map(([lang, labels]) => [
   lang, { ...labels, ...catalogCopy[lang], ...gameCopy[lang] }
 ]));
@@ -68,14 +72,15 @@ const catalog = rawCatalog
   WG.onChange(function(){ syncPicker(); renderAll(); });
   syncPicker();`)
   .replace('<body>', '<body data-pt-scroll-top>')
-  .replace('</body>', '<script src="../../site-ui.js?v=11715"></script></body>');
+  .replace('</body>', `<script src="../../site-ui.js?v=${release}"></script></body>`);
 
 const css = await readFile(path.join(root, 'workers/arcade-local/catalog.css'), 'utf8');
 const license = await read('LICENSE');
 if (!license.startsWith('MIT License') || !license.includes('mashukui') ||
     /saveone\.pro|goatcounter|sendBeacon/i.test(catalog + i18n)) throw Error('Unexpected arcade sources');
 await write('index.html', catalog);
-await write('i18n.js', i18n);
+const gameTools = await readFile(path.join(root, 'workers/arcade-local/game-tools.js'), 'utf8');
+await write('i18n.js', i18n + '\n' + gameTools);
 await write('catalog.css', css + '\nmain { width:100%; max-width:1100px }\n');
 await write('LICENSE', license);
 for (const id of gameIds) {
@@ -85,7 +90,14 @@ for (const id of gameIds) {
       [...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/gi)].some(match => match[1] !== '../i18n.js')) {
     throw Error('Unexpected scripts in ' + file);
   }
+  const controls = directionalControls[id] ? ` data-ph-arrows="${directionalControls[id]}"` : '';
   await write(file, html.replace('src="../i18n.js"', `src="../i18n.js?v=${release}"`)
+    .replace(/navigator\.clipboard && navigator\.clipboard\.writeText/g, 'window.PHArcadeShare')
+    .replace(/navigator\.clipboard\.writeText\((full|txt)\)\.then\(done, /g, 'PHArcadeShare.score($1, done, ')
+    .replace(/\b(url|u):\s*location\.href\b/g, '$1: PHArcadeShare.url()')
+    .replace('</head>', `<link rel="stylesheet" href="../game-tools.css?v=${release}"></head>`)
+    .replace('<body data-wg-home>', `<body data-wg-home data-ph-arcade data-ph-game="${id}"${controls}><header class="wg-tools ph-arcade-toolbar"></header>`)
+    .replace('</body>', `<script src="../../../site-ui.js?v=${release}" data-pt-analytics-only></script></body>`)
     .replace(/(<a href="\.\.\/" data-i18n="common.moreGames">[^<]*<\/a>)/g, '$1 · <a href="../LICENSE">MIT</a>'));
 }
 const directories = (await readdir(output, { withFileTypes: true })).filter(entry => entry.isDirectory());
