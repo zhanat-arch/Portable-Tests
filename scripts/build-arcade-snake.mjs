@@ -25,6 +25,11 @@ export function buildSnake(source, friendsPreview) {
     </label>
     <div class="best" id="start-best"></div>`);
   replace('<button class="btn-ghost" id="btn-share"', '<button class="btn-ghost" id="snake-modes" data-i18n="snake.modeLabel">Mode</button>\n      <button class="btn-ghost" id="btn-share"');
+  replace('<div class="wrap" id="wrap">', '<main class="snake-stage">\n<div class="wrap" id="wrap">');
+  const canvas = '<canvas id="game" width="440" height="480"></canvas>';
+  replace(canvas + '\n  ', '');
+  replace('<button id="mute-btn"', canvas + '\n  <button id="mute-btn"');
+  replace('<div class="footer">', '<div class="snake-swipe-zone" data-i18n="snake.swipeZone">Swipe to steer</div>\n</main>\n\n<div class="footer">');
   replace("var BEST_KEY = 'snake_best_v1';\n  var best = parseInt(localStorage.getItem(BEST_KEY) || '0', 10) || 0;", `var modes = {
     classic: { wrap:false, start:150, floor:65, every:5, step:12, best:'snake_best_v1' },
     wrap: { wrap:true, start:150, floor:65, every:5, step:12, best:'ph.snake.best.wrap.v1' },
@@ -91,6 +96,11 @@ export function buildSnake(source, friendsPreview) {
     var physical = {KeyW:'w',KeyA:'a',KeyS:'s',KeyD:'d',KeyP:'p'};
     var k = physical[e.code] || e.key.toLowerCase();`);
   replace("if (e.code === 'Space') {", "if (e.code === 'Space' && !e.target.closest?.('button, a')) {");
+  replace("  document.getElementById('wrap').addEventListener('touchstart', function (e) {", `  var stage = document.querySelector('.snake-stage');
+  stage.addEventListener('touchstart', function (e) {
+    if (e.target.closest('button, select, label, .overlay')) return;`);
+  replace("  document.getElementById('wrap').addEventListener('touchend'", `  stage.addEventListener('touchcancel', function () { touchX = touchY = null; });
+  stage.addEventListener('touchend'`);
   replace('Math.abs(dx) < 24 && Math.abs(dy) < 24', 'Math.abs(dx) < 16 && Math.abs(dy) < 16');
   replace('if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS) return die();', `if (modes[mode].wrap) {
       head.x = (head.x + COLS) % COLS;

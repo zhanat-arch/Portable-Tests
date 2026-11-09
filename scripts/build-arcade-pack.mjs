@@ -27,7 +27,7 @@ if (gameIds.length !== 47 || new Set(gameIds).size !== 47 || gameIds.includes('2
 if (Object.keys(arcadeRules).length !== gameIds.length || gameIds.some(id => !Object.hasOwn(arcadeRules, id))) {
   throw Error('Arcade score rules do not match the catalog');
 }
-const release = '11718';
+const release = '11719';
 const directionalControls = {
   snake: 'keys', 'slide-puzzle': 'keys',
   'maze-muncher': '#pad', sokoban: '#dpad', 'cross-road': '#dpad'
@@ -35,12 +35,12 @@ const directionalControls = {
 const localCopy = Object.fromEntries(Object.entries(terms).map(([lang, labels]) => [
   lang, { ...labels, ...catalogCopy[lang], ...gameCopy[lang] }
 ]));
-const snakeModeKeys = ['modeLabel', 'modeClassic', 'modeWrap', 'modeTurbo', 'won', 'startSpeed', 'speedSlow', 'speedNormal', 'speedFast'];
+const snakeModeKeys = ['modeLabel', 'modeClassic', 'modeWrap', 'modeTurbo', 'won', 'startSpeed', 'speedSlow', 'speedNormal', 'speedFast', 'swipeZone'];
 const snakeModeCopy = {
-  ru: ['Режим', 'Классика · стены', 'Сквозные стены', 'Турбо · сквозные стены', 'Поле заполнено!', 'Скорость на старте', 'Медленная', 'Обычная', 'Быстрая'],
-  kk: ['Режім', 'Классика · қабырғалар', 'Ашық шекара', 'Турбо · ашық шекара', 'Алаң толды!', 'Бастапқы жылдамдық', 'Баяу', 'Қалыпты', 'Жылдам'],
-  en: ['Mode', 'Classic · walls', 'Wraparound', 'Turbo · wraparound', 'Board cleared!', 'Starting speed', 'Slow', 'Normal', 'Fast'],
-  fr: ['Mode', 'Classique · murs', 'Bords traversables', 'Turbo · bords traversables', 'Plateau rempli !', 'Vitesse de départ', 'Lente', 'Normale', 'Rapide']
+  ru: ['Режим', 'Классика · стены', 'Сквозные стены', 'Турбо · сквозные стены', 'Поле заполнено!', 'Скорость на старте', 'Медленная', 'Обычная', 'Быстрая', 'Свайпни для поворота'],
+  kk: ['Режім', 'Классика · қабырғалар', 'Ашық шекара', 'Турбо · ашық шекара', 'Алаң толды!', 'Бастапқы жылдамдық', 'Баяу', 'Қалыпты', 'Жылдам', 'Бұрылу үшін сырғыт'],
+  en: ['Mode', 'Classic · walls', 'Wraparound', 'Turbo · wraparound', 'Board cleared!', 'Starting speed', 'Slow', 'Normal', 'Fast', 'Swipe to steer'],
+  fr: ['Mode', 'Classique · murs', 'Bords traversables', 'Turbo · bords traversables', 'Plateau rempli !', 'Vitesse de départ', 'Lente', 'Normale', 'Rapide', 'Balaye pour tourner']
 };
 const snakeLabels = lang => Object.fromEntries(snakeModeKeys.map((key, i) => ['snake.' + key, snakeModeCopy[lang][i]]));
 Object.assign(localCopy.ru, snakeLabels('ru'));

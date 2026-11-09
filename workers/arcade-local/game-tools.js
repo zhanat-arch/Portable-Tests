@@ -101,7 +101,9 @@
         keys.push(key);
         pad.append(key);
       }
-      document.querySelector('.footer')?.before(pad);
+      const stage = document.querySelector('.snake-stage');
+      if (stage) stage.append(pad);
+      else document.querySelector('.footer')?.before(pad);
     }
     let enabled = config !== 'keys' || matchMedia('(any-pointer: coarse)').matches;
     try {

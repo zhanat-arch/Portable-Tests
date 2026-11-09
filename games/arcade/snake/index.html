@@ -96,13 +96,14 @@
 <link rel="stylesheet" href="../game-tools.css?v=11718"></head>
 <body data-wg-home data-ph-arcade data-ph-game="snake" data-ph-arrows="keys"><header class="wg-tools ph-arcade-toolbar"></header>
 
+<main class="snake-stage">
 <div class="wrap" id="wrap">
-  <canvas id="game" width="440" height="480"></canvas>
   <div class="hud">
     <div class="hud-item"><small data-i18n="snake.hudScore">SCORE</small><span id="hud-score">0</span></div>
     <div class="hud-item"><small data-i18n="snake.hudLevel">SPEED LV</small><span id="hud-level">1</span></div>
     <div class="hud-item"><small data-i18n="snake.hudLength">LENGTH</small><span id="hud-length">3</span></div>
   </div>
+  <canvas id="game" width="440" height="480"></canvas>
   <button id="mute-btn" data-i18n-title="common.toggleSound" title="Toggle sound">🔊</button>
   <div class="paused-tag hidden" id="paused-tag" data-i18n="snake.paused">⏸ PAUSED</div>
 
@@ -143,6 +144,9 @@
     </div>
   </div>
 </div>
+
+<div class="snake-swipe-zone" data-i18n="snake.swipeZone">Swipe to steer</div>
+</main>
 
 <div class="footer">
   <span data-i18n="common.madeBy">Made by</span> <a href="https://github.com/mashukui" target="_blank" rel="noopener">@mashukui</a> ·
@@ -325,10 +329,13 @@
 
   // swipe
   var touchX = null, touchY = null;
-  document.getElementById('wrap').addEventListener('touchstart', function (e) {
+  var stage = document.querySelector('.snake-stage');
+  stage.addEventListener('touchstart', function (e) {
+    if (e.target.closest('button, select, label, .overlay')) return;
     touchX = e.touches[0].clientX; touchY = e.touches[0].clientY;
   }, { passive: true });
-  document.getElementById('wrap').addEventListener('touchend', function (e) {
+  stage.addEventListener('touchcancel', function () { touchX = touchY = null; });
+  stage.addEventListener('touchend', function (e) {
     if (touchX === null) return;
     var dx = e.changedTouches[0].clientX - touchX;
     var dy = e.changedTouches[0].clientY - touchY;

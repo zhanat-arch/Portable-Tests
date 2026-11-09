@@ -15,7 +15,7 @@ globalThis.PT_CONFIG = Object.freeze({
   url(path = '') { return new URL(path, PT_ROOT).href; },
   onlineUrl(path = '') { return new URL(path, PT_ONLINE_ROOT).href; }
 });
-const PT_VERSION = '1.17.18';
+const PT_VERSION = '1.17.19';
 const PT_ANALYTICS_ONLY = document.currentScript?.hasAttribute('data-pt-analytics-only');
 const PT_GA_ID = 'G-37RB6NC78X';
 const PT_SUPPORT = { boosty:'https://boosty.to/zhanat-arch', kofi:'https://ko-fi.com/zhanat_arch' };
@@ -269,7 +269,7 @@ function ptEnsurePwa(){
   if(!document.querySelector('link[rel="manifest"]')){const link=document.createElement('link');link.rel='manifest';link.href=`${PT_ROOT}manifest.webmanifest`;document.head.appendChild(link)}
   if(!document.querySelector('link[rel="apple-touch-icon"]')){const link=document.createElement('link');link.rel='apple-touch-icon';link.href=`${PT_ROOT}icon-porthub-192.png`;document.head.appendChild(link)}
   if(!document.querySelector('meta[name="apple-mobile-web-app-capable"]')){const meta=document.createElement('meta');meta.name='apple-mobile-web-app-capable';meta.content='yes';document.head.appendChild(meta)}
-  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=11718`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
+  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=11719`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
 }
 
 function ptRenderFooter(){
