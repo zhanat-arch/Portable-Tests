@@ -27,7 +27,7 @@ if (gameIds.length !== 47 || new Set(gameIds).size !== 47 || gameIds.includes('2
 if (Object.keys(arcadeRules).length !== gameIds.length || gameIds.some(id => !Object.hasOwn(arcadeRules, id))) {
   throw Error('Arcade score rules do not match the catalog');
 }
-const release = '11717';
+const release = '11718';
 const directionalControls = {
   snake: 'keys', 'slide-puzzle': 'keys',
   'maze-muncher': '#pad', sokoban: '#dpad', 'cross-road': '#dpad'
@@ -117,6 +117,24 @@ for (const id of gameIds) {
   const controls = directionalControls[id] ? ` data-ph-arrows="${directionalControls[id]}"` : '';
   if (id === 'snake') html = buildSnake(html, friendsPreview);
   else if (friendsPreview) html = attachArcadeResult(id, html);
+  if (id === 'battleship') {
+    // In single-board mode the CSS follows these classes, including after tab clicks.
+    html = html.replace("    var single = boardsEl.classList.contains('mode-single');", `    boardsEl.classList.toggle('view-mine', view === 'mine');
+    boardsEl.classList.toggle('view-enemy', view === 'enemy');
+    var single = boardsEl.classList.contains('mode-single');`);
+  }
+  if (id === 'tic-tac-toe') {
+    html = html.replace("    for (var i = 0; i < 9; i++) {\n      var el = cells[i];", `    var result = over ? winnerOf(board) : null;
+    for (var i = 0; i < 9; i++) {
+      var el = cells[i];`)
+      .replace("      el.disabled = over", "      if (result && result.line.indexOf(i) !== -1) el.classList.add('win');\n      el.disabled = over")
+      .replace("    var line = [];\n", "")
+      .replace("      line = w.line;\n", "")
+      .replace(/      if \(w\.p === 'X'\) \{ s\.x\+\+; line\.forEach[^\n]+\n      else \{ s\.o\+\+; line\.forEach[^\n]+/, "      if (w.p === 'X') s.x++;\n      else s.o++;")
+      // The board enables buttons based on whose turn it is.
+      .replace("    renderBoard();\n    var w = winnerOf(board);", "    var w = winnerOf(board);")
+      .replace("    turn = player === 'X' ? 'O' : 'X';\n    renderStatus();", "    turn = player === 'X' ? 'O' : 'X';\n    renderStatus();\n    renderBoard();");
+  }
   await write(file, html.replace('src="../i18n.js"', `src="../i18n.js?v=${release}"`)
     .replace(/navigator\.clipboard && navigator\.clipboard\.writeText/g, 'window.PHArcadeShare')
     .replace(/navigator\.clipboard\.writeText\((full|txt)\)\.then\(done, /g, 'PHArcadeShare.score($1, done, ')
