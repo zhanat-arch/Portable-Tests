@@ -92,8 +92,8 @@
   .footer a { color: rgba(255,255,255,.8); text-decoration: none; }
   .footer a:hover { color: #ffd76e; }
 </style>
-<script src="../i18n.js?v=11716"></script>
-<link rel="stylesheet" href="../game-tools.css?v=11716"></head>
+<script src="../i18n.js?v=11717"></script>
+<link rel="stylesheet" href="../game-tools.css?v=11717"></head>
 <body data-wg-home data-ph-arcade data-ph-game="snake" data-ph-arrows="keys"><header class="wg-tools ph-arcade-toolbar"></header>
 
 <div class="wrap" id="wrap">
@@ -110,17 +110,35 @@
     <div class="icon-big">🐍</div>
     <div class="title"><span data-i18n="snake.title">SNAKE</span><span class="sub" data-i18n="snake.subtitle">THE ALL-TIME CLASSIC</span></div>
     <div class="tip" data-i18n-html="snake.tip">Arrow keys / <b>WASD</b> to turn · <b>swipe</b> on mobile<br>Press <b>P</b> or <b>Esc</b> to pause</div>
+    <label class="snake-mode-label">
+      <span data-i18n="snake.modeLabel">Mode</span>
+      <select id="snake-mode">
+        <option value="classic" data-i18n="snake.modeClassic">Classic walls</option>
+        <option value="wrap" data-i18n="snake.modeWrap">Wraparound</option>
+        <option value="turbo" data-i18n="snake.modeTurbo">Turbo</option>
+      </select>
+    </label>
+    <label class="snake-mode-label">
+      <span data-i18n="snake.startSpeed">Starting speed</span>
+      <select id="snake-speed">
+        <option value="slow" data-i18n="snake.speedSlow">Slow</option>
+        <option value="normal" data-i18n="snake.speedNormal">Normal</option>
+        <option value="fast" data-i18n="snake.speedFast">Fast</option>
+      </select>
+    </label>
     <div class="best" id="start-best"></div>
     <div class="btn-row"><button class="btn-primary" id="btn-start" data-i18n="common.start">START</button></div>
   </div>
 
   <div class="overlay hidden" id="over-overlay">
     <div class="medal" id="medal">🥉</div>
+    <strong id="snake-win" data-i18n="snake.won" hidden>Board cleared!</strong>
     <div class="score-final" id="final-score">0</div>
     <div class="new-record hidden" id="new-record" data-i18n="common.newRecord">🏆 NEW RECORD!</div>
     <div class="best" id="over-best"></div>
     <div class="btn-row">
       <button class="btn-primary" id="btn-retry" data-i18n="common.playAgain">PLAY AGAIN</button>
+      <button class="btn-ghost" id="snake-modes" data-i18n="snake.modeLabel">Mode</button>
       <button class="btn-ghost" id="btn-share" data-i18n="common.shareScore">SHARE SCORE</button>
     </div>
   </div>
@@ -196,20 +214,33 @@
   // ===== State =====
   var STATE = { READY: 0, PLAYING: 1, PAUSED: 2, OVER: 3 };
   var state = STATE.READY;
-  var BEST_KEY = 'snake_best_v1';
-  var best = parseInt(localStorage.getItem(BEST_KEY) || '0', 10) || 0;
+  var modes = {
+    classic: { wrap:false, start:150, floor:65, every:5, step:12, best:'snake_best_v1' },
+    wrap: { wrap:true, start:150, floor:65, every:5, step:12, best:'ph.snake.best.wrap.v1' },
+    turbo: { wrap:true, start:115, floor:45, every:3, step:10, best:'ph.snake.best.turbo.v1' }
+  };
+  var storedMode = localStorage.getItem('ph.snake.mode.v1');
+  var mode = Object.hasOwn(modes, storedMode) ? storedMode : 'classic';
+  var startSpeeds = {"slow":1.3,"normal":1,"fast":0.8};
+  var storedSpeed = localStorage.getItem('ph.snake.speed.v1');
+  var speed = Object.hasOwn(startSpeeds, storedSpeed) ? storedSpeed : 'normal';
+  function startingInterval() { return Math.round(modes[mode].start * startSpeeds[speed]); }
+  function bestKey() { return speed === 'normal' ? modes[mode].best : modes[mode].best + '.' + speed; }
+  function readBest() {
+    return Math.max(0, parseInt(localStorage.getItem(bestKey()) || '0', 10) || 0);
+  }
+  var best = readBest();
 
   var snake, dir, nextDir, apple, score, applesEaten, tickMs, tickAcc, popT;
   var DIRS = { up: {x:0,y:-1}, down: {x:0,y:1}, left: {x:-1,y:0}, right: {x:1,y:0} };
 
   function spawnApple() {
-    while (true) {
-      var a = { x: Math.floor(Math.random() * COLS), y: Math.floor(Math.random() * ROWS) };
-      var clash = false;
-      for (var i = 0; i < snake.length; i++) {
-        if (snake[i].x === a.x && snake[i].y === a.y) { clash = true; break; }
-      }
-      if (!clash) return a;
+    var occupied = new Set(snake.map(function (part) { return part.y * COLS + part.x; }));
+    var cellsLeft = COLS * ROWS - occupied.size;
+    if (!cellsLeft) return null;
+    var pick = Math.floor(Math.random() * cellsLeft);
+    for (var cell = 0; cell < COLS * ROWS; cell++) {
+      if (!occupied.has(cell) && pick-- === 0) return { x:cell % COLS, y:Math.floor(cell / COLS) };
     }
   }
 
@@ -217,11 +248,15 @@
     snake = [{x: 9, y: 10}, {x: 8, y: 10}, {x: 7, y: 10}];
     dir = DIRS.right; nextDir = DIRS.right;
     score = 0; applesEaten = 0;
-    tickMs = 150; tickAcc = 0; popT = 0;
+    tickMs = startingInterval(); tickAcc = 0; popT = 0;
     apple = spawnApple();
     updateHud();
   }
-  function speedLevel() { return 1 + Math.floor(applesEaten / 5); }
+  function speedLevel() {
+    var pace = modes[mode];
+    var maxSteps = Math.ceil((startingInterval() - pace.floor) / pace.step);
+    return 1 + Math.min(maxSteps, Math.floor(applesEaten / pace.every));
+  }
   function updateHud() {
     document.getElementById('hud-score').textContent = score;
     document.getElementById('hud-level').textContent = speedLevel();
@@ -236,6 +271,30 @@
     document.getElementById('start-best').textContent = best > 0 ? t('common.bestScore', { n: best }) : t('snake.first');
     document.getElementById('over-best').textContent = t('common.bestLabel', { n: best });
   }
+  var modeSelect = document.getElementById('snake-mode');
+  modeSelect.value = mode;
+  var speedSelect = document.getElementById('snake-speed');
+  speedSelect.value = speed;
+  function updateSettings() {
+    if (state !== STATE.READY || !Object.hasOwn(modes, modeSelect.value) ||
+        !Object.hasOwn(startSpeeds, speedSelect.value)) return;
+    mode = modeSelect.value;
+    speed = speedSelect.value;
+    localStorage.setItem('ph.snake.mode.v1', mode);
+    localStorage.setItem('ph.snake.speed.v1', speed);
+    best = readBest();
+    refreshBest();
+    reset();
+  }
+  modeSelect.addEventListener('change', updateSettings);
+  speedSelect.addEventListener('change', updateSettings);
+  document.getElementById('snake-modes').addEventListener('click', function () {
+    state = STATE.READY;
+    reset();
+    overOverlay.classList.add('hidden');
+    startOverlay.classList.remove('hidden');
+    modeSelect.focus();
+  });
   refreshBest();
   WG.onChange(refreshBest);   // keep "best score" line in the current language
 
@@ -249,13 +308,15 @@
     nextDir = d; sfx.turn();
   }
   window.addEventListener('keydown', function (e) {
-    var k = e.key.toLowerCase();
+    if (e.target.closest?.('select, input, textarea, dialog')) return;
+    var physical = {KeyW:'w',KeyA:'a',KeyS:'s',KeyD:'d',KeyP:'p'};
+    var k = physical[e.code] || e.key.toLowerCase();
     if (k === 'arrowup' || k === 'w')    { e.preventDefault(); setDir('up'); }
     if (k === 'arrowdown' || k === 's')  { e.preventDefault(); setDir('down'); }
     if (k === 'arrowleft' || k === 'a')  { e.preventDefault(); setDir('left'); }
     if (k === 'arrowright' || k === 'd') { e.preventDefault(); setDir('right'); }
     if (k === 'p' || k === 'escape') { e.preventDefault(); togglePause(); }
-    if (e.code === 'Space') {
+    if (e.code === 'Space' && !e.target.closest?.('button, a')) {
       e.preventDefault();
       if (state === STATE.READY) startGame();
       else if (state === STATE.OVER) retry();
@@ -272,7 +333,7 @@
     var dx = e.changedTouches[0].clientX - touchX;
     var dy = e.changedTouches[0].clientY - touchY;
     touchX = touchY = null;
-    if (Math.abs(dx) < 24 && Math.abs(dy) < 24) return;
+    if (Math.abs(dx) < 16 && Math.abs(dy) < 16) return;
     if (Math.abs(dx) > Math.abs(dy)) setDir(dx > 0 ? 'right' : 'left');
     else setDir(dy > 0 ? 'down' : 'up');
   }, { passive: true });
@@ -317,7 +378,10 @@
     var head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
 
     // wall death (classic)
-    if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS) return die();
+    if (modes[mode].wrap) {
+      head.x = (head.x + COLS) % COLS;
+      head.y = (head.y + ROWS) % ROWS;
+    } else if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS) return die();
     // self death (tail moves away, so exclude last segment)
     for (var i = 0; i < snake.length - 1; i++) {
       if (snake[i].x === head.x && snake[i].y === head.y) return die();
@@ -329,18 +393,20 @@
       score += 10; applesEaten++; popT = 1;
       apple = spawnApple();
       sfx.eat();
-      if (applesEaten % 5 === 0) tickMs = Math.max(65, tickMs - 12); // speed up every 5 apples
+      if (applesEaten % modes[mode].every === 0) tickMs = Math.max(modes[mode].floor, tickMs - modes[mode].step);
     } else {
       snake.pop();
     }
     updateHud();
+    if (!apple) die(true);
   }
 
-  function die() {
+  function die(won) {
+    document.getElementById('snake-win').hidden = !won;
     state = STATE.OVER;
     sfx.die();
     var isRecord = score > best;
-    if (isRecord) { best = score; localStorage.setItem(BEST_KEY, String(best)); }
+    if (isRecord) { best = score; localStorage.setItem(bestKey(), String(best)); }
     document.getElementById('final-score').textContent = score;
     document.getElementById('new-record').classList.toggle('hidden', !isRecord);
     refreshBest();
@@ -381,12 +447,15 @@
     }
 
     // apple (pulsing)
+    if (apple) {
     var pulse = 1 + Math.sin(frames / 8) * 0.08;
     var ax = BX + apple.x * CELL + CELL / 2, ay = BY + apple.y * CELL + CELL / 2;
     ctx.fillStyle = '#e5484d';
     ctx.beginPath(); ctx.arc(ax, ay + 1, (CELL / 2 - 3) * pulse, 0, Math.PI * 2); ctx.fill();
     ctx.fillStyle = '#3e7d3a';
     ctx.beginPath(); ctx.ellipse(ax + 2, ay - CELL / 2 + 4, 4, 2.2, -0.5, 0, Math.PI * 2); ctx.fill();
+
+    }
 
     // snake (gradient body)
     for (var s = snake.length - 1; s >= 0; s--) {
@@ -441,5 +510,5 @@
   document.addEventListener('visibilitychange', function () { last = performance.now(); });
 })();
 </script>
-<script src="../../../site-ui.js?v=11716" data-pt-analytics-only></script></body>
+<script src="../../../site-ui.js?v=11717" data-pt-analytics-only></script></body>
 </html>

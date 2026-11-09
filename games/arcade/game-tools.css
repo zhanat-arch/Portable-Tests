@@ -130,3 +130,55 @@ body[data-ph-arcade] [hidden] {
 body[data-ph-game="snake"].ph-arcade-arrows-on .wrap {
   width: min(440px, 100%, max(230px, calc((100svh - 176px) * .917)));
 }
+
+body[data-ph-game="snake"] .overlay {
+  gap: clamp(5px, 1.25vh, 12px);
+  padding: 12px;
+  justify-content: safe center;
+  overflow-y: auto;
+  touch-action: pan-y;
+}
+
+body[data-ph-game="snake"] .icon-big {
+  font-size: clamp(30px, 8vh, 54px);
+}
+
+.snake-mode-label {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+#snake-mode,
+#snake-speed {
+  max-width: 64%;
+  min-height: 36px;
+  padding-inline: 8px;
+  border: 1px solid #78928a;
+  border-radius: 8px;
+  background: #203b33;
+  color: #fff;
+  font: inherit;
+}
+
+@media (max-width: 380px), (max-height: 550px) {
+  body[data-ph-game="snake"] #start-overlay {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  body[data-ph-game="snake"] #start-overlay .icon-big {
+    display: none;
+  }
+
+  body[data-ph-game="snake"] #start-overlay .title {
+    font-size: 28px;
+  }
+
+  body[data-ph-game="snake"] #start-overlay .tip {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+}

@@ -4,10 +4,14 @@ import path from 'node:path';
 import { terms } from '../workers/arcade-local/terms.mjs';
 import { catalogCopy } from '../workers/arcade-local/catalog-copy.mjs';
 import { gameCopy, sharedGameLabels } from '../workers/arcade-local/game-copy.mjs';
+import { buildSnake } from './build-arcade-snake.mjs';
+import { attachArcadeResult } from './arcade-results.mjs';
+import { arcadeRules } from '../workers/game-api/arcade-rules.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 const source = path.join(root, '_site/arcade-review');
-const output = path.join(root, 'games/arcade');
+const friendsPreview = process.argv.includes('--friends-preview');
+const output = path.join(root, friendsPreview ? '_site/arcade-friends/games/arcade' : 'games/arcade');
 const read = file => readFile(path.join(source, file), 'utf8');
 async function write(file, contents) {
   const destination = path.join(output, file);
@@ -20,7 +24,10 @@ const gameIds = [...rawCatalog.matchAll(/\{ id: '([a-z0-9-]+)',/g)].map(match =>
 if (gameIds.length !== 47 || new Set(gameIds).size !== 47 || gameIds.includes('2048')) {
   throw Error('Unexpected reviewed game registry');
 }
-const release = '11716';
+if (Object.keys(arcadeRules).length !== gameIds.length || gameIds.some(id => !Object.hasOwn(arcadeRules, id))) {
+  throw Error('Arcade score rules do not match the catalog');
+}
+const release = '11717';
 const directionalControls = {
   snake: 'keys', 'slide-puzzle': 'keys',
   'maze-muncher': '#pad', sokoban: '#dpad', 'cross-road': '#dpad'
@@ -28,6 +35,16 @@ const directionalControls = {
 const localCopy = Object.fromEntries(Object.entries(terms).map(([lang, labels]) => [
   lang, { ...labels, ...catalogCopy[lang], ...gameCopy[lang] }
 ]));
+const snakeModeKeys = ['modeLabel', 'modeClassic', 'modeWrap', 'modeTurbo', 'won', 'startSpeed', 'speedSlow', 'speedNormal', 'speedFast'];
+const snakeModeCopy = {
+  ru: ['Режим', 'Классика · стены', 'Сквозные стены', 'Турбо · сквозные стены', 'Поле заполнено!', 'Скорость на старте', 'Медленная', 'Обычная', 'Быстрая'],
+  kk: ['Режім', 'Классика · қабырғалар', 'Ашық шекара', 'Турбо · ашық шекара', 'Алаң толды!', 'Бастапқы жылдамдық', 'Баяу', 'Қалыпты', 'Жылдам'],
+  en: ['Mode', 'Classic · walls', 'Wraparound', 'Turbo · wraparound', 'Board cleared!', 'Starting speed', 'Slow', 'Normal', 'Fast'],
+  fr: ['Mode', 'Classique · murs', 'Bords traversables', 'Turbo · bords traversables', 'Plateau rempli !', 'Vitesse de départ', 'Lente', 'Normale', 'Rapide']
+};
+const snakeLabels = lang => Object.fromEntries(snakeModeKeys.map((key, i) => ['snake.' + key, snakeModeCopy[lang][i]]));
+Object.assign(localCopy.ru, snakeLabels('ru'));
+Object.assign(localCopy.kk, snakeLabels('kk'));
 const i18n = (await read('i18n.js'))
   .replace('var LANGS = [', 'var LANGS = [{code:"ru",short:"RU",name:"Русский"},{code:"kk",short:"KK",name:"Қазақша"},')
   .replace('var S = {', 'var S = {' + JSON.stringify(localCopy).slice(1, -1) + ',')
@@ -36,8 +53,8 @@ const i18n = (await read('i18n.js'))
   .replace("if (doc.getElementById('wg-lang')) return;", "if (doc.getElementById('catalog-lang') || doc.getElementById('wg-lang')) return;")
   .replace("a.href = '../';", "a.href = '../?lang=' + encodeURIComponent(lang);")
   .replace("existing.setAttribute('aria-label', lbl);", "existing.setAttribute('aria-label', lbl); existing.href = '../?lang=' + encodeURIComponent(lang);")
-  .replace('var lang = fromQuery()', `Object.assign(S.en,${JSON.stringify(catalogCopy.en)},{"hub.about":"Free browser games under the MIT license. Game records are saved on this device."});
-  Object.assign(S.fr,${JSON.stringify(catalogCopy.fr)},{"hub.about":"Jeux gratuits sous licence MIT. Les records sont enregistrés sur cet appareil."});
+  .replace('var lang = fromQuery()', `Object.assign(S.en,${JSON.stringify({...catalogCopy.en,...snakeLabels('en')})},{"hub.about":"Free browser games under the MIT license. Game records are saved on this device."});
+  Object.assign(S.fr,${JSON.stringify({...catalogCopy.fr,...snakeLabels('fr')})},{"hub.about":"Jeux gratuits sous licence MIT. Les records sont enregistrés sur cet appareil."});
   var sharedGameLabels = ${JSON.stringify(sharedGameLabels)};
   Object.entries(S.en).forEach(function(entry){
     var key = entry[0], labels = sharedGameLabels[entry[1]];
@@ -80,17 +97,26 @@ if (!license.startsWith('MIT License') || !license.includes('mashukui') ||
     /saveone\.pro|goatcounter|sendBeacon/i.test(catalog + i18n)) throw Error('Unexpected arcade sources');
 await write('index.html', catalog);
 const gameTools = await readFile(path.join(root, 'workers/arcade-local/game-tools.js'), 'utf8');
-await write('i18n.js', i18n + '\n' + gameTools);
+const friends = friendsPreview ? await readFile(path.join(root, 'workers/arcade-local/friends.js'), 'utf8') : '';
+await write('i18n.js', i18n + '\n' + gameTools + (friends ? '\nwindow.PHArcadeRules = ' + JSON.stringify(arcadeRules) + ';\n' + friends : ''));
 await write('catalog.css', css + '\nmain { width:100%; max-width:1100px }\n');
 await write('LICENSE', license);
+if (friendsPreview) {
+  const sharedCss = await readFile(path.join(root, 'games/arcade/game-tools.css'), 'utf8');
+  const friendsCss = await readFile(path.join(root, 'workers/arcade-local/friends.css'), 'utf8');
+  await write('game-tools.css', sharedCss + '\n' + friendsCss);
+  await write('catalog.css', css + '\nmain { width:100%; max-width:1100px }\n' + friendsCss);
+}
 for (const id of gameIds) {
   const file = id + '/index.html';
-  const html = await read(file);
+  let html = await read(file);
   if (/saveone\.pro|goatcounter|sendBeacon|XMLHttpRequest|serviceWorker/i.test(html) ||
       [...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/gi)].some(match => match[1] !== '../i18n.js')) {
     throw Error('Unexpected scripts in ' + file);
   }
   const controls = directionalControls[id] ? ` data-ph-arrows="${directionalControls[id]}"` : '';
+  if (id === 'snake') html = buildSnake(html, friendsPreview);
+  else if (friendsPreview) html = attachArcadeResult(id, html);
   await write(file, html.replace('src="../i18n.js"', `src="../i18n.js?v=${release}"`)
     .replace(/navigator\.clipboard && navigator\.clipboard\.writeText/g, 'window.PHArcadeShare')
     .replace(/navigator\.clipboard\.writeText\((full|txt)\)\.then\(done, /g, 'PHArcadeShare.score($1, done, ')
