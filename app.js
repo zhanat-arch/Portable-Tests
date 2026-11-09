@@ -1,4 +1,4 @@
-const VERSION = '1.17.21';
+const VERSION = '1.17.22';
 const SUPPORTED = ['ru', 'kk', 'en', 'fr'];
 const APP_ROOT = new URL('./', import.meta.url);
 const CATEGORY_ICONS = { astro: '🔮', career: '💼', psychology: '🧠', fun: '🙂', interactive: '🎲', games: '🎮' };
@@ -170,9 +170,9 @@ function cardMarkup(item) {
   const rating = Number(item.metrics?.rating);
   const shares = shareValue(item.metrics?.shareCount);
   const primaryPath = complete ? addParam(item.path, item.progress.resultParam) : item.path;
-  // Arcade games share one static URL per game. The query carries the homepage language.
-  const arcade = primaryPath.startsWith('./games/arcade/');
-  const openUrl = arcade ? appUrl(addParam(primaryPath, `lang=${state.lang}`)) : languageUrl(primaryPath);
+  // These game pages select their language from the query string.
+  const queryLanguage = item.path.startsWith('./games/arcade/') || item.path === './games/tanks/';
+  const openUrl = queryLanguage ? appUrl(addParam(primaryPath, `lang=${state.lang}`)) : languageUrl(primaryPath);
   const badge = item.badge ? `<span class="badge ${item.badge.tone ?? ''}">${text(item.badge.label)}</span>` : '';
   const media = item.image ? `<img src="${appUrl(item.image)}" alt="" loading="lazy">` : `<span aria-hidden="true">${item.icon}</span>`;
   const pinned=isPinned(item.id),pinLabel=pinned?personal().unpin:personal().pin;
@@ -180,7 +180,7 @@ function cardMarkup(item) {
     <div class="card-media">${media}<span class="category-chip">${categoryLabel(item)}</span><button class="pin-card" type="button" data-pin="${item.id}" aria-label="${pinLabel}" aria-pressed="${pinned}">${pinned?'★':'☆'}</button></div>
     <div class="card-body"><div class="card-flags">${badge}${complete ? `<span class="complete-mark">${locale.completed}</span>` : ''}</div><h3>${text(item.title)}</h3><p>${text(item.description)}</p>
       <div class="card-meta"><span class="metric">⏱ ${text(item.time)}</span>${Number.isFinite(rating) && rating >= 4.8 ? `<span class="metric rating">★ ${rating.toFixed(1)}</span>` : ''}${shares >= 100 ? `<span class="metric share-count">↗ ${shareLabel(shares)}</span>` : ''}</div>
-      <div class="card-actions"><a class="open-card" href="${openUrl}"${arcade ? ' data-pt-keep-path' : ''}>${complete ? locale.viewResult : locale.start}</a>${complete ? `<a class="retake-card" href="${languageUrl(addParam(item.path, item.progress.retakeParam))}">${locale.retake}</a>` : ''}</div>
+      <div class="card-actions"><a class="open-card" href="${openUrl}"${queryLanguage ? ' data-pt-keep-path' : ''}>${complete ? locale.viewResult : locale.start}</a>${complete ? `<a class="retake-card" href="${languageUrl(addParam(item.path, item.progress.retakeParam))}">${locale.retake}</a>` : ''}</div>
     </div></article>`;
 }
 

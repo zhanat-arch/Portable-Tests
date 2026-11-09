@@ -18,6 +18,15 @@
     "badge":{"tone":"new","label":{"ru":"🎮 Новая игра","kk":"🎮 Жаңа ойын","en":"🎮 New game","fr":"🎮 Nouveau jeu"}}
   },
   {
+    "id":"game-tanks",
+    "title":{"ru":"Танчики","kk":"Танктер","en":"Tank Battle","fr":"Bataille de chars"},
+    "description":{"ru":"Защищайте базу от вражеских танков. Играйте в одиночку, вдвоём на одном экране или онлайн с друзьями.","kk":"Базаны жау танктерінен қорғаңыз. Жеке, бір экранда екеу болып немесе достарыңызбен онлайн ойнаңыз.","en":"Defend your base from enemy tanks. Play solo, together on one screen, or online with friends.","fr":"Défendez votre base contre les chars ennemis. Jouez en solo, à deux sur le même écran ou en ligne avec vos amis."},
+    "category":"games","icon":"🕹️","image":"./games/tanks/cover.svg","path":"./games/tanks/","time":{"ru":"Играть","kk":"Ойнау","en":"Play","fr":"Jouer"},
+    "tags":{"ru":["танчики","ретро","денди","кооператив"],"kk":["танктер","ретро","денди","бірге ойнау"],"en":["tanks","retro","battle city","co-op"],"fr":["chars","rétro","battle city","coopération"]},
+    "metrics":{"isViralTop":true,"isNew":true},
+    "badge":{"tone":"new","label":{"ru":"🎮 Новая игра","kk":"🎮 Жаңа ойын","en":"🎮 New game","fr":"🎮 Nouveau jeu"}}
+  },
+  {
     "id":"arcade-pack",
     "title":{"ru":"47 игр в браузере","kk":"Браузердегі 47 ойын","en":"47 browser games","fr":"47 jeux dans le navigateur"},
     "description":{"ru":"Змейка, Сапёр, аркады и головоломки. Выбирайте игру и запускайте сразу на телефоне или компьютере.","kk":"Жылан, Сапёр, аркадалар мен басқатырғыштар. Ойынды таңдап, телефонда не компьютерде бірден ойнаңыз.","en":"Snake, Minesweeper, arcade games and puzzles. Pick one and play instantly on mobile or desktop.","fr":"Snake, Démineur, jeux d’arcade et casse-têtes. Choisissez un jeu et lancez-le sur mobile ou ordinateur."},
