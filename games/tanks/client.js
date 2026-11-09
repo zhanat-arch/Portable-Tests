@@ -30,6 +30,7 @@ const tickMs = 1000 / window.TankEngine.TICK_HZ;
 let myRoom = null;        // room code once joined
 let localGame = null, localSecond = null, localControls = null;
 let localStage = 0, localStatus = '', nextLocalTick = 0;
+let paused = false, onlineHost = false;
 let pendingCommand = null;
 
 // ---- DOM ----
@@ -56,6 +57,8 @@ const hudStage = document.getElementById('hudStage');
 const hudEnemies = document.getElementById('hudEnemies');
 const hudPlayers = document.getElementById('hudPlayers');
 const muteEl = document.getElementById('mute');
+const pauseBtn = document.getElementById('pauseBtn');
+const pauseBanner = document.getElementById('pauseBanner');
 
 const roomParam = new URLSearchParams(location.search).get('room');
 function inviteLink(code) {
@@ -108,7 +111,16 @@ function handle(m, snapshotTime = performance.now()) {
     case 'init':
       me = m.you; joined = true; myRoom = m.room;
       setGrid(m.map); statusText = m.status;
+      onlineHost = m.host === true;
+      setPaused(m.paused === true);
       onJoined(m.room);
+      break;
+    case 'pause':
+      setPaused(m.paused === true);
+      break;
+    case 'role':
+      onlineHost = m.host === true;
+      refreshPause();
       break;
     case 'nojoin':
       showErr(tankText(m.reason));
@@ -116,6 +128,7 @@ function handle(m, snapshotTime = performance.now()) {
     case 'state':
       if (m.status === 'playing' && latest?.status !== 'playing' && m.stage === 1) playStartSound();
       latest = m; statusText = m.status;
+      if (m.status !== 'playing' && paused) setPaused(false);
       for (const d of m.mapDelta) applyDelta(d.x, d.y, d.t);
       if (m.events && m.events.length) for (const e of m.events) playSfx(e);
       snaps.push({ t: snapshotTime, s: m });
@@ -220,6 +233,8 @@ function resetMatch() {
   joined = false;
   latest = null;
   myRoom = null;
+  onlineHost = false;
+  setPaused(false);
   lastSent = '';
   snaps.length = 0;
   netEl.textContent = '';
@@ -248,6 +263,7 @@ function playLocal(playerCount) {
 }
 
 function advanceLocal(now) {
+  if (paused) return;
   if (now - nextLocalTick > 3 * tickMs) nextLocalTick = now;
   while (now >= nextLocalTick) {
     localGame.update();
@@ -267,22 +283,56 @@ document.getElementById('localBtn').addEventListener('click', () => playLocal(2)
 document.getElementById('soloBtn').addEventListener('click', () => playLocal(1));
 document.getElementById('menuBtn').addEventListener('click', resetMatch);
 const fullscreen = document.getElementById('fullscreen');
+function setExpanded(expanded) {
+  document.body.classList.toggle('tank-expanded', expanded);
+  fullscreen.setAttribute('aria-pressed', String(expanded));
+}
 fullscreen.addEventListener('click', async () => {
   try {
     if (document.fullscreenElement) await document.exitFullscreen();
+    else if (document.body.classList.contains('tank-expanded')) setExpanded(false);
     else {
       await document.documentElement.requestFullscreen();
       if (matchMedia('(pointer:coarse)').matches) await screen.orientation?.lock?.('landscape').catch(() => {});
     }
-  } catch { document.body.classList.toggle('tank-expanded'); }
+  } catch { setExpanded(!document.body.classList.contains('tank-expanded')); }
 });
 document.addEventListener('fullscreenchange', () => {
-  fullscreen.setAttribute('aria-pressed', String(!!document.fullscreenElement));
+  setExpanded(!!document.fullscreenElement);
 });
+
+function refreshPause() {
+  const [pause, resume] = pauseLabels[tankLanguage];
+  const label = paused ? resume : pause;
+  pauseBtn.hidden = !joined || statusText !== 'playing' || !(localGame || onlineHost);
+  pauseBtn.textContent = paused ? '▶' : '⏸';
+  pauseBtn.title = label;
+  pauseBtn.setAttribute('aria-label', label);
+  pauseBtn.setAttribute('aria-pressed', String(paused));
+  pauseBanner.textContent = pause;
+  pauseBanner.hidden = !paused;
+}
+
+function setPaused(value) {
+  if (paused && !value) {
+    nextLocalTick = performance.now();
+    snaps.length = 0;
+  }
+  paused = value;
+  refreshPause();
+}
+
+function togglePause() {
+  if (pauseBtn.hidden) return;
+  if (localGame) setPaused(!paused);
+  else send({ t: 'pause', paused: !paused });
+}
+pauseBtn.addEventListener('click', togglePause);
 document.addEventListener('tanklanguage', () => {
   if (myRoom) roomChip.textContent = `${tankText('match')} · 📋`;
   if (localGame) netEl.textContent = tankText('offline');
   if (overlayMode) showOverlay(overlayMode, true);
+  refreshPause();
 });
 
 // =====================================================================
@@ -507,10 +557,15 @@ function drawTank(t, tick, frozen, px, py) {
   ctx.fillStyle = dark; ctx.fillRect(x + s / 2 - 5, y + s / 2 - 5, 10, 10);
   ctx.fillStyle = col; ctx.fillRect(x + s / 2 - 3, y + s / 2 - 3, 6, 6);
   // barrel
-  ctx.fillStyle = shade(col, -40);
   const cx = x + s / 2, cy = y + s / 2;
   const [dx, dy] = DIR[t.d];
-  ctx.fillRect(cx + dx * 4 - 2, cy + dy * 4 - 2, 4 + Math.abs(dx) * 8, 4 + Math.abs(dy) * 8);
+  const length = s / 2 - 3;
+  const bx = dx > 0 ? cx + 3 : dx < 0 ? cx - s / 2 : cx - 3;
+  const by = dy > 0 ? cy + 3 : dy < 0 ? cy - s / 2 : cy - 3;
+  ctx.fillStyle = '#141925';
+  ctx.fillRect(bx, by, dx ? length : 6, dy ? length : 6);
+  ctx.fillStyle = '#f1f1cf';
+  ctx.fillRect(bx + 1, by + 1, dx ? length - 2 : 4, dy ? length - 2 : 4);
 
   if (t.sh) { // shield
     const p = (Math.floor(tick / 3) % 2) ? '#8fdcff' : '#ffffff';
@@ -643,6 +698,8 @@ function updateHud(m) {
 }
 
 function updateOverlay() {
+  const showPause = joined && statusText === 'playing' && !!(localGame || onlineHost);
+  if (pauseBtn.hidden === showPause) refreshPause();
   if (!joined) { showOverlay('menu'); return; }
   if (statusText === 'waiting') { showOverlay('waiting'); return; }
   if (statusText === 'gameover') { showOverlay('gameover'); return; }
@@ -796,7 +853,13 @@ stick.addEventListener('lostpointercapture', () => {
 // Keyboard
 const KEY = { ArrowUp: 0, KeyW: 0, ArrowRight: 1, KeyD: 1, ArrowDown: 2, KeyS: 2, ArrowLeft: 3, KeyA: 3 };
 window.addEventListener('keydown', e => {
-  if (!joined || e.target.closest?.('input,select,button,a')) return;
+  if (!joined || e.target.closest?.('input,select')) return;
+  if (e.code === 'KeyP' && !e.repeat && !pauseBtn.hidden) {
+    e.preventDefault();
+    togglePause();
+    return;
+  }
+  if (e.target.closest?.('button,a') && (e.code === 'Space' || e.code === 'Enter')) return;
   if (e.code in KEY) { e.preventDefault(); if (!e.repeat) press(KEY[e.code]); }
   else if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); if (!fireHeld) { ensureAudio(); fireHeld = true; sendCtrl(); } }
 });

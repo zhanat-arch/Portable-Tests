@@ -7,6 +7,10 @@ const tankCopy = {
 };
 const tankKeys = 'intro name create or code join keyboardPad pads local hint match players send copy begin over again stage enemies fire turbo fullscreen games connecting disconnected notfound full busy invalid copied score offline start menu joystick sound autoStart'.split(' ');
 const soloLabel = {ru:'Одиночная игра',kk:'Жеке ойын',en:'Single player',fr:'Jouer en solo'};
+const pauseLabels = {
+  ru: ['Пауза', 'Продолжить'], kk: ['Үзіліс', 'Жалғастыру'],
+  en: ['Pause', 'Resume'], fr: ['Pause', 'Reprendre']
+};
 const tankText = key => tankCopy[tankLanguage][tankKeys.indexOf(key)] || '';
 const tankSelect = document.getElementById('tankLang');
 let tankLanguage = ['ru','kk','en','fr'].includes(new URLSearchParams(location.search).get('lang'))

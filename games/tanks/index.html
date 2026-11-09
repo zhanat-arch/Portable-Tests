@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
 <meta name="theme-color" content="#1c1f2b" />
 <title>TANK BATTLE 90</title>
-<link rel="stylesheet" href="style.css?v=1" />
+<link rel="stylesheet" href="style.css?v=3" />
 </head>
 <body>
   <div class="console" id="console">
@@ -14,6 +14,8 @@
       <div class="brand">TANK&nbsp;BATTLE&nbsp;<span class="brand-90">90</span></div>
       <select id="tankLang" aria-label="Language"><option value="ru">RU</option><option value="kk">KK</option><option value="en">EN</option><option value="fr">FR</option></select>
       <button class="room-chip" id="fullscreen" type="button" title="Fullscreen">⛶</button>
+      <button class="room-chip" id="pauseBtn" type="button" aria-keyshortcuts="P" hidden>⏸</button>
+      <button class="room-chip" id="menuBtn" type="button">Menu</button>
       <button class="room-chip hidden" id="roomChip" title="Copy link mời"></button>
       <div class="net" id="net">• offline</div>
     </div>
@@ -31,6 +33,7 @@
     <div class="screen-bezel">
       <div class="screen" id="screen">
         <canvas id="game" width="416" height="416"></canvas>
+        <div id="pauseBanner" class="tank-pause" hidden></div>
         <div class="overlay" id="overlay">
           <!-- MENU: create / join a room -->
           <div class="ov-card" id="ovMenu">
@@ -84,7 +87,6 @@
       <div class="actions">
         <div class="sys-btns">
           <button class="sys" id="startBtn">START</button>
-          <button class="sys" id="menuBtn">Menu</button>
         </div>
         <button class="fire" id="fireBtn">Fire</button>
         <button class="fire turbo" id="turboBtn">Turbo</button>
@@ -96,8 +98,8 @@
 
   <footer class="tank-credit"><a id="tankHome" href="../">Games</a> · <a href="https://github.com/phanngoc/tank-battle-90">phanngoc</a> · <a href="LICENSE">MIT</a></footer>
   <script src="engine.js?v=1"></script>
-  <script src="copy.js?v=2"></script>
-  <script src="client.js?v=2"></script>
+  <script src="copy.js?v=3"></script>
+  <script src="client.js?v=3"></script>
   <script src="../../site-ui.js" data-pt-analytics-only></script>
 </body>
 </html>

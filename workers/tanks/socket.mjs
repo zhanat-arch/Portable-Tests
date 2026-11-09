@@ -44,7 +44,7 @@ export function attachTankSocket(server, engine, origin = 'https://porthub.fyi')
         if (msg.t === 'create') {
           if (matches.size >= 16) return send(peer, { t: 'nojoin', reason: 'busy' });
           const code = randomBytes(8).toString('hex').toUpperCase();
-          match = { code, game: new Game(), peers: new Set(), host: peer, stage: 0 };
+          match = { code, game: new Game(), peers: new Set(), host: peer, stage: 0, paused: false };
           matches.set(code, match);
         } else if (msg.t === 'join') {
           const code = typeof msg.room === 'string' && /^[\dA-F]{16}$/i.test(msg.room) ? msg.room.toUpperCase() : '';
@@ -59,7 +59,9 @@ export function attachTankSocket(server, engine, origin = 'https://porthub.fyi')
         slot = match.game.addPlayer(name).slot;
         match.peers.add(peer);
         clearTimeout(idle);
-        return send(peer, { ...map(match.game), t: 'init', room: match.code, you: slot });
+        send(peer, { ...map(match.game), t: 'init', room: match.code, you: slot, host: match.host === peer, paused: match.paused });
+        if (match.paused) send(peer, match.game.snapshot());
+        return;
       }
       const { game } = match;
       if (msg.t === 'ctrl' && Number.isInteger(msg.dir) && msg.dir >= 0 && msg.dir < 4) {
@@ -67,6 +69,10 @@ export function attachTankSocket(server, engine, origin = 'https://porthub.fyi')
       } else if (peer === match.host) {
         if (msg.t === 'begin' && game.status === 'waiting') game.startGame();
         if (msg.t === 'restart' && game.status === 'gameover') game.restart();
+        if (msg.t === 'pause' && game.status === 'playing' && typeof msg.paused === 'boolean' && match.paused !== msg.paused) {
+          match.paused = msg.paused;
+          broadcast(match, { t: 'pause', paused: match.paused });
+        }
       }
     });
     peer.on('close', () => {
@@ -75,11 +81,15 @@ export function attachTankSocket(server, engine, origin = 'https://porthub.fyi')
       match.game.removePlayer(slot);
       match.peers.delete(peer);
       if (!match.peers.size) matches.delete(match.code);
-      else if (match.host === peer) match.host = match.peers.values().next().value;
+      else if (match.host === peer) {
+        match.host = match.peers.values().next().value;
+        send(match.host, { t: 'role', host: true });
+      }
     });
   });
   const tick = setInterval(() => {
     for (const match of matches.values()) {
+      if (match.paused) continue;
       const { game } = match;
       game.update();
       const stage = game.stage + ':' + game.status;
