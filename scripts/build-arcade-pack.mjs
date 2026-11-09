@@ -73,7 +73,9 @@ const i18n = (await read('i18n.js'))
   });
   var lang = fromQuery()`);
 
+const blockDropIcon = '<svg width="1em" height="1em" viewBox="0 0 48 48" aria-hidden="true" focusable="false" style="display:block"><g stroke="#d4bcff" stroke-width="1.25"><rect x="16.5" y="8.5" width="15" height="15" rx="3" fill="#b089ff"/><rect x="0.5" y="24.5" width="15" height="15" rx="3" fill="#9169ed"/><rect x="16.5" y="24.5" width="15" height="15" rx="3" fill="#7953d7"/><rect x="32.5" y="24.5" width="15" height="15" rx="3" fill="#9169ed"/></g></svg>';
 const catalog = rawCatalog
+  .replace(/(\{ id: 'block-drop',\s+icon: )'[^']*'/, (_, prefix) => prefix + JSON.stringify(blockDropIcon))
   .replace('</head>', `<link rel="canonical" href="https://porthub.fyi/games/arcade/"><link rel="stylesheet" href="catalog.css?v=${release}"></head>`)
   .replace('src="i18n.js"', `src="i18n.js?v=${release}"`)
   .replace('<div class="hero">', '<header class="topbar catalog-topbar"><a class="brand" href="../../">PortHub</a><select id="catalog-lang" aria-label="Language"></select></header><main><div class="hero">')
