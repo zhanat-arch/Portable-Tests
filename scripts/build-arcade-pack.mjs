@@ -27,7 +27,7 @@ if (gameIds.length !== 47 || new Set(gameIds).size !== 47 || gameIds.includes('2
 if (Object.keys(arcadeRules).length !== gameIds.length || gameIds.some(id => !Object.hasOwn(arcadeRules, id))) {
   throw Error('Arcade score rules do not match the catalog');
 }
-const release = '11719';
+const release = '11720';
 const directionalControls = {
   snake: 'keys', 'slide-puzzle': 'keys',
   'maze-muncher': '#pad', sokoban: '#dpad', 'cross-road': '#dpad'
@@ -43,6 +43,12 @@ const snakeModeCopy = {
   fr: ['Mode', 'Classique · murs', 'Bords traversables', 'Turbo · bords traversables', 'Plateau rempli !', 'Vitesse de départ', 'Lente', 'Normale', 'Rapide', 'Balaye pour tourner']
 };
 const snakeLabels = lang => Object.fromEntries(snakeModeKeys.map((key, i) => ['snake.' + key, snakeModeCopy[lang][i]]));
+const fleetSpacingCopy = {
+  ru: 'Корабли не могут касаться друг друга даже по диагонали.',
+  kk: 'Кемелер бір-біріне қиғашынан да жанаспауы керек.',
+  en: 'Ships must have an empty gap, even diagonally.',
+  fr: 'Les navires doivent être séparés, même en diagonale.'
+};
 Object.assign(localCopy.ru, snakeLabels('ru'));
 Object.assign(localCopy.kk, snakeLabels('kk'));
 const i18n = (await read('i18n.js'))
@@ -55,6 +61,9 @@ const i18n = (await read('i18n.js'))
   .replace("existing.setAttribute('aria-label', lbl);", "existing.setAttribute('aria-label', lbl); existing.href = '../?lang=' + encodeURIComponent(lang);")
   .replace('var lang = fromQuery()', `Object.assign(S.en,${JSON.stringify({...catalogCopy.en,...snakeLabels('en')})},{"hub.about":"Free browser games under the MIT license. Game records are saved on this device."});
   Object.assign(S.fr,${JSON.stringify({...catalogCopy.fr,...snakeLabels('fr')})},{"hub.about":"Jeux gratuits sous licence MIT. Les records sont enregistrés sur cet appareil."});
+  Object.entries(${JSON.stringify(fleetSpacingCopy)}).forEach(function(entry) {
+    S[entry[0]]['battleship.tip'] += '<br>' + entry[1];
+  });
   var sharedGameLabels = ${JSON.stringify(sharedGameLabels)};
   Object.entries(S.en).forEach(function(entry){
     var key = entry[0], labels = sharedGameLabels[entry[1]];
@@ -121,7 +130,44 @@ for (const id of gameIds) {
     // In single-board mode the CSS follows these classes, including after tab clicks.
     html = html.replace("    var single = boardsEl.classList.contains('mode-single');", `    boardsEl.classList.toggle('view-mine', view === 'mine');
     boardsEl.classList.toggle('view-enemy', view === 'enemy');
-    var single = boardsEl.classList.contains('mode-single');`);
+    var single = boardsEl.classList.contains('mode-single');`)
+      .replace("if (rr >= N || cc >= N)", "if (rr < 0 || rr >= N || cc < 0 || cc >= N)")
+      .replace(`function canPlace(f, cells) {
+    for (var i = 0; i < cells.length; i++) if (f.grid[cells[i]]) return false;
+    return true;
+  }`, `function canPlace(f, cells, ship) {
+    // Check the full ring around each segment without wrapping across rows.
+    return cells.every(function (cell) {
+      var row = Math.floor(cell / N), col = cell % N;
+      for (var r = Math.max(0, row - 1); r <= Math.min(N - 1, row + 1); r++) {
+        for (var c = Math.max(0, col - 1); c <= Math.min(N - 1, col + 1); c++) {
+          var owner = f.grid[r * N + c];
+          if (owner && owner !== ship.k) return false;
+        }
+      }
+      return true;
+    });
+  }`)
+      .replaceAll('canPlace(f, cells)', 'canPlace(f, cells, ship)')
+      .replace('canPlace(fleets.mine, cells)', 'canPlace(fleets.mine, cells, ship)')
+      .replace('    c = Math.min(c, N - ship.size);\n', '')
+      .replace('c = Math.min(i % N, N - ship.size)', 'c = i % N')
+      .replace("          setShip(fleets.mine, ship, r, Math.min(c, N - ship.size), dir);\n          selShip = Math.max(0, nextUnplaced());", `          if (setShip(fleets.mine, ship, r, c, dir)) {
+            selShip = Math.max(0, nextUnplaced());
+            setHint('');
+          } else {
+            setHint(t('battleship.badSpot'));
+          }`)
+      .replace('    }\n  }\n\n  // ===== 开火 =====', `      if (!done) {
+        // Guaranteed layout for the five ships on this 10×10 board.
+        clearFleet(f);
+        f.ships.forEach(function (ship, index) { setShip(f, ship, index * 2, 0, 'h'); });
+        return;
+      }
+    }
+  }
+
+  // ===== 开火 =====`);
   }
   if (id === 'tic-tac-toe') {
     html = html.replace("    for (var i = 0; i < 9; i++) {\n      var el = cells[i];", `    var result = over ? winnerOf(board) : null;

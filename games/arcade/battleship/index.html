@@ -188,8 +188,8 @@
     .actions button, .over-btns button { min-height: 44px; font-size: 12px; }
   }
 </style>
-<script src="../i18n.js?v=11719"></script>
-<link rel="stylesheet" href="../game-tools.css?v=11719"></head>
+<script src="../i18n.js?v=11720"></script>
+<link rel="stylesheet" href="../game-tools.css?v=11720"></head>
 <body data-wg-home data-ph-arcade data-ph-game="battleship"><header class="wg-tools ph-arcade-toolbar"></header>
 
 <div class="panel" id="panel">
@@ -350,18 +350,27 @@
     var out = [];
     for (var i = 0; i < size; i++) {
       var rr = r + (d === 'v' ? i : 0), cc = c + (d === 'h' ? i : 0);
-      if (rr >= N || cc >= N) return null;
+      if (rr < 0 || rr >= N || cc < 0 || cc >= N) return null;
       out.push(rr * N + cc);
     }
     return out;
   }
-  function canPlace(f, cells) {
-    for (var i = 0; i < cells.length; i++) if (f.grid[cells[i]]) return false;
-    return true;
+  function canPlace(f, cells, ship) {
+    // Check the full ring around each segment without wrapping across rows.
+    return cells.every(function (cell) {
+      var row = Math.floor(cell / N), col = cell % N;
+      for (var r = Math.max(0, row - 1); r <= Math.min(N - 1, row + 1); r++) {
+        for (var c = Math.max(0, col - 1); c <= Math.min(N - 1, col + 1); c++) {
+          var owner = f.grid[r * N + c];
+          if (owner && owner !== ship.k) return false;
+        }
+      }
+      return true;
+    });
   }
   function setShip(f, ship, r, c, d) {
     var cells = cellsFor(ship.size, r, c, d);
-    if (!cells || !canPlace(f, cells)) return false;
+    if (!cells || !canPlace(f, cells, ship)) return false;
     for (var i = 0; i < ship.cells.length; i++) f.grid[ship.cells[i]] = '';
     ship.cells = cells; ship.hits = 0; ship.sunk = false;
     for (i = 0; i < cells.length; i++) f.grid[cells[i]] = ship.k;
@@ -398,6 +407,12 @@
         for (var c = 0; c < N && !done; c++) {
           done = setShip(f, ship, r, c, 'h') || setShip(f, ship, r, c, 'v');
         }
+      }
+      if (!done) {
+        // Guaranteed layout for the five ships on this 10×10 board.
+        clearFleet(f);
+        f.ships.forEach(function (ship, index) { setShip(f, ship, index * 2, 0, 'h'); });
+        return;
       }
     }
   }
@@ -516,9 +531,8 @@
     var ship = fleets.mine.ships[selShip];
     if (!ship || ship.cells.length === ship.size) return;
     var r = (cursor / N) | 0, c = cursor % N;
-    c = Math.min(c, N - ship.size);
     var cells = cellsFor(ship.size, r, c, dir);
-    var ok = cells && canPlace(fleets.mine, cells);
+    var ok = cells && canPlace(fleets.mine, cells, ship);
     if (!cells) return;
     for (i = 0; i < cells.length; i++) els[cells[i]].className += ok ? ' ghost' : ' ghost-bad';
   }
@@ -709,7 +723,7 @@
       ? selShip : nextUnplaced();
     if (idx < 0) return;
     var ship = fleets.mine.ships[idx];
-    var r = (i / N) | 0, c = Math.min(i % N, N - ship.size);
+    var r = (i / N) | 0, c = i % N;
     if (setShip(fleets.mine, ship, r, c, dir)) {
       selShip = Math.max(0, nextUnplaced());
       sfx.place();
@@ -771,8 +785,12 @@
           ? selShip : nextUnplaced();
         if (idx >= 0) {
           var ship = fleets.mine.ships[idx];
-          setShip(fleets.mine, ship, r, Math.min(c, N - ship.size), dir);
-          selShip = Math.max(0, nextUnplaced());
+          if (setShip(fleets.mine, ship, r, c, dir)) {
+            selShip = Math.max(0, nextUnplaced());
+            setHint('');
+          } else {
+            setHint(t('battleship.badSpot'));
+          }
         }
         renderAll();
       } else playerFire(cursor);
@@ -887,5 +905,5 @@
   setTimeout(fit, 120);
 })();
 </script>
-<script src="../../../site-ui.js?v=11719" data-pt-analytics-only></script></body>
+<script src="../../../site-ui.js?v=11720" data-pt-analytics-only></script></body>
 </html>
