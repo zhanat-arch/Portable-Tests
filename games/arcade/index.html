@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" data-title-key="hub.docTitle">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Games — Free Online Games, No Install, No Signup</title>
+<meta name="description" content="A collection of free online games you can play instantly in your browser. Arcade, puzzle and classic games — no install, no signup, no downloads. Works on mobile and desktop.">
+<meta name="keywords" content="free online games,web games,browser games,no install games,html5 games,arcade games,puzzle games,2048,snake,minesweeper,breakout,tetris,pong,space shooter,doodle jump,dino run,whack a mole,tic tac toe,connect four,memory match,stack tower,piano tiles,slide puzzle,15 puzzle,cross road,fruit slice,reaction game,bubble shooter,sudoku,merge game,suika game">
+<meta name="author" content="mashukui">
+<meta property="og:title" content="Web Games — Free Online Games, No Install, No Signup">
+<meta property="og:description" content="Instant-play HTML5 arcade, puzzle and classic games. Open a card, start playing. Works on mobile & desktop.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(160deg, #1a2a3a 0%, #2d4a5e 100%);
+    min-height: 100vh; color: #fff;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 40px 16px 32px; user-select: none;
+  }
+  .hero { text-align: center; max-width: 660px; }
+  .hero h1 {
+    font-size: clamp(32px, 6vw, 46px); font-weight: 800; letter-spacing: 1px;
+    text-shadow: 0 3px 0 rgba(0,0,0,.3);
+  }
+  .lang-slot { text-align: center; margin-bottom: 16px; }
+  .hero .sub {
+    margin-top: 10px; font-size: 16px; color: rgba(255,255,255,.75); line-height: 1.6;
+  }
+  .hero .sub b { color: #ffd76e; }
+  .games-count {
+    display: inline-block; margin-top: 16px; font-size: 12px; font-weight: 700;
+    background: rgba(255,215,110,.15); color: #ffd76e;
+    padding: 5px 16px; border-radius: 999px; letter-spacing: 1px;
+  }
+  h2 {
+    width: 100%; max-width: 900px; margin: 44px 0 14px;
+    font-size: 18px; font-weight: 700; letter-spacing: 2px; color: rgba(255,255,255,.65);
+    text-transform: uppercase;
+  }
+  h2::after { content: ""; display: block; height: 2px; margin-top: 8px;
+    background: linear-gradient(90deg, #ffd76e 0%, rgba(255,215,110,0) 60%); }
+  .filters {
+    width: 100%; max-width: 900px; display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;
+  }
+  .chip {
+    border: none; border-radius: 999px; padding: 8px 18px; cursor: pointer;
+    background: rgba(255,255,255,.1); color: rgba(255,255,255,.75);
+    font-family: inherit; font-size: 13px; font-weight: 700; letter-spacing: .5px;
+    transition: background .15s ease, color .15s ease, transform .1s ease;
+  }
+  .chip:hover { background: rgba(255,255,255,.18); transform: translateY(-1px); }
+  .chip.active { background: #ff9f1c; color: #fff; }
+  .chip .num { opacity: .6; font-weight: 600; margin-left: 4px; }
+  .grid {
+    width: 100%; max-width: 900px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 16px; padding: 26px 20px 22px;
+    display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;
+    text-decoration: none; color: #fff; position: relative;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .card:hover, .card:focus-visible {
+    transform: translateY(-4px);
+    background: rgba(255,255,255,.1);
+    border-color: rgba(255,215,110,.5);
+    outline: none;
+  }
+  .hidden { display: none !important; }
+  .card .badge {
+    position: absolute; top: 12px; right: 12px;
+    font-size: 10px; font-weight: 800; letter-spacing: 1px;
+    background: rgba(255,255,255,.12); color: rgba(255,255,255,.7);
+    padding: 3px 9px; border-radius: 999px;
+  }
+  .card .icon { font-size: 52px; line-height: 1; }
+  .card .name { font-size: 20px; font-weight: 800; letter-spacing: .5px; }
+  .card .desc { font-size: 13px; color: rgba(255,255,255,.65); line-height: 1.5; min-height: 40px; }
+  .card .play { margin-top: 6px; font-size: 13px; font-weight: 800; letter-spacing: 1px; color: #ffd76e; }
+  .card .play::after { content: " →"; }
+  .empty {
+    width: 100%; max-width: 900px; text-align: center; padding: 40px;
+    color: rgba(255,255,255,.5); font-size: 14px;
+  }
+  .about, .contribute {
+    width: 100%; max-width: 900px; margin-top: 44px;
+    background: rgba(255,255,255,.05); border-radius: 16px; padding: 24px;
+    font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.8;
+  }
+  .contribute { margin-top: 16px; background: none; border: 1px dashed rgba(255,215,110,.4); }
+  .about b, .contribute b { color: #fff; }
+  .contribute a { color: #ffd76e; }
+  .footer {
+    margin-top: 44px; color: rgba(255,255,255,.5); font-size: 12px;
+    text-align: center; line-height: 1.9;
+  }
+  .footer a { color: rgba(255,255,255,.8); text-decoration: none; }
+  .footer a:hover { color: #ffd76e; }
+</style>
+<script src="i18n.js?v=11714"></script>
+<link rel="canonical" href="https://porthub.fyi/games/arcade/"><link rel="stylesheet" href="catalog.css?v=11714"></head>
+<body>
+
+<header class="topbar catalog-topbar"><a class="brand" href="../../">PortHub</a><select id="catalog-lang" aria-label="Language"></select></header><main><div class="hero">
+
+  <h1 data-i18n="hub.title">Browser games</h1>
+  <div class="sub" data-i18n-html="hub.tagline">
+    Free online games you can play <b>instantly</b> — no install, no signup, no downloads.<br>
+    Pure HTML5. Works on your phone, tablet, and desktop.
+  </div>
+  <div class="games-count" id="games-count"></div>
+</div>
+
+<h2 data-i18n="hub.heading">Games</h2>
+<div class="filters" id="filters"></div>
+<div class="grid" id="games-grid"></div>
+<div class="empty hidden" id="empty" data-i18n="hub.empty">No games in this category yet.</div>
+
+<div class="about" data-i18n-html="hub.about">
+  <b>About this collection.</b>
+  Every game here is a single self-contained HTML file — no frameworks, no build tools, no tracking,
+  no external assets. Open a card and you're playing in under a second. Best scores are saved locally
+  in your browser. Free and open source under the MIT license.
+</div>
+
+
+
+<div class="footer">
+  <span data-i18n="common.madeBy">Made by</span> <a href="https://github.com/mashukui" target="_blank" rel="noopener">@mashukui</a> ·
+  <span data-i18n="hub.openSource">Free &amp; open source on</span> <a href="https://github.com/mashukui/web-games" target="_blank" rel="noopener">GitHub</a> · <a href="LICENSE" data-pt-keep-path>MIT</a>
+</div>
+
+</main><script type="application/ld+json" id="ld-json"></script>
+<script>
+(function () {
+  'use strict';
+
+  // ===== Game registry (single source of truth — add one entry per game) =====
+  var GAMES = [
+    { id: 'ant-flap',      icon: '🐜', nameKey: 'game.ant-flap',      descKey: 'hub.desc.ant-flap',      category: 'Arcade' },
+    { id: 'ant-jump',      icon: '🦗', nameKey: 'game.ant-jump',      descKey: 'hub.desc.ant-jump',      category: 'Arcade' },
+    { id: 'block-drop',    icon: '🧊', nameKey: 'game.block-drop',    descKey: 'hub.desc.block-drop',    category: 'Arcade' },
+    { id: 'breakout',      icon: '🧱', nameKey: 'game.breakout',      descKey: 'hub.desc.breakout',      category: 'Arcade' },
+    { id: 'paddle-duel',   icon: '🏓', nameKey: 'game.paddle-duel',   descKey: 'hub.desc.paddle-duel',   category: 'Arcade' },
+    { id: 'stack-tower',   icon: '🏗️', nameKey: 'game.stack-tower',   descKey: 'hub.desc.stack-tower',   category: 'Arcade' },
+    { id: 'whack-a-mole',  icon: '🔨', nameKey: 'game.whack-a-mole',  descKey: 'hub.desc.whack-a-mole',  category: 'Arcade' },
+    { id: 'snake',         icon: '🐍', nameKey: 'game.snake',         descKey: 'hub.desc.snake',         category: 'Classic' },
+    { id: 'tic-tac-toe',   icon: '🎯', nameKey: 'game.tic-tac-toe',   descKey: 'hub.desc.tic-tac-toe',   category: 'Classic' },
+    { id: 'connect-four',  icon: '🔴', nameKey: 'game.connect-four',  descKey: 'hub.desc.connect-four',  category: 'Classic' },
+    { id: 'minesweeper',   icon: '💣', nameKey: 'game.minesweeper',   descKey: 'hub.desc.minesweeper',   category: 'Puzzle' },
+    { id: 'memory-match',  icon: '🃏', nameKey: 'game.memory-match',  descKey: 'hub.desc.memory-match',  category: 'Puzzle' },
+    { id: 'star-defender', icon: '🚀', nameKey: 'game.star-defender', descKey: 'hub.desc.star-defender', category: 'Action' },
+    { id: 'dino-run',      icon: '🦖', nameKey: 'game.dino-run',      descKey: 'hub.desc.dino-run',      category: 'Action' },
+    { id: 'piano-tap',     icon: '🎹', nameKey: 'game.piano-tap',     descKey: 'hub.desc.piano-tap',     category: 'Arcade' },
+    { id: 'cross-road',    icon: '🐸', nameKey: 'game.cross-road',    descKey: 'hub.desc.cross-road',    category: 'Arcade' },
+    { id: 'slide-puzzle',  icon: '🧩', nameKey: 'game.slide-puzzle',  descKey: 'hub.desc.slide-puzzle',  category: 'Puzzle' },
+    { id: 'fruit-slice',   icon: '🔪', nameKey: 'game.fruit-slice',   descKey: 'hub.desc.fruit-slice',   category: 'Action' },
+    { id: 'bubble-shooter',icon: '🫧', nameKey: 'game.bubble-shooter',descKey: 'hub.desc.bubble-shooter',category: 'Arcade' },
+    { id: 'sudoku',        icon: '🔢', nameKey: 'game.sudoku',        descKey: 'hub.desc.sudoku',        category: 'Puzzle' },
+    { id: 'merge-drop',    icon: '🍉', nameKey: 'game.merge-drop',    descKey: 'hub.desc.merge-drop',    category: 'Puzzle' },
+    { id: 'water-sort',    icon: '🧪', nameKey: 'game.water-sort',    descKey: 'hub.desc.water-sort',    category: 'Puzzle' },
+    { id: 'slingshot',     icon: '🏹', nameKey: 'game.slingshot',     descKey: 'hub.desc.slingshot',     category: 'Action' },
+    { id: 'helix-drop',    icon: '🌀', nameKey: 'game.helix-drop',    descKey: 'hub.desc.helix-drop',    category: 'Action' },
+    { id: 'gem-match',     icon: '💎', nameKey: 'game.gem-match',     descKey: 'hub.desc.gem-match',     category: 'Puzzle' },
+    { id: 'maze-muncher',  icon: '🟡', nameKey: 'game.maze-muncher',  descKey: 'hub.desc.maze-muncher',  category: 'Arcade' },
+    { id: 'air-hockey',    icon: '🏒', nameKey: 'game.air-hockey',    descKey: 'hub.desc.air-hockey',    category: 'Arcade' },
+    { id: 'reversi',       icon: '⚪', nameKey: 'game.reversi',       descKey: 'hub.desc.reversi',       category: 'Classic' },
+    { id: 'battleship',    icon: '🚢', nameKey: 'game.battleship',    descKey: 'hub.desc.battleship',    category: 'Classic' },
+    { id: 'sokoban',       icon: '📦', nameKey: 'game.sokoban',       descKey: 'hub.desc.sokoban',       category: 'Puzzle' },
+    { id: 'lights-out',    icon: '💡', nameKey: 'game.lights-out',    descKey: 'hub.desc.lights-out',    category: 'Puzzle' },
+    { id: 'hanoi',         icon: '🗼', nameKey: 'game.hanoi',         descKey: 'hub.desc.hanoi',         category: 'Puzzle' },
+    { id: 'pipe-connect',  icon: '🔧', nameKey: 'game.pipe-connect',  descKey: 'hub.desc.pipe-connect',  category: 'Puzzle' },
+    { id: 'rush-hour',     icon: '🚗', nameKey: 'game.rush-hour',     descKey: 'hub.desc.rush-hour',     category: 'Puzzle' },
+    { id: 'mahjong-link',  icon: '🀄', nameKey: 'game.mahjong-link',  descKey: 'hub.desc.mahjong-link',  category: 'Puzzle' },
+    { id: 'nonogram',      icon: '🎨', nameKey: 'game.nonogram',      descKey: 'hub.desc.nonogram',      category: 'Puzzle' },
+    { id: 'checkers',      icon: '🔵', nameKey: 'game.checkers',      descKey: 'hub.desc.checkers',      category: 'Classic' },
+    { id: 'snakes-ladders',icon: '🎲', nameKey: 'game.snakes-ladders',descKey: 'hub.desc.snakes-ladders',category: 'Classic' },
+    { id: 'hoop-shot',     icon: '🏀', nameKey: 'game.hoop-shot',     descKey: 'hub.desc.hoop-shot',     category: 'Action' },
+    { id: 'mini-golf',     icon: '⛳', nameKey: 'game.mini-golf',     descKey: 'hub.desc.mini-golf',     category: 'Action' },
+    { id: 'helicopter',    icon: '🚁', nameKey: 'game.helicopter',    descKey: 'hub.desc.helicopter',    category: 'Arcade' },
+    { id: 'balloon-pop',   icon: '🎈', nameKey: 'game.balloon-pop',   descKey: 'hub.desc.balloon-pop',   category: 'Arcade' },
+    { id: 'simon-says',    icon: '🎵', nameKey: 'game.simon-says',    descKey: 'hub.desc.simon-says',    category: 'Arcade' },
+    { id: 'gomoku',        icon: '⚫', nameKey: 'game.gomoku',        descKey: 'hub.desc.gomoku',        category: 'Classic' },
+    { id: 'mancala',       icon: '🫘', nameKey: 'game.mancala',       descKey: 'hub.desc.mancala',       category: 'Classic' },
+    { id: 'bowling',       icon: '🎳', nameKey: 'game.bowling',       descKey: 'hub.desc.bowling',       category: 'Action' },
+    { id: 'penalty-kick',  icon: '⚽', nameKey: 'game.penalty-kick',  descKey: 'hub.desc.penalty-kick',  category: 'Action' }
+  ];
+
+  var CATEGORIES = ['All', 'Arcade', 'Classic', 'Puzzle', 'Action'];
+  var CAT_KEYS = { 'All': 'hub.catAll', 'Arcade': 'hub.catArcade', 'Classic': 'hub.catClassic', 'Puzzle': 'hub.catPuzzle', 'Action': 'hub.catAction' };
+  function catLabel(cat) { return t(CAT_KEYS[cat] || cat); }
+
+  var grid = document.getElementById('games-grid');
+  var filtersEl = document.getElementById('filters');
+  var emptyEl = document.getElementById('empty');
+  var activeCat = 'All';
+
+  // ---- build cards (re-run on every language change) ----
+  function renderCards() {
+    grid.innerHTML = '';
+    GAMES.forEach(function (g) {
+      var a = document.createElement('a');
+      a.className = 'card';
+      a.href = g.id + '/?lang=' + encodeURIComponent(WG.current()); a.dataset.ptKeepPath = '';
+      a.dataset.cat = g.category;
+      a.innerHTML =
+        '<span class="badge">' + catLabel(g.category).toUpperCase() + '</span>' +
+        '<div class="icon" aria-hidden="true">' + g.icon + '</div>' +
+        '<div class="name">' + t(g.nameKey) + '</div>' +
+        '<div class="desc">' + t(g.descKey) + '</div>' +
+        '<div class="play">' + t('hub.playCard') + '</div>';
+      grid.appendChild(a);
+    });
+  }
+
+  // ---- build filter chips (re-run on every language change) ----
+  function renderChips() {
+    filtersEl.innerHTML = '';
+    CATEGORIES.forEach(function (cat) {
+      var count = cat === 'All' ? GAMES.length : GAMES.filter(function (g) { return g.category === cat; }).length;
+      if (count === 0) return;
+      var b = document.createElement('button');
+      b.className = 'chip';
+      b.dataset.cat = cat;
+      b.innerHTML = catLabel(cat) + '<span class="num">' + count + '</span>';
+      b.addEventListener('click', function () { applyFilter(cat, true); });
+      filtersEl.appendChild(b);
+    });
+  }
+
+  // ---- filtering with deep links (?cat=puzzle or #puzzle) ----
+  function normalize(s) {
+    if (!s) return 'All';
+    var m = { all: 'All', arcade: 'Arcade', classic: 'Classic', puzzle: 'Puzzle', action: 'Action' };
+    return m[String(s).toLowerCase()] || 'All';
+  }
+
+  function applyFilter(cat, updateUrl) {
+    activeCat = cat;
+    var cards = grid.querySelectorAll('.card');
+    var shown = 0;
+    for (var i = 0; i < cards.length; i++) {
+      var match = (cat === 'All' || cards[i].dataset.cat === cat);
+      cards[i].classList.toggle('hidden', !match);
+      if (match) shown++;
+    }
+    emptyEl.classList.toggle('hidden', shown > 0);
+    var chips = filtersEl.querySelectorAll('.chip');
+    for (var c = 0; c < chips.length; c++) {
+      chips[c].classList.toggle('active', chips[c].dataset.cat === cat);
+    }
+    document.title = (cat === 'All' ? t('hub.docTitle') : t('hub.docTitleCat', { cat: catLabel(cat) }));
+    if (updateUrl && window.history && history.replaceState) {
+      var q = new URL(location.href); q.hash = ''; if (cat === 'All') q.searchParams.delete('cat'); else q.searchParams.set('cat',cat.toLowerCase());
+      history.replaceState(null, '', q);
+    }
+  }
+
+  function initialCat() {
+    var fromQuery = /[?&]cat=([^&]+)/.exec(location.search);
+    if (fromQuery) return normalize(decodeURIComponent(fromQuery[1]));
+    if (location.hash) return normalize(location.hash.slice(1));
+    return 'All';
+  }
+
+  // ===== JSON-LD ItemList for SEO =====
+  function buildLD() {
+    var ld = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      'name': t('hub.ldName'),
+      'itemListElement': GAMES.map(function (g, i) {
+        return {
+          '@type': 'ListItem',
+          'position': i + 1,
+          'name': t(g.nameKey),
+          'url': (location.origin + location.pathname.replace(/\/[^/]*$/, '/') + g.id + '/')
+        };
+      })
+    };
+    document.getElementById('ld-json').textContent = JSON.stringify(ld);
+  }
+
+  function renderAll() {
+    renderCards();
+    renderChips();
+    document.getElementById('games-count').textContent = t('hub.count', { n: GAMES.length });
+    buildLD();
+    applyFilter(activeCat, false);
+  }
+
+  renderAll();
+  applyFilter(initialCat(), false);
+  window.addEventListener('hashchange', function () { applyFilter(normalize(location.hash.slice(1)), false); });
+  var select = document.getElementById('catalog-lang');
+  WG.langs.forEach(function(option){ select.add(new Option(option.name,option.code)); });
+  function syncPicker() {
+    var code = WG.current();
+    select.value = code;
+    select.setAttribute('aria-label',t('common.language'));
+    if (['ru','kk','en','fr'].includes(code)) {
+      try { localStorage.setItem('pt.lang', code); } catch {}
+    }
+  }
+  select.addEventListener('change',function(){ WG.setLang(select.value); });
+  WG.onChange(function(){ syncPicker(); renderAll(); });
+  syncPicker();
+})();
+</script>
+<script src="../../site-ui.js?v=11714"></script></body>
+</html>

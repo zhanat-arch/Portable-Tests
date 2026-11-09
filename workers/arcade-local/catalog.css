@@ -1,0 +1,41 @@
+body{
+  padding:clamp(20px,5vw,48px) clamp(12px,3vw,28px) 32px;
+  background:radial-gradient(ellipse at 50% 0,#30204c 0,transparent 46rem),#12101c;
+}
+.hero{
+  position:relative;width:100%;max-width:1100px;padding:clamp(18px,4vw,42px);
+  border:1px solid #493661;border-radius:24px;background:linear-gradient(145deg,#292039,#1c162a)
+}
+.hero h1{margin-top:10px;letter-spacing:-.03em;text-shadow:none;overflow-wrap:anywhere}
+.catalog-topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;max-width:1100px;padding:10px 14px;margin-bottom:16px;border:1px solid #493661;border-radius:14px;background:#1b1529}
+.catalog-topbar select{min-height:44px;max-width:50%;padding:0 10px;border:1px solid #6a5685;border-radius:10px;color:#f8efff;background:#2b213b;font:inherit}
+.porthub-mark{display:inline-block;font-size:1.25rem;font-weight:850;letter-spacing:-.03em;color:#fff;text-decoration:none}
+.porthub-mark b{padding:2px 5px;color:#181127;background:#b38aff;border-radius:6px}
+.hero .sub{color:#dfd4ed}
+.hero .sub b,.card .play{color:#d6b9ff}
+.games-count{color:#e1cbff;background:#47355c;letter-spacing:.03em}
+h2,.filters,.grid,.about,.empty{max-width:1100px}
+h2{margin-top:30px;color:#ece1f7;letter-spacing:.06em}
+h2::after{background:linear-gradient(90deg,#ad7cff,transparent 65%)}
+.chip{min-height:42px;padding:7px 14px;color:#eee5f9;background:#2a223b;letter-spacing:0}
+.chip.active{color:#1d122b;background:#c39cff}
+.chip.active .num{opacity:.8}
+.grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:14px}
+.card{min-width:0;padding:16px 14px;gap:8px;border-color:#453755;background:#221a30}
+.card:hover,.card:focus-visible{border-color:#bd98f1;background:#2d2140}
+.card:focus-visible,.chip:focus-visible{outline:2px solid #d9b9ff;outline-offset:3px}
+.card .badge{position:static;align-self:flex-end;font-size:.66rem;letter-spacing:.04em;max-width:100%;overflow-wrap:anywhere}
+.card .icon{font-size:2.65rem}
+.card .name,.card .desc{overflow-wrap:anywhere;letter-spacing:0}
+.card .desc{min-height:0;color:#d9cce8}
+.card .play{margin-top:auto;padding-top:4px;letter-spacing:.02em}
+.footer a{text-decoration:underline;text-underline-offset:3px}
+@media(max-width:620px){
+  .hero .sub{font-size:.95rem}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .card{padding:10px;gap:6px}
+  .card .icon{font-size:2.05rem}
+  .card .name{font-size:1rem;line-height:1.2}
+  .card .desc{font-size:.8rem;line-height:1.4}
+}
+@media(max-width:340px){.grid{grid-template-columns:1fr}}

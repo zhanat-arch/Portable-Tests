@@ -15,7 +15,7 @@ globalThis.PT_CONFIG = Object.freeze({
   url(path = '') { return new URL(path, PT_ROOT).href; },
   onlineUrl(path = '') { return new URL(path, PT_ONLINE_ROOT).href; }
 });
-const PT_VERSION = '1.17.13';
+const PT_VERSION = '1.17.14';
 const PT_GA_ID = 'G-37RB6NC78X';
 const PT_SUPPORT = { boosty:'https://boosty.to/zhanat-arch', kofi:'https://ko-fi.com/zhanat_arch' };
 const PT_LANGS = ['ru','kk','en','fr'];
@@ -156,7 +156,7 @@ function ptLocalizeLinks(root=document){
   const lang=ptLanguage(),rootUrl=new URL(PT_ROOT),rootPath=rootUrl.pathname;
   root.querySelectorAll?.('a[href]').forEach(link=>{
     const raw=link.getAttribute('href');
-    if(!raw||raw.startsWith('#')||link.hasAttribute('download')||/^(?:mailto:|tel:|javascript:)/i.test(raw))return;
+    if(!raw||raw.startsWith('#')||link.hasAttribute('download')||link.hasAttribute('data-pt-keep-path')||/^(?:mailto:|tel:|javascript:)/i.test(raw))return;
     let url;try{url=new URL(raw,document.baseURI)}catch{return}
     if(url.origin!==rootUrl.origin||!url.pathname.startsWith(rootPath))return;
     const relative=url.pathname.slice(rootPath.length).replace(/^\/+/,''),first=relative.split('/')[0];
@@ -261,7 +261,7 @@ function ptEnsurePwa(){
   if(!document.querySelector('link[rel="manifest"]')){const link=document.createElement('link');link.rel='manifest';link.href=`${PT_ROOT}manifest.webmanifest`;document.head.appendChild(link)}
   if(!document.querySelector('link[rel="apple-touch-icon"]')){const link=document.createElement('link');link.rel='apple-touch-icon';link.href=`${PT_ROOT}icon-porthub-192.png`;document.head.appendChild(link)}
   if(!document.querySelector('meta[name="apple-mobile-web-app-capable"]')){const meta=document.createElement('meta');meta.name='apple-mobile-web-app-capable';meta.content='yes';document.head.appendChild(meta)}
-  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=11713`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
+  navigator.serviceWorker?.register(`${PT_ROOT}service-worker.js?v=11714`,{scope:PT_ROOT,updateViaCache:'none'}).catch(()=>{});
 }
 
 function ptRenderFooter(){

@@ -8,6 +8,7 @@ const UI = {
 
 const state = { lang:'ru', category:'all', games:[] };
 const $ = (selector) => document.querySelector(selector);
+const arcadeLabel = {ru:'47 браузерных игр',kk:'47 браузерлік ойын',en:'47 browser games',fr:'47 jeux sur navigateur'};
 
 function initialLanguage(){
   const saved = localStorage.getItem('pt.lang');
@@ -61,6 +62,9 @@ function renderGames(){
 
 function renderCopy(){
   const t = UI[state.lang];
+  const arcadeLink = $('#arcadeLink');
+  arcadeLink.href = `./arcade/?lang=${state.lang}`;
+  arcadeLink.textContent = `🎮 ${arcadeLabel[state.lang]} →`;
   document.documentElement.lang = state.lang;
   document.title = `${state.lang==='ru'?'Игры':state.lang==='kk'?'Ойындар':state.lang==='fr'?'Jeux':'Games'} — Portable Tests`;
   $('#language').value = state.lang;
